@@ -1,0 +1,39 @@
+ -----
+Eclipse xml editor 
+ -----
+
+  At the beginning Rinzo XML editor was created as a private pet project to learn some stuff about Eclipse's plugin development and to try
+  to overcome the lack of any kind of xml editor in those days.
+  
+  Those days are long back ago and with the project being general available it grew up in features which you can see in other sections of this
+  page but also in usages such as the following mentions which are really appreciated:
+
+Products Recommending Rinzo XML Editor
+
+ * {{{http://www.orocos.org/wiki/rtt/using-eclipse-and-orocos}The Orocos Project}}. C++ libraries for advanced machine and robot control.
+ 
+ * {{{http://www.openengsb.org/index/contribute/recommended-eclipse-plugins.html}The Open Engineering Service Bus (OpenEngSB)}}
+ 
+ []
+ 
+Articles Evaluating/Recommending Rinzo XML Editor
+
+ * {{{http://www.ibm.com/developerworks/library/x-xmltools}http://www.ibm.com/developerworks/library/x-xmltools}}.
+
+ * {{{http://www.xml-ecke.de/?p=42}XML-Ecke Struktur in den Content!}}
+ 
+ * {{{http://www.cisr.us/downloads/theses/10thesis_quek.pdf}Naval Postgraduate School. Monterey, California}}
+ 
+ * {{{http://www.xml-sicherheit.de/information/faq.shtml} XML Security Tools}}}
+ 
+ []
+ 
+Rinzo's Extension
+
+ * {{{http://pierre.senellart.com/publications/abiteboul2012autocompletion.pdf}Auto-Completion Learning for XML}}
+ 
+ []
+
+
+ It is really appreciated to learn how useful this project could be so if you think Rinzo's works for you or if you have any suggestion please
+ keep in touch either by the {{{issue-tracking.html} issue tracking}} or by contacting the {{{team-list.html} project team}}.

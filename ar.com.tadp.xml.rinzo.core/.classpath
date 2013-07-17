@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.emf.common_2.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.emf.ecore_2.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xsd.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xsd.resources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/trang.jar"/>
+	<classpathentry kind="lib" path="lib/dtdparser121.jar" sourcepath="lib/source"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.4.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

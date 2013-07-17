@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<metadataCatalog  xmlns="urn:nonstandard:metadataDef"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:nonstandard:metadataDef ./metadataDefinition.xsd">
+	
+	<class name="com.synapsis.kendari.metadata._ClassMetadataTest1" defaultControl="select">
+		<select key="${code}" description="${description}" multiple="false"/>
+		<grid columns="column1"/>
+		
+		<property name="code" defaultControl="textBox">				
+			<type name="ucase"/>
+			<type name="MaxLength" maxLength="6"/>    			
+		</property>								
+		<property name="description" defaultControl="textArea" maxLength="4000"/>
+		<property name="descriptiveBooleanProperty" defaultControl="metaSelect">
+			<customSelect type="boolean" nulleable="true" keys="descriptiveBooleanProperty"/>
+		</property>
+	</class>
+
+	<class name="com.synapsis.kendari.metadata._ClassMetadataTest2" defaultControl="textBox" />
+
+	<class name="com.synapsis.kendari.metadata._GridMetadataTest" defaultControl="grid">
+		<grid>
+			<column name="columna1" align="center">
+				<type name="number" usarSeparadorDeMiles="false"/>
+			</column>
+			<column name="columna2" align="center"/>
+		</grid> 
+		
+		<property name="collection" defaultControl="grid">
+			<grid columns="column1, column2"/>
+		</property>		
+	</class>
+	
+	<class name="com.synapsis.kendari.metadata._LinkMetadataTest">
+		<bannerItem type="text" contentProperty="texto" urlLink="hipervinculo" />
+		<link contentProperty="texto" urlProperty="hipervinculo"/>			
+	</class>
+
+	<class name="com.synapsis.kendari.metadata._TreeMetadataTest" defaultControl="tree">
+		<tree description="${resource.url} - ${resource.description}">
+			<children property="children"/>
+		</tree>
+	</class>
+	
+	<property name="com.synapsis.kendari.metadata._PropertyMetadataTest1.property" defaultControl="textArea" maxLength="300"/>
+
+	<property name="defaultProperty" defaultControl="select">
+		<select description="${nroServicio} - ${nombre}"/>	
+	</property>
+
+	<property name="collection" defaultControl="grid">
+		<grid columns="column1, column2, column3, column4, column5"/>
+	</property>
+
+	<form name="DummyFormFactory">
+		<property name="text" defaultControl="textBox" />
+		<property name="collection" defaultControl="grid">
+			<grid columns="column1, column2, column3"/>	
+		</property>		
+	</form>	
+
+	<form name="DummyFormFactory.DummyGroupFactory1.DummyGroupFactory2">
+		<property name="text" defaultControl="textArea" />
+		<property name="collection" defaultControl="grid">
+			<grid columns="column1, column2, column3, column4"/>	
+		</property>		
+	</form>
+</metadataCatalog>

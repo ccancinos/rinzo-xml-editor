@@ -1,0 +1,25 @@
+ -----
+Eclipse xml editor 
+ -----
+ 
+ 
+Configuration
+
+  Going to <Window-\>Preferences-\>Rinzo XML> you will find the configuration settings for this editor.\
+  The most important ones are the:
+  
+  * Syntax coloring.
+
+  * Templates configuration.
+  
+  * Indentation using tag or space.
+
+  * Change editor's background.
+  
+  * Java Integration.
+  
+  []
+  
+  Unless a more specialized editor like <ant editor> for <build.xml> file exists, this editor will be used
+  to open the following extensions: <.xml, xsd, tld, xsl, xslt, wsdl, exsd and xmi>. \
+  If you want to associate it with other extensions you can do it in <Window-\>Preferences-\>General-\>File Associations> 

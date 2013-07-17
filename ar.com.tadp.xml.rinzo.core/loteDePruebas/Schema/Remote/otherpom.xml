@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>TObjectXmlEditor</groupId>
+	<artifactId>TObjectXmlEditor</artifactId>
+	<name>Rinzo</name>
+	<version>0.0.1</version>
+	<organization>
+		<name>tadp.com.ar</name>
+	</organization>
+	
+	<developers>
+		<developer>
+			<id>ccancinos</id>
+			<name>Claudio Cancinos</name>
+			<email>ccancinos@users.sourceforge.net</email>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+	
+	<issueManagement>
+		<system>Source Forge Treacker System</system>
+		<url>https://sourceforge.net/tracker/?group_id=227708</url>
+	</issueManagement>
+	
+	<mailingLists>
+		<mailingList>
+			<name>Source Forge Forum</name>
+			<post>https://sourceforge.net/forum/?group_id=227708</post>
+			<subscribe>https://sourceforge.net/forum/?group_id=227708</subscribe>
+			<unsubscribe>https://sourceforge.net/forum/?group_id=227708</unsubscribe>
+		</mailingList>
+	</mailingLists>
+	
+	<licenses>
+		<license>
+			<name>GNU LESSER GENERAL PUBLIC LICENSE - v 2.1</name>
+			<url>LICENSE.txt</url>
+		</license>
+	</licenses>
+	
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+		<outputDirectory>classes</outputDirectory>
+		<testOutputDirectory>classes</testOutputDirectory>
+		<resources>
+			<resource>
+				<directory>src/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/resources</directory>
+			</testResource>
+		</testResources>
+		<directory>maven-classes</directory>
+		<finalName>${artifactId}-${version}</finalName>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>common</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>ecore</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xsd</groupId>
+			<artifactId>xsd</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+	</dependencies>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>project-team</report>
+							<report>license</report>
+							<report>mailing-list</report>
+							<report>issue-tracking</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>
+

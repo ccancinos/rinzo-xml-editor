@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+	<!-- 
+	Configuring Attributes:
+	class, missing, *
+	class, notExtends, java.util.Collection
+	 -->
+	<class missing="ar.edu.utn.frba.tadp.model.Subscriptions" />
+	<class notExtends="ar.edu.utn.frba.tadp.model.Subscription" />
+	<class sarasa="ar.edu.utn.frba.tadp.model.Subscriptions" />
+	
+	<!--
+	Configuring Tags:
+	missing, *
+	notExtends, java.util.Collection
+	-->
+	<missing>ar.edu.utn.frba.tadp.model.Subscriptions</missing>
+	<notExtends>ar.edu.utn.frba.tadp.model.Subscription</notExtends>
+	<sarasa>ar.edu.utn.frba.tadp.model.Subscriptions</sarasa>
+</order>

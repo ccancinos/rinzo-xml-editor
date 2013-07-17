@@ -1,0 +1,85 @@
+ -----
+Eclipse xml editor 
+ -----
+
+
+Actions
+
+%{toc|section=1|fromDepth=1}
+  
+* {Quick Assist}
+
+  With the cursor standing in a tag and pressing <<Ctrl-1>> a series of actions on that selected tact will be displayed:
+  
+[images/Ctrl1.png]
+
+  * <<Rename Tag:>> Changes the tag's name including starting and ending tag.
+
+  * <<Duplicate Tag:>> Creates a duplicated of the current tag.
+
+  * <<Cut Tag:>> Removes the current tag and place it in the clipboard.
+
+  * <<Surround With Tag:>> Creates a new tag surrounding the selected one taking care of indentation.
+
+  * <<Comment With Tag:>> Surrounds the current tag with << <!-- >> and << --> >>
+
+  * <<Delete Tag:>> Removes the current tag from file.
+
+  []
+
+  
+* {Contextual Menu}
+
+  The editor's contextual has a couple of actions specific to xml manipulation
+  
+[images/ContextualMenuActions.png]
+  
+
+** {Class Declaration}
+
+  When the selected text corresponds to an existent class full qualified name, 
+  the action Open Declaration will be enable, which opens the source of the selected full qualified class name.
+
+  When the selected text corresponds to a non existent class full qualified name, 
+  the action Create Declaration will be enable, making possible the creation of a class 
+  with the selected full qualified class name.
+
+** {Clear Errors and Warnings}
+
+  As its name says this action will clean all errors and warnings on a opened document or selected files in the resources tree.
+
+** {DTD and Schema Generation}
+
+  Starting with a xml file it is possible to create a DTD or Schema definition using 
+  it as example input with the elements "Generate XSD" and "Generate DTD" in the contextual menu.
+
+** {Escape characters}
+ 
+  This action simply replaces all special characters in tag's attributes and bodies to the escaped
+  version of them.
+  
+*-------------*-----------------------*
+|| Unescaped  ||  Escaped             |
+*-------------*-----------------------+
+| �           | &acute;               |
+*-------------*-----------------------+
+|elei��es     | elei&ccedil;&otilde;es|
+*-------------*-----------------------+
+
+** {Rename Tag}
+
+  Allows to rename: 
+  
+  * A single tag.
+  
+  * All the tags with the same name inside the same container tag.
+  
+  * All the tags with the same name in the file.
+  
+  []
+  
+** {Clear Definitions Cache}
+
+  This plugin handles automatically the cache of DTD and XSD used to validate files, but in case of a problem
+  whith cached elements, this cache can be cleared by going to < Window-Preferences-Rinzo XML > and pressing <<"Clear Cache">> button
+  After a cleaning this cache will be refilled by the new elements needed to validate the files opened from that moment.

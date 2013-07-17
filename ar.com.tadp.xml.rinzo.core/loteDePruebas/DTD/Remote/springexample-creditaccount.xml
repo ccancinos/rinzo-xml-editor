@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+	<bean id="createCreditCard" class="springexample.creditcardaccount.CreateCreditCardAccount">
+		<property name="creditRatingInterface">
+			<ref bean="creditRating" />
+		</property>
+		<property name="creditLinkingInterface">
+			<ref bean="creditLinking" />
+		</property>
+		<property name="emailInterface">
+			<ref bean="email" />
+		</property>
+	</bean>
+	
+	<bean id="creditLinking" class="springexample.creditlinking.CreditLinking">
+		<property name="url">
+				<value>http://localhost/creditLinkService</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="creditRating" class="springexample.creditrating.CreditRating">
+    </bean>
+	
+	<bean id="email" class="springexample.email.Email">
+		<property name="smtpHost">
+				<value>localhost</value>
+		</property>
+		<property name="fromEmail">
+				<value>mycompanyadmin@mycompanyadmin.com</value>
+		</property>
+		<property name="userId">
+				<value>myuserid</value>
+		</property>
+		<property name="password">
+				<value>mypassword</value>
+		</property>
+	</bean>
+		
+</beans>

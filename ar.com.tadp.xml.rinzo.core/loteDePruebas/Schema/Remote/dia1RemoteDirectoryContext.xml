@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<import resource="abstractApplicationContext.xml" />
+
+	<!-- ========================================= -->
+	<!-- Roaming Request Synchronization -->
+	<!-- ========================================= -->
+	<bean id="synchronizer" parent="abstractSynchronizer">
+		<property name="host" value="localhost" />
+		<property name="port" value="2221"/>
+		<property name="user" value="anonymous"/>
+		<property name="password" value="mail@server.com"/>
+		<!-- This is the root FTP directory where all the CDR files are stored -->
+		<property name="remoteDirectory" value="src/test/resources/cdrFiles/dia1"/>
+		<!-- Interval between synchronizations in milliseconds -->
+		<property name="synchronizationInterval" value="10"/>
+	</bean>
+
+	<!-- ========================================= -->
+	<!-- Roaming Request Runner -->
+	<!-- ========================================= -->
+	<bean id="runner" parent="abstractRunner">
+		<!-- Interval between executions in milliseconds -->
+		<property name="executionInterval" value="10"/>
+	</bean>
+
+	<!-- ========================================= -->
+	<!-- TODO PASAR ESTO A abstractApplicationContext.xml CUANDO HAYA IMPLEMENTACIONES QUE NO SEAN MOCK -->
+	<!-- ========================================= -->
+	<bean id="PLMNGenerator" class="com.gemalto.request.impl.mock.DummyPLMNGenerator"/>
+	<bean id="roamingService" class="com.gemalto.request.utils.RoamingServiceMock"/>
+
+</beans>

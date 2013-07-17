@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+    <class
+        name="springexample.hibernate.Account"
+        table="TBL_ACCOUNT"
+        dynamic-update="false"
+        dynamic-insert="false">
+
+        <id
+            name="id"
+            column="ACCOUNT_ID"
+            type="java.lang.Long"
+            unsaved-value="-1"
+        >
+            <generator class="native">
+            </generator>
+        </id>
+        
+        <many-to-one
+           name="customer"
+           column="CUSTOMER_ID"
+           class="springexample.hibernate.Customer"
+           not-null="true"/>
+          
+			
+    
+        <property
+            name="accountName"
+            type="string"
+            update="false"
+            insert="true"
+            column="ACCOUNT_NAME"
+            length="50"
+            not-null="true"
+          
+        />
+
+        <property
+            name="type"
+            type="string"
+            update="false"
+            insert="true"
+            column="ACCOUNT_TYPE"
+            length="1"
+            not-null="true"
+        
+        />
+
+  <property
+            name="createDate"
+            type="date"
+            update="false"
+            insert="true"
+            column="CREATE_DATE"
+            not-null="true"
+         
+        />
+    
+    
+     <property
+            name="updateDate"
+            type="date"
+            update="true"
+            insert="true"
+            not-null="true"
+            column="UPDATE_DATE"
+          
+        />
+        
+        
+        <property
+            name="balance"
+            type="double"
+            update="true"
+            insert="true"
+            column="ACCOUNT_BALANCE"
+            not-null="true"
+         
+        />
+
+    </class>
+
+     
+</hibernate-mapping>

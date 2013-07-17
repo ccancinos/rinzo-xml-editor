@@ -1,0 +1,64 @@
+ -----
+Eclipse xml editor 
+ -----
+ 
+Do you want to see {{{./releaseNotes.html}<<What's new in ${version}?>>}}
+ 
+Introduction
+
+  Rinzo is an Eclipse xml editor with the goal of make life simpler when dealing with xml files.\
+  It has several features regarding plain xml edition such as:
+  
+  * If DTD/Schema is present it'll be used for validation and to propose autocompletion of tags and attributes. 
+  
+  * If DTD/Schema is not present validation will be only for well formness and autocompletion will be based on 
+  elements already written in the document.
+  
+  * And also templates proposals on either case.
+  
+  * DTD and Schema generation from an example XML.
+  
+  * Syntax Coloring.
+  
+  * Background validation using the document DTD or Schema and well formness.
+  
+  * DTD and Schema generation from a XML.
+ 
+  * Namespace support.
+ 
+  * XML Refactoring and Quick Assist.
+ 
+  * XPath Viewer.
+ 
+  *{{{actions.html}And more}}
+ 
+  [] 
+  
+  But since working on Java most probably involve the usage of frameworks such as Spring, MyBatis or Hibernate which rely part of
+  their functionality or configuration on XML definitions where the programmer declares classes of its domain to the framework,
+  what makes this editor different is its ability to interact with java elements in files like <web.xml>, <.hbm files>, 
+  <struts-config.xml>, <spring contexts> or any other XML file where java elements must be handled in order to:
+ 
+  * Open a class definition from declarations in XML files.
+ 
+  * Autocompletion and validation of class names on tag's bodies and attributes.
+ 
+  * Create a java class from a class name written in an XML.
+
+  []
+  
+  And it's also possible to extend its validation and content assistant contributing to its {{{extendingRinzo.html}extension points}}. 
+
+* Requirements
+
+  * {{{http://eclipse.org/downloads}Eclipse 3.3.X or above}}
+  
+  * Since this plugin is compiled on java 5, you should start your Eclipse using a {{{http://java.sun.com/javase/downloads/index.jsp}JRE 5 or above}} 
+
+  
+Note:
+
+---
+Starting on version 0.6.0, if you are working on an Eclipse installation without java capabilities (without JDT)
+you can install ONLY ar.com.tadp.xml.rinzo.core plugin in order to have just the main XML Editor.
+--- 

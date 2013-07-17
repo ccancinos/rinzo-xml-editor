@@ -1,0 +1,12 @@
+<web-xml>
+	<servlet>
+		<servlet-name>blah</servlet-name>
+		<servlet-class>java.util.Collection</servlet-class>
+	</servlet>
+	
+	<servlet>
+	<servlet-name>servletName</servlet-name>
+	<servlet-class>servletClass</servlet-class>
+</servlet>
+
+</web-xml>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="ar.com.tadp.xml.rinzo.core.contentAssist" name="ContentAssist" schema="schema/ar.com.tadp.xml.rinzo.core.contentAssist.exsd"/>
+   <extension-point id="ar.com.tadp.xml.rinzo.core.xmlContentAssist" name="ContentAssist" schema="schema/ar.com.tadp.xml.rinzo.core.xmlContentAssist.exsd"/>
+   <extension-point id="ar.com.tadp.xml.rinzo.core.validators" name="Validators" schema="schema/ar.com.tadp.xml.rinzo.core.validators.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="ar.com.tadp.xml.rinzo.core.RinzoXMLEditor"
+            icon="icons/xml.gif"
+            default="true"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            name="Rinzo XML Editor"
+            id="ar.com.tadp.xmleditor.basic">
+			<contentTypeBinding
+				contentTypeId="org.eclipse.core.runtime.xml" />
+			<contentTypeBinding
+				contentTypeId="org.eclipse.core.runtime.xml.rinzo" />
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.core.contenttype.contentTypes">
+<!--
+   		<file-association
+   			content-type="org.eclipse.core.runtime.xml"
+   			file-extensions="xsd,tld,xsl,xslt,wsdl,exsd,xmi"/>
+-->
+   		<content-type 
+   			id="org.eclipse.core.runtime.xml.rinzo" 
+   			name="Rinzo Content Type" 
+   			base-type="org.eclipse.core.runtime.xml" 
+   			priority="normal" 
+   			file-extensions="xsd,tld,xsl,xslt,wsdl,exsd,xmi">
+  				<property name="org.eclipse.core.runtime.charset" default="UTF-8" /> 
+  		</content-type>
+  </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage"
+            id="ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage"
+            name="Rinzo XML"/>
+      <page
+            category="ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage"
+            class="ar.com.tadp.xml.rinzo.core.preferences.TemplatesPreferencePage"
+            id="ar.com.tadp.xml.rinzo.core.preferences.TemplatesPreferencePage"
+            name="%xml.editor.preferencePage.templates.label"/>
+      <page
+            category="ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage"
+            class="ar.com.tadp.xml.rinzo.core.preferences.FormattingPreferencePage"
+            id="ar.com.tadp.xml.rinzo.core.preferences.FormattingPreferencePage"
+            name="Formatting"/>
+      <page
+            category="ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage"
+            class="ar.com.tadp.xml.rinzo.core.preferences.SyntaxColorPreferencePage"
+            id="ar.com.tadp.xml.rinzo.core.preferences.SyntaxColorPreferencePage"
+            name="Syntax Colorign"/>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="ar.com.tadp.xml.rinzo.core.preferences.XMLEditorPreferenceInitializer"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <resolver
+            class="ar.com.tadp.xml.rinzo.core.template.AntVariableResolver"
+            contextTypeId="org.eclipse.ui.examples.templateeditor.xml"
+            description="%ant.resolvers.src.description"
+            icon="icons/resolver.gif"
+            name="%ant.resolvers.src"
+            type="src"/>
+      <resolver
+            class="ar.com.tadp.xml.rinzo.core.template.AntVariableResolver"
+            contextTypeId="org.eclipse.ui.examples.templateeditor.xml"
+            description="%ant.resolvers.dst.description"
+            icon="icons/resolver.gif"
+            name="%ant.resolvers.dst"
+            type="dst"/>
+      <include
+            file="templates/ant.xml"
+            translations="templates/ant.properties"/>
+      <contextType
+            class="ar.com.tadp.xml.rinzo.core.template.XMLContextType"
+            id="org.eclipse.ui.examples.templateeditor.xml"
+            name="%xml.contextType.name"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="ar.com.tadp.xml.rinzo.core.XmlFormat"
+            contextId="org.eclipse.ui.rinzoEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+F">
+      </key>
+      <key
+            commandId="ar.com.tadp.xml.rinzo.core.XmlRenameTag"
+            contextId="org.eclipse.ui.rinzoEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+M3+R">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="ar.com.tadp.xml.rinzo.core.keyListeners.FormatXMLHandler"
+            id="ar.com.tadp.xml.rinzo.core.XmlFormat"
+            name="XML Format">
+      </command>
+      <command
+            defaultHandler="ar.com.tadp.xml.rinzo.core.keyListeners.RenameTagHandler"
+            id="ar.com.tadp.xml.rinzo.core.XmlRenameTag"
+            name="Rename Tag">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="org.eclipse.ui.rinzoEditorScope"
+            name="org.eclipse.ui.rinzoEditorScope"
+            parentId="org.eclipse.ui.textEditorScope">
+      </context>
+   </extension>
+	<extension point="org.eclipse.ui.popupMenus"> 
+		<viewerContribution 
+			id="org.eclipse.ui.articles.action.contribution.popup.xmleditor"
+			targetID="ar.com.tadp.xml.rinzo.core.context"> 
+	<action
+		id="ar.com.tadp.xml.rinzo.core.actions.GenerateDTDAction" 
+		label="Generate DTD" 
+		menubarPath="rinzoAdditions" 
+		class="ar.com.tadp.xml.rinzo.core.actions.GenerateDTDAction"> 
+	</action>
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.GenerateXSDAction"
+         id="ar.com.tadp.xml.rinzo.core.actions.GenerateXSDAction"
+         label="Generate XSD"
+         menubarPath="rinzoAdditions">
+   </action>
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
+         id="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
+         label="Clear Errors and Warnings"
+         menubarPath="rinzoAdditions">
+   </action>
+   <menu
+         id="rinzoSource"
+         label="Source"
+         path="rinzoAdditions">
+      <separator
+            name="base">
+      </separator>
+   </menu>
+   <action
+         class="ar.com.tadp.xml.rinzo.core.refactors.rename.RenameTagAction"
+         definitionId="ar.com.tadp.xml.rinzo.core.XmlRenameTag"
+         id="ar.com.tadp.xml.rinzo.core.actions.RenameTagAction"
+         label="Rename Tag"
+         menubarPath="rinzoSource/base">
+   </action>
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.FormatAction"
+         definitionId="ar.com.tadp.xml.rinzo.core.XmlFormat"
+         id="ar.com.tadp.xml.rinzo.core.actions.FormatAction"
+         label="Format"
+         menubarPath="rinzoSource/base">
+   </action>
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
+         id="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
+         label="Escape Characters"
+         menubarPath="rinzoSource/base">
+   </action>
+   <!--
+   <action
+         class="ar.com.tadp.xmleditor.basic.actions.CopyTagXPathAction"
+         id="ar.com.tadp.xmleditor.basic.actions.CopyTagXPathAction"
+         label="Copy Tag XPath"
+         menubarPath="rinzoAdditions">
+   </action>
+   -->
+  </viewerContribution>
+  <objectContribution
+        adaptable="false"
+        id="ar.com.tadp.xmleditor.basic.actions.ClearMarkersActionFiles"
+        nameFilter="*.xml"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           class="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
+           id="ar.com.tadp.xmleditor.basic.actions.ClearMarkersActionFiles"
+           label="Clear Errors and Warnings"
+           menubarPath="additions">
+     </action>
+  </objectContribution>
+  </extension>
+ <extension
+       point="ar.com.tadp.xml.rinzo.core.xmlContentAssist">
+    <XMLContentAssistProcessor
+          class="ar.com.tadp.xml.rinzo.core.contentassist.processors.XMLContentAssistProcessor">
+    </XMLContentAssistProcessor>
+    <XMLContentAssistProcessor
+          class="ar.com.tadp.xml.rinzo.core.contentassist.processors.XMLTemplateContentAssistProcessor">
+    </XMLContentAssistProcessor>
+ </extension>
+ <extension
+       point="ar.com.tadp.xml.rinzo.core.validators">
+    <Validator
+          class="ar.com.tadp.xml.rinzo.core.resources.validation.XMLStringValidator">
+    </Validator>
+ </extension>
+ <extension
+       point="org.eclipse.ui.views">
+    <view
+          category="org.eclipse.ui"
+          class="ar.com.tadp.xml.rinzo.core.views.XPathView"
+          id="ar.com.tadp.xmleditor.basic.views.XPathView"
+          name="Rinzo XPath"
+          restorable="true">
+    </view>
+ </extension>
+</plugin>

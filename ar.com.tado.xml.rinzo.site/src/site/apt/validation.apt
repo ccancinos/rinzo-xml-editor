@@ -1,0 +1,23 @@
+ -----
+Eclipse xml editor 
+ -----
+  
+Validation
+
+  Document validation is done on background while you are editing the document and when you save it,
+  the validation errors are displayed in the Problems view and can be removed using the contextual menu element "Clear errors and warnings".
+  
+  Also every line containing an error will be underlined red and when you put the mouse cursor on the line a hover will display the error message
+  
+  
+  Document validation is done:
+  
+  * Against associated DTD definition.
+  
+  * Against associated Schema definition.
+  
+  * To ensure the document is a well formed XML if no DTD or Schema is defined.
+
+  []
+  
+[images/ValidationFromSchema.png]

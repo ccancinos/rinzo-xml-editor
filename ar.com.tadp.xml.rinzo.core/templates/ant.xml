@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+<template 
+	context="org.eclipse.ui.examples.templateeditor.xml" 
+	description="creates a minimal pom definition" 
+	id="org.eclipse.ui.examples.templateeditor.ant.pomMinimal" 
+	name="pom minimal">&lt;project 
+	xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; 
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+	
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+	&lt;groupId&gt;${groupId}&lt;/groupId&gt;
+	&lt;artifactId&gt;${artifactId}&lt;/artifactId&gt;
+	&lt;version&gt;${version}&lt;/version&gt;
+	&lt;packaging&gt;${packaging}&lt;/packaging&gt;
+	${cursor}
+&lt;/project&gt;</template>
+
+</templates>

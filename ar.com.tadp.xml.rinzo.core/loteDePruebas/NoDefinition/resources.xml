@@ -1,0 +1,19 @@
+<root>
+	<class name="java.util.ArrayList">java.util.ArrayList</class>
+	<interface name="java.util.Collection">java.util.Collection</interface>
+	<enum name="java.util.StringTokenizer">java.util.StringTokenizer</enum>
+
+	<!-- Resource in the same directory -->	
+	<resource name="metadataVieja.xml">metadataVieja.xml</resource>
+	
+	<!-- Class in the same project -->	
+	<class name="algo.Temporal"/>
+	<!-- Class in dependent project -->
+	<class name="tmpDos.algo.Temporal"/>
+	<!-- Class in a project which this project does not depend -->
+	<class name="a.b.c.Ttttt"/>
+	<!-- Unnexistent class in the workspace -->
+	<class name="a.b.c.d.e.f.g.ThisClassDoesNotExist"/>
+	
+	<url>http://google.com.ar</url>
+</root>

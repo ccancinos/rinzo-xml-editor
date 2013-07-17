@@ -1,0 +1,44 @@
+ -----
+Eclipse xml editor 
+ -----
+
+
+Related Projects
+
+  Besides the development of Rinzo I'm also developing a couple of other Eclipse plugins that
+  could be of interest even if they are not directly related to Rinzo:
+  
+* GrepClipse
+  
+  {{{http://grepclipse.sourceforge.net/}GrepClipse}} is an easy way to filter an Eclipse console's content through a regular expression as you'll do it on 
+  a *nix console through the commands <<grep -n <regexpr> <currentConsoleContent> >> followed by 
+  <<tail -nf <newConsoleContent> | grep <regexpr>  >> helping the analysis of logs during the execution of a 
+  process.
+  
+
+* Prolog Development Tools (ProDT)
+
+  If you are (or once was) studying different paradigms languages and particularly logic paradigm, you probably had noticed
+  the low availability of integrated development environments (IDE's) for Prolog.
+  
+  {{{http://prodevtools.sourceforge.net/}ProDT}} was born as an attempt to overcome this shortcoming by generating 
+  a Prolog IDE over the Eclipse platform currently supporting the following Prolog implementations: 
+  
+  *{{{http://www.swi-prolog.org/}SWI-Prolog}}.
+ 
+  *{{{http://xsb.sourceforge.net/index.html}XSB}}.
+ 
+  *{{{http://www.probp.com/}B Prolog}}.
+
+  []
+  
+  
+* Uqbar Tomcat XT
+  
+  If you develop web applications and you think using WTP is a little more overhead than
+  expected, you could try using {{{http://www.eclipsetotale.com/tomcatPlugin.html}Sysdeo Tomcat Launcher}}
+  which is basically a direct launcher of Tomcat's process integrated to eclipse for which it is
+  very lightweight.
+  
+  The drawback of Sysdeo plugin is its lack of administrative elements of what's running on Tomcat which
+  gave birth to {{{http://uqbar-tomcat-xt.sourceforge.net/}Uqbar Tomcat XT}}  

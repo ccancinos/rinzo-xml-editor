@@ -1,0 +1,67 @@
+ -----
+Eclipse xml editor 
+ -----
+
+Java Integration
+
+%{toc|section=1|fromDepth=1}
+
+  Many frameworks such as Spring, MyBatis or Hibernate rely part of their functionality or configuration on xml definitions where the 
+  programmer declares classes of his domain to be used by the framework.
+
+* {Class Names Proposition}
+
+  Using Rinzo standing on a tag body or attribute value part it is possible to get class names autocompletion propossals.\ 
+  Ie:
+  
+  < \<class name="arra"\> > will be < \<class name="java.util.ArrayList"\> >
+  
+  < \<servlet-class\>log\</servlet-class\> > will be < \<servlet-class\>ar.edu.utn.frba.tadp.servlets.Login\</servlet-class\> >
+  
+[images/FQNPropositions.png]
+
+* {Validation}
+
+  For the tags bodies or attributes values containing fully qualified class names Rinzo will validate the existence of such classes
+  in the workspace.\
+  This gives a quick way to fix misspellings or to create missing classes (F4 on the class name) whose names where used in an xml configuration.\
+  If the class exist you could navigate into its code by pressing F3 on the class name.
+  
+  By default Rinzo will guess by the format of tag's attributes and tag's bodies if they match a possible class name. If that's the case
+  it will be validated if those values correspond to existing class names.
+  
+  This default behavior could be changed in a {{{Preferences}preference page}} where attributes and tags containing class names should be explicitly defined.
+  
+[images/ValidationClass.jpg]
+
+
+* {Preferences}
+
+  Through this configuration page it is possible to change several settings on the java integration.
+  
+  * <<Severity>>: Defines the level of severity used to report class names referring to missing classes. If severity is set to <ignore>
+  no validation will be performed to find missing class names references.
+  
+  * <<Validation and content assist [...]>>: By default this checkbox is disabled meaning all attribute values and tag bodies can have as possible
+  values a class name.\
+  If this checkbox is enabled class names will be proposed by content assist and validated only for those tag bodies and tag attributes defined
+  in the lower tables.
+
+  * <<Attributes Table>>: If the previous checkbox is enabled here is where should be configured which <Attribute Name> inside of which
+  <Target Tag> could have as value a class name.
+  A third column defines for each attribute which class/interface should extend/implement the values written. Set this value to <<*>> to allow
+  any class.
+  
+  []
+
+[images/jdtPreferencesAttr.jpg] 
+
+
+  * <<Tags Table>>: If the previous checkbox is enabled here is where should be configured which <Tag Name>'s body 
+  could have as value a class name.
+  A second column defines for each tag which class/interface should extend/implement the values written. Set this value to <<*>> to allow
+  any class.
+
+  []
+  
+[images/jdtPreferencesTags.jpg] 

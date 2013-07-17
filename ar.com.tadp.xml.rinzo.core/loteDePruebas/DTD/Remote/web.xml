@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <servlet>
+   <servlet-name>sampleBankingServlet</servlet-name>  
+   <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+   <load-on-startup>2</load-on-startup>
+   </servlet>
+
+
+ <servlet-mapping>
+ <servlet-name>sampleBankingServlet</servlet-name>
+ <url-pattern>*.html</url-pattern>
+ </servlet-mapping>
+
+ <servlet>
+ <servlet-name>context</servlet-name>
+ <servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+ <load-on-startup>1</load-on-startup>
+ </servlet>
+
+
+ <context-param>
+ <param-name>contextConfigLocation</param-name>
+ <param-value>/WEB-INF/sampleBanking-services.xml</param-value>
+ </context-param>
+
+ <taglib>
+    <taglib-uri>/spring</taglib-uri>
+    <taglib-location>/WEB-INF/spring.tld</taglib-location>
+  </taglib>
+
+  
+</web-app>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<project name="project" default="default">
+	<description>
+            description
+    </description>
+
+	<property name="root.dir" value="." />
+	<property name="lib.dir" value="./lib" />
+
+<!-- 
+Este tag intenta poner dentro del path de este script los jars necesarios para poder utilizar el tag ftp.
+estos son:
+commons-net
+jakarta-oro
+Por alguna cosa que ahora con el suenio no veo, no se estan seteando bien estos jar en el path, entonces da un 
+java.lang.NoClassDefFoundError: org/apache/commons/net/ftp/FTPClient
+-->
+	<path id="lib-classpath">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<tstamp>
+		<format property="now" pattern="yyyy_MM_dd_HH_mm" />
+	</tstamp>
+	<property name="sourceDir" value="../lib" description="Directorio que contiene todo lo que quiero zipear" />
+	<property name="backUpDirName" value="." description="Ubicación del zip que contiene el backup del cvs"/>
+	<property name="backUpName" value="CVSBkUp-${now}.zip" description="Nombre del zip que contiene el backup del cvs que estoy generando actualmente" />
+
+	<target name="default" depends="depends" description="--> description">
+		<zip zipfile="${backUpDirName}/${backUpName}" basedir="${sourceDir}" />
+
+		<!--ftp server="ftp.apache.org" userid="anonymous" password="me@myorg.com">
+			<fileset dir="${backUpDirName}/">
+				<include name="${backUpName}" />
+			</fileset>
+		</ftp-->
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends">
+	</target>
+
+</project>
+

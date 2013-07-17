@@ -1,0 +1,34 @@
+#banner {
+  height: 150px;
+  background: url(../images/andes3.jpg);
+  font-family:Times New Roman;
+  font-style: italic;
+  font-size:6pt;
+  font: cursive;
+  text-align:right;
+  color:#191970;
+}
+
+#leftColumn
+{
+background-image: url(../images/bluegrad.png);
+background-repeat:repeat-x;
+}
+
+#breadcrumbs {
+  font: cursive;
+  color:#191970;
+}
+
+h3 {
+  padding: 4px 4px 14px 24px;
+  background-image: url(../images/breadcrumbs.jpg);
+  background-repeat: repeat;
+  color: midnightBlue;
+}
+
+
+
+
+
+

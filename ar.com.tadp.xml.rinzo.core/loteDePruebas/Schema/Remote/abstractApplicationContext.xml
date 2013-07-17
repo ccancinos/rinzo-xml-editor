@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- ========================================= -->
+	<!-- Roaming Request Synchronization -->
+	<!-- ========================================= -->
+	<bean id="abstractSynchronizer" class="com.gemalto.ftpsynchronizer.RoamingRequestSynchronizer"  >
+		<property name="command" ref="roamingRequestCommand"/>
+		<property name="port" value="21"/>
+		<!-- Default value 5 minutes -->
+		<property name="synchronizationInterval" value="300000"/>
+	</bean>
+
+	<bean id="roamingRequestCommand" class="com.gemalto.request.CreateRoamingRequests">
+		<property name="requestPool" ref="requestPool" />
+	</bean>
+
+	<!-- ========================================= -->
+	<!-- Pool -->
+	<!-- ========================================= -->
+	<bean id="requestPool" class="com.gemalto.request.RoamingRequestPool"/>
+
+	<!-- ========================================= -->
+	<!-- Roaming Request Runner -->
+	<!-- ========================================= -->
+	<bean id="abstractRunner" class="com.gemalto.request.RoamingRequestRunner">
+		<property name="requestPool" ref="requestPool" />
+		<property name="roamingService" ref="roamingService" />
+		<property name="plmnGenerator" ref="PLMNGenerator" />
+		<!-- Default value 5 minutes -->
+		<property name="executionInterval" value="300000"/>
+	</bean>
+
+</beans>

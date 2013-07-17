@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" xmlns="urn:nonstandard:metadataDef"
+	targetNamespace="urn:nonstandard:metadataDef">
+
+	<xsd:element name="metadataCatalog" type="MetadataCatalog"/>
+	
+	<xsd:complexType name="MetadataCatalog">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="class" type="ClassMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="property" type="PropertyMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="form"  type="FormMetadata"  minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ClassMetadata">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="select" type="SelectMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="grid" type="GridMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="property" type="PropertyMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="customSelect" type="CustomSelectMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="bannerItem" type="BannerItemMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="link" type="LinkMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="tree" type="TreeMetadata" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="defaultControl" type="xsd:string"/>
+		<xsd:attribute name="description" type="xsd:string"/>
+		<xsd:attribute name="maxLength" type="xsd:positiveInteger"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FormMetadata">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="property" type="PropertyMetadata" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="PropertyMetadata">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="select" type="SelectMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="grid" type="GridMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="property" type="PropertyMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="customSelect" type="CustomSelectMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="bannerItem" type="BannerItemMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="link" type="LinkMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="tree" type="TreeMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="type" type="TypeMetadata" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="defaultControl" type="xsd:string"/>
+		<xsd:attribute name="maxLength" type="xsd:positiveInteger"/>
+		<xsd:attribute name="description" type="xsd:string"/>
+		<xsd:attribute name="cased" type="xsd:string"/>
+		<xsd:attribute name="pattern" type="xsd:string"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SelectMetadata">
+		<xsd:attribute name="key" type="xsd:string" />
+		<xsd:attribute name="description" type="xsd:string" use="required" />
+		<xsd:attribute name="multiple" type="xsd:boolean"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="GridMetadata">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="column" type="ColumnGridMetadata" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+		<xsd:attribute name="columns" type="xsd:string"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="ColumnGridMetadata">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="type" type="TypeMetadata" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" />
+		<xsd:attribute name="align" type="xsd:string" />
+		<xsd:attribute name="width" type="xsd:positiveInteger" />
+	</xsd:complexType>
+
+	<xsd:complexType name="CustomSelectMetadata">
+		<xsd:attribute name="type" type="xsd:string" />
+		<xsd:attribute name="nulleable" type="xsd:boolean" />
+		<xsd:attribute name="keys" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="BannerItemMetadata">
+		<xsd:attribute name="type" type="xsd:string" />
+		<xsd:attribute name="contentProperty" type="xsd:string" />
+		<xsd:attribute name="urlLink" type="xsd:string" />
+		<xsd:attribute name="loopInterval" type="xsd:positiveInteger" />
+	</xsd:complexType>
+
+	<xsd:complexType name="LinkMetadata">
+		<xsd:attribute name="contentProperty" type="xsd:string" />
+		<xsd:attribute name="urlLink" type="xsd:string" />
+		<xsd:attribute name="urlProperty" type="xsd:string" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="TreeMetadata">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="children" type="TreeChildrenMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="leaf" type="TreeLeafMetadata" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+		<xsd:attribute name="description" type="xsd:string" />
+		<xsd:attribute name="i18nDescription" type="xsd:string" />
+		<xsd:attribute name="align" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="TreeChildrenMetadata">
+		<xsd:attribute name="property" type="xsd:string" />
+		<xsd:attribute name="entityRef" type="xsd:string" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="TreeLeafMetadata">
+		<xsd:attribute name="property" type="xsd:string" />
+		<xsd:attribute name="description" type="xsd:string" />
+		<xsd:attribute name="i18nDescription" type="xsd:string" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="TypeMetadata">
+		<xsd:attribute name="name" type="xsd:string" />
+		<xsd:attribute name="errorMessage" type="xsd:string" />
+
+		<xsd:attribute name="align" type="xsd:string" />
+		<xsd:attribute name="maxLength" type="xsd:string"/>
+		
+		<xsd:attribute name="pattern" type="xsd:string" />
+		
+		
+		<xsd:attribute name="usarSeparadorDeMiles" type="xsd:boolean" />
+		<xsd:attribute name="cantidadDecimales" type="xsd:string" />
+		<xsd:attribute name="cantidadEnteros" type="xsd:string" />
+		<xsd:attribute name="valorMinimo" type="xsd:string" />
+		<xsd:attribute name="valorMaximo" type="xsd:string" />
+
+		<xsd:attribute name="property" type="xsd:string" />
+		<xsd:attribute name="attribute" type="xsd:string" />
+	</xsd:complexType>
+</xsd:schema>

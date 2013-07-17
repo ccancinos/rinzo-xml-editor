@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd 
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<import resource="otaConfig.xml" />
+	<import resource="classpath:abstractApplicationContext.xml" />
+	<import resource="no-sat-profiles.xml" />
+
+	<!-- ========================================== -->
+	<!-- Roaming Service -->
+	<!-- ========================================= -->
+	
+	<!-- Uncomment to make unitary or integration tests -->
+	<bean id="roamingService" class="com.gemalto.roamingservice.impl.DefaultRoamingServiceImpl">
+		<constructor-arg ref="otaService" />
+		<property name="refreshSMSText" value="Apagá y prendé tu Personal para aplicar los cambios." />
+		<property name="refreshPushScriptName" value="GenericPushRefresh.script" />
+		<property name="refreshPushServiceName" value="PushRefresh" />
+		<property name="updateRoamingServiceName" value="UpdateRoamingFiles" />
+		<property name="nativeJavaCardProfileList" ref="noSatCardProfiles" />
+	</bean>
+	
+	<!-- ========================================= -->
+	<!-- OTA Service -->
+	<!-- ========================================= -->
+	<!-- Uncomment to make unitary or integration tests -->
+	<bean id="otaService" class="com.gemalto.ota.service.OtaService26">
+		<constructor-arg ref="otaConfig" />
+		<property name="genericCardUpdateServiceName" value="ExecScript" />
+	</bean>
+	
+	<!-- ========================================= -->
+	<!-- Roaming Request Synchronization -->
+	<!-- ========================================= -->
+	<bean id="synchronizer" parent="abstractSynchronizer">
+		<property name="host" value="localhost" />
+		<property name="port" value="2221"/>
+		<property name="user" value="anonymous"/>
+		<property name="password" value="mail@server.com"/>
+		<!-- This is the root FTP directory where all the CDR files are stored -->
+		<property name="remoteDirectory" value="src/test/resources/cdrFiles/dia1"/>
+		<!-- Interval between synchronizations in milliseconds -->
+		<property name="synchronizationInterval" value="6000"/>
+	</bean>
+	
+	<!-- ========================================= -->
+	<!-- Roaming Request Runner -->
+	<!-- ========================================= -->
+	<bean id="runner" parent="abstractRunner">
+		<!-- Interval between executions in milliseconds -->
+		<property name="executionInterval" value="6000"/>
+	</bean>
+
+	<bean id="cdrparser"  parent="abstractcdrparser">
+		<!-- Number of retries for ota operations (send PLMN & refresh) -->
+		<property name="retries" value="3"/>
+		<!-- Maximum time to live of a roaming request in milliseconds starting from the first updateplmn operation timestamp -->
+		<property name="ttl" value="200"/>
+		<property name="filters">
+			<list merge="true">
+				<ref bean="alreadyProcessedcdrLineFilter"/>
+			</list>
+		</property>
+	</bean>
+	
+	
+</beans>

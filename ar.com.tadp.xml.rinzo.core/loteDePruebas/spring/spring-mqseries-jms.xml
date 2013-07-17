@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//Spring//DTD Bean//EN" 
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- Application Context -->
+<beans>
+    
+
+    <!-- JNDI Environment Template -->
+    <bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+        <property name="environment">
+            <props>
+                <prop key="java.naming.factory.initial">com.sun.jndi.fscontext.RefFSContextFactory</prop>
+                <prop key="java.naming.provider.url">file:/C:/JNDI-Directory</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- JMS Queue Connection Factory -->
+    <bean id="internalJmsQueueConnectionFactory"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate">
+            <ref bean="jndiTemplate"/>
+        </property>
+        <property name="jndiName">
+            <value>MQ_JMS_MANAGER</value>
+        </property>
+    </bean>
+
+    <!-- Spring JMS Queue Connection Factory -->
+    <bean id="jmsQueueConnectionFactory"
+        class="org.springframework.jms.connection.SingleConnectionFactory102">
+        <property name="targetConnectionFactory">
+            <ref bean="internalJmsQueueConnectionFactory"/>
+        </property>
+        <property name="pubSubDomain">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <!-- JMS Destination Resolver -->
+    <bean id="jmsDestinationResolver"
+        class="org.springframework.jms.support.destination.JndiDestinationResolver">
+        <property name="jndiTemplate">
+            <ref bean="jndiTemplate"/>
+        </property>
+        <property name="cache">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <!-- JMS Queue Template -->
+    <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate102">
+        <property name="connectionFactory">
+            <ref bean="jmsQueueConnectionFactory"/>
+        </property>
+        <property name="destinationResolver">
+            <ref bean="jmsDestinationResolver"/>
+        </property>
+        <property name="pubSubDomain">
+            <value>false</value>
+        </property>
+        <property name="receiveTimeout">
+            <value>20000</value>
+        </property>
+    </bean>
+    
+     <bean id="jmsSender" class="springexample.client.JMSSender">
+      <property name="jmsTemplate102">
+            <ref bean="jmsQueueTemplate"/>
+        </property>
+     
+      </bean>
+    
+      <bean id="jmsReceiver" class="springexample.client.JMSReceiver">
+      <property name="jmsTemplate102">
+            <ref bean="jmsQueueTemplate"/>
+        </property>
+     
+      </bean>
+      
+</beans>

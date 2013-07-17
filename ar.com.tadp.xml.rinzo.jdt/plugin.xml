@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="ar.com.tadp.xml.rinzo.core.xmlContentAssist">
+      <XMLContentAssistProcessor
+            class="ar.com.tadp.xml.rinzo.jdt.contentassist.processors.ClassNameContentAssistProcessor">
+      </XMLContentAssistProcessor>
+   </extension>
+   <extension
+         point="ar.com.tadp.xml.rinzo.core.validators">
+      <Validator
+            class="ar.com.tadp.xml.rinzo.jdt.resources.validation.ClassNamesValidator">
+      </Validator>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="ar.com.tadp.xml.rinzo.jdt.context"
+            targetID="ar.com.tadp.xml.rinzo.core.context">
+         <action
+               class="ar.com.tadp.xml.rinzo.jdt.actions.CreateClassAction"
+               definitionId="ar.com.tadp.xml.rinzo.CreateClass"
+               id="ar.com.tadp.xml.rinzo.core.actions.CreateClassAction"
+               label="Create Declaration"
+               menubarPath="rinzoAdditions">
+         </action>
+         <action
+               class="ar.com.tadp.xml.rinzo.jdt.actions.OpenElementAction"
+               definitionId="ar.com.tadp.xml.rinzo.OpenDeclaration"
+               id="ar.com.tadp.xml.rinzo.core.actions.OpenElementAction"
+               label="Open Declaration"
+               menubarPath="rinzoAdditions">
+         </action>
+      </viewerContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="ar.com.tadp.xml.rinzo.jdt.keyListeners.CreateClassHandler"
+            id="ar.com.tadp.xml.rinzo.CreateClass"
+            name="Create Class Definition">
+      </command>
+      <command
+            defaultHandler="ar.com.tadp.xml.rinzo.jdt.keyListeners.OpenDeclarationHandler"
+            id="ar.com.tadp.xml.rinzo.OpenDeclaration"
+            name="Open Declaration">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="ar.com.tadp.xml.rinzo.CreateClass"
+            contextId="org.eclipse.ui.rinzoEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="F2">
+      </key>
+      <key
+            commandId="ar.com.tadp.xml.rinzo.OpenDeclaration"
+            contextId="org.eclipse.ui.rinzoEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="F3">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage"
+            class="ar.com.tadp.xml.rinzo.jdt.preferences.ClassNamesPreferencePage"
+            id="ar.com.tadp.xml.rinzo.jdt.preferences.ClassNamesPreferencePage"
+            name="JDT Integration">
+      </page>
+   </extension>
+
+</plugin>

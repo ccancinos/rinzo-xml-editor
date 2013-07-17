@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--Esta es una muestra de todo lo que hay>
+Esta definición se corresponde con la forma más simple de escritura de la metadata vieja
+<class name="com.synapsis.synergia.common.domain.ActividadEconomica" defaultControl="grid">
+	<grid columns="code, description"/>
+	<select key="${code}" description="${code} - ${description}" multiple="false" />
+	<tree description="${name}">
+		<children property="subTipos"/>
+		<leaf property="methods" description="${name}"/>
+	</tree>
+</class>
+
+<metadata id="com.synapsis.synergia.common.domain.ActividadEconomica">
+  <defaultControl>grid</defaultControl>
+  <grid>
+  	<fields>
+    	<field property="code" />
+    	<field property="description" />
+   	</fields>
+  </grid>
+  <select multiple="false">
+  	<descriptionField>foreName</descriptionField>
+	  <keyFields>
+   		<field property="nombre" />
+	  </keyFields>
+  </select>
+  <tree>
+	<node>
+		<description>name</description>		
+		<leafs property="methods" description="${name}"/>		
+	</node>
+	<children>
+		<trees property="hijos"/>
+		<trees property="ahijados"/>		
+	</children>
+  </tree>
+</metadata>
+====================================================================================================================
+Esta se corresponde con la escritura de una metadata como la anterior más dos con un id que contiene un @field
+<class name="com.synapsis.synergia.common.domain.ActividadEconomica" defaultControl="grid">
+	<grid columns="name, description"/>
+	<property name="actividad" defaultControl="textArea"/>
+	<property name="indireccion.date" description="nested" defaultControl="select">
+		<select key="${code}" description="${description}" multiple="true" />
+		<grid columns="foreName, name, birthDate, sex, age, phone" />
+	</property>
+</class>
+
+<metadata id="com.synapsis.synergia.common.domain.ActividadEconomica">
+  <defaultControl>grid</defaultControl>
+  <grid>
+  	<fields>
+    	<field property="code" />
+    	<field property="description" />
+   	</fields>
+  </grid>
+</metadata>
+<metadata id="com.synapsis.synergia.common.domain.ActividadEconomica@actividad">
+  <defaultControl>textArea</defaultControl>
+</metadata>
+<metadata id="com.synapsis.synergia.common.domain.ActividadEconomica@indireccion.date">
+  <defaultControl>select</defaultControl>
+  <description>nested</description>
+  <select multiple="true">
+  	<descriptionField>description</descriptionField>
+	  <keyFields>
+   		<field property="code" />
+	  </keyFields>
+  </select>
+  <grid>
+  	<fields>
+    	<field property="foreName" />
+    	<field property="name" />
+    	<field property="birthDate" />
+    	<field property="sex" />
+    	<field property="age" />
+    	<field property="phone" />
+   	</fields>
+  </grid>
+</metadata>
+====================================================================================================================
+Esta posibilidad define una metadata para un nombre de propiedad determinado. No existe esta posibilidad en la 
+metadata anterior.
+<property name="fileReference" defaultControl="fileBox" />
+====================================================================================================================
+Definicion de un input
+<property name="com.cubika.forms.demo.services.SimpleBean.code" 
+		defaultControl="pswBox" 
+		description="Codigo" 
+		maxLength="5"/>
+<class name="com.cubika.forms.demo.services.SimpleBean" >
+	<property name="code" defaultControl="pswBox" description="Codigo" maxLength="5"/>
+</class>
+		
+<metadata id="com.cubika.forms.demo.services.SimpleBean@code">
+	<defaultControl maxLength="5">pswBox</defaultControl>
+	<description>Codigo</description>
+</metadata>
+====================================================================================================================
+Definición de metadata para una propiedad, pero solamente dentro de un formulario determinado
+<form name="Demo2" >
+	<property name="ListComplex" defaultControl="grid">
+		<grid columns="code, description, attr1, attr2, attr3"/>
+	</property>
+</form>
+====================================================================================================================
+====================================================================================================================
+Los defaultControl son: 
+ *******************************************************************************	
+ **		select		descselect		codeSelect		grid		radioButtons  **
+ **		textBox 	integerBox		longBox			floatBox	textArea	  **
+ **		dateTimeBox	checkBox		moneyBox		codeDesc	pswBox        **
+ **		htmlEditor  metaSelect      metaRadio                                 **
+ *******************************************************************************
+ El atributo key dentro de un select no es requerido, pero sirve para poder pegarle informacion a cada elemento
+ del selector como lo hace cartas.
+</ Muestra de todo lo que hay-->
+
+<metadataCatalog xmlns="urn:nonstandard:metadataDef"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:nonstandard:metadataDef ./metadataDefinition.xsd">
+
+	<!--Demo1-->
+	<form name="Demo1">
+		<property defaultControl="pswBox" name="cantEdit" description="ALL"/>
+		<property name="simpleBean2" defaultControl="grid">
+			<select key="${description}" description="${code} - ${description} (solo para el demo1)"/>
+			<grid columns="description, code"/>
+		</property>
+		<property name="com.cubika.forms.demo.services.MrBean" defaultControl="grid">
+			<grid columns="birthDate, age" />
+		</property>
+		<property name="actividad" defaultControl="select">
+			<select key="${code}" description="${code} - ${description}"/>
+		</property>
+		<property name="description" defaultControl="htmlEditor"/>
+		<property name="marqueeContent" defaultControl="marquee"/>
+	</form>
+	
+	<property name="casedString" defaultControl="textBox" cased="upperCase" maxLength="5"/>
+	
+	<class name="com.cubika.forms.demo.services.MrBean" defaultControl="select">
+		<grid columns="foreName, name, birthDate, sex, age, phone" />
+		<select key="${foreName}" description="${foreName} - ${name}"/>
+	</class>
+	<!--Demo1-->
+	
+	<!--Demo2-->
+	<class name="com.cubika.forms.demo.services.Number" defaultControl="select">
+		<select key="${description}" description="${description}"/>
+		<grid columns="description"/>
+	</class>
+	
+	<form name="Demo2" >
+		<property name="ListComplex" defaultControl="grid">
+			<grid columns="code, description, attr1, attr2, attr3, date"/>
+		</property>
+	</form>
+	
+	<property name="ListComplex_detalle_mrBeans" defaultControl="grid">
+		<grid columns="foreName, name"/>
+	</property>
+	<property name="SimpleBean_mrBeans" defaultControl="grid">
+		<grid columns="foreName, name, birthDate, sex, age, phone"/>
+	</property>
+	
+	<!--class name="com.cubika.forms.demo.services.SimpleBean" defaultControl="select">
+		<grid columns="integerCode, description, randomString, date"/>
+		<select key="${code}" description="${description} - Definicion Generica"/>
+		<property name="indireccion.date" description="nested" defaultControl="select">
+			<select key="code" description="description" multiple="true" />
+		</property>
+	</class-->
+	
+	<class name="com.cubika.forms.demo.services.ComplexBean" defaultControl="grid">
+		<grid columns="integerCode, description, attr1, attr2, attr3, date"/>
+		<select key="${code}" description="${description}"/>
+	</class>
+	<!--Demo2-->
+	
+	<!--Demo3-->
+	<property name="fileReference" defaultControl="fileBox" />
+	<!--Demo3-->
+	
+	<!--Demo5-->
+	<class name="com.cubika.forms.elements.input.date.DateBean">
+		<grid columns="date2, date3, date4, date5, date6"/>
+	
+		<property name="date2" defaultControl="dateTimeBox" pattern="DLong"/>
+		<property name="date3" defaultControl="dateTimeBox" pattern="DMed"/>
+		<property name="date4" defaultControl="dateTimeBox" pattern="DShort"/>
+		<property name="date5" defaultControl="dateTimeBox" pattern="DTMed"/>
+		<property name="date6" defaultControl="dateTimeBox" pattern="TLong"/>
+	
+		<property name="date22" defaultControl="dateTimeBox" pattern="DLong"/>
+		<property name="date32" defaultControl="dateTimeBox" pattern="DMed"/>
+		<property name="date42" defaultControl="dateTimeBox" pattern="DShort"/>
+		<property name="date52" defaultControl="dateTimeBox" pattern="DTMed"/>
+		<property name="date62" defaultControl="dateTimeBox" pattern="TLong"/>
+		
+		<property name="date23" defaultControl="dateTimeBox" pattern="DLong"/>
+		<property name="date33" defaultControl="dateTimeBox" pattern="DMed"/>
+		<property name="date43" defaultControl="dateTimeBox" pattern="DShort"/>
+		<property name="date53" defaultControl="dateTimeBox" pattern="DTMed"/>
+		<property name="date63" defaultControl="dateTimeBox" pattern="TLong"/>
+		
+		<property name="date24" defaultControl="dateTimeBox" pattern="DLong"/>
+		<property name="date34" defaultControl="dateTimeBox" pattern="DMed"/>
+		<property name="date44" defaultControl="dateTimeBox" pattern="DShort"/>
+		<property name="date54" defaultControl="dateTimeBox" pattern="DTMed"/>
+		<property name="date64" defaultControl="dateTimeBox" pattern="TLong"/>	
+	</class>
+	<!--Demo5-->
+	
+	<!--Demo12-->
+	<class name="com.cubika.framework.testing.domain.Pieza" defaultControl="select">
+		<select key="${nombre}" description="${nombre}"/>
+	</class>
+	<class name="com.cubika.framework.testing.domain.PiezaCompuesta" defaultControl="select">
+		<select key="${nombre}" description="${nombre}"/>
+	</class>
+	<!--Demo12-->
+	
+	<!--Demo13-->
+	<!--el atributo nulleable es optativo, si no se pone, por default es false-->
+	
+	<property name="com.cubika.forms.demo.services.SimpleBean.booleano" defaultControl="metaSelect">
+		<customSelect type="boolean" nulleable="false"
+			keys="com.cubika.forms.demo.services.SimpleBean.atencion.boolean"	/>
+	</property>
+	
+	<property name="com.cubika.forms.demo.services.SimpleBean.booleano2" defaultControl="metaRadio">
+		<customSelect type="boolean" nulleable="true"
+			keys="com.cubika.forms.demo.services.SimpleBean.atencion.boolean"/>
+	</property>
+	
+	<property name="com.cubika.forms.demo.services.SimpleBean.booleano3" defaultControl="metaSelect">
+		<customSelect type="boolean" nulleable="false"
+			keys="com.cubika.forms.demo.services.SimpleBean.atencion.boolean"	/>
+	</property>
+	
+	<property name="com.cubika.forms.demo.services.SimpleBean.booleano4" defaultControl="metaRadio">
+		<customSelect type="boolean" nulleable="true"
+			keys="com.cubika.forms.demo.services.SimpleBean.atencion.boolean"/>
+	</property>
+	
+	<!--Demo13-->
+	
+	<!--Demo14-->
+	<class name="com.cubika.framework.services.Factura" defaultControl="grid" description="Factura">
+		<grid columns="numero, cliente.code"/>	
+		<select description="${numero}"/>
+	</class>
+	<!--Demo14-->
+	
+	<!--Demo17-->
+	<property defaultControl="doubleBox" name="Demo17.inputDouble" maxLength="2"/>
+	<!--property defaultControl="doubleBox" name="Demo17.inputInteger" maxLength="2"/-->
+	<!--Demo17-->
+	
+	<!--Demo23-->
+	<class name="com.cubika.framework.services.Cliente" defaultControl="select">
+		<select key="${code}" description="${description}"/>
+		<grid columns="code, description"/>
+	</class>
+	<!--Demo23-->
+	
+	<!--Demo24-->
+	<form name="Demo24">
+		<property name="autoEnRegistro" defaultControl="select">
+			<select key="${nroSerie}" description="${nroSerie} - ${marca}, ${modelo}"/>
+		</property>
+	</form>
+	<!--Demo24-->
+	
+	<!--Demo25B-->
+	<class name="com.cubika.forms.workflow.buttons.WFTestObject" defaultControl="grid" >
+		<grid columns="attrS1, attrS2, attrS3"/>
+	</class>
+	<!--Demo25B-->
+	
+	<!-- Demo26 : Tree -->
+	<class name="com.cubika.forms.elements.tree.domain.$SuperTipoObjeto" defaultControl="tree">
+		<tree description="${name}">
+			<children property="subTipos" />
+		</tree>
+	</class>
+	
+	<class name="com.cubika.forms.elements.tree.domain.$ExtensibleType" defaultControl="tree">
+		<tree description="${name}">
+			<children property="subTipos" />
+		</tree>
+	</class>
+	
+	<class name="com.cubika.forms.elements.tree.domain.$SubType" defaultControl="tree">
+		<tree description="${name}">
+			<children property="superType" />
+		</tree>
+	</class>
+	<!-- Demo26 : Tree -->
+	
+	<!-- Demo27 : Tree con varios trees properties -->
+	<class name="com.cubika.forms.elements.tree.multiplelist.domain._Persona" defaultControl="select">
+		<select key="${name}" description="${name}"/>
+		<tree description="${name}">
+			<children property="hijos"/>
+			<children property="ahijados"/>
+		</tree>	
+		<grid columns="name, padre.name"/>
+	</class>
+	<!-- /Demo27 -->
+	
+	<!--Demo28-->
+	<property name="fileReferences" defaultControl="fileBox" >
+		<grid columns="name, contentType"/>
+	</property>
+	<!--Demo28-->
+	
+	<!-- Demo29 : Tree con leafs property -->
+	<class name="com.cubika.forms.elements.tree.domain.$TipoObjeto" defaultControl="select">
+		<select key="${name}" description="${name}"/>
+		<!--Ver otra manera de que no quede siempre descriptionXXXXX-->
+		<!--Agregar el atributo urlProperty a los tags de tree-->
+		<!--description pasaría a llamarse descriptionProperty-->
+		<tree description="${name}">
+			<children property="subTipos"/>
+			<leaf property="methods" description="${name}"/>
+		</tree>
+	</class>
+	<form name="Demo29">
+		<property name="selectedI18nType" defaultControl="tree">
+		<tree i18nDescription="${name}">
+			<children property="subTipos"/>
+			<leaf property="methods" i18nDescription="${name}"/>
+		</tree>
+		</property>
+	</form>
+	<!-- /Demo29 -->
+	
+	<!--Demo30-->
+	 <class name="com.cubika.framework.testing.domain.BType" defaultControl="select">
+		 <select description="${descripcion}" key="${descripcion}"/>
+		 <grid columns="descripcion"/>
+	 </class>
+	<!--Demo30-->
+	
+	<!--Demo31-->
+	<class name="com.cubika.framework.testing.domain.AType" defaultControl="grid">
+		<grid columns="ATTString, ATTLong, ATTInt, btype.descripcion"/>
+		<select key="${ATTString}" description="${ATTString}" />
+		<property name="ATTLong">
+			<type name="decimalNumber"/>
+		</property>
+		<property name="ATTInt">
+			<type name="integerNumber"/>
+		</property>
+		<property name="ATTString">
+			<type name="MaxLength" maxLength="4"/>
+		</property>
+	</class>
+	<!--Demo31-->
+	
+	<!--ComponenteX -->
+	<class name="com.cubika.framework.testing.domain.Pirulo" defaultControl="grid">
+		<grid columns="atype.ATTInt, btype.descripcion, description"/>
+	</class>
+	<!--ComponenteX -->
+	
+	<!--Demo33 Forms Dinamicos-->
+	<class name="com.cubika.forms.elements.group.dyna.domain.$Encuesta" defaultControl="select">
+		<select key="${nombre}" description="${nombre}"/>
+	</class>
+	
+	<property name="com.cubika.forms.elements.group.dyna.domain.$OpcionSimplePreguntaSeleccion.valor" defaultControl="select">
+		<select key="${id}" description="${descripcion}"/>
+	</property>
+	
+	<class name="com.cubika.forms.elements.group.dyna.domain.$PreguntaSimple.valor" defaultControl="integerBox"/> 
+	
+	<form name="$ResponderEncuestaFormFactory.com$cubika$forms$dyna$EncuestaDynaGroupFactory">
+		<property name="valor" defaultControl="textBox"/>
+	</form>
+	<!--Demo33-->
+	
+	<!--Demo37-->
+	<class defaultControl="select" name="com.cubika.framework.testing.domain.Transaccion">
+		<select description="${fecha}" />
+	</class>
+	
+	<class defaultControl="select" name="com.cubika.framework.testing.domain.Tarjeta">
+		<select description="${numero}"/>
+	</class>
+	
+	<class name="com.cubika.framework.testing.domain.EType" defaultControl="select">
+		<select key="${descripcion}" description="${descripcion}"/>
+	</class>
+	
+	<class name="com.cubika.framework.testing.domain.FType" defaultControl="select" description="FType">
+		<select key="${descripcion}" description="${descripcion}"/>
+	</class>
+	<!--Demo37-->
+	
+	<!-- Reportes -->
+	<class name="com.cubika.framework.persistence.Variable" defaultControl="select">
+		<select key="${label}" description="${label}"/>
+		<grid columns="label"/>
+	</class>
+	<class name="com.cubika.framework.persistence.Tuple" defaultControl="grid">
+		<grid columns="equipo.division.name, state.name, count"/>
+	</class>
+	<!-- /Reportes -->
+	
+	<!-- ImageDemo43 -->
+	<class name="com.cubika.forms.elements.input.image.domain.$VerImagenPersonaProcess.foto" defaultControl="image"/>
+	<class name="com.cubika.forms.elements.input.image.domain.$VerImagenPersonaProcess.personaAVisualizar.foto" defaultControl="image"/>
+	<class name="com.cubika.forms.elements.tree.multiplelist.domain._Persona.foto" defaultControl="image" />
+	<!-- /ImageDemo43 -->
+	
+	<!-- Demo48 -->
+	<property name="com.cubika.forms.demo.processes.DemoProcess.booleano" defaultControl="metaSelect">
+		<customSelect type="boolean" nulleable="false"
+			keys="com.cubika.forms.demo.processes.DemoProcess.boolean"/>
+	</property>
+		<!-- Demo48 -->
+	
+	<!-- Banner-Demo49 -->
+	<class name="com.cubika.forms.elements.banner.domain.$Banner" defaultControl="select">
+		<select key="${name}" description="${description}"/>
+	</class>
+	
+	<class name="com.cubika.forms.elements.banner.domain.$BannerItemImage">
+		<bannerItem type="image" contentProperty="image" urlLink="link" loopInterval="10000" />
+	</class>
+	<class name="com.cubika.forms.elements.banner.domain.$BannerItemText">
+		<bannerItem type="text" contentProperty="text" urlLink="link" />
+	</class>
+	
+	<!-- Demo 54 -->
+	<class name="com.cubika.forms.elements.tree.customrenderers.domain._Cliente" defaultControl="tree">
+		<tree description="Cliente: ${firstName}">
+			<children property="accounts" entityRef="com.cubika.forms.elements.tree.customrenderers.domain._Account"/>
+		</tree>
+	</class>
+	
+	<class name="com.cubika.forms.elements.tree.customrenderers.domain._Account" defaultControl="tree">
+		<tree description="Cuenta: ${number}">
+			<leaf property="services" description="Cuenta: ${charCode}-${numericCode}"/>
+		</tree>
+		<grid columns="number, services"/>
+	</class>
+	<!-- /Demo 54 -->
+	
+	<!-- Demo 59 -->
+	<class name="com.cubika.forms.modelfullelements.domain.Patente" defaultControl="select">
+		<select key="${numero}" description="${letras}-${numero}"/>
+	</class>
+	<class name="com.cubika.forms.elements.input.validations.maxlength.domain.$Multa.observacion" defaultControl="textArea" maxLength="5"/>
+	<class name="com.cubika.forms.elements.input.validations.maxlength.domain.$Multa.nro" maxLength="5"/>
+	<class name="com.cubika.forms.elements.input.validations.maxlength.domain.$Multa.descripcion" defaultControl="htmlEditor" maxLength="20"/>
+	<!-- /Demo 59 -->
+	<!-- Demo 60 -->
+	<class name="com.cubika.forms.elements.link.domain._Enlace" defaultControl="select">
+		<select key="${url}" description="${descripcion}"/>
+		<link contentProperty="descripcion" urlProperty="url"/>	
+	</class>
+	
+	
+	<class name="com.cubika.forms.config.reloaders.Enlace" defaultControl="link">
+		<select key="${url}" description="${descripcion}"/>
+		<link contentProperty="descripcion" urlProperty="url"/>	
+	</class>
+	<!-- /Demo 60 -->
+	
+	<class name="com.cubika.forms.elements.selector.nested.nullelement.domain.$Empresa" defaultControl="select">
+		<select key="${id}" description="${name}"/>
+	</class>
+	
+	<form name="Demo54CustomRenderers">
+		<property name="selectedService" defaultControl="tree">
+			<tree description="${charCode}-${numericCode}" />
+		</property>	
+	</form>
+	
+	<!-- Demo68 MultipleMetadata -->
+	
+	<!-- En este formulario uso dos metadatas, una que ya esta definida para el demo 27 que la muestro aca
+		comentada 
+		
+	<class name="com.cubika.forms.elements.tree.multiplelist.domain._Persona" defaultControl="select">
+		<select key="${name}" description="${name}"/>
+		<tree description="${name}">
+			<children property="hijos"/>
+			<children property="ahijados"/>
+		</tree>	
+		<grid columns="name, padre.name"/>
+	</class>
+	
+	Y otra que defino aca abajo particular para este formulario
+	-->
+	
+	<form name="Demo68MultipleMetadataTrees">
+		<property name="antonio">
+		<tree description="//${name}\\">
+			<children property="hijos"/>
+		</tree>
+		</property>
+	</form>
+	
+	<!-- /Demo68 -->
+	
+	<!-- /Demo71 -->
+	<class name="com.cubika.forms.demo.services.SimpleBean" defaultControl="select">
+		<grid columns="integerCode, description, randomString, date"/>
+		<select key="${code}" description="${description}"/>
+	
+		<property name="inputDate" pattern="DMed" defaultControl="dateTimeBox"/>
+		<property name="date" pattern="DTLong" defaultControl="dateTimeBox"/>
+	</class>
+	<!-- /Demo71 -->
+	
+	<!-- Demo 75 -->
+	<class name="com.cubika.forms.demo.services.ValidationsBean" description="GERARDSELACOME">
+		<property name="ucase"  description="GERARDSELACOME">
+			<type name="ucase"/>
+		</property>
+		<property name="lcase">
+			<type name="lcase"/>
+		</property>
+		<property name="a9YLcase">
+			<type name="a9"/>
+			<type name="lcase"/>
+		</property>
+		<property name="a9">
+			<type name="a9"/>
+			<type name="MaxLength" maxLength="7"/>
+		</property>
+		<property name="_A9">
+			<type name="A9"/>
+		</property>
+		<property name="_AB9">
+			<type name="AB9"/>
+		</property>
+		<property name="mail">
+			<type name="mail" errorMessage="MAIL_INVALIDO"/>
+		</property>
+		<property name="rut">
+			<type name="rut"/>
+		</property>
+		<property name="telefono">
+			<type name="tel"/>
+		</property>
+		
+		<property name="floatNumber">
+			<type name="decimalNumber"/>
+		</property>
+		<property name="doubleNumber">
+			<type name="decimalNumber" cantidadDecimales="3" valorMinimo="-43.5" valorMaximo="18"/>
+		</property>
+		<property name="integer">
+			<type name="integerNumber" valorMinimo="3" errorMessage="NUMERO_MENOR_AL_ESPERADO"/>
+		</property>
+		<property name="bigDecimalNumber">
+			<type name="decimalNumber" usarSeparadorDeMiles="true"/>
+		</property>
+		
+		<property name="fechaDDMMYYYY">
+			<type name="dateTime" pattern="DLong"/>
+		</property>
+		<property name="fechaDDMMYYYYRestringida">
+			<type name="dateTime" pattern="DLong" valorMinimo="-3" valorMaximo="7" errorMessage="FECHA_FUERA_DE_RANGO"/>
+		</property>
+		<property name="fechaMMYYYY">
+			<type name="dateTime" pattern="DMed"/>
+		</property>
+		<property name="fechaDDMMYYYYHHMM">
+			<type name="dateTime" pattern="DTMed"/>
+		</property>
+		<property name="fechaQueSeAutoCompleta">
+			<type name="autoCompleteDate" property="fechaDefaultAAutoCompletar" pattern="DLong"/>
+		</property>
+		
+		<property name="propertyValidatedDinamicaly">
+			<!--propertyDependent-->
+			<type name="propertyDependent" property="dinamicValidatorSelected" attribute="tipo" errorMessage="TIPO_DOC_INVALID"/>
+		</property>
+		
+		<property name="stringLongDinamica">
+			<type name="MaxLength" maxLength="${sizeStringLongDinamica}"/>
+		</property>
+		<property name="numberAtribDinamicos">
+			<type name="decimalNumber" cantidadEnteros="${numeroDecimales}" cantidadDecimales="${numeroDecimales}" valorMinimo="-43.5" valorMaximo="${sizeStringLongDinamica}"/>
+		</property>	
+		<property name="fechaMinimoDinamico">
+			<type name="dateTime" pattern="DTLong" valorMaximo="${sizeStringLongDinamica}"/>
+		</property>
+	</class>
+	<class name="com.cubika.forms.demo.services.ValidationsBean$ValidatorsTypes" defaultControl="select">
+		<!--En la key pongo los nombres de las funciones de js-->
+		<select description="${nombre}" key="${tipo}"/>
+	</class>
+	<!-- Demo 75 -->
+	
+	<!-- Demo85 -->
+	<class name="com.cubika.forms.elements.grid.selector.actions.domain.$Folder" defaultControl="tree">
+		<tree description="${name}${unreadeds != 0 ? '(':''}${unreadeds != 0 ? unreadeds:''}${unreadeds != 0 ? ')':''}">
+			<children property="children" />
+		</tree>
+		<grid columns="name"/>
+	</class>
+	
+	<class name="com.cubika.forms.elements.grid.selector.actions.domain._Mail" defaultControl="tree">
+		<grid columns="readed, date, from.name, subject"/>
+		<property name="content" defaultControl="htmlEditor"/>
+	</class>
+	<!-- /Demo85 -->
+	
+	<!-- Demo94 -->
+	<class name="com.cubika.forms.demo.services.Demo94Model">
+		<grid>
+			<column name="centerString" align="center" width="150"/>
+			<column name="maxLengthString">
+				<type name="MaxLength" maxLength="7"/>
+			</column>
+			<column name="numeroSinSeparadorDeMiles">
+				<type name="number" usarSeparadorDeMiles="false"/>
+			</column>
+			<column name="numeroConSeparadorDeMiles">
+				<type name="number" usarSeparadorDeMiles="true"/>
+			</column>
+			<column name="numeroNegativo">
+				<type name="number" usarSeparadorDeMiles="true"/>
+			</column>
+			<column name="fechaFormateada" align="right">
+				<type name="dateTime" pattern="DTLong"/>
+			</column>
+		</grid>
+	</class>
+	<!-- Demo94 -->
+	
+	<!-- Demo96 -->
+	<class name="com.cubika.forms.actions.chain.GenerarHolaMundoProcess">
+		<grid columns="nombre, fecha"/>
+	</class>
+	
+	<!-- Demo99 -->
+	<class name="com.cubika.forms.elements.tree.multiplelist.domain.$Pertenencia">
+		<grid columns="tipo, name"/>
+	</class>
+	
+	<!-- chucrut -->
+	<class name="com.cubika.forms.domain.chucrudt.Tecla">
+		<grid columns="posicion, caracter"/>
+	</class>
+	
+		<!-- Transaction Monitor -->
+	<class name="com.cubika.framework.transaction.forms.TransactionDescriptor"
+		defaultControl="grid">
+		<grid columns="id, estado, ownerName, parent.id, attributeMap, cantObjetos, transactionType"/>
+	</class>
+
+	<class name="com.cubika.forms.elements.grid.diekartoffen.Teclado">
+		<grid columns="distribucion"/>
+	</class>
+	
+	<class name="com.cubika.forms.elements.grid.paging.Libro.Pagina">
+		<grid columns="numero, contenido"/>
+	</class>
+
+	<class name="com.cubika.forms.elements.grid.compositecolumns.Entry">
+		<grid columns="motivo, sumas|com.cubika.forms.elements.grid.compositecolumns.Entry.sumas(debe, haber), saldos|com.cubika.forms.elements.grid.compositecolumns.Entry.saldos(deudor, acreedor)"/>
+	</class>
+
+	<!-- DemoSearchGroupMappingStrategiesFormFactory -->
+	<form name="DemoSearchGroupMappingStrategiesFormFactory.SearchGridGroupMappingStrategiesFactoryAtypeList.key">
+		<property name="ATTLong">
+			<type name="decimal" />
+		</property>
+		<property name="ATTString">
+			<type name="MaxLength" maxLength="7"/>
+		</property>
+	</form>
+	<form name="DemoSearchGroupMappingStrategiesFormFactory.SearchGridGroupMappingStrategiesFactoryAtypeList.key.BTypeMappingStrategyGroupFactoryBType">
+		<property name="descripcion">
+			<type name="ucase" />
+		</property>
+	</form>
+	<!-- DemoSearchGroupMappingStrategiesFormFactory -->
+
+	<class name="com.cubika.forms.workflow.Demo7WorkflowEnabled">
+		<grid columns="name"/>
+	</class>
+
+	<class name="com.cubika.forms.actions.parent._Window">
+		<grid columns="title, state"/>
+	</class>
+	
+	<class name="ar.edu.tadp.Temporal"/>
+	<class name="ar.edu.tadp.Tmp2"/>
+	<class name="ar.edu.tadp.blah.Tmp22"/>
+	
+
+</metadataCatalog>
+
+
+

@@ -1,0 +1,78 @@
+ -----
+Eclipse xml editor 
+ -----
+
+Autocompletion
+
+%{toc|section=1|fromDepth=1}
+
+* Working Without DTD or Schema
+ 
+** {Tags Proposition}
+
+  Working on a xml file without a schema or dtd definition, the tags proposition list will be filled 
+  with the tags already written in the file.
+ 
+[images/TagPropositionsNonSchema.png]
+
+
+** {Attributes Propositions}
+
+  Working on an xml file without a schema or dtd definition, the list of attributes proposals will be 
+  filled with all the already written attributes to tags with the same name in the current file.
+  
+[images/AttrPropositionsNonSchema.png]
+
+
+* {Working With DTD or Schema}
+
+** {Tags and Attribute Propositions from a Schema or DTD}
+
+  Working with a document definition (schema or DTD), the list of tags and attributes 
+  proposals for each tag will be filled with the information in the document definition.
+
+[images/TagPropositionsFromSchema.png]
+
+  The description of each proposal will also be filled from the document definition, 
+  provided the element definition has an annotation of type documentation. Ej:
+
+  <
+	    	\<xsd:element name="products" type="Product" minOccurs="1" maxOccurs="unbounded" \>\
+	    		\<xsd:annotation\> 
+	    		\<xsd:documentation\>\
+	    			Product's Order definition 
+	    		\</xsd:documentation\>\
+	    		\</xsd:annotation\> 
+	    	\</xsd:element\>\
+  >
+
+  It also suggest attribute values from restrictions defined in XSD for an attribute
+  
+[images/RestrictionAttributeValuePropositions.png]
+  
+
+** {Namespaces Defined in Schema}
+
+ If you're defining several namespaces in a xml document the editor can recognize them and propose tags according to the
+ namespace where each of them are defined. 
+ 
+[images/FullTagPropositionsUsingNamespaces.png]
+
+ Plus, when you start typing you can forget about in which namespace is defined the tag you want to use until its
+ time to select it from the proposition list since proposals are filtered by tag name not by namespace name thus eliminating
+ the unnecesary typing to filter first by namespace and then by tag name inside the selected namespaceR. 
+
+[images/FilteredTagPropositionsUsingNamespaces.png]
+
+
+* {Templates}
+
+  Through the plugin's configuration is possible to define templates to be used inside documents as propossals using Ctrl+Space.
+  
+  Templates can be edited in <Window-\>Preferences-\>Rinzo XML-\>Templates>
+  
+[images/TemplateSelection.png]
+
+  Once selected, variable values should be completed. This templates are similar to the ones used inside the rest of the eclipse editors.
+  
+[images/TemplateUse.png]

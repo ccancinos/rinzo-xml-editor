@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ar.com.tadp.rinzo</groupId>
+  <artifactId>ar.com.tadp.rinzo.site</artifactId>
+  <version>1.1.2</version>
+  <name>Rinzo XML Editor</name>
+
+	<properties>
+		<version>1.1.2</version>
+	</properties>
+	
+	<developers>
+		<developer>
+			<id>ccancinos</id>
+			<name>Claudio Cancinos</name>
+			<email>ccancinos@users.sourceforge.net</email>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Serrano Carolina</name>
+			<email>serranoc@users.sourceforge.net</email>
+			<timezone>-3</timezone>
+		</contributor>
+	</contributors>
+
+	<issueManagement>
+		<system>Source Forge Treacker System</system>
+		<url>https://sourceforge.net/tracker/?group_id=227708</url>
+	</issueManagement>
+
+	<mailingLists>
+		<mailingList>
+			<name>Source Forge Forum</name>
+			<post>https://sourceforge.net/forum/?group_id=227708</post>
+			<subscribe>https://sourceforge.net/forum/?group_id=227708</subscribe>
+			<unsubscribe>https://sourceforge.net/forum/?group_id=227708</unsubscribe>
+			<archive>https://sourceforge.net/forum/?group_id=227708</archive>
+		</mailingList>
+	</mailingLists>
+
+	<licenses>
+		<license>
+			<name>GNU LESSER GENERAL PUBLIC LICENSE - v 2.1</name>
+			<url>src/site/resources/LICENSE.txt</url>
+		</license>
+	</licenses>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+		<outputDirectory>classes</outputDirectory>
+		<testOutputDirectory>classes</testOutputDirectory>
+		<resources>
+			<resource>
+				<directory>src/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/resources</directory>
+			</testResource>
+		</testResources>
+		<directory>target</directory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<pde>true</pde>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}</directory>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+                    <templateDirectory>src/site</templateDirectory>
+                    <template>site.vm</template>
+                </configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.1.2</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>project-team</report>
+							<report>license</report>
+							<report>mailing-list</report>
+							<report>issue-tracking</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>

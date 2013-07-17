@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+    <class
+        name="springexample.hibernate.Customer"
+        table="TBL_CUSTOMER"
+        dynamic-update="false"
+        dynamic-insert="false">
+
+        <id
+            name="id"
+            column="CUSTOMER_ID"
+            type="java.lang.Long"
+            unsaved-value="-1"
+        >
+            <generator class="native">
+            </generator>
+        </id>
+        
+     
+        <set name ="accounts"
+             inverse = "true"
+              cascade="all-delete-orphan">
+             <key column ="CUSTOMER_ID"/>
+             <one-to-many class="springexample.hibernate.Account"/>
+			
+			</set>
+    
+        <property
+            name="email"
+            type="string"
+            update="false"
+            insert="true"
+            column="CUSTOMER_EMAIL"
+            length="82"
+            not-null="true"
+           
+        />
+
+        <property
+            name="password"
+            type="string"
+            update="false"
+            insert="true"
+            column="CUSTOMER_PASSWORD"
+            length="10"
+            not-null="true"
+      
+        />
+
+     <property
+            name="userId"
+            type="string"
+            update="false"
+            insert="true"
+            column="CUSTOMER_USERID"
+            length="12"
+            not-null="true"
+            unique="true"
+      
+        />
+    
+     <property
+            name="firstName"
+            type="string"
+            update="false"
+            insert="true"
+            column="CUSTOMER_FIRSTNAME"
+            length="25"
+            not-null="true"
+      
+        />
+        
+         <property
+            name="lastName"
+            type="string"
+            update="false"
+            insert="true"
+            column="CUSTOMER_LASTTNAME"
+            length="25"
+            not-null="true"
+      
+        />
+
+    </class>
+
+     
+</hibernate-mapping>

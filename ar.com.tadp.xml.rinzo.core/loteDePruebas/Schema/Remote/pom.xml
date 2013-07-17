@@ -1,0 +1,181 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.com.andinasoftware</groupId>
+	<artifactId>parent-project</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>Parent Project</name>
+	<url>http://www.andinasoftware.com.ar</url>
+	
+	<!-- 
+	Aqui se definen los repositorios donde se buscaran los jars de las dependencias de los proyectos
+	-->
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>http://andina.no-ip.biz:8080/artifactory/libs-releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>snapshots</id>
+			<url>http://andina.no-ip.biz:8080/artifactory/libs-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>djmaven2</id>
+			<url>http://www.fdvs.com.ar/djmaven2</url>
+		</repository>
+	</repositories>
+
+	<!--
+	Aqui se definen los repositorios donde se buscaran los plugins de maven necesarios
+	-->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://andina.no-ip.biz:8080/artifactory/plugins-releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>snapshots</id>
+			<url>http://andina.no-ip.biz:8080/artifactory/plugins-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<!--
+	A estos repositorios se subiran los proyectos
+	-->
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<url>http://andina.no-ip.biz:8080/artifactory/libs-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<url>http://andina.no-ip.biz:8080/artifactory/libs-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changelog-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<!--
+	Aqui defino primero la estructura de directorios de un proyecto, y luego los plugins 
+	de mvn que quiero usar
+	-->
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+		<outputDirectory>target/srcClasses</outputDirectory>
+		<testOutputDirectory>target/testClasses</testOutputDirectory>
+		<defaultGoal>package</defaultGoal>
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>config</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<configuration>
+					<outputDirectory>/target</outputDirectory>
+					<finalName>${artifactId}-${version}</finalName>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*TestCase.java</include>
+					</includes>
+					<printSummary>true</printSummary>
+					<reportFormat>plain</reportFormat>
+					<trimStackTrace>false</trimStackTrace>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<warName>${artifactId}</warName>
+					<warSourceDirectory>webapp</warSourceDirectory>
+				</configuration>
+			</plugin>
+			<!-- 
+			Al plugin de eclipse le digo que agregue el nature del sysdeo 
+			y que el eclipse compile en el directorio classes
+			--> 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<buildOutputDirectory>classes</buildOutputDirectory>
+					<additionalProjectnatures>
+						<projectnature>com.sysdeo.eclipse.tomcat.tomcatnature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+			<!-- 
+			Plugin de mvn magico para generar los .tomcatplugin. No esta en ningun repositorio, hay que
+			generar el jar en el repositorio de andina. 
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sysdeo-tomcat-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-rar-plugin</artifactId>
+				<configuration>
+					<manifestFile> 
+						src/resources/META-INF/MANIFEST.MF</manifestFile>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+	</build>
+</project>

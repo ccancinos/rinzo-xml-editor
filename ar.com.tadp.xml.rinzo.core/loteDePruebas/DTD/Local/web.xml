@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!DOCTYPE web-app SYSTEM "web-app_2_3.dtd">
+
+<web-app>
+  <description>Aplicación test de forms para content</description>
+  <!-- Filtros -->
+  <filter>
+    <filter-name>ContextFilter</filter-name>
+    <filter-class>com.cubika.framework.aop.AOPReflectiveFilter</filter-class>
+    <init-param>
+      <param-name>filter-class-name</param-name>
+      <param-value>com.cubika.framework.context.ContextFilter</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>MultiPartFilter</filter-name>
+    <filter-class>com.cubika.framework.aop.AOPReflectiveFilter</filter-class>
+    <init-param>
+      <param-name>filter-class-name</param-name>
+      <param-value>com.cubika.wcf.forms.servlets.MultiPartFilter</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>TransactionFilter</filter-name>
+    <filter-class>com.cubika.framework.aop.AOPReflectiveFilter</filter-class>
+    <init-param >
+      <param-name>filter-class-name</param-name>
+      <param-value>com.cubika.wcf.transaction.ObjectTransactionManagerFilter</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>SecurityFilter</filter-name>
+    <filter-class>com.cubika.framework.aop.AOPReflectiveFilter</filter-class>
+    <init-param >
+      <param-name>filter-class-name</param-name>
+      <param-value>com.cubika.framework.security.SecurityFilter</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>CacheFilter</filter-name>
+    <filter-class>com.cubika.framework.aop.AOPReflectiveFilter</filter-class>
+    <init-param >
+      <param-name>filter-class-name</param-name>
+      <param-value>com.cubika.framework.persistence.cache.CacheFilter</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>CookieFilter</filter-name>
+    <filter-class>com.cubika.framework.context.ClientNodeStateManagerFilter</filter-class>
+    <init-param >
+      <param-name>filter-class-name</param-name>
+      <param-value>com.cubika.framework.context.ClientNodeStateManagerFilter</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>ContextFilter</filter-name>
+    <servlet-name>ServletGateway</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>MultiPartFilter</filter-name>
+    <servlet-name>ServletGateway</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>TransactionFilter</filter-name>
+    <servlet-name>ServletGateway</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SecurityFilter</filter-name>
+    <servlet-name>ServletGateway</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CacheFilter</filter-name>
+    <servlet-name>ServletGateway</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CookieFilter</filter-name>
+    <servlet-name>CookieServlet</servlet-name>
+  </filter-mapping>
+  <!-- Servlet de Axis -->
+  <servlet>
+    <servlet-name>AxisServlet</servlet-name>
+    <display-name>Apache-Axis Servlet</display-name>
+    <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <display-name>Axis Admin Servlet</display-name>
+    <servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <display-name>SOAPMonitorService</display-name>
+    <servlet-class>org.apache.axis.monitor.SOAPMonitorService</servlet-class>
+    <init-param>
+      <param-name>SOAPMonitorPort</param-name>
+      <param-value>5001</param-value>
+    </init-param>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+  <!-- Servlet de configuración inicial -->
+  <servlet>
+    <servlet-name>ServletStartup</servlet-name>
+    <servlet-class>com.cubika.framework.aop.AOPReflectiveServlet</servlet-class>
+    <init-param >
+      <param-name>servlet-class-name</param-name>
+      <param-value>com.cubika.wcf.forms.servlets.ServletStartup</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <!-- Registrar el gateway de eventos -->
+  <servlet>
+    <servlet-name>ServletGateway</servlet-name>
+    <servlet-class>com.cubika.framework.aop.AOPReflectiveServlet</servlet-class>
+    <init-param >
+      <param-name>servlet-class-name</param-name>
+      <param-value>com.cubika.wcf.forms.servlets.ServletGateway</param-value>
+    </init-param>
+  </servlet>
+<!--	
+  <servlet>
+    <servlet-name>ServletResources</servlet-name>
+    <servlet-class>com.cubika.framework.aop.AOPReflectiveServlet</servlet-class>
+    <init-param >
+      <param-name>servlet-class-name</param-name>
+      <param-value>com.cubika.wcf.forms.servlets.ServletResources</param-value>
+    </init-param>
+  </servlet>
+-->
+  <servlet>
+    <servlet-name>CookieServlet</servlet-name>
+    <servlet-class>com.cubika.framework.aop.AOPReflectiveServlet</servlet-class>
+    <init-param >
+      <param-name>servlet-class-name</param-name>
+      <param-value>com.cubika.framework.context.TestCookiesServlet</param-value>
+    </init-param>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ServletGateway</servlet-name>
+    <url-pattern>/eventhandler</url-pattern>
+  </servlet-mapping>
+<!--	
+  <servlet-mapping>
+    <servlet-name>ServletResources</servlet-name>
+    <url-pattern>/javascript/*</url-pattern>
+  </servlet-mapping>
+-->	
+  <servlet-mapping>
+    <servlet-name>CookieServlet</servlet-name>
+    <url-pattern>/test-cookies</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/servlet/AxisServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>*.jws</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <url-pattern>/SOAPMonitor</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/servlet/AdminServlet</url-pattern>
+  </servlet-mapping>
+ 
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <mime-mapping>
+    <extension>html</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>txt</extension>
+    <mime-type>text/plain</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>wsdl</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>xsd</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+</web-app>

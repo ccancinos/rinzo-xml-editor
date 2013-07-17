@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<controlsCatalog xmlns="urn:nonstandard:formsCtrlDef"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:nonstandard:formsCtrlDef ./formsControlsDefinition.xsd">
+	
+	<control name="integerBox">
+		<buildDirector
+			type="com.cubika.forms.factory.directors.initializers.basic.NumberValidatorDirector"
+			parser="com.cubika.forms.elements.input.parsers.IntegerParser"/>
+	</control>
+	
+	<control name="bigDecimalBox">
+		<buildDirector 
+			type="com.cubika.forms.factory.directors.initializers.basic.NumberValidatorDirector"
+			parser="com.cubika.forms.elements.input.parsers.BigDecimalParser"/>
+	</control>
+
+	<control name="doubleBox">
+		<buildDirector 
+			type="com.cubika.forms.factory.directors.initializers.basic.NumberValidatorDirector"
+			parser="com.cubika.forms.elements.input.parsers.DoubleParser"/>
+	</control>
+
+	<control name="floatBox">
+		<buildDirector 
+			type="com.cubika.forms.factory.directors.initializers.basic.NumberValidatorDirector"
+			parser="com.cubika.forms.elements.input.parsers.FloatParser"/>
+	</control>
+
+	<control name="longBox">
+		<buildDirector 
+			type="com.cubika.forms.factory.directors.initializers.basic.NumberValidatorDirector"
+			parser="com.cubika.forms.elements.input.parsers.LongParser"/>
+	</control>
+	
+	<control name="textBox">
+		<buildDirector
+			type="com.cubika.forms.factory.directors.TextBoxBuildDirector"/>
+		<buildDirector
+			type="com.cubika.forms.factory.directors.WithInitializerDirector">
+			<initializer
+				type="com.cubika.forms.factory.directors.initializers.basic.ValidatorInitializer"/>
+		</buildDirector>
+	</control>
+
+	<control name="checkBox">
+		<buildDirector
+			type="com.cubika.forms.factory.directors.WithConcreteControlClassDirector"
+			concreteControlClass="com.cubika.forms.elements.CheckBox"/>
+	</control>
+	
+	<control name="chronometer">
+		<buildDirector
+			type="com.cubika.forms.factory.directors.WithConcreteControlClassDirector"
+			concreteControlClass="com.cubika.forms.elements.chronometer.ChronometerControl"/>
+		<buildDirector 
+			type="com.cubika.forms.factory.directors.WithSpecificRendererDirector"
+			specificRender="chronometer"/>
+	</control>
+	
+	<control name="codeDesc">
+		<buildDirector type="com.cubika.forms.factory.directors.TextBoxBuildDirector"/>
+	</control>
+	
+	<control name="fileBox">
+		<buildDirector 
+			type="com.cubika.forms.factory.directors.WithConcreteControlClassDirector"
+			concreteControlClass="com.cubika.forms.elements.input.filebox.FileBox"/>
+	</control>
+	
+	<control name="htmlEditor">
+		<buildDirector type="com.cubika.forms.factory.directors.HTMLEditorDirector"/>
+	</control>
+	
+	<control name="marquee">
+		<buildDirector type="com.cubika.forms.factory.directors.MarqueeBuildDirector"/>
+	</control>
+	
+	<control name="textArea">
+		<buildDirector type="com.cubika.forms.factory.directors.TextAreaBuildDirector"/>
+		<buildDirector
+			type="com.cubika.forms.factory.directors.WithInitializerDirector">
+			<initializer
+				type="com.cubika.forms.factory.directors.initializers.basic.ValidatorInitializer"/>
+		</buildDirector>
+	</control>
+	
+	<control name="url">
+		<buildDirector 
+			type="com.cubika.forms.factory.directors.InputDirector"
+			parser="com.cubika.forms.elements.input.parsers.URLParser"/>
+	</control>
+	
+	<control name="image">
+		<buildDirector
+			type="com.cubika.forms.factory.directors.MarqueeBuildDirector"
+			specificRender="image"/>
+		<buildDirector type="com.cubika.forms.factory.directors.WithIdDirector"
+			appendableId="_image"/>
+	</control>
+	
+	<control name="dateTimeBox">
+		<buildDirector type="com.cubika.forms.factory.directors.DateTimeBoxDirector"/>
+		<buildDirector
+			type="com.cubika.forms.factory.directors.WithInitializerDirector">
+			<initializer
+				type="com.cubika.forms.factory.directors.initializers.basic.ValidatorInitializer"/>
+		</buildDirector>
+	</control>
+</controlsCatalog>

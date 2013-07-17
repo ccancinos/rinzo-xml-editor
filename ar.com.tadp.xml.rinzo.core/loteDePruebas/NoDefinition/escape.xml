@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<attributes string1="canción" string2="urugüay"/>
+	<portugues>
+		eleições Irã você
+	</portugues>
+	<espanhiol>
+		canción
+		urugüay
+	</espanhiol>
+	<frances>
+		reflète bien la véritable volonté et le désir
+		IsraëlIsraël appelle à agir
+		l'être
+		repêchés	
+	</frances>
+	<conCdata>
+		<![CDATA[
+		function matchwo(a,b)
+		{
+		if (a < b && a < 0) then
+		  {
+		  return 1;
+		  }
+		else
+		  {
+		  return 0;
+		  }
+		}
+		]]>
+	</conCdata>
+</root>

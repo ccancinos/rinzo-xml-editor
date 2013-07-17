@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for Express on Hibernate.
+	-->
+<beans>
+
+
+    <bean id="exampleDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"><value>org.apache.derby.jdbc.EmbeddedDriver</value></property>
+        <property name="url"><value>jdbc:derby:springexample;create=true</value></property>
+	</bean> 
+	
+	<bean id="exampleHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">net.sf.hibernate.dialect.DerbyDialect</prop>
+				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.c3p0.minPoolSize">5</prop>
+				<prop key="hibernate.c3p0.maxPoolSize">20</prop>
+				<prop key="hibernate.c3p0.timeout">600</prop>
+				<prop key="hibernate.c3p0.max_statement">50</prop>
+				<prop key="hibernate.c3p0.testConnectionOnCheckout">false</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="exampleSessionFactory" class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
+		<property name="dataSource"><ref local="exampleDataSource"/></property>
+		<property name="hibernateProperties">
+			<ref bean="exampleHibernateProperties" />
+		</property>
+		<!-- Must references all OR mapping files. -->
+		<property name="mappingResources">
+			<list>
+		        <value>Customer.hbm.xml</value>
+		         <value>Account.hbm.xml</value>
+		   	</list>
+		</property>
+		
+		
+	</bean>
+	
+	<!-- Pass the session factory to our UserDAO -->
+	<bean id="customerDAOTarget" class="springexample.hibernate.CustomerDAOImpl">
+		<property name="sessionFactory"><ref local="exampleSessionFactory"/></property>
+	</bean>
+	
+		
+    <bean id="transactionManager" class="org.springframework.orm.hibernate.HibernateTransactionManager">
+       <property name="sessionFactory"><ref bean="exampleSessionFactory"/></property>
+    </bean>
+
+    <bean id="userDAO"
+      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref local="transactionManager"/></property>
+		<property name="target"><ref local="customerDAOTarget"/></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="addCustomer">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	
+</beans>

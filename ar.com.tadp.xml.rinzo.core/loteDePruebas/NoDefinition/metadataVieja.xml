@@ -1,0 +1,3506 @@
+<!-- 
+	En este archivo NO DEBEN CREARSE MÁS DEFINICIONES (3436 líneas el 15/11/05)debe utilizarse el archivo 
+	correspondiente al módulo de metadata2
+	LAS DEFINICIONES EN ESTE ARCHIVO SE DEBEN MIGRAR AL ARCHIVO CORRESPONDIENTE AL MODULO DE METADATA2
+-->
+
+<metadataCatalog>
+ <!-- TODO: Metadata del Framework (no tiene que estar aca) -->
+	<metadata id="com.cubika.forms.elements.groups.SimpleGroupElement@keyElements">
+		<defaultControl keyField="true"/>
+		<description>xxxxx</description>
+	</metadata>
+	<metadata id="com.cubika.forms.elements.groups.SimpleGroupElement@elements">
+		<defaultControl keyField="false"/>
+		<description>yyyyy</description>
+	</metadata>
+
+<!-- FormsConfigurationManager -->
+	<metadata id="com.cubika.forms.config.Module">
+	  <grid>
+		  <fields>
+			<field property="name"/>
+		   </fields>
+	  </grid>
+	 </metadata>
+<!-- /FormsConfigurationManager -->
+
+	<metadata id="com.cubika.framework.state.State">
+		<defaultControl>select</defaultControl>
+		<description>Etapa</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	
+	
+<!-- ################## A I C ##################-->	
+	<metadata id="com.synapsis.synergia.common.domain.DiaSemana">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="name" description="DiaSemana.name"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>name</descriptionField>
+			<keyFields>
+				<field property="name"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.domain.MotivoAtencion">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="tipoMotivoAtencion.tipoAtencion.name" description="TipoAtencion"/>
+				<field property="tipoMotivoAtencion.motivoCliente.description" description="MotivoCliente"/>
+				<field property="tipoMotivoAtencion.motivoEmpresa.description" description="MotivoEmpresa"/>
+				<field property="motivoAtencionPrincipal" description="Principal"/>
+				<field property="finalizaAutomaticamente" description="Finaliza"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.wrappers.MotivoAtencionWrapper">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="motivoAtencion.tipoMotivoAtencion.tipoAtencion.name" description="TipoAtencion"/>
+				<field property="motivoAtencion.tipoMotivoAtencion.motivoCliente.description" description="MotivoCliente"/>
+				<field property="motivoAtencion.tipoMotivoAtencion.motivoEmpresa.description" description="MotivoEmpresa"/>
+				<field property="motivoAtencion.motivoAtencionPrincipal" description="Principal"/>
+				<field property="estadoActual" description="EstadoActual"/>
+			</fields>
+		</grid>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.domain.user.UsuarioAIC">
+		<defaultControl>select</defaultControl>
+		<description>Usuario</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+<!-- AIC - ATENCION -->
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@code"> <!-- Ver como sacar el defaultControl -->
+		<defaultControl>textBox</defaultControl>
+		<description>CodAte</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@plazo"> <!-- Ver como sacar el defaultControl -->
+		<defaultControl>integerBox</defaultControl>
+		<description>Plazo</description>
+	</metadata>
+	<!--metadata id="com.synapsis.synergia.aic.domain.Atencion@petitorio">
+		<defaultControl>textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.EtapaAtencion@petitorio">
+		<defaultControl>textArea</defaultControl>
+	</metadata-->
+
+
+
+<!-- AIC DESARROLLO (Solucion con delegacion) NO BORRAR !!!!-->
+<!--	  DELEGACION DE REGISTRARATENCIONPROCESS -->
+<!-- Esta key esta mal, eventualmente tiene que ser reemplazada por ...etapaAtencion@numeroLotes -->
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@fechaAsignacionUsuario">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@code">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@numeroLotes">
+		<defaultControl>integerBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@nroIntInstitucional">
+		<defaultControl>longBox</defaultControl>
+	</metadata>
+	
+
+	<!-- Esto es particularmente feo -->
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@description">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@nombre">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@apellido">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@domicilio">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@referencia">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@telefono">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@telefonoAux">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@email">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@nroCuenta">
+		<defaultControl>longBox</defaultControl>
+	</metadata>
+
+	<!--
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@numeroAtencion">
+		<defaultControl>longBox</defaultControl>
+	</metadata>
+	-->
+	
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@petitorio">
+		<defaultControl>textArea</defaultControl>
+	</metadata>
+<!-- FIN AIC DESARROLLO (Solucion con delegacion) -->
+
+
+
+<!-- AIC DESARROLLO (Solucion con delegacion) NO BORRAR !!!!-->
+<!--	  DELEGACION DE ETAPAATENCIONPROCESS -->
+<!-- Esta key esta mal, eventualmente tiene que ser reemplazada por ...etapaAtencion@numeroLotes -->
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@code">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@numeroLotes">
+		<defaultControl>integerBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@nroIntInstitucional">
+		<defaultControl>longBox</defaultControl>
+	</metadata>
+	
+
+	<!-- Esto es particularmente feo -->
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@description">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@nombre">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@apellido">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@domicilio">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@referencia">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@telefono">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@telefonoAux">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@email">
+		<defaultControl>textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@nroCuenta">
+		<defaultControl>longBox</defaultControl>
+	</metadata>
+
+	<!-- 
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@numeroAtencion">
+		<defaultControl>longBox</defaultControl>
+	</metadata>
+	-->
+	
+	<metadata id="com.synapsis.synergia.aic.processes.EtapaAtencionProcess@petitorio">
+		<defaultControl>textArea</defaultControl>
+	</metadata>
+<!-- FIN AIC DESARROLLO (Solucion con delegacion) -->
+
+
+
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@fechaObra">
+		<description>FechaObra</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@copiarPetitorio">
+		<description>CopPet</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@imprimir">
+		<description>Imprimir</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@recepcionarCarta">
+		<description>RecCar</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@codAtenPri">
+		<description>CodAtenPri</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@codAtenSec">
+		<description>CodAtenSec</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@interno">
+		<description>Int</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@enteRegulador">
+		<description>EntReg</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@fechaRealReg">
+		<description>FechaRealReg</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@fechaVencimientoInternoAntes">
+		<description>FechaVtoIntAnt</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@fechaVencimientoInternoDespues">
+		<description>FechaVtoIntDes</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@fechaVencimientoLegalAntes">
+		<description>FechaVtoLegAnt</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@fechaVencimientoLegalDespues">
+		<description>FechaVtoLegDes</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@description">
+		<description>Titular</description>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.aic.domain.Nota@description">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	
+	 <!-- Fin AIC - ATENCION -->
+	
+
+	<!-- Registrar Respuesta (BackOffice) -->
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarRespuestaWorkFlowActivityProcess@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.processes.RetrocederFechaVencimientoAtencionProcess@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarRespuestaWorkFlowActivityProcess@observacionesReinicioSuspension">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarSubsanacionWorkFlowActivityProcess@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarResultadoReunionesWorkFlowActivityProcess@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+
+     			  
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@puesto.description">
+		<defaultControl maxLength="10">textBox</defaultControl>
+		<description>Puesto</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.domain.Puesto@description">
+		<defaultControl maxLength="10">textBox</defaultControl>
+		<description>Puesto</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarResultadoReunionesWorkFlowActivityProcess@puesto.description">
+		<defaultControl maxLength="10">textBox</defaultControl>
+		<description>Puesto</description>
+	</metadata>
+                  	
+	<metadata id="com.synapsis.synergia.aic.processes.ElevarExpedienteWorkFlowActivityProcess@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.cor.services.OrdenIndividualVerificacionBusinessProcess@observacion">
+		<defaultControl maxLength="250">textArea</defaultControl>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.aic.processes.DefinirPlanReunionesWorkFlowActivityProcess@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.aic.processes.DefinirPlanReunionesWorkFlowActivityProcess@plan.observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.aic.processes.DevolverAtencionWorkFlowActivityProcess@description">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarRespuestaWorkFlowActivityProcess@creaEtapaParalela">
+	  <defaultControl>metaSelect</defaultControl>
+	   <customSelect type="boolean" required="false" keys="RegistrarRespuestaWorkFlowActivityProcess.creaEtapaParalela"/>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarRespuestaWorkFlowActivityProcess@creaAtencionReinicio">
+	  <defaultControl>metaSelect</defaultControl>
+	   <customSelect type="boolean" required="false" keys="RegistrarRespuestaWorkFlowActivityProcess.creaAtencionReinicio"/>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarRespuestaWorkFlowActivityProcess@respuesta.suspendeAtencion">
+	  <defaultControl>metaSelect</defaultControl>
+	   <customSelect type="boolean" required="false" keys="RegistrarRespuestaWorkFlowActivityProcess.respuesta.suspendeAtencion"/>
+	</metadata>
+
+	<!-- Historia de Actividades (BackOffice) -->
+	<metadata id="com.synapsis.synergia.aic.processes.VisualizarHistoriaActividadesProcess@filtroTransicionaEstado">
+	  <defaultControl>metaSelect</defaultControl>
+	   <customSelect type="boolean" required="false" keys="com.synapsis.synergia.aic.processes.VisualizarHistoriaActividadesProcess.transicionaEstado"/>
+	</metadata>
+	
+	<!-- Asociación Padre / Hijo -->
+	<metadata id="com.synapsis.synergia.aic.domain.AsociacionAtenciones">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="atencionHija.code"/>
+				<field property="atencionHija.motivoCliente.description" description="motivoCliente" />
+				<field property="atencionHija.motivoEmpresa.description" description="motivoEmpresa" />
+				<!-- Quitado por problemas en el FWK de Persistencia
+					<field property="atencionHija.etapaActual.fechaRegistro"/>
+				-->
+			</fields>
+		</grid>
+	</metadata>
+	
+	<!-- Consultar Reuniones -->
+	<!-- Quitarlo cuando se resuelta el problema de i18n repetida para 'descriptions' distintas -->
+	<metadata id="com.synapsis.synergia.aic.domain.Reunion">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="atencion.code"/>
+				<field property="fechaString"/>
+				<field property="horaComString"/>
+				<field property="horaFinString"/>
+				<field property="descripcionReunion"/>
+				<field property="atencion.cuenta.cliente.description" description="Cliente"/>
+				<field property="atencion.etapaActual.usuarioResponsable.login"/>
+				<field property="atencion.tipoAtencion.description" description="tipoAtencion"/>
+				<field property="atencion.etapaActual.tipoEtapaAtencion.description" description="etapaAtencion"/>
+				<field property="atencion.etapaActual.stringStateDescription"/>
+				<field property="atencion.motivoCliente.description" description="motivoCliente"/>
+				<field property="atencion.motivoEmpresa.description" description="motivoEmpresa"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	
+     <!-- Comienzo AIC GENERADORA - ATENCION -->
+	<metadata id="com.synapsis.synergia.generadora.aic.beans.FormCalculaPlazoProcess@fechaVtoInterno">
+		<defaultControl>dateTimeBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.aic.domain.filter.ConsultarAtencionFilterSearch">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="name"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.aic.domain.filter.ConsultarAtencionFilterFecha">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>name</descriptionField>
+			<keyFields>
+				<field property="name"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.aic.domain.filter.PeriodoFechaFilter">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="name"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.aic.domain.EstadoAtencion">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="name"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.aic.domain.filter.PlazoFilter">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="name"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.domain.config.EntryMotCliListaMotEmp">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="motivoCliente.description" description="MotCli"/>
+				<field property="motivoEmpresa.description" description="MotEmp"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.aic.domain.config.EntryMotivo">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="canalComunicacion.description" description="CanalCom"/>
+				<field property="tipoAtencion.description" description="TipoAten"/>
+				<field property="motivoCliente.description" description="MotCli"/>
+				<field property="motivoEmpresa.description" description="MotEmp"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.TipoPronunciamientoEnteRegulador">
+		<defaultControl>select</defaultControl>
+		<description>TipProEntReg</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.TipoAccionATomar">
+		<defaultControl>select</defaultControl>
+		<description>TipAccTom</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.RespuestaEnteRegulador@montoFinal">
+		<defaultControl>moneyBox</defaultControl>
+		<description>MontoFinal</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.RespuestaEnteRegulador@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+		<description>Observaciones</description>
+	</metadata> <!-- /IngresarRespuestaEnteRegulador -->
+     <!-- RegistrarResultadoReuniones -->
+	<metadata id="com.synapsis.synergia.aic.domain.TipoResultadoReunion">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.TipoLugarReunion">
+		<defaultControl>select</defaultControl>
+		<description>TipLugReu</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.domain.Puesto">
+		<defaultControl>select</defaultControl>
+		<description>Puesto</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+	
+
+	<metadata id="com.synapsis.synergia.aic.domain.ResultadoReuniones@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+	</metadata> <!-- /RegistrarResultadoReuniones -->
+	<metadata id="com.synapsis.synergia.aic.domain.Pedido">
+		<defaultControl>select</defaultControl>
+		<description>Pedido</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.aic.domain.EtapaAtencion@tipoAtencion">
+		<description>TipoAtencion</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.domain.EtapaAtencion@motivoCliente">
+		<description>MotivoCliente</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.domain.EtapaAtencion@motivoEmpresa">
+		<description>MotivoEmpresa</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.beans.DocumentosRequeridosEntregadosBean">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="entregado"/>
+				<field property="tipoDocumentoEntregado.description" description="TipoDoc"/>
+				<field property="fechaEntrega"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.OrigenDocumento">
+		<defaultControl>select</defaultControl>
+		<description>OriDoc</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@fechaRegistro">
+		<defaultControl>dateTimeBox</defaultControl>
+		<description>FechaRegistro</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@fechaVencimientoLegal">
+		<defaultControl>dateTimeBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.processes.RegistrarAtencionProcess@fechaVencimientoInterno">
+		<defaultControl>dateTimeBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.DocumentoEntregado@code">
+		<description>CodDoc</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.DocumentoEntregado@fechaDocumento">
+		<description>FechaDoc</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.DocumentoEntregado@nombreArchivoTexto">
+		<description>NomArchTexto</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Escribania@description">
+		<description>Desc</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.beans.EtapaCrearCartaBean@tieneCartaPostergacion">
+		<defaultControl>metaSelect</defaultControl>
+		<description>CrearCarta</description>
+		<customSelect type="boolean" required="true" keys="com.synapsis.synergia.aic.beans.EtapaCrearCartaBean.crearCarta"/>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.aic.beans.EtapaCrearCartaBean@crearCarta">
+		<defaultControl>metaSelect</defaultControl>
+		<description>CrearCarta</description>
+		<customSelect type="boolean" required="true" keys="com.synapsis.synergia.aic.beans.EtapaCrearCartaBean.crearCarta"/>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.processes.IngresarRespuestaEnteReguladorWorkFlowActivityProcess@crearCarta">
+		<defaultControl>metaSelect</defaultControl>
+		<customSelect type="boolean" required="true" keys="com.synapsis.synergia.aic.processes.IngresarRespuestaEnteReguladorWorkFlowActivityProcess.crearCarta"/>
+	</metadata>
+	
+	 <!-- FIN AIC -->
+	
+	 <!-- SimpleEntity -->
+	<metadata id="com.cubika.common.interfaces.SimpleEntityImpl@code">
+		<defaultControl keyField="true" maxLength="6" cased="upperCase">textBox</defaultControl>
+		<description>Code</description>
+	</metadata>
+	<metadata id="com.cubika.common.interfaces.SimpleEntityImpl@description">
+		<defaultControl maxLength="100">textBox</defaultControl>
+		<description>Description</description>
+	</metadata>
+	<metadata id="com.cubika.common.interfaces.SimpleEntityImpl@active">
+		<description>Activo</description>
+		<defaultControl>checkBox</defaultControl>
+		<customSelect type="boolean" keys="active" required="true"/>
+	</metadata>
+	<metadata id="com.cubika.common.interfaces.SimpleEntityImpl">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code"/>
+				<field property="description"/>
+				<field property="active"/>
+			</fields>
+		</grid>
+	</metadata> 
+	<!-- /SimpleEntity --> <!-- REFACTORME - Entidades Simples que solo deberian sobreescribir la descripcion -->
+	
+	<metadata id="com.synapsis.synergia.sel.domain.ColorSello">
+		<defaultControl>select</defaultControl>
+		<description>BolsaSellos.color</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code"/>
+				<field property="description"/>
+				<field property="active"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.sel.domain.FabricanteSello">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="description" description="Description"/>
+				<field property="active" description="Activo"/>
+			</fields>
+		</grid>
+	</metadata> <!-- END Entidades Simples que solo deberian sobreescribir la descripcion -->
+
+    <!-- SEL - Sellos - START --> 
+    <metadata id="com.synapsis.synergia.sel.services.BolsaSellosCreateProcess@serie"> 
+		<defaultControl maxLength="4">textBox</defaultControl> 
+	</metadata> 
+	
+	<metadata id="com.synapsis.synergia.sel.domain.BolsaSellosState"> 
+		<defaultControl>select</defaultControl>
+		<select> 
+			<descriptionField>description</descriptionField> 
+			<keyFields> 
+				<field property="code"/> 
+			</keyFields> 
+		</select> 
+	</metadata> 
+	
+	<metadata id="com.synapsis.synergia.sel.domain.MotivoEstadoSello"> 
+		<defaultControl>select</defaultControl>
+		<select> 
+			<descriptionField>description</descriptionField> 
+			<keyFields> 
+				<field property="code"/> 
+			</keyFields> 
+		</select> 
+		<grid>
+			<fields>
+				<field property="code" description="code"/>
+				<field property="description" description="description"/>
+				<field property="estado.description" description="estado"/>				
+			</fields>			
+		</grid>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.sel.domain.MotivoEstadoSello@code"> 
+			<defaultControl maxLength="6">textBox</defaultControl> 
+	</metadata> 
+	<metadata id="com.synapsis.synergia.sel.domain.MotivoEstadoSello@description"> 
+			<defaultControl maxLength="100">textBox</defaultControl> 
+	</metadata> 
+	<metadata id="com.synapsis.synergia.sel.domain.UbicacionSello"> 
+		<defaultControl>select</defaultControl> 
+		<select> 
+			<descriptionField>description</descriptionField> 
+			<keyFields> 
+				<field property="code"/> 
+			</keyFields> 
+		</select> 
+		<grid> 
+			<fields> 
+				<field property="code" description="code"/> 
+				<field property="description" description="description"/> 
+				<field property="requiereMedidor" description="requiereMedidor"/> 
+				<field property="requiereServicioElectrico" description="requiereServicioElectrico"/> 
+			</fields> 
+		</grid> 
+
+	</metadata> 
+	
+	<metadata id="com.synapsis.synergia.sel.domain.Sello"> 
+		<defaultControl>grid</defaultControl>
+		<grid> 
+			<fields> 
+				<field property="color.description" description="BolsaSellos.color"/>
+				<field property="serie" description="BolsaSellos.serie"/>
+				<field property="numero" description="Sello.numero"/> 
+				<field property="motivo.description" description="Sello.motivo"/> 
+				<field property="servicioElectrico.description" description="ServicioElectrico"/> 
+				<field property="componente.nroComponente" description="Medidor"/> 
+				<field property="ubicacion.description" description="Ubicacion"/> 
+				<field property="fechaInstalacion" description="Sello.fechaInstalacion"/> 
+				<field property="fechaRetiro" description="Sello.fechaRetiro"/> 
+				<field property="ejecutorRetiro.description" description="Sello.ejecutorRetiro"/>
+				<field property="origenInstalacion.description" description="Sello.origenInstalacion"/> 
+				<field property="origenRetiro.description" description="Sello.origenRetiro"/> 
+			</fields> 
+		</grid> 
+	</metadata> 
+	<!-- /Sello -->
+	
+	<metadata id="com.synapsis.synergia.sel.domain.OrigenSello"> 
+		<defaultControl>select</defaultControl> 
+		<select> 
+			<descriptionField>description</descriptionField> 
+			<keyFields> 
+				<field property="code"/> 
+			</keyFields> 
+		</select> 
+	</metadata> 
+	
+	<metadata id="com.synapsis.synergia.sel.domain.DocumentoAsignacion">
+		<defaultControl keyField="true">grid</defaultControl> 
+		 <grid> 
+		 	<fields> 
+		 		<field property="numero" description="DocumentoAsignacion.numero"/> 
+		 		<field property="areaOrigen.description" description="DocumentoAsignacion.areaOrigen"/> 
+		 		<field property="areaDestino.description" description="DocumentoAsignacion.areaDestino"/> 
+		 		<field property="fechaCreacion" description="fechaCreacion"/> 
+		 		<field property="usuarioCreador.description" description="DocumentoAsignacion.usuarioCreador"/> 
+		 	</fields> 
+		 </grid> 
+	</metadata> 
+	
+	<metadata id="com.synapsis.synergia.sel.domain.EventoSello">
+		<defaultControl>select</defaultControl> 
+		<select> 
+			<descriptionField>description</descriptionField> 
+			<keyFields> 
+				<field property="code"/> 
+			</keyFields> 
+		</select> 
+	</metadata> 
+	
+	<!-- BusinessProcess de Sellos -->
+	<metadata id="com.synapsis.synergia.sel.services.RealizarMovimientoSelloOrdenProcess"> 
+		<defaultControl>grid</defaultControl> 
+		<grid> 
+			<fields> 
+				<field property="sello.numero" description="Sello.numero" /> 
+				<field property="servicioElectrico.nroServicio" description="NroServicio" /> 
+				<field property="componente.nroComponente" description="NumeroComponente" /> 
+				<field property="ubicacion.description" description="Ubicacion" /> 
+				<field property="sello.motivo.description" description="Sello.motivo" /> 
+			</fields> 
+		</grid> 
+	</metadata> 
+
+	<metadata id="com.synapsis.synergia.sel.services.RealizarMovimientoSelloProcess"> 
+		<defaultControl>grid</defaultControl> 
+		<grid> 
+			<fields> 
+				<field property="sello.numero" description="Sello.numero" /> 
+				<field property="servicioElectrico.nroServicio" description="NroServicio" /> 
+				<field property="componente.nroComponente" description="NumeroComponente" /> 
+				<field property="ubicacion.description" description="Ubicacion" /> 
+				<field property="sello.motivo.description" description="Sello.motivo" /> 
+			</fields> 
+		</grid> 
+	</metadata> 
+	<!-- /BusinessProcess de Sellos --> 
+	<!-- SEL - Sellos - END -->
+
+	<!-- MED - Medidores - START-->
+	<metadata id="com.synapsis.synergia.med.domain.componente.PropiedadComponente">
+		<defaultControl>select</defaultControl>
+		<description>propMedidoresTitle</description>
+		<grid>
+			<fields>
+				<field property="code" description="Codigo"/>
+				<field property="description" description="Descripcion"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.PropiedadComponente@code">
+		<description>Code</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.PropiedadComponente@description">
+		<description>Description</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.med.domain.lectura.Lectura">
+		<defaultControl>grid</defaultControl>
+		<description>Lecturas</description>
+		<grid>
+			<fields>
+				<field property="medida.code" description="TipoMedida"/>
+				<field property="valor" description="Valor"/>
+				<field property="fechaTerreno" description="fechaTerreno"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.TipoComponente">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>TipoComponente</description>
+		<grid>
+			<fields>
+				<field property="code" description="Codigo"/>
+				<field property="description" description="Descripcion"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.TipoComponente@code">
+		<description>Code</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.TipoComponente@description">
+		<description>Descripcion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.MarcaComponente">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>Marcas</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code" description="Codigo"/>
+				<field property="tipoComponente.description" description="TipoComponente"/>
+				<field property="description" description="Descripcion"/>
+				<field property="activo" description="Activo"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.MarcaComponente@code"> 
+			<defaultControl maxLength="6">textBox</defaultControl> 
+	</metadata> 
+	<metadata id="com.synapsis.synergia.med.domain.componente.MarcaComponente@description"> 
+			<defaultControl maxLength="100">textBox</defaultControl> 
+	</metadata> 
+	<metadata id="com.synapsis.synergia.med.domain.modelo.Fase">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>Fase</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.modelo.TipoMedicion">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>TipoMedicion</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.modelo.Tension">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>Tension</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.modelo.TipoCalculo">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>TipoCalculo</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.modelo.ConfiguracionMedidaModelo">
+		<defaultControl keyField="true">grid</defaultControl>
+		<description>ConfiguracionMedidaModelo</description>
+		<grid>
+			<fields>
+				<field property="medida.description" description="Medida"/>
+				<field property="enteroDecimal.cantEnteros" description="EnteroDecimal.cantEnteros"/>
+				<field property="enteroDecimal.cantDecimales" description="EnteroDecimal.cantDecimales"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.modelo.ConfiguracionMedidaModelo@code">
+		<description>code</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.modelo.ConfiguracionMedidaModeloFactorRelation">
+		<defaultControl keyField="true">grid</defaultControl>
+		<description>ConfiguracionMedidaModeloFactorRelation</description>
+		<grid>
+			<fields>
+				<field property="factor.description" description="Factor"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.medida.Medida">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>Medida</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.AccionRealizada">
+		<defaultControl>select</defaultControl>
+		<description>AccionRealizada</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.ComponenteState">
+		<defaultControl>select</defaultControl>
+		<description>Estado</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.CondicionInstalacion">
+		<defaultControl>select</defaultControl>
+		<description>CondicionInstalacion</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.TipoTransformador">
+		<defaultControl>select</defaultControl>
+		<description>TipoTransformador</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.componente.UbicacionComponente">
+		<defaultControl>select</defaultControl>
+		<description>TipodeUbicacion</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata> 
+
+	<metadata id="com.synapsis.synergia.med.beans.DatosTecnicosBean@decimal">
+		<description>Decimal</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.beans.IngresoMedidorBean@nroComponente">
+		<defaultControl>longBox</defaultControl>
+		<description>nroComponente</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.beans.ConsultaComponentesBean@nroDesde">
+		<description>nroDesde</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.beans.ConsultaComponentesBean@nroHasta">
+		<description>nroHasta</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.beans.ConsultaComponentesBean@nroFabricaDesde">
+		<description>nroFabricaDesde</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.beans.ConsultaComponentesBean@nroFabricaHasta">
+		<description>nroFabricaHasta</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.beans.ConsultaComponentesBean@fechaDesde">
+		<description>fechaDesde</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.beans.ConsultaComponentesBean@fechaHasta">
+		<description>fechaHasta</description>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.med.domain.Demanda">
+		<defaultControl keyField="true">grid</defaultControl>
+		<description>Demanda</description>
+		<grid>
+		  <fields>
+			  <field property="code" description="Codigo"/>
+			  <field property="medida.description" description="Medida"/>
+		  </fields>
+		</grid>
+	</metadata>
+  <metadata id="com.synapsis.synergia.fac.domain.ItemPlanLecturaManual">
+  <defaultControl>grid</defaultControl>
+  <description>itemsPlanLecturaManual</description>
+  <grid>
+  	<fields>
+    	<field property="rutaLectura" description="rutaLectura" />
+    	<field property="nroModeloMedidor" description="medidorNroModelo" />
+        <field property="medida.code" description="medida" />
+        <field property="ultimaLectura.valor" description="lecturaAnterior" />
+        <field property="lecturaActual.valor" description="lecturaActual" />
+        <field property="lecturaActual.lecturaAnteriorMod.valor" description="lecturaModificada" />
+        <field property="lecturaActual.situacionTerrenoInformada.description" description="situacionTerrenoInformada" />
+   </fields>
+  </grid>
+ </metadata> <!-- MED - Medidores - END-->
+     } <metadata id="com.synapsis.synergia.med.domain.componente.ConfiguracionMedidaModelo"> 
+    <defaultControl>grid</defaultControl>
+		<description>MedidasModelo</description>
+		<grid>
+			<fields>
+				<field property="medida.description" description="TipoMedida"/> <!--field property="factores" description="Factor" /-->
+				<field property="enteroDecimal.cantEnteros" description="cantEnteros"/>
+				<field property="enteroDecimal.cantDecimales" description="cantDecimales"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.lectura.IngresarLecturaInicialProcess">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="medida.description" description="Medida"/>
+				<field property="valor" description="ValorLectura"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.med.domain.lectura.IngresarLecturaInicialProcess@valor">
+		<description>ValorLectura</description>
+	</metadata>			
+	
+	<metadata id="com.synapsis.synergia.common.domain.Contratista">
+		<defaultControl keyField="true">select</defaultControl>
+		<description>Contratista</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="direccion" description="Direccion"/>
+			</fields>
+		</grid>
+		
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Contratista@code">
+			<defaultControl maxLength="6">textBox</defaultControl>
+			<description>Codigo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Ejecutor">
+		<defaultControl>codeSelect</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="persona.description" description="Name"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Ejecutor@code">
+		<defaultControl maxLength="6">textBox</defaultControl> 		
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.common.domain.EjecutorImpl">
+		<defaultControl keyField="true">select</defaultControl>
+		<select>
+			<descriptionField>nombre</descriptionField>
+			<keyFields>
+				<field property="codigo"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+
+
+	<metadata id="com.synapsis.synergia.cor.domain.MotivoAccion">
+		<defaultControl>select</defaultControl>
+		<description>MotivoAccion</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.SubTipoOrden">
+		<defaultControl>codeSelect</defaultControl>
+		<description>SubTipoOrden</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code"/>
+				<field property="description"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.TipoDocumento">
+		<defaultControl>select</defaultControl>
+		<description>TipoDoc</description>
+		<select>
+			<descriptionField>tipoPersona</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata> <!--   Ordenes Masivas   -->
+	<metadata id="java.lang.Integer@cantClientesTotal">
+		<description>ClientesLeidos</description>
+	</metadata>
+	<metadata id="java.lang.Integer@cantClientesSeleccionada">
+		<description>ClientesSeleccionados</description>
+	</metadata>
+	<metadata id="java.lang.Integer@cantDeudaTotal">
+		<description>DeudaTotal</description>
+	</metadata>
+	<metadata id="java.lang.Integer@cantDeudaSeleccionada">
+		<description>DeudaSeleccionada</description>
+	</metadata> <!-- ConfiguraciÃ³n Orden -->
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionOrdenCorteMasiva@tipoOrden">
+		<defaultControl>select</defaultControl>
+		<description>TipoOrden</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+ 	<metadata id="com.synapsis.synergia.cor.domain.AccionTerrenoRealizada">
+		<defaultControl>grid</defaultControl>
+		<description>AccionesTerrenoRealizadas</description>
+		<grid>
+			<fields>
+				<field property="code"/>
+				<field property="description"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionOrdenCorteMasiva@filtrarPorLosServiciosElectricosQueTienenFinanciacionDeuda">
+		<defaultControl>metaSelect</defaultControl>
+		<description>filtrarPorLosServiciosElectricosQueTienenFinanciacionDeuda</description>
+		<customSelect type="boolean" required="false" keys="com.synapsis.synergia.cor.domain.ConfiguracionOrdenCorteMasiva.filtrarPorLosServiciosElectricosQueTienenFinanciacionDeuda"/>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionNotificacion">
+		<defaultControl>grid</defaultControl>
+		<description>ConfiguracionNotificacion</description>
+		<grid>
+			<fields>
+				<field property="tipoNotificacion.name" description="tipoNotificacion"/>
+				<field property="centroOperativo.description" description="CentroOperativo"/>
+				<field property="tieneConvenio" description="tieneConvenio"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.TipoNotificacion">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionNotificacion@facturasReferencia" />
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionNotificacionCorte@diasPosterioresVencimientoConConvenio" />
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionNotificacionCorte@diasPosterioresVencimientoSinConvenio" />
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionNotificacionVencimiento@diasAnterioresVencimientoConConvenio" />
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionNotificacionVencimiento@diasAnterioresVencimientoSinConvenio" />
+		
+	<!-- ConfiguraciÃ³n NotificaciÃ³n -->
+	
+ <metadata id="com.synapsis.synergia.cor.domain.OrdenCorte">
+  <defaultControl>grid</defaultControl>
+  <description>OrdenesCorte</description>
+  <grid>
+  	<fields>
+		<field property="tipoOrden.description" description="TipoOrden" />
+    	<field property="subTipoOrden.description" description="TipoDeCorte" />
+    	<field property="esOrdenMasiva" />
+		<field property="numeroOrden" description="NumeroOrden" />
+		<field property="fechaCreacion" description="FechaCreacion" />
+		<field property="state.description" description="Estado" />
+   	</fields>
+  </grid>
+</metadata>
+
+<metadata id="com.synapsis.synergia.cor.services.businessProcess.InformarAccionesTerrenoByServicioElectricoAbstractProcess">
+  <defaultControl>grid</defaultControl>
+  <description>ServiciosElectrico</description>
+  <grid>
+  	<fields>
+		<field property="servicioElectrico.nroServicio"                       description="NroServicio" />
+		<field property="servicioElectrico.tipoServicioElectrico.description" description="TipServElec" />
+		<field property="servicioElectrico.cantidadMedidores"                 description="CantMed" />		
+		<field property="validState" 	                                      description="Informado" />
+   	</fields>
+  </grid>
+</metadata>
+
+<metadata id="com.synapsis.synergia.cor.services.businessProcess.AgregarAccionTerrenoToOrdenCorteAbstractProcess">
+  <defaultControl>grid</defaultControl>
+  <description>AccionesTerreno</description>
+  <grid>
+  	<fields>
+		<field property="accionTerreno.ordenCorte.numeroOrden" 	      description="NroOrden" />
+		<field property="accionTerreno.servicioElectrico.nroServicio" description="NroServicio" />
+		<field property="accionTerreno.medidor.nroComponente" 	      description="Medidor" />
+		<field property="validState" 	                              description="Informado" />
+   	</fields>
+  </grid>
+</metadata>
+
+<metadata id="com.synapsis.synergia.cor.beans.DateAndDescriptionBean">  	
+	<defaultControl>select</defaultControl>
+		<description>FechasOrdenCorte</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="fecha"/>
+			</keyFields>
+		</select> 
+</metadata>
+
+<metadata id="com.synapsis.synergia.cor.domain.OrdenCorte@numeroOrden">
+	<description>NroOrden</description>
+</metadata>
+
+
+	<metadata id="com.synapsis.synergia.cor.domain.UnidadOrden">
+		<defaultControl>grid</defaultControl>
+		<description>UnidadesDeOrden</description>
+		<grid>
+			<fields>
+				<field property="nodoRuta.code" description="Ubicacion"/>
+				<field property="subTipoOrden.description" description="TipoDeCorte"/>
+				<field property="cantidadServiciosElectricos" description="CantidadDeClientes"/>
+				<field property="sumatoriaDeuda" description="DeudaTotal"/>
+				<field property="maximaAntiguedad" description="Antiguedad"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.cubika.common.interfaces.DescriptiveBoolean">
+		<defaultControl>select</defaultControl>
+		<description>TieneConvenio</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="valor"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.cubika.common.Money@deuda"> <!-- Ver como sacar el defaultControl -->
+		<defaultControl>moneyBox</defaultControl>
+		<description>Deuda</description>
+	</metadata>
+	<metadata id="java.lang.Integer@numerosCiclosFacturacionConAtraso"> <!-- Ver como sacar el defaultControl -->
+		<defaultControl>integerBox</defaultControl>
+		<description>NumeroCiclosConAtraso</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.OperadorRelacional">
+		<defaultControl>select</defaultControl>
+		<description>OperadorRelacional</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.ActividadEconomica">
+		<defaultControl>select</defaultControl>
+		<description>ActEco</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code"/>
+				<field property="description"/>
+				<field property="active"/>
+				<field property="categoria.description"/>
+			</fields>			
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.ActividadEconomica@description">
+			<defaultControl maxLength="100">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.servicioelectrico.TarifaElectrica">
+		<defaultControl>select</defaultControl>
+		<description>Tarifa</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.servicioelectrico.TarifaBase">
+		<defaultControl>select</defaultControl>
+		<description>TarifaBase</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>	
+	<metadata id="com.synapsis.synergia.nucleo.domain.servicioelectrico.CategoriaServicioElectrico">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.servicioelectrico.TipoServicioElectrico">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.Plantilla">
+		<defaultControl>grid</defaultControl>
+		<description>Plantillas</description>
+		<grid>
+			<fields>
+				<field property="description" description="Descripcion"/>
+				<field property="tipoRuta.description" description="TipoDeRuta"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	
+	<metadata id="com.synapsis.synergia.ubi.domain.TipoRuta">
+		<defaultControl>grid</defaultControl>
+		<description>TipoRuta</description>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="name" description="Descripcion"/>
+				<field property="description" description="Descripcion"/>
+				<field property="cantidadNiveles" description="cantidadNiveles"/>
+				<field property="tipoRutaCompartida" description="tipoRutaCompartida"/>
+				<field property="cantidadNivelesCompartidos" description="cantidadNivelesCompartidos"/>
+			</fields>
+		</grid>
+		<select>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+		<tree>
+			<node description="${code}"></node>
+			<children>
+				<trees property="nodosCabecera"/>
+			</children>
+		</tree>
+	</metadata>
+
+	<metadata id="java.lang.Integer@mesesTranscurridosDesdeUltimoPago">
+		<description>MesesTranscurridosDesdeUltimoPago</description>
+	</metadata>
+	<metadata id="java.lang.Integer@mesesTranscurridosDesdeUltimoCorte">
+		<description>MesesTranscurridosDesdeUltimoCorte</description>
+	</metadata>
+	<metadata id="java.lang.Integer@diasEntreVerificaciones">
+		<description>DiasEntreVerificaciones</description>
+	</metadata>
+	<metadata id="java.lang.Integer@diasEntreOrdenes">
+		<description>DiasEntreOrdenes</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.TipoGeneracionOrden">
+		<defaultControl>select</defaultControl>
+		<description>TipoGeneracionOrden</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata> <!-- Fin Ordenes Masivas -->
+	<metadata id="com.synapsis.synergia.cor.services.OrdenCorteIndividualBean@numeroServicioElectrico">
+		<description>NumeroServicioElectrico</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.services.OrdenCorteIndividualBean@observacion">
+		<defaultControl>textArea</defaultControl>
+		<description>Observaciones</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.RespuestaEnteRegulador@montoReclamado">
+		<description>MontoReclamado</description>
+	</metadata>
+	<metadata id="com.cubika.common.interfaces.Listable">
+		<defaultControl>select</defaultControl>
+		<description>Vacio</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Respuesta@montoReclamado">
+		<description>MontoReclamado</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Respuesta@montoFinal">
+		<description>MontoFinal</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Respuesta@observaciones">
+		<defaultControl maxLength="999">textArea</defaultControl>
+		<description>Observaciones</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Respuesta@creaOrdRef">
+		<description>CreaOrdRef</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Respuesta@observacionesReSus">
+		<defaultControl maxLength="999">textArea</defaultControl>
+		<description>ObsReSus</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Importancia">
+		<defaultControl>select</defaultControl>
+		<description>Impor</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Institucion">
+		<defaultControl>select</defaultControl>
+		<description>Instit</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Atencion@confirmacion">
+		<description>ConfDevAten</description>
+	</metadata> <!-- M?dulo COR -->
+	
+	<!-- Modulo FIN -->
+	<metadata id="com.synapsis.synergia.fin.domain.beans.TypeBean@monedaFlag">
+		<defaultControl>metaSelect</defaultControl>
+		<description>combo</description>
+		<customSelect type="boolean" required="false" keys="com.synapsis.synergia.fin.domain.beans.TypeBean.monedaFlag"/>
+	</metadata>
+	<metadata id="com.synapsis.synergia.fin.domain.beans.TypeBean">
+		<grid>
+			<fields>
+				<field property="code"/>
+				<field property="descripcionUnica"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.cor.beans.TipoBusquedaOrdenBean">
+		<defaultControl>metaSelect</defaultControl>
+		<description>TipoBusqueda</description>
+		<customSelect type="boolean" required="false" keys="com.synapsis.synergia.cor.beans.TipoBusquedaOrdenBean.busquedaPorNumero"/>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.beans.TipoBusquedaOrdenBean@numeroOrden"/>
+	<metadata id="com.synapsis.synergia.cor.beans.TipoBusquedaOrdenBean@numeroServicio"/>	
+	<metadata id="com.synapsis.synergia.ord.domain.OrdenCorte@observacion">
+		<defaultControl>textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.AccionTerreno@fechaEjecucion">
+		<description>FechaEjecucion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.AccionTerreno@observacion">
+		<defaultControl>textArea</defaultControl>
+		<description>Observacion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.AccionTerreno@nroDocPersonaNotificada">
+		<description>DocNum</description>
+		<defaultControl maxLength="15">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.AccionTerreno@tipoDocPersonaNotificada">
+		<description>TipoDoc</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.AccionTerreno@nomPersonaNotificada">
+		<description>Nombre</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.AccionTerreno@apPersonaNotificada">
+		<description>Apellido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.SituacionTerreno">
+		<defaultControl>codeSelect</defaultControl>
+		<description>SituacionTerreno</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.AccionTerreno">
+		<defaultControl>grid</defaultControl>
+		<description>AccionTerreno</description>
+		<grid>
+			<fields>
+				<field property="servicioElectrico.nroServicio" description="NumeroServicioElectrico"/>
+				<field property="medidor.modeloComponente.marca.code" description="MarcaMedidor"/>
+				<field property="medidor.modeloComponente.code" description="ModeloMedidor"/>
+				<field property="medidor.nroComponente" description="NumeroComponente"/>
+				<field property="fechaEjecucion" description="FechaEjecucion"/>
+				<field property="situacionTerreno.description" description="SituacionTerreno"/>
+				<field property="accionTerrenoRealizada.description" description="AccionRealizada"/>
+				<field property="personaNotificada.tipoDocumento.code" description="TipoDoc"/>
+				<field property="personaNotificada.numeroDocumento" description="DocNum"/>
+				<field property="personaNotificada.description" description="Nombre"/>
+				<field property="observacion" description="Observacion"/>
+			</fields>
+		</grid>
+	</metadata>
+	<!-- REC - Recaudacion -->
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.interfaces.EntidadRecaudadora@code">
+		<description>FechaEjecucion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.Banco">
+		<defaultControl>select</defaultControl>
+		<description>Banco</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code" description="Codigo"/>
+				<field property="nemotecnico" description="Nemotecnico"/>
+				<field property="personaJuridica.razonSocial" description="RazonSocial"/>
+				<field property="personaJuridica.telefono" description="Telefono"/>
+				<field property="permitePagoAutomatico" description="PermitePagoAutomatico"/>
+				<field property="permiteDeposito" description="PermiteDeposito"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.DocumentoComercial">
+		<defaultControl>grid</defaultControl>
+		<description>Documentos</description>
+		<grid>
+			<fields>
+				<field property="nroDocumento" description="DocNum"/>
+				<field property="montoTotal" description="MontoTotal"/>
+				<field property="saldoGenerado" description="Deuda"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.beans.AmortizadorOnLineBean@archivosInfo">
+		<defaultControl>fileBox</defaultControl>
+		<description>archivo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.Caja@description">
+		<defaultControl maxLength="50">textBox</defaultControl>
+		<description>Desc</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.Caja@code">
+		<description>Codigo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.interfaces.Cajero@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+		<description>Codigo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.interfaces.EntidadRecaudadora@code">
+		<description>Codigo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.interfaces.EntidadRecaudadora@description">
+		<description>Desc</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.Banco@permitePagoAutomatico">
+		<description>PermitePagoAutomatico</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.Banco@permiteDeposito">
+		<description>PermiteDeposito</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.Banco@code">
+		<description>Codigo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.ConfiguracionEnPagoAutomatico">
+		<defaultControl>grid</defaultControl>
+		<description>ConfEnPagosAuto</description>
+		<grid>
+			<fields>
+				<field property="cuenta.nroCuenta" description="NroCta"/>
+				<field property="banco.description" description="Banco"/>
+				<field property="fechaActivacion" description="FechaAct"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.DocumentoComercial@nroDocumento">
+		<description>DocNum</description>
+	</metadata> <!-- REVISAR Los fields correspondientes a las direcciones deben revisarse por dos motivos:
+ 	1) La indireccion referencia a persona, no puede resolverse con el cliente
+ 	2) Se estÃ¡n mostrando dos direcciones, aunque lo requerido serÃ­a mostrar una sola(las
+ 	personas jurÃ­dicas por algÃºn motivo tienen direccion domiciliaria).
+ -->
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.Cuenta">
+		<defaultControl>grid</defaultControl>
+		<select>
+			<descriptionField>nroCuenta</descriptionField>
+			<keyFields>
+				<field property="nroCuenta"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="nroCuenta" description="NroCta"/>
+				<field property="cliente.description" description="Titular"/>
+				<field property="cliente.documento.tipoDocumento.name" description="tipoDocumento"/>
+				<field property="cliente.documento.numeroDocumento" description="nroDocumento"/>
+				<field property="cliente.persona.direccionComercial.direccion" description="persona.direccionComercial"/>
+				<field property="cliente.persona.direccionDomiciliaria.direccion" description="persona.direccionDomiciliaria"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.Cuenta@fechaInicio">
+		<description>FechaInicio</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.beans.CuentaEnPagoAutomaticoBean@Cuenta.nroCuenta">
+		<description>NroCta</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.beans.StringAdapter">
+		<defaultControl>select</defaultControl>
+		<description>Lotes</description>
+		<select>
+			<descriptionField>NombreArchivo</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="description" description="NombreArchivo"/>
+			</fields>
+		</grid>
+	</metadata>	
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.domain.Pago">
+		<defaultControl>grid</defaultControl>
+		<description>Pagos</description>
+		<grid>
+			<fields>
+				<field property="lotePagosRecibidos.entidadRecaudadora.description" description="entidadRecaudadora"/>
+				<field property="lotePagosRecibidos.asignacionCajaCajero.cajero.description" description="cajero"/>
+				<field property="conceptoPago.description" description="conceptoPago"/>
+				<field property="montoTotal" description="montoTotal"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.recaudacion.amortizador.beans.FileLineErrorBean">
+		<defaultControl>grid</defaultControl>
+		<description>Errores</description>
+		<grid>
+			<fields>
+				<field property="lineNumber" description="LineNumber"/>
+				<field property="message" description="messageError"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	
+	<!-- *************************** FACTURACION - NO TOQUEN SIN PREGUNTAR ********************************** -->	
+	
+	<!-- *********** FAC: Relacion Moneda Empresa ********** -->
+			
+	<metadata id="com.synapsis.synergia.nucleo.domain.RelacionEmpresaMoneda">
+		<defaultControl>grid</defaultControl>
+		<description>editarRelacionEmpresaMoneda</description>
+		<grid>
+			<fields>
+				<field property="moneda.code" description="RelacionEmpresaMonedaCodigoMoneda"/>
+				<field property="moneda.description" description="RelacionEmpresaMonedaDescripcionMoneda"/>
+				<field property="fechaActivacion" description="RelacionEmpresaMonedaFechaActivacion"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.RelacionEmpresaMoneda@fechaActivacion">
+		<description>RelacionEmpresaMonedaFechaActivacion</description>
+	</metadata>
+
+    <!-- ********************* FAC: Desafectacion Interes *********************-->
+    <metadata id="com.synapsis.synergia.fac.domain.DesafectacionInteres@motivo">
+     <defaultControl maxLength="200">textArea</defaultControl>
+        <description>motivo</description>
+    </metadata>
+    
+	<!-- ********************************** Fin FAC - Facturacion ********************************* -->
+	
+     <!-- UBI -->
+	<metadata id="com.synapsis.synergia.ubi.domain.Direccion">
+		<defaultControl>grid</defaultControl>
+		<description>Seleccion Empresa</description>
+		<grid>
+			<fields>
+				<field property="direccion" description="descripcion"/> <!--field property="nombre" description="nombre" />    	
+    	<field property="descripcion" description="descripcion" /-->
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.DatoDireccion@valorNormalizado">
+		<description>Desnormalizar</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.Direccion@desnormalizada"> <!-- Ver como sacar el defaultControl -->
+		<defaultControl>checkBox</defaultControl>
+		<description>Desnormalizar</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.DatoDireccion@value">
+		<defaultControl>textBox</defaultControl>
+		<description>valor</description>
+	</metadata>
+		<metadata id="com.synapsis.synergia.ubi.domain.Direccion@referencia">
+		<defaultControl>textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.Direccion@calle">
+		<description>calle</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.Direccion@altura">
+		<description>altura</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.Direccion@piso">
+		<description>piso</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.ubi.domain.DireccionListaNegra">
+		<defaultControl>grid</defaultControl>
+		<description>Seleccion Lista Negra</description>
+		<grid>
+			<fields>
+				<field property="direccion" description="descripcion"/> 
+				<field property="direccionParcial" description="direccion" />    	
+			</fields>
+		</grid>
+	</metadata>
+ <!-- NUC - NUCLEO -->
+	<metadata id="com.synapsis.synergia.nucleo.beans.EmpresaBean@estado">
+		<defaultControl>metaSelect</defaultControl>
+		<description>EmpresaImpl.estado</description>
+		<customSelect type="boolean" required="false" keys="com.synapsis.synergia.nucleo.beans.EmpresaBean.estado"/>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.SynergiaPartition">
+		<defaultControl>select</defaultControl>
+		<description>Empresa</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code" description="EmpresaImpl.codigo"/>
+				<field property="personaJuridica.razonSocial" description="EmpresaImpl.razonSocial"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@code">
+		<description>EmpresaImpl.codigo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@nombre">
+		<defaultControl maxLength="50">textBox</defaultControl>
+		<description>EmpresaImpl.nombre</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@description">
+		<defaultControl maxLength="100">textBox</defaultControl>
+		<description>EmpresaImpl.descripcion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@sigla">
+		<defaultControl maxLength="25">textBox</defaultControl>
+		<description>EmpresaImpl.sigla</description>
+	</metadata>
+	<metadata id="com.cubika.framework.domain.ClassifierObject@description"></metadata>
+	<metadata id="com.synapsis.synergia.common.domain.DocumentoPersona@numeroDocumento">
+		<defaultControl maxLength="15" keyField="true">textBox</defaultControl>
+		<description>DocNum</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@telefono">
+		<defaultControl maxLength="15">textBox</defaultControl>
+		<description>EmpresaImpl.telefono</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@fax">
+		<defaultControl maxLength="25">textBox</defaultControl>
+		<description>EmpresaImpl.fax</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@email">
+		<defaultControl maxLength="200">textBox</defaultControl>
+		<description>EmpresaImpl.email</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@direccionWeb">
+		<defaultControl maxLength="200">textBox</defaultControl>
+		<description>EmpresaImpl.direccionWeb</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@representanteLegal">
+		<defaultControl maxLength="255">textBox</defaultControl>
+		<description>EmpresaImpl.representanteLegal</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@fechaDesactivacion">
+		<description>EmpresaImpl.fechaDesactivacion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@sociedadFI">
+		<defaultControl maxLength="10">textBox</defaultControl>
+		<description>EmpresaImpl.sociedadFI</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@sencillo">
+		<description>EmpresaImpl.sencillo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@despliegueTasas">
+		<defaultControl maxLength="1">integerBox</defaultControl>
+		<description>EmpresaImpl.despliegueTasas</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@separadorMiles">
+		<defaultControl maxLength="1">textBox</defaultControl>
+		<description>EmpresaImpl.separadorMiles</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@separadorDecimales">
+		<defaultControl maxLength="1">textBox</defaultControl>
+		<description>EmpresaImpl.separadorDecimales</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@formatoFecha">
+		<defaultControl maxLength="240">textBox</defaultControl>
+		<description>EmpresaImpl.formatoFecha</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@factMesesHist">
+		<defaultControl maxLength="3">integerBox</defaultControl>
+		<description>EmpresaImpl.factMesesHist</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@refactMesesHist">
+		<defaultControl maxLength="3">integerBox</defaultControl>
+		<description>EmpresaImpl.refactMesesHist</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@conveniosMesesHist">
+		<defaultControl maxLength="3">integerBox</defaultControl>
+		<description>EmpresaImpl.conveniosMesesHist</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@lecturasMesesHist">
+		<defaultControl maxLength="3">integerBox</defaultControl>
+		<description>EmpresaImpl.lecturasMesesHist</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@pathIconoArbol">
+		<defaultControl maxLength="240">textBox</defaultControl>
+		<description>EmpresaImpl.pathIconoArbol</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.SynergiaPartitionImpl@pathLogo">
+		<defaultControl maxLength="240">textBox</defaultControl>
+		<description>EmpresaImpl.pathLogo</description>
+	</metadata>
+	<!--PERSONA NUCLEO -->
+	<metadata id="com.synapsis.synergia.nucleo.domain.TipoCliente">
+		<defaultControl>select</defaultControl>
+		<description>TipoCliente</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="code"/>
+				<field property="description"/>
+				<field property="active"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.TipoCliente@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.TipoCliente@description">
+		<defaultControl maxLength="100">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.TipoCorrespondencia">
+		<defaultControl>select</defaultControl>
+		<description>TipoCorrespondencia</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="code"/>
+				<field property="description"/>
+				<field property="active"/>
+			</fields>
+		</grid>		
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.TipoCorrespondencia@description">
+		<defaultControl maxLength="100">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.TipoCorrespondencia@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.Cliente@sociedadGL">
+		<defaultControl maxLength="6">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.ClienteImpl@codigoCliente">
+		<description>CodigoCliente</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.ClienteImpl@estado">
+		<defaultControl>metaSelect</defaultControl>
+		<description>Estado</description>
+		<customSelect type="boolean" required="false" keys="com.synapsis.synergia.nucleo.domain.ClienteImpl.estado"/>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.cli.beans.ClienteGenBean@codigoCliente">
+		<description>CodigoCliente</description>
+	</metadata>
+	
+<!--pendiente de la metadata por modelos se usa en ServicioElectricoDetallePersonaFisicaGroupFactory-->
+	<metadata id="com.synapsis.synergia.consultacuentas.processes.ServicioElectricoProcess.Persona@fechaNacimiento">
+		<description>FechaNacimiento</description>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.nucleo.domain.PersonaFisica@telefonoAuxiliar">
+		<description>PersonaFisica.telefonoAuxiliar</description>
+		<defaultControl maxLength="200">textBox</defaultControl>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.nucleo.domain.PersonaFisica@description">
+		<description>EmpresaImpl.representanteLegal</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.PersonaFisica@numeroDocumento">
+		<defaultControl maxLength="15" keyField="true">textBox</defaultControl>
+		<description>DocNum</description>
+	</metadata>
+	<!--Fin PERSONA - NUCLEO -->
+    
+    <!--Fin NUC - NUCLEO --> 
+	<metadata id="com.synapsis.synergia.nucleo.domain.TipoVencimiento">
+		<defaultControl>select</defaultControl>
+		<description>TipoVencimiento</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.Desplazamiento">
+		<defaultControl>select</defaultControl>
+		<description>Desplazamiento</description>
+		<select>
+			<descriptionField>descripcionSignificativa</descriptionField>
+			<keyFields>
+				<field property="descripcionSignificativa"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.servicioelectrico.TipoAcometida">
+		<defaultControl>select</defaultControl>
+		<description>TipoAcometida</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionSubTipoOrden@tipoAcometida" />
+	<metadata id="com.synapsis.synergia.cor.domain.ConfiguracionNotificacion@tieneConvenio">
+		<description>TieneConvenio</description>
+		<customSelect type="boolean" nulleable="true" keys="com.synapsis.synergia.cor.domain.ConfiguracionNotificacion.tieneConvenio.boolean"/>
+	</metadata>
+     <!-- Generadoras - Peajes -->
+	<metadata id="com.synapsis.synergia.generadora.cli.domain.ContactoClienteGen@nombre">
+		<defaultControl maxLength="100">textBox</defaultControl>
+		<description>ContactoClienteGen.nombre</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.cli.domain.ContactoClienteGen@email">
+		<defaultControl maxLength="100">textBox</defaultControl>
+		<description>ContactoClienteGen.email</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.cli.domain.ContactoClienteGen@tipoContacto">
+		<defaultControl maxLength="50">textBox</defaultControl>
+		<description>ContactoClienteGen.tipoContacto</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.cli.domain.ContactoClienteGen@telefono">
+		<defaultControl maxLength="15">textBox</defaultControl>
+		<description>ContactoClienteGen.telefono</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.cli.domain.GenTipoContacto">
+		<defaultControl>select</defaultControl>
+		<description>GenTipoContacto</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code"/>
+				<field property="description"/>
+				<field property="active"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.cli.domain.GenTipoContacto@description">
+        <defaultControl maxLength="100">textBox</defaultControl>
+        <description>description</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.Cliente">
+		<defaultControl>grid</defaultControl>
+		<description>Cliente</description>
+		<grid>
+			<fields>
+				<field property="codigoCliente" description="NumeroCliente"/>
+				<field property="persona.description" description="Nombre"/>
+				<field property="persona.documento.tipoDocumento.name" description="TipoDocumento"/>
+				<field property="persona.documento.numeroDocumento" description="NumeroDocumento"/>
+				<field property="persona.telefono" description="Telefono"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+		<tree>
+			<node description="Cliente: ${persona.description}"/>
+			<children>
+				<trees property="cuentas" entityRef="com.synapsis.synergia.nucleo.domain.interfaces.Cuenta" />	
+			</children>
+		</tree>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.Cliente@sociedadGL">
+		<defaultControl maxLength="6">textBox</defaultControl>
+		<description>sociedadGL</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.Cliente@codigoCliente">
+		<defaultControl maxLength="10">integerBox</defaultControl>				
+	</metadata>
+	
+
+	<metadata id="com.synapsis.synergia.generadora.cli.domain.ContactoClienteGen">
+		<defaultControl>grid</defaultControl>
+		<description>ContactoClienteGen</description>
+		<grid>
+			<fields>
+				<field property="nombre" description="Nombre" maxLength="100"/>
+				<field property="email" description="Email" maxLength="100"/>
+				<field property="tipoContacto" description="TipoContacto" maxLength="100"/>
+				<field property="telefono" description="Telefono" maxLength="50"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.domain.Peaje">
+		<defaultControl>grid</defaultControl>
+		<description>PeajesCargados</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="servicioElectrico.description" description="nombreCliente"/>
+				<field property="servicioElectrico.nroServicio" description="NumeroServicio"/>
+				<field property="avnrCoym" description="avnrCoym"/>
+				<field property="ingresoTarifario" description="IngresoTarifario"/>
+				<field property="peaje" description="peaje"/>
+				<field property="servicioElectrico.fechaFinalizacion" description="fechaVencimiento"/>
+				<field property="fechaRegistro" description="fechaRegistro"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.domain.Peaje@nombreCliente">
+		<description>nombreCliente</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.Servicio@nroServicio">
+		<description>NumeroServicio</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.domain.Peaje@avnrCoym">
+		<description>avnrCoym</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.domain.Peaje@IngresoTarifario">
+		<description>IngresoTarifario</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.domain.Peaje@peaje">
+		<description>peaje</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.Servicio@fechaFinalizacion">
+		<description>fechaVencimiento</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.domain.Peaje@fechaRegistro">
+		<description>fechaRegistro</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.beans.CargarPeajesBean@mensajesValidacion">
+		<defaultControl maxLength="200">textArea</defaultControl>
+		<description>validaciones</description>
+	</metadata> <!-- FIN Pedidos Compras Spot -->	
+	<metadata id="com.synapsis.synergia.generadora.peaje.beans.CargarPeajesBean@periodoFiltro">
+		<description>periodo</description>
+	</metadata> <!-- VOLAR -->
+	<metadata id="com.synapsis.synergia.common.domain.ArchivoInfo@fileReference">
+		<defaultControl>fileBox</defaultControl>
+		<description>archivo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.ArchivoInfo">
+		<defaultControl>fileBox</defaultControl>
+		<description>archivo</description>
+		<grid>
+			<fields>
+				<field property="name" />
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.beans.ConsultarPeajesBean@periodo">
+		<description>periodo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.peaje.beans.PeajesBean@archivoInfo">
+		<defaultControl>fileBox</defaultControl>
+		<description>archivo</description>
+	</metadata> <!-- FIN Generadoras - Peajes --> 
+	    
+	 <!-- PREVISIONES -->
+	<metadata id="com.synapsis.synergia.generadora.previsiones.process.CargarPrevisionesProcess@archivoInfo">
+		<defaultControl>fileBox</defaultControl>
+		<description>archivo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.previsiones.domain.Prevision">
+		<defaultControl>grid</defaultControl>
+		<description>PrevisionesCargadas</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="cliente.code" description="clienteCode"/>
+				<field property="cliente.description" description="clienteNombre"/>
+				<field property="producto.description" description="productogen"/>
+				<field property="fechaCobro" description="fechaCobro"/>
+				<field property="valorFisico" description="valorFisico"/>
+				<field property="valorMonetario" description="valorMonetario"/>
+				<field property="estado.description" description="estado"/>
+			</fields>
+		</grid>
+    </metadata>
+	<metadata id="com.synapsis.synergia.generadora.previsiones.process.CargarPrevisionesProcess@mensajesValidacion">
+        <defaultControl maxLength="200">textArea</defaultControl>
+        <description>validacion</description>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.generadora.previsiones.domain.CodigoOperacion">
+		<defaultControl>grid</defaultControl>
+		<description>codigos</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="tipoEmpresa.description" description="tipoEmpresa"/>
+				<field property="tipoTransaccion.description" description="tipoTransaccion"/>
+				<field property="codigoOperacion" description="codigoOperacion"/>
+			</fields>
+		</grid>
+    </metadata>
+	<metadata id="com.synapsis.synergia.generadora.previsiones.domain.CodigoOperacion@codigoOperacion">
+		<defaultControl maxLength="4">textBox</defaultControl>
+		<description>codigoOperacion</description>
+	</metadata>  
+	
+	<metadata id="com.synapsis.synergia.generadora.previsiones.process.MantenedorCodigosProcess@filtroCodigoOperacion">
+		<defaultControl maxLength="4">textBox</defaultControl>
+		<description>codigoOperacion</description>
+	</metadata>  
+	
+	<metadata id="com.synapsis.synergia.generadora.previsiones.domain.OperacionDocumentoRelation">
+		<defaultControl>grid</defaultControl>
+		<description>relaciones</description>
+		<grid>
+			<fields>
+				<field property="partition.description" description="empresa"/>
+				<field property="operacionSpot.description" description="tipoOperacion"/>
+				<field property="tipoDocumento.description" description="tipoDocumento"/>
+			</fields>
+		</grid>
+    </metadata>
+	
+	<metadata id="com.synapsis.synergia.generadora.previsiones.domain.DetalleInforme">
+		<defaultControl>grid</defaultControl>
+		<description>detalles</description>
+		<grid>
+			<fields>
+				<field property="rutEmpresa" description="rutEmpresa"/>
+				<field property="rutCliente" description="rutCliente"/>
+				<field property="cliente.description" description="clienteNombre"/>
+				<field property="debe" description="debe"/>
+				<field property="haber" description="haber"/>
+				<field property="cuenta.description" description="cuenta"/>
+				<field property="ceco" description="ceco"/>
+				<field property="tipoEmpresa.description" description="tipoEmpresa"/>
+			</fields>
+		</grid>
+    </metadata>
+ <!-- FIN Previsiones --> <!-- Generadoras - Presupuestos -->
+	 
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.beans.PresupuestoFijoBean@anioConsulta">
+		<defaultControl maxLength="4">integerBox</defaultControl>
+		<description>anio</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.beans.PresupuestoFijoBean@anioCarga">
+		<defaultControl maxLength="4">integerBox</defaultControl>
+		<description>anio</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.beans.PresupuestoFijoBean@empresa">
+		<defaultControl>comboBox</defaultControl>
+		<description>nombreEmpresa</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.beans.PresupuestoFijoBean@tipoRegistro">
+		<defaultControl>comboBox</defaultControl>
+		<description>nombreTipoRegistro</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo">
+		<defaultControl>grid</defaultControl>
+		<description>PresupuestosCargados</description>
+		<grid>
+			<fields>
+				<field property="partition.description" description="nombreEmpresa"/>
+				<field property="tipoRegistro.description" description="nombreTipoRegistro"/>
+				<field property="cliente.description" description="nombrePersona"/>
+				<field property="estado.description" description="estadoPresupuesto"/>
+				<field property="valorMes1" description="nombreMes1"/>
+				<field property="valorMes2" description="nombreMes2"/>
+				<field property="valorMes3" description="nombreMes3"/>
+				<field property="valorMes4" description="nombreMes4"/>
+				<field property="valorMes5" description="nombreMes5"/>
+				<field property="valorMes6" description="nombreMes6"/>
+				<field property="valorMes7" description="nombreMes7"/>
+				<field property="valorMes8" description="nombreMes8"/>
+				<field property="valorMes9" description="nombreMes9"/>
+				<field property="valorMes10" description="nombreMes10"/>
+				<field property="valorMes11" description="nombreMes11"/>
+				<field property="valorMes12" description="nombreMes12"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.doman.Presupuesto@estadoPresupuesto">
+		<description>estadoPresupuesto</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreEmpresa">
+		<description>nombreEmpresa</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombrePersona">
+		<description>nombrePersona</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreTipoRegistro">
+		<description>nombreTipoRegistro</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes1">
+		<description>nombreMes1</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes2">
+		<description>nombreMes2</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes3">
+		<description>nombreMes3</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes4">
+		<description>nombreMes4</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes5">
+		<description>nombreMes5</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes6">
+		<description>nombreMes6</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes7">
+		<description>nombreMes7</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes8">
+		<description>nombreMes8</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes9">
+		<description>nombreMes9</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes10">
+		<description>nombreMes10</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes11">
+		<description>nombreMes11</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.domain.PresupuestoFijo@nombreMes12">
+		<description>nombreMes12</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.beans.PresupuestoFijoBean@archivoInfo">
+		<defaultControl>fileBox</defaultControl>
+		<description>archivo</description>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.generadora.presupuesto.beans.PresupuestoFijoBean@mensajeValidacion">
+		<defaultControl>textArea</defaultControl>
+		<description>validaciones</description>
+	</metadata>
+	<!-- Fin Generadoras - Presupuestos --> 
+	
+	<!-- Generadoras - Glosa -->
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.Glosa">
+		<defaultControl>Grid</defaultControl>
+		<description>GlosasCargadas</description>
+		<grid>
+			<fields>
+				<field property="description"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>		
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.Glosa@description">
+		<defaultControl maxLength="800">textArea</defaultControl>
+	</metadata>
+	<!-- Fin Generadoras - Glosa -->
+    
+    <!-- Generadoras - Partida Contable -->
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.PartidaContable">
+		<defaultControl>Grid</defaultControl>
+		<description>PartidasCargadas</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="nombreEmpresa"/>
+				<field property="tipoEmpresa.description" description="tipoEmpresa"/>
+				<field property="tipoTransaccion.name" description="tipoTransaccion"/>
+				<field property="tipoPartida.description" description="tipoPartida"/>
+				<field property="modulo.description" description="modulo"/>
+				<field property="conceptoContable.fullDescription" description="conceptoContable"/>
+				<field property="conceptoContable.active" description="Activo"/>
+				<field property="cuentaContable.description" description="cuentaContable"/>
+				<field property="cuentaContable.active" description="Activo"/>
+				<field property="centroCosto.description" description="centroCosto"/>
+				<field property="centroCosto.active" description="Activo"/>
+				<field property="cargo.fullDescription" description="cargo"/>
+			</fields>
+		</grid>
+	</metadata>
+	<!-- Fin Generadora - Partida Contable -->
+	
+	<!-- Generadoras - Cuenta Contable -->
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CuentaContable">
+		<defaultControl>Grid</defaultControl>
+		<description>CuentasContablesCargadas</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="code" description="code"/>
+				<field property="description" description="description"/>
+				<field property="active" description="Activo"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CuentaContable@empresa">
+		<defaultControl>comboBox</defaultControl>
+		<description>nombreEmpresa</description>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CuentaContable@code">
+		<defaultControl maxLength="20">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CuentaContable@description">
+		<defaultControl maxLength="50">textBox</defaultControl>
+	</metadata>
+	<!-- Fin Generadoras - Cuenta Contable -->
+    
+   	<!-- Generadoras - Concepto Contable -->
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.ConceptoContable">
+		<defaultControl>Grid</defaultControl>
+		<description>ConceptoContablesCargadas</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="code" description="code"/>
+				<field property="description" description="description"/>
+				<field property="active" description="Activo"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.ConceptoContable@empresa">
+		<defaultControl>comboBox</defaultControl>
+		<description>nombreEmpresa</description>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.ConceptoContable@code">
+		<defaultControl maxLength="20">textBox</defaultControl>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.ConceptoContable@description">
+		<defaultControl maxLength="50">textBox</defaultControl>
+	</metadata> 
+	<!-- Fin Generadoras - Concepto Contable -->
+    
+    <!-- Generadoras - Centro Costo -->
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CentroCosto">
+		<defaultControl>Grid</defaultControl>
+		<description>CentrosCostosCargadas</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="code" description="code"/>
+				<field property="description" description="description"/>
+				<field property="active" description="Activo"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CentroCosto@empresa">
+		<defaultControl>comboBox</defaultControl>
+		<description>nombreEmpresa</description>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CentroCosto@code">
+		<defaultControl maxLength="20">textBox</defaultControl>
+	</metadata> 
+	<metadata id="com.synapsis.synergia.generadora.contabilidad.domain.CentroCosto@description">
+		<defaultControl maxLength="50">textBox</defaultControl>
+	</metadata> 
+	<!-- Fin Generadoras - Centro Costo -->
+    
+    <!-- Generadoras - DetalleFacturacion -->
+    <metadata id="com.synapsis.synergia.generadora.contabilidad.bean.DetalleFacturacionBean">
+    	<defaultControl>grid</defaultControl>
+    	<grid>
+    		<fields>
+    			<field property="tipoEmpresa.description" description="tipoEmpresa"/>
+    			<field property="cargo.description" description="Cargo"/>
+    			<field property="conceptoContable.description" description="conceptoContable"/>
+    			<field property="montoTotal" description="Monto"/>
+    		</fields>
+    	</grid>
+    </metadata>
+    <!-- Fin Generadoras - DetalleFacturacion -->
+    
+    <!-- Generadoras - DetalleContabilizacion -->
+    <metadata id="com.synapsis.synergia.generadora.contabilidad.bean.DetalleClienteBean">
+    	<defaultControl>grid</defaultControl>
+    	<grid>
+    		<fields>
+    			<field property="cliente.persona.description" description="cliente"/>
+    			<field property="montoFacturado" description="montoTotal"/>
+    		</fields>
+    	</grid>
+    </metadata>
+    <!-- Fin Generadoras - DetalleContabilizacion -->
+    
+    <!-- PARTITION -->
+	<metadata id="com.cubika.framework.partition.Partition">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata> <!-- ********** -->
+	
+	<!-- Tipo Empresa -->
+	
+	<metadata id="com.synapsis.synergia.common.domain.TipoEmpresa">
+		<defaultControl>Grid</defaultControl>
+		<description>TiposEmpresa</description>
+		<grid>
+			<fields>
+				<field property="code" description="code"/>
+				<field property="empresa.description" description="empresa"/>
+				<field property="description" description="description"/>
+				<field property="active" description="active"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.TipoEmpresa@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.TipoEmpresa@description">
+		<defaultControl maxLength="100">textBox</defaultControl>
+	</metadata>
+	<!-- ************ -->
+	
+     <!-- Generadoras - Token -->
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.Token">
+		<defaultControl>Grid</defaultControl>
+		<description>tokens</description>
+		<grid>
+			<fields>
+				<field property="code" description="code"/>
+				<field property="description" description="description"/>
+			</fields>
+		</grid>
+	</metadata> <!-- Fin Generadoras - Token -->
+     <!-- BEGIN GENERADORAS EXTRANET --> <!-- Busqueda Banner -->
+	 
+	 	<metadata id="com.synapsis.synergia.generadora.extranet.beans.PagoExtranet">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="nroDocumento" description="pagoExtranet.nroDocumento"/>
+				<field property="fechaVencimiento" description="pagoExtranet.fechaVencimiento"/>
+				<field property="montoTotalFacturado" description="pagoExtranet.montoTotalFacturado"/>
+				<field property="fechaPago" description="pagoExtranet.fechaPago"/>
+				<field property="totalPagado" description="pagoExtranet.totalPagado"/>
+			</fields>
+		</grid>
+	</metadata> 
+	 
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.BusquedaBannerGenProcess@code">
+		<description>banner.code</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.BusquedaBannerGenProcess@fechaActivacion">
+		<description>banner.fechaActivacion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.BusquedaBannerGenProcess@fechaDesactivacion">
+		<description>banner.fechaDesactivacion</description>
+	</metadata> <!-- Banner -->
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.MantenimientoBannerGenProcess@idEmpresa">
+		<description>banner.idEmpresa</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.MantenimientoBannerGenProcess@code">
+		<description>banner.code</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.MantenimientoBannerGenProcess@fechaActivacion">
+		<description>banner.fechaActivacion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.MantenimientoBannerGenProcess@fechaDesactivacion">
+		<description>banner.fechaDesactivacion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.MantenimientoBannerGenProcess@hipervinculo">
+		<description>banner.hipervinculo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.MantenimientoBannerGenProcess@descripcion">
+		<description>banner.descripcion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.extranet.beans.MantenimientoBannerGenProcess@orden">
+		<description>banner.orden</description>
+	</metadata>
+	
+	<!-- FAMEWORK: En metadata2 enlaceInteres no funciona -->
+	<metadata id="com.synapsis.synergia.generadora.extranet.domain.Banner@enlaceInteres">
+		<defaultControl>checkBox</defaultControl>
+	</metadata>
+	
+	 <metadata id="com.synapsis.synergia.encuesta.domain.OpcionPregunta">
+	  <defaultControl>grid</defaultControl>
+	  <grid>
+		<fields>
+			<field property="orden" description="OpcionPregunta.orden" />
+			<field property="descripcion" description="OpcionPregunta.descripcion" />
+			<field property="puntaje" description="OpcionPregunta.puntaje" />
+			<field property="tieneTexto" description="OpcionPregunta.tieneTexto" />    	
+		</fields>
+	  </grid>
+	  <select>
+		<descriptionField>descripcion</descriptionField>
+		<keyFields>
+			<field property="descripcion"/>
+		</keyFields>
+	  </select>
+	 </metadata>
+
+	<!-- FIN EXTRANET //-->
+	
+     <!-- START Cartas -->
+	<metadata id="com.synapsis.synergia.cart.domain.Carta">
+		<defaultControl>grid</defaultControl>
+		<description>Cartas</description>
+		<grid>
+			<fields>
+				<field property="numeroOrden"/>
+				<field property="peso"/>
+				<field property="tipoCartaEmitida.description"/>
+				<field property="state.description"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.procces.ActivityCartaBusinessProcess@observacion">
+		<defaultControl keyField="true" maxLength="500">textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.procces.ActivityAprobarCartaBusinessProcess@observacion">
+		<defaultControl keyField="true" maxLength="500">textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.CartaAIC@contenido">
+		<defaultControl keyField="true">htmlEditor</defaultControl>
+		<description>Contenido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.procces.DespacharMasivoBusinessProcces@observacion">
+		<defaultControl keyField="true">textArea</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.Carta@contenido">
+		<defaultControl keyField="true">htmlEditor</defaultControl>
+		<description>Contenido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.processes.PrevisualizarContratoProcess@contenido">
+		<defaultControl keyField="true">htmlEditor</defaultControl>
+		<description>Contenido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cartas.ui.forms.ActivityCartaBusinessProcess@cartaAIC.contenido">
+		<defaultControl>htmlEditor</defaultControl>
+		<description>Contenido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.ModeloCarta@descripcion">
+		<defaultControl maxLength="30">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.ModeloCarta@contenido">
+		<defaultControl keyField="true">htmlEditor</defaultControl>
+		<description>Contenido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.ModeloCarta@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.variables.VariableModeloUsuario@description">
+		<defaultControl maxLength="15">textBox</defaultControl>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.ModeloCartaAIC@contenido">
+		<defaultControl keyField="true">htmlEditor</defaultControl>
+		<description>Contenido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.cart.domain.TipoCartaEmitida">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.cart.domain.variables.VariableModeloSistema">
+		<defaultControl>select</defaultControl>
+		<grid>
+			<fields>
+				<field property="description"/>
+				<field property="code"/>
+			</fields>
+		</grid>
+		<select>
+		<descriptionExp>${codeParcial}</descriptionExp>
+			<keyExp>${fullCode}</keyExp>
+		</select>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.cart.domain.variables.VariableModeloAdicional@value">
+		<defaultControl>textBox</defaultControl>
+	</metadata>	
+				  
+	<metadata id="com.synapsis.synergia.cart.domain.variables.VariableAdicional">
+		<defaultControl>select</defaultControl>
+		<description>Variable</description>
+		<select>
+			<descriptionExp>${description}</descriptionExp>
+			<keyExp>${fullCode}</keyExp>
+		</select>
+	</metadata> <!-- DescargarCartas -->
+	<metadata id="com.synapsis.synergia.aic.domain.DatosDescargo@fechaRealDescargo">
+		<description>FechaEntrega</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.DatosDescargo@nombreReceptor">
+		<description>NombreReceptor</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.Escribania">
+		<defaultControl>select</defaultControl>
+		<description>escribania</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="stringID"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="description" description="Description"/>
+				<field property="active" description="Active"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.aic.domain.TipoEnvio">
+		<defaultControl>select</defaultControl>
+		<description>TipoEnvio</description>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="description"/>
+			</keyFields>
+		</select>
+	</metadata> <!-- END Cartas -->
+     <!-- START Mail -->
+	<metadata id="com.synapsis.synergia.common.domain.Mail">
+		<defaultControl>grid</defaultControl>
+		<description>Mails</description>
+		<select>
+			<descriptionField>asunto</descriptionField>
+			<keyFields>
+				<field property="para"/>
+				<field property="asunto"/>
+				<field property="fecha"/>
+			</keyFields>
+		</select>
+		<grid>
+			<fields>
+				<field property="para" description="Para"/>
+				<field property="asunto" description="Asunto"/>
+				<field property="fecha" description="FechaEnvio"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Mail@asunto">
+		<defaultControl maxLength="100">textBox</defaultControl>
+		<description>Asunto</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Mail@fecha">
+		<defaultControl>dateTimeBox</defaultControl>
+		<description>FechaEnvio</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Mail@texto">
+		<defaultControl maxLength="500">textArea</defaultControl>
+		<description>Texto</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Mail@para">
+		<defaultControl maxLength="50">textBox</defaultControl>
+		<description>Para</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Mail@cc">
+		<defaultControl maxLength="50">textBox</defaultControl>
+		<description>Cc</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Mail@cco">
+		<defaultControl maxLength="50">textBox</defaultControl>
+		<description>Cco</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.Mail@estado">
+		<defaultControl>textBox</defaultControl>
+		<description>Estado</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.MailStatus">
+		<defaultControl>select</defaultControl>
+		<description>Estado</description>
+		<select>
+			<descriptionField>localDescription</descriptionField>
+			<keyFields>
+				<field property="name"/>
+			</keyFields>
+		</select>
+	</metadata>
+	 <!-- END Mail --> <!-- OrdenesGenericas -->
+	<metadata id="com.synapsis.synergia.formulariosdinamicos.domain.Atributo">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="nombreCampo" description="NombreAtributo"/>
+				<field property="tipoCampo" description="TipoDato"/>
+				<field property="longitud" description="Longitud"/>
+				<field property="formato" description="Formato"/>
+				<field property="decimales" description="Decimales"/>
+				<field property="controlAsociado" description="ControlAsociado"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>nombreCampo</descriptionField>
+			<keyFields>
+				<field property="nombreCampo"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.formulariosdinamicos.domain.TipoFormulario">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="code" description="CodigoFormulario"/>
+				<field property="description" description="Descripcion"/>
+				<field property="activo" description="Activo"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.formulariosdinamicos.domain.FormularioAtributo">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="numeroSecuencia" description="NumeroSecuencia"/>
+				<field property="label" description="Label"/>
+				<field property="obligatorio" description="Obligatorio"/>
+				<field property="primeraVez" description="PrimeraVez"/>
+				<field property="valorDefault" description="ValorDefault"/>
+			</fields>
+		</grid>
+	</metadata> <!-- /OrdenesGenericas-->
+	<!-- Producto Spot -->
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.Producto">
+		<defaultControl>grid</defaultControl>
+		<description>Productos</description>
+		<grid>
+			<fields>
+				<field property="empresa.description" description="empresa"/>
+				<field property="producto.fullDescription" description="descriptionProductoGenerico"/>
+				<field property="cargo.fullDescription" description="cargo"/>
+			</fields>
+		</grid>
+	</metadata>
+	<!-- Producto Generico - SPOT -->
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.ProductoGenerico">
+		<defaultControl>grid</defaultControl>
+		<description>Productos Generico</description>
+		<grid>
+			<fields>
+				<field property="code" description="code"/>
+				<field property="description" description="description"/>
+				<field property="active" description="active"/>
+			</fields>
+		</grid>
+	</metadata>
+	<!-- ************* -->
+     <!-- COMIENZO Pedidos Compras Spot -->
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.PedidoSpot">
+		<defaultControl>grid</defaultControl>
+		<description>Pedidos</description>
+		<grid>
+			<fields>
+				<field property="nroPedido" description="nroPedido"/>
+				<field property="centro" description="centro"/>
+				<field property="cantidad" description="cantidad"/>
+				<field property="saldo" description="saldo"/>
+				<field property="fechaEntrega" description="fechaEntrega"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>nroPedido</descriptionField>
+			<keyFields>
+				<field property="nroPedido"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.PedidoSpot@nroPedido">
+		<defaultControl maxLength="10">longBox</defaultControl>
+		<description>nroPedido</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.PedidoSpot@centro">
+		<defaultControl maxLength="4">textBox</defaultControl>
+		<description>centro</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.PedidoSpot@cantidad">
+		<defaultControl maxLength="13">moneyBox</defaultControl>
+		<description>cantidad</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.PedidoSpot@saldo">
+		<defaultControl maxLength="13">moneyBox</defaultControl>
+		<description>saldo</description>
+	</metadata>
+		<metadata id="com.synapsis.synergia.generadora.spotcv.domain.PedidoSpot@fechaEntrega">
+		<defaultControl>dateTimeBox</defaultControl>
+		<description>fechaEntrega</description>
+	</metadata>
+	
+	<!-- ********************************** -->
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.OperacionSpot@description">
+		<description>operacion</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.ProductoGenerico@description">
+		<defaultControl maxLength="50">textBox</defaultControl>	
+		<description>concepto</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.ProductoGenerico@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+		<description>code</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.CargaTransaccionBean@periodoFiltro">
+		<defaultControl>dateTimeBox</defaultControl>
+		<description>periodo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.CargaTransaccionBean@archivoInfo">
+		<defaultControl>fileBox</defaultControl>
+		<description>archivo</description>
+	</metadata>
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.CargaTransaccionBean@mensajesValidacion">
+		<defaultControl maxLength="200">textArea</defaultControl>
+		<description>validaciones</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.FacturacionRealVsPresupuestadaRowSpot@cliente">
+		<description>cliente</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.FacturacionRealVsPresupuestadaRowSpot@valorPOA">
+		<defaultControl >moneyBox</defaultControl>		
+		<description>valorPOA</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.FacturacionRealVsPresupuestadaRowSpot@valorReal">
+		<defaultControl >moneyBox</defaultControl>				
+		<description>valorReal</description>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.FacturacionRealVsPresupuestadaRowSpot@variacion">
+		<defaultControl >moneyBox</defaultControl>				
+		<description>variacion</description>
+	</metadata>
+
+			
+	<metadata id="com.synapsis.synergia.generadora.spotcv.beans.FacturacionRealVsPresupuestadaRowSpot">
+		<defaultControl>grid</defaultControl>
+		<description>ValoresMonetarios</description>
+		<grid>
+			<fields>
+				<field property="cliente.description" description="Cliente"/>
+				<field property="valorPOA" />
+				<field property="valorReal" />
+				<field property="variacion" />
+			</fields>
+		</grid>
+	</metadata>		
+	<!-- FIN Pedidos Compras Spot -->
+     <!-- Modulo Disciplina --> <!--START Disciplina de mercado-->
+	<metadata id="com.synapsis.synergia.dis.domain.JefeProducto">
+		<defaultControl>select</defaultControl>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata> 
+
+	<metadata id="com.synapsis.synergia.dis.domain.Producto">
+		<defaultControl>grid</defaultControl>
+		<description>Productos</description>
+		<grid>
+			<fields>
+				<field property="code" description="code"/>
+				<field property="description" description="description"/>
+				<field property="sigla" description="sigla"/>
+				<field property="active" description="active"/>
+			</fields>
+		</grid>
+	</metadata> <!--END Disciplina de mercado--> <!-- Materiales -->
+	<metadata id="com.synapsis.synergia.dis.domain.Material">
+		<defaultControl>grid</defaultControl>
+		<description>Materiales</description>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="description" description="Descripcion"/>
+				<field property="active" description="active"/>
+			</fields>
+		</grid>
+	  <select>
+			<descriptionField>description</descriptionField>
+		<keyFields>
+			  <field property="description" />
+		</keyFields>
+	 </select>
+	</metadata> <!-- Agregado Tarea -->
+
+     <!--START ABM MotivoAnulacionCarta-->
+	<metadata id="com.synapsis.synergia.aic.domain.MotivoAnulacionCarta">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="description" description="Descripcion"/>
+				<field property="active" description="Active"/>
+			</fields>
+		</grid>
+	  <select>
+		<descriptionField>description</descriptionField>
+		<keyFields>
+		  <field property="description" />
+		</keyFields>
+	 </select>
+	</metadata> <!--END ABM MotivoAnulacionCarta--> <!--START ABM MotivoRechazoAprobacionCarta-->
+	<metadata id="com.synapsis.synergia.aic.domain.MotivoRechazoAprobacionCarta">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="description" description="Descripcion"/>
+			</fields>
+		</grid>
+	</metadata> <!--END ABM MotivoRechazoAprobacionCarta--> <!--START ABM MotivoRechazoImpresionCarta-->
+	<metadata id="com.synapsis.synergia.aic.domain.MotivoRechazoImpresionCarta">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="description" description="Descripcion"/>
+				<field property="active" description="Active"/>
+			</fields>
+		</grid>
+	</metadata> <!--END ABM MotivoRechazoImpresionCarta--> 
+		
+	<!--START Ventas -->
+
+	<metadata id="com.synapsis.synergia.vta.domain.AgrupacionProducto@code">
+		 <defaultControl maxLength="6">textBox</defaultControl>
+		<description>Code</description>
+	</metadata>	 
+
+	<metadata id="com.synapsis.synergia.vta.domain.AgrupacionProducto@description">
+		 <defaultControl maxLength="100">textBox</defaultControl>
+		<description>Description</description>
+	</metadata>	 
+
+
+	<metadata id="com.synapsis.synergia.vta.domain.AgrupacionProducto"> 
+	<defaultControl>grid</defaultControl>
+	<grid>
+		 <fields>
+			  <field property="code" description="Codigo"/>
+			  <field property="description" description="Descripcion"/>
+			  <field property="active" description="Activo"/>
+		 </fields>
+	</grid>
+	 <select>
+		<descriptionField>description</descriptionField>
+		<keyFields>
+		  <field property="description" />
+		</keyFields>
+	 </select>
+    </metadata>
+    
+	<metadata id="com.synapsis.synergia.vta.domain.Producto"> 
+	<defaultControl>select</defaultControl>
+  <grid>
+  	<fields>
+			<field property="code" description="Codigo"/>
+			<field property="description" description="Descripcion"/>
+            <field property="active" description="Activo"/>
+	</fields>
+  </grid>
+	 <!-- Muestra el combo box de Producto-->
+	 <select>
+		<descriptionField>description</descriptionField>
+		<keyFields>
+		  <field property="description" />
+		</keyFields>
+	 </select>
+ </metadata>
+
+	<!-- Limita el campo codigo a solo 4 caracteres -->
+ <metadata id="com.synapsis.synergia.vta.domain.Producto@code"> 
+	 <defaultControl maxLength="6">textBox</defaultControl>
+	 <description>code</description> 	
+ </metadata>
+
+	<!-- Muestra el combo box de TipoProducto-->
+	<metadata id="com.synapsis.synergia.vta.domain.TipoProducto"> 
+	<defaultControl>select</defaultControl>
+	<select>
+		<descriptionField>description</descriptionField>
+		<!-- Campo por el cual se busca al tipo de producto para mostrar la description del mismo -->
+		<keyFields>
+		  <field property="code" />
+		</keyFields>
+	 </select>
+	</metadata>
+  
+  <!-- Muestra una grilla con descripcion y valor de cada propiedad -->
+	<metadata id="com.synapsis.synergia.vta.domain.Propiedad"> 
+  <defaultControl>grid</defaultControl>
+  <grid>
+  	<fields>
+			<field property="tipoPropiedad.description" description="Descripcion"/>
+			<field property="valor" description="Valor"/>            
+		</fields>
+	</grid>
+	</metadata>
+
+  
+	<metadata id="com.synapsis.synergia.common.domain.GrupoCuadrilla"> 
+	<defaultControl>grid</defaultControl>
+	<grid>
+		<fields>
+			<field property="code" description="Codigo"/>
+			<field property="actividad.description" description="Actividad"/>
+			<field property="activo" description="Activo"/> 
+		</fields>
+	</grid>
+	<select>
+		<descriptionField>description</descriptionField>
+		<keyFields>
+		  <field property="code" />
+		</keyFields>
+	 </select>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.common.domain.GrupoCuadrilla@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.common.domain.GrupoCuadrilla@description">
+		<defaultControl maxLength="100">textBox</defaultControl>
+	</metadata>
+	
+  <!-- Muestra la un Combo Box con descripcion de la ActividadCuadrilla -->
+	<metadata id="com.synapsis.synergia.common.domain.ActividadCuadrilla"> 
+	<defaultControl>select</defaultControl>
+	<select>
+		<descriptionField>description</descriptionField>
+		<!-- Campo por el cual se busca al tipo de producto para mostrar la description del mismo -->
+		<keyFields>
+		  <field property="code" />
+		</keyFields>
+	 </select>	
+	</metadata>
+	
+  <!-- Muestra una grilla con descripcion y codigo de cada Cuadrilla al buscar las existentes-->
+	<metadata id="com.synapsis.synergia.common.domain.Cuadrilla"> 
+	<defaultControl>grid</defaultControl>
+	<grid>
+		<fields>
+			<field property="code" description="Codigo"/>
+			<field property="description" description="descripcion"/>            
+		</fields>
+	</grid>
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.common.domain.Cuadrilla@code"> 
+		<defaultControl maxLength="6">textBox</defaultControl>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.common.domain.Cuadrilla@description"> 
+		<defaultControl maxLength="100">textBox</defaultControl>
+	</metadata>
+
+  <!-- Muestra la grilla con atributos de grupoCuadrilla -->
+	<metadata id="com.synapsis.synergia.vta.domain.GrupoCuadrillaProducto"> 
+	<defaultControl>grid</defaultControl>
+    <grid>
+    	<fields>
+			<field property="grupoCuadrilla.code" description="Codigo"/>
+			<field property="grupoCuadrilla.description" description="Descripcion"/>
+			<field property="grupoCuadrilla.actividad.description" description="Actividad"/>
+			<field property="prioridad" description="Prioridad"/>
+	    </fields>
+    </grid>
+
+	<!-- Selector de grupo cuadrillas que aparece en GrupoCuadrillaProductoCRUDChildUseCaseFactory  -->
+	<select>
+		<descriptionField>grupoCuadrilla.description</descriptionField>
+		<keyFields>
+		  <field property="code" />
+		</keyFields>
+	</select>
+	
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.vta.domain.PresupuestoVenta"> 
+    <grid>
+    	<fields>
+			<field property="nroPresupuesto" description="Numero"/>
+			<field property="fechaCotizacion" description="Fecha"/>
+			<field property="precioConImpuesto" description="Precio"/>
+			<field property="precioSinImpuesto" description="PrecioSinImp"/>
+	    </fields>
+    </grid>
+	
+	</metadata>
+
+	<!-- Process requerido en el UseCase IngresarDatosServicioVentaUseCaseFactory -->
+	<metadata id="com.synapsis.synergia.vta.processes.ServicioVentaProcess"> 
+    <grid>
+    	<fields>
+			<field property="servicio.nroServicio" />
+			<field property="servicio.producto.code" />
+			<field property="servicio.producto.description" />
+			<field property="servicio.configuracionPresupuestoVenta.nroPresupuestoVenta" />
+			<field property="servicio.precioUnitario" description="precioUnitario"/>
+			<field property="servicio.cantidad" description="cantidad"/>
+			<field property="servicio.precioTotal" description="precioTotal"/>		
+			<field property="servicio.solicitudServicioElectrico.cuentaAFacturar.nroCuenta" />
+			<field property="titularDeCuenta" />
+			<field property="tipoYNroDocumento" />
+			<field property="direccionServicio" />
+			<field property="direccionFacturacion" />
+			<field property="tieneUsuario" />
+			<field property="tienePropietario" />
+	    </fields>
+    </grid>
+	
+	</metadata>
+
+	<metadata id="com.synapsis.synergia.vta.domain.DireccionNegocio@businessObject.description"/>
+
+	<!-- Process requerido en el UseCase ConsultaDeCotizacionMonedaUseCaseFactory -->
+	<metadata id="com.synapsis.synergia.vta.processes.ResultadoConsultaCotizacionMonedaProcess"> 
+    <grid>
+    	<fields>
+			<field property="nombreMoneda" />
+			<field property="montoCotizacion" />
+	    </fields>
+    </grid>
+	
+	</metadata>
+
+	<!--END Ventas -->
+
+	<!-- Start Servicio Electrico - Mes -->
+	
+	<metadata id="com.synapsis.synergia.nucleo.domain.servicioelectrico.contrato.MesIndexacion">
+		<defaultControl>Grid</defaultControl>
+		<description>MesesCargados</description>
+		<grid>
+			<fields>
+				<field property="mesIndexacion.description" description="indexacionPrecio"/>
+			</fields>
+		</grid>
+		<select>
+			<descriptionField>description</descriptionField>
+			<keyFields>
+				<field property="code"/>
+			</keyFields>
+		</select>
+	</metadata>
+	<metadata id="com.synapsis.synergia.nucleo.domain.servicioelectrico.contrato.MesIndexacion@empresa">
+		<defaultControl>comboBox</defaultControl>
+		<description>nombreEmpresa</description>
+	</metadata>
+	
+	<!-- END Servicio Electrico - Mes -->
+	
+	<metadata id="com.synapsis.synergia.aic.domain.TipoEntrega">
+		<defaultControl keyField="true">grid</defaultControl>
+		<description>Tipo de Entrega</description>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="description" description="description"/>
+				<field property="active" description="Active"/>
+			</fields>
+		</grid>
+	</metadata>
+
+	<!-- START Grilla de ItemDocumentoConsumo -->
+	<metadata id="com.synapsis.synergia.nucleo.domain.interfaces.servicioelectrico.ItemDocumentoConsumo">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="consumo.tipoConsumo.name" description="tipoConsumo"/>
+				<field property="consumo.valor" description="valor"/>
+			</fields>
+		</grid>
+	</metadata>
+	<!-- END Grilla de ItemDocumentoConsumo -->
+
+	<!-- Start Administracion-->
+		<metadata id="com.synapsis.synergia.common.domain.CoordinadorCuadrilla">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="code" description="Code"/>
+				<field property="contratista.razonSocial" description="Contratista"/>
+			</fields>
+		</grid>
+	</metadata>
+	<metadata id="com.synapsis.synergia.common.domain.CoordinadorCuadrilla@code">
+		<defaultControl maxLength="6">textBox</defaultControl>
+		<description>Codigo</description>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.common.domain.Feriado">
+		<defaultControl>grid</defaultControl>
+		<grid>
+			<fields>
+				<field property="fecha" description="Fecha"/>
+				<field property="modulo.name" description="modulo.nombre"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	<!-- End Administracion-->
+
+	<!-- Informe de Conformidad de Pagos - Modulo Compras de Generadoras -->
+	
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.InterfaseGeneradora">
+		<defaultControl>grid</defaultControl>
+		<description>Resumen Interfase</description>
+		<grid>
+			<fields>
+				<field property="informeGeneradora.generadora.description"/>
+				<field property="interfase.fileName"/>
+				<field property="documentosProcesados"/>
+				<field property="montoTotal"/>
+				<field property="interfase.estado"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	<metadata id="com.synapsis.synergia.generadora.spotcv.domain.Descuento">
+		<defaultControl>grid</defaultControl>
+		<description>Descuentos Empresa</description>
+		<grid>
+			<fields>
+				<field property="pedido.empresa.description"/>
+				<field property="documento.transaccion.nroFolio"/>
+				<field property="pedido.nroPedido"/>
+				<field property="descuento"/>
+				<field property="pedido.saldo"/>
+				<field property="documento.estado.name"/>
+			</fields>
+		</grid>
+	</metadata>
+	
+	<!-- *************************************************************** -->
+
+	<!--  **********  FAC GENERADORAS ***********  --> 
+  
+	<metadata id="com.synapsis.synergia.fac.domain.interfaces.ServicioFacturable">
+     <defaultControl>grid</defaultControl> 
+     <grid>
+       <fields>
+         <field property="servicio.nroServicio" /> 
+         <field property="servicio.description" /> 
+       </fields>
+     </grid>
+    </metadata>
+	<!-- *************************************************************** -->
+	
+<!--BEGIN ECO-->
+	<metadata id="com.synapsis.synergia.nucleo.domain.Cargo">
+		<defaultControl>select</defaultControl>
+		<description>Cargo</description>
+		<select>
+			<descriptionField>description</descriptionField> 
+			<keyFields>
+				<field property="code"/>
+			</keyFields> 
+		</select>
+	</metadata>	
+	
+	<metadata id="com.synapsis.synergia.eco.domain.seguros.ServicioEncargoCobranzaSeguro">
+		<defaultControl>grid</defaultControl>
+		<description>ServiciosECOSeguros</description>
+		<grid>
+			<fields>
+				<field property="nroPoliza"/>
+				<field property="planSeguro.description"/>
+				<field property="nroServicio"/>
+				<field property="cuenta.nroCuenta"/>
+				<!--<field property="estado"/>-->
+				<field property="workFlow.state.name" description="estado"/>
+				<field property="fechaInicio"/>
+				<field property="planSeguro.tipoSeguro.description"/>
+				
+			</fields>			
+		</grid>
+	</metadata>		
+	
+		<metadata id="com.synapsis.synergia.eco.domain.fonavi.ProyectoFonavi">
+		<defaultControl>grid</defaultControl>
+		<description>ServiciosECOFonavi</description>
+		<grid>
+			<fields>
+				<field property="nroProyecto"/>
+				<field property="description"/>
+				<field property="tipoProductoFonavi.description" description="tipoProducto"/>
+				<field property="workFlow.state.name" description="estado"/>
+			</fields>			
+		</grid>
+	</metadata>		
+	
+	<metadata id="com.synapsis.synergia.eco.domain.fonavi.ServicioEncargoCobranzaFonavi">
+		<defaultControl>grid</defaultControl>
+		<description>ServiciosECOFonavi</description>
+		<grid>
+			<fields>
+
+				<field property="cuenta.nroCuenta"/>
+				<field property="montoCuota"/>
+				<field property="cantidadCuotas"/>
+				<field property="workFlow.state.name" description="estado"/>
+			</fields>			
+		</grid>
+	</metadata>		
+	
+<!--END ECO-->
+	 <metadata id="com.synapsis.synergia.aic.ui.cruds.config.EntryEtaActCrudFactory@cartaObligatoria">
+	   <defaultControl>metaSelect</defaultControl>
+	   <description>combo</description>
+	   <customSelect type="boolean" required="true" keys="crud.EntryEtaAct.boolean"/>
+	 </metadata>
+
+	 <metadata id="com.synapsis.synergia.aic.ui.cruds.config.EntryTipResTipResReuCrudFactory@cartaObligatoria">
+	   <defaultControl>metaSelect</defaultControl>
+	   <description>combo</description>
+	   <customSelect type="boolean" required="true" keys="crud.EntryTipResTipResReu.boolean"/>
+	 </metadata>
+
+</metadataCatalog>

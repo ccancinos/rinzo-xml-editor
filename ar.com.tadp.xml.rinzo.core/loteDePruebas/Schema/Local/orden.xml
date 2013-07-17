@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order xmlns="urn:nonstandard:test"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="urn:nonstandard:test orden.xsd">
+     
+	<user>
+		<fullname>Bob Jones</fullname>
+		<deliveryAddress>
+            123 This road,
+            That town,
+            Bobsville
+		</deliveryAddress>
+	</user>
+	<products>
+	<!--Hola -->
+	<product id="12345" quantity="1" />
+		<product id="3232" quantity="3" />
+	</products>
+</order>

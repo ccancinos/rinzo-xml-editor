@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Rinzo XML Editor Update Site" url="http://editorxml.sourceforge.net/updates">
+      This is the Update Site for Rinzo XML Editor
+   </description>
+   <feature url="features/ar.com.tadp.xml.rinzo.core.feature_1.1.2.jar" id="ar.com.tadp.xml.rinzo.core.feature" version="1.1.2">
+      <category name="Rinzo XML Editor"/>
+   </feature>
+   <feature url="features/ar.com.tadp.xml.rinzo.jdt.feature_1.1.2.jar" id="ar.com.tadp.xml.rinzo.jdt.feature" version="1.1.2">
+      <category name="Rinzo XML Editor"/>
+   </feature>
+   <archive path="plugins/ar.com.tadp.xml.rinzo.core_1.1.2.jar" url="http://downloads.sourceforge.net/editorxml/ar.com.tadp.xml.rinzo.core_1.1.2.jar"/>
+   <archive path="plugins/ar.com.tadp.xml.rinzo.jdt_1.1.2.jar" url="http://downloads.sourceforge.net/editorxml/ar.com.tadp.xml.rinzo.jdt_1.1.2.jar"/>
+   <category-def name="Rinzo XML Editor" label="Rinzo XML Editor"/>
+</site>

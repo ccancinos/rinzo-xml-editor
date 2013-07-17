@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+<hibernate-mapping>
+
+	<class name="foro.caritomari.server.business.Mensaje" table="mensaje" >
+		<id name="id" unsaved-value="0" column="id" type="long">
+			<generator class="increment"/>
+		</id>
+
+		<property name="titulo" column="titulo" type="java.lang.String" not-null="true" />
+		<property name="texto" column="texto" type="java.lang.String" not-null="true" />
+		<property name="HFecha" column="fecha" type="java.util.Date" not-null="true" />
+		<property name="cantidadRespuestas" column="cantidadRespuestas" type="int" not-null="true" />
+		
+		<bag name="respuestas" lazy="true" cascade="all">
+		    <key column="id_respuesta"/>
+		    <one-to-many class="foro.caritomari.server.business.Mensaje"/>
+		</bag>
+
+		<many-to-one name="mensajePadre" column="id_padre" class="foro.caritomari.server.business.Mensaje" cascade="none" />
+		<many-to-one name="usuario" column="id_usuario" not-null="true" class="foro.caritomari.server.business.Usuario" cascade="none" />
+	</class>
+	
+	
+
+</hibernate-mapping>

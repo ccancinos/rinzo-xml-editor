@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+	</skin>
+
+	<poweredBy>
+        <logo name="Support This Project" 
+          href="http://sourceforge.net/donate/index.php?group_id=227708"
+          img="http://images.sourceforge.net/images/project-support.jpg" />
+        <logo name="Drag and drop into a running Eclipse Indigo workspace to install Rinzo XML Editor" 
+          href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=697"
+          img="http://marketplace.eclipse.org/misc/installbutton.png" />
+        <logo name="Rate Rinzo XML Editor at MarketPlace" 
+          href="http://marketplace.eclipse.org/content/rinzo-xml-editor"
+          img="/images/mp-small.jpg" />
+		<logo name="Get Rinzo XML Editor at SourceForge.net"
+		  href="http://sourceforge.net/projects/editorxml/files/Rinzo%20XML%20Editor"
+          img="http://sflogo.sourceforge.net/sflogo.php?group_id=227708&amp;type=12"/>
+	</poweredBy>
+
+	<version position="left"/>
+	
+	<body>
+		<links>
+	      <item name="Bugs Report" href="issue-tracking.html"/>
+	      <item name="Contact" href="team-list.html" />
+	    </links>
+	    
+		<menu name="Overview">
+			<item name="Introduction" href="index.html"/>
+			<item name="Download" href="download.html"/>
+			<item name="Configuration" href="configuration.html"/>
+			<item name="Release Notes" href="releaseNotes.html"/>
+			<item name="Project Information" href="project-info.html"/>
+			<item name="Usage and References" href="usage.html"/>
+			<item name="Related Projects" href="relatedProjects.html"/>
+		</menu>
+		<menu name="Features">
+			<item name="Actions" href="actions.html"/>
+			<item name="Autocompletion" href="autocompletion.html"/>
+			<item name="Validation" href="validation.html"/>
+			<item name="Java Integration" href="javaIntegration.html"/>
+			<item name="XPath Viewer" href="xpathViewer.html"/>
+			<item name="Extending Rinzo" href="extendingRinzo.html"/>
+			<item name="Others" href="others.html"/>
+		</menu>
+	</body>
+</project>

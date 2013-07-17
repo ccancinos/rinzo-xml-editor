@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>BEA ALBPM Studio Welcome Screen</title>
+		<link rel="stylesheet" href="root.css" type="text/css" />
+		<contentProvider id="contentProviderId" class="fuego.eclipse.studio.IntroContentProvider" pluginId="fuego.eclipse.studio">
+			<text>An error occurred.</text>
+		</contentProvider>
+		<script type="text/javascript">
+			function selectImage(image, imgName, select)
+        {
+            var browserName=navigator.appName;
+if (browserName=="Microsoft Internet Explorer")
+{
+                if(select)
+                {
+                    image.className = "selected";
+                }
+                else {
+                    image.className = "unselected";
+                }
+            }
+            else {
+                image.src=imgName;
+            }
+        }
+
+        function highlightMenu(profile)
+        {
+            var analystImage = document.getElementById("analystImage");
+            var architectImage = document.getElementById("architectImage");
+            var developerImage = document.getElementById("developerImage");
+
+            if(profile == null) {
+
+                selectImage(analystImage, "images/analystOver.gif", false);
+                selectImage(architectImage, "images/architectOver.gif", false);
+                selectImage(developerImage, "images/developerOver.gif", false);
+            }
+
+            else if(profile == "businessAnalyst") {
+
+                selectImage(analystImage, "images/analyst.gif", true);
+                selectImage(architectImage, "images/architectOver.gif", false);
+                selectImage(developerImage, "images/developerOver.gif", false);
+            }
+
+            else if(profile == "businessArchitect") {
+
+                selectImage(analystImage, "images/analystOver.gif", false);
+                selectImage(architectImage, "images/architect.gif", true);
+                selectImage(developerImage, "images/developerOver.gif", false);
+            }
+
+            else if(profile == "developer") {
+
+                selectImage(analystImage, "images/analystOver.gif", false);
+                selectImage(architectImage, "images/architectOver.gif", false);
+                selectImage(developerImage, "images/developer.gif", true);
+            }
+        }
+
+        function hideProfile(profile)
+        {
+            var profileElem = document.getElementById(profile);
+            profileElem.className="profile";
+        }
+		</script>
+	</head>
+	<body>
+		<a name="top"></a>
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tbody>
+				<tr>
+					<td rowspan="3">
+						<img src="images/sp.gif" alt="" height="148" width="1" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<img src="images/sp.gif" alt="" height="1" width="165" />
+					</td>
+				</tr>
+				<tr>
+					<td id="welcomeTitle">
+						<i18n id="welcomeTo">Welcome to</i18n>
+						<img src="images/welcomeTitle.gif" alt="Welcome to BEA ALBPM" border="0"/>
+					</td>
+					<td style="padding: 0pt;" align="right" valign="top" width="40%">
+						<a href="http://www.bea.com" title="BEA Corporate Website">
+							<img src="images/header_logo.gif" style="margin: 0px 8px 20px 0pt; padding: 0px 8px 20px 0pt; vertical-align: top;" border="0" height="77" width="98" />
+						</a>
+						<br />
+						<!--<a href="http://org.eclipse.ui.intro/runAction?pluginId=fuego.eclipse.studio&amp;class=fuego.eclipse.studio.actions.OpenPerspectiveAction&amp;perspectiveId=studioPerspective" label="Workbench"><img src="images/sp.gif" alt="Workbench" class="workbenchoff" onmouseover="className='workbench'" onmouseout="className='workbenchoff'" style="margin: 0px 20px 0pt 0pt; padding: 0px 20px 0pt 0pt; vertical-align: bottom;" border="0" height="38" width="121" /></a>-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="profiles" class="centerContent">
+			<i18n id="chooseProfile" class="title">Choose your profile:</i18n>
+			<div id="businessAnalyst" class="profile">
+				<a id="ba" href="http://org.eclipse.ui.intro/runAction?pluginId=fuego.eclipse.studio&amp;class=fuego.eclipse.studio.actions.OpenPerspectiveAction&amp;perspectiveId=studioPerspective&amp;profile=analyst" class="disabled">
+					<img id="analystImage" alt="" src="images/analyst.gif" />
+					<br/>
+					<i18n id="baText">Business Analyst</i18n>
+				</a>
+			</div>
+			<div id="businessArchitect" class="profile">
+				<a id="bd" href="http://org.eclipse.ui.intro/runAction?pluginId=fuego.eclipse.studio&amp;class=fuego.eclipse.studio.actions.OpenPerspectiveAction&amp;perspectiveId=studioPerspective&amp;profile=architect" class="disabled">
+					<img id="architectImage" alt="" src="images/architect.gif" />
+					<br/>
+					<i18n id="bdText">Business Developer</i18n>
+				</a>
+			</div>
+			<div id="developer" class="profile">
+				<a id="dev" href="http://org.eclipse.ui.intro/runAction?pluginId=fuego.eclipse.studio&amp;class=fuego.eclipse.studio.actions.OpenPerspectiveAction&amp;perspectiveId=studioPerspective&amp;profile=developer" class="disabled">
+					<img id="developerImage" alt="" src="images/developer.gif" />
+					<br/>
+					<i18n id="devText">Developer</i18n>
+				</a>
+			</div>
+		</div>
+		<div id="spacer">
+		</div>
+		<table id="links" border="0" cellpadding="0" cellspacing="0" width="80%">
+			<tr>
+				<td style="padding-left: 195px; padding-right: 10px;" valign="top" width="90%">
+					<div id="content">
+						<table style="width: 621px" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td class="spacergray">
+									<img alt="" src="images/callout_top_left.gif" height="14" width="14" />
+								</td>
+								<td class="calloutsidetop">
+									<img alt="" src="images/sp.gif" height="14" width="14" />
+								</td>
+								<td class="spacergray">
+									<img alt="" src="images/callout_top_right.gif" height="14" width="14" />
+								</td>
+							</tr>
+							<tr>
+								<td class="calloutsideleft" width="14">
+									<img alt="" src="images/sp.gif" height="14" width="14" />
+								</td>
+								<td>
+									<div id="datatable">
+										<table border="0" cellpadding="0" cellspacing="0">
+											<tr>
+												<i18n id="linksTitle" class="sectionhd" colspan="2">BEA AquaLogic&#174; BPM Suite</i18n>
+											</tr>
+											<tr>
+												<td class="blockcontent" colspan="2">
+													<span>
+														<i18n id="ProductDocumentationOnline" title="eDocs: Product Documentation Online" href="http://org.eclipse.ui.intro/openBrowser?url=http://edocs.bea.com/albsi/docs60/index.html">
+															<strong>eDocs: Product Documentation Online</strong>
+															- Read about BEA AquaLogic&#174; BPM Suite Online documentation.
+														</i18n>
+														<i18n id="ProductCenter" title="Dev2Dev: Product Center" href="http://org.eclipse.ui.intro/openBrowser?url=http://dev2dev.bea.com/albpm/">
+															<strong>Dev2Dev: Product Center</strong>
+															- Get the latest articles, blogs about BEA AquaLogic&#174; BPM Suite.
+														</i18n>
+														<i18n id="DiscussionGroups" title="Dev2Dev: Discussion Groups" href="http://org.eclipse.ui.intro/openBrowser?url=http://forums.bea.com/bea/category.jspa%3FcategoryID%3D600000008">
+															<strong>Dev2Dev: Discussion Groups</strong>
+															- Participate in the BEA AquaLogic&#174; BPM Discussion Groups Community.
+														</i18n>
+														<i18n id="ProductPage" title="BEA.com: Product Page" href="http://org.eclipse.ui.intro/openBrowser?url=http://www.bea.com/framework.jsp%3FCNT%3Dindex.htm%26FP%3D/content/products/aqualogic/albpm/">
+															<strong>BEA.com: Product Page</strong>
+															- Get an overview and download of BEA AquaLogic&#174; BPM Suite.
+														</i18n>
+														<div style="padding: 3px;"></div>
+													</span>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+								<td class="calloutsideright" width="14">
+									<img alt="" src="images/sp.gif" height="14" width="14" />
+								</td>
+							</tr>
+							<tr>
+								<td class="spacergray">
+									<img alt="" src="images/callout_bottom_left.gif" height="14" width="14" />
+								</td>
+								<td class="calloutsidebottom">
+									<img alt="" src="images/sp.gif" height="14" width="14" />
+								</td>
+								<td class="spacergray">
+									<img alt="" src="images/callout_bottom_right.gif" height="14" width="14" />
+								</td>
+							</tr>
+						</table>
+						<img alt="" src="images/sp.gif" border="0" height="10" width="1" />
+					</div>
+				</td>
+				<td class="wtspace">
+					<img alt="" src="images/sp.gif" height="1" width="1" />
+				</td>
+				<td style="padding-right: 30px;" valign="top">
+					<div class="leftnav">
+						<img alt="" src="images/sp.gif" height="10" width="10" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" class="wtspace">
+					<img alt="" src="images/sp.gif" height="50" width="1" />
+				</td>
+			</tr>
+		</table>
+		<div id="footer" class="footer">
+			<p>Copyright 2007 &#169; BEA Systems, Inc. All rights
+reserved.</p>
+		</div>
+	</body>
+</html>

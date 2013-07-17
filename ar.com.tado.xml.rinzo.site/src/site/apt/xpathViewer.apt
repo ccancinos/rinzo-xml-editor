@@ -1,0 +1,22 @@
+ -----
+Eclipse xml editor 
+ -----
+
+
+XPath Viewer
+
+ It consists of an eclipse's View where you can evaluate xpath expressions in the current opened document.
+
+[images/xpathViewer.png]
+
+* Automatic Evaluation
+
+ This view also has an "Auto Evaluate XPath" button that switchs on and off the ability to evaluate the expression while you are editing it.
+ 
+* Expressions History
+  
+  A history entry is saved in the expression combo.
+  
+  Either you use automatic evaluation or not, only valid results will be added to the history entry.
+  
+  History can be cleaned using the "clean" button in the view's toolbar.  

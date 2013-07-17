@@ -1,0 +1,232 @@
+ -----
+Eclipse xml editor 
+ -----
+
+Release Notes
+
+%{toc}
+
+{What's new in 1.1.2?}
+  
+* {Bugs}
+
+  * {{{http://sourceforge.net/tracker/?func=detail&aid=3566469&group_id=227708&atid=1071780}Formatting erases content in XSD files}}
+  
+  * {{{http://sourceforge.net/tracker/?func=detail&aid=3566474&group_id=227708&atid=1071780}Updating XSD not applied to open XML files}}\
+  Now it will be possible to edit a local dtd/xsd while editing a xml using it and see the definition changes.
+  
+  * {{{http://sourceforge.net/tracker/?func=detail&aid=3570009&group_id=227708&atid=1071780}Rinzo fills the log with ConcurrentModificationException}}
+
+  * {{{https://sourceforge.net/tracker/?func=detail&aid=3157176&group_id=227708&atid=1071780}Character lost when comment/uncomment combination entered}}\
+  Now this actions will be applied line by line to all lines having at least partial selection. 
+
+[]
+
+{What's new in 1.1.0?}
+  
+* {Features}
+
+  * XML validation error's severity could be configured to be <<Error>> (default) or <<Warning>>.
+  
+  * XML Tag folding.
+  
+  * Quick Assist to remove surrounding Tag through Ctrl-1.
+  
+  * Configuring line width size used on formatting.
+  
+  * Supporting noNamespaceSchemaLocation for schema location definition which will be used for validation and autocompletion.
+  
+  * Pressing enter on XPath Viewer combo will trigger evaluation.
+  
+  []
+
+* {Bugs}
+
+  * Saving an external file throw IllegalThreadStateException displaying an error dialog.
+  
+  * XPat Viewer can evaluate expressions on a document defining xsd namespaces.
+  
+  * Fixing extra indentation added on copy&paste of tags. 
+  
+  * Code formatting preserves spaces in tag's bodies.
+  
+  * Editor's content-type binding priority set to "normal" trying avoid taking precedence over more specific editors.
+  
+  * F3 to open a file or class now has as delimiters the single quote and question mark which makes possible to open the following
+  examples: 'a.b.c.ClassName' and not just "a.b.c.ClassName", and 'file.jsp?a="x"&b="y"'
+  
+  []
+
+{What's new in 1.0.0?}
+  
+* {Features}
+
+  * Rewriting content assist processors to distinguish each part of the document to assist (tag name, attribute name, attribute value, etc)
+  generated the opportunity to improve the accuracy on proposals generation and the addition of proposals to close the current incomplete tag and
+  to add a corresponding closing tag.
+  
+  * Class proposals acts as in previous versions or on configured attributes and tag's bodies.
+  Such {{{javaIntegration.html#Preferences}preferences configuration}} will allow to explicitly define
+  which attributes of which tags will contain class names as values, including the possibility to define which class/interface 
+  should be extended/implemented.
+  This is also possible for tag's bodies.
+  
+  * Suggestion of {{{autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}restrictions defined in XSD}} for an attribute as possible attribute values.
+  
+  * In a file defining a XSD, autocompleting a tag's attribute which has defined a {{{autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}default value}} will write the selected 
+  attribute with the default value as its value.
+  
+  * New {{{javaIntegration.html#Preferences}preference page for JDT integration}} including:
+  
+    * Severity used to mark errors (Error, Warning, Info, Ignore).
+    
+    * Switch between validating all attributes and tag's bodies or just the ones configured for such a task.
+    
+    * In configured tag's and attributes it is possible to define from which class/interface should extend/implement the written values.
+    
+  * Extension points where improved and documented in {{{extendingRinzo.html} Extending Rinzo section}} which will allow to extend Rinzo's behavior.
+  
+  []
+
+* {Bugs}
+
+  * Proposals from JDT where not ordered by relevance. Now the method called <"getRelevance"> of a proposal not implementing 
+  IXMLCompletionProposal will be invoked to sort proposals.
+  
+  * Trying to open a referenced file was not always finding it in the Workspace.
+  
+  * Content assist was not proposing available tags in the root node of a file using a xsd definition.
+  
+  * {{{https://sourceforge.net/tracker/?func=detail&aid=3001482&group_id=227708&atid=1071780}Model generation was misplacing CDATA content leading to be removed when formatting the file content}}.
+  
+  * {{{https://sourceforge.net/tracker/?func=detail&aid=3220122&group_id=227708&atid=1071780}Syntax coloring errors on CDATA element}}
+  
+  * Through the configuration of the java integration it was fixed {{{https://sourceforge.net/tracker/?func=detail&aid=2958827&group_id=227708&atid=1071780}this bug}} 
+  
+  []
+
+{What's new in 0.9.0?}
+
+* {Features}
+
+  * {{{actions.html}<<Quick Assist>>}} Allows 6 commons actions on a tag by the use of Ctrl-1 shortcut
+
+  * {{{actions.html}<<Refactoring Support>>}} Starting to add refactors to the editor. At this time tag renaming in
+  different scopes is available.
+
+  * {{{configuration.html}<<Configuration>>}} Some configurations elements were taken care of. Like changing the editor's background color,
+  indentation using tag or spaces and file association by content-type, allowing the use of more specific editors for different xml's types.
+  
+  []
+
+* {Bugs}
+
+ * {{{https://sourceforge.net/tracker/?func=detail&aid=3049228&group_id=227708&atid=1071780}Validation against associated DTD definition not working}}
+ 
+ * {{{https://sourceforge.net/tracker/?func=detail&aid=2958830&group_id=227708&atid=1071780}How do I get Rinzo XML to NOT open plugin.xml files}}
+ 
+ []
+
+{What's new in 0.8.0?}
+
+* {Features}
+ 
+ * {{{xpathViewer.html}<<XPath Viewer>>}} A basic viewer to evaluate xpath expression in the currently selected Rinzo's editor.
+ 
+ * {{{other.html}<<Document Navigation>>}} A couple of key shortcuts to jump through the document tags in order to speed document navigation.
+ 
+ []
+ 
+ 
+{What's new in 0.7.0?}
+
+ The main goal of this version is to add <<namespace support>> to the editor a feature that will improve the edition of things like
+ Spring's configuration files.
+
+* {Features}
+
+  * {{{autocompletion.html}<<Namespace Support>>}} Now all schemas defining an xml are considered in editor's functionalities like autocompletion.
+ 
+  * {{{validation.html}<<Hover over errors>>}} When you put the mouse cursor over a line with an error mark its message is displayed in a hover.
+ 
+  * {{{others.html}<<Hover on Tags and Attributes>>}} Positioning the mouse over a tag or attribute displays its documentation <including its XPath> in a hover.
+
+  []
+
+* {Bugs}
+
+ * Attribute documentation was adding the "Data type" definition each time it was displayed
+ 
+ * Comments in outline now displays 20 first characters plus "..."
+ 
+ * AutoIndentation was throwing an exception when trying to indent after a node without indentation
+ 
+ * Create class dialog wizard is configured with the source folder where the xml is on or the first available one.
+ 
+ []
+
+
+{What's new in 0.6.0?}
+  
+ This version has less external changes, bugfixed and features than expected, but that doesn't mean the project stood still!!  
+ Because the core of this release are the refactors done to gain extensibility. 
+
+* {Features}
+  
+ * {{{others.html}<<Pair Node Matching:>>}} To know where is the ending tag of an opening one. And the opening tag of and ending one.
+
+ * {{{others.html}<<Range Highlight:>>}} To know the entire area used by the tag where the caret is positioned.
+  
+ * {{{actions.html}<<Escape Characters:>>}} No more encoding problems that should be solved by reviewing entire documents to escape 
+ characters everywhere.
+ 
+ * Also notice that from this version it is required Eclipse version 3.3 or above and JRE 5 or above.
+ 
+ []
+  
+* {Extensions}
+
+ All the behavior concerning JDT was decoupled to its own plugin, which allowed to create 2 generalizations
+ in the form of Eclipse's extension points to create custom extensions of Rinzo's features.
+  
+ Please take into account that this extensions will be documented properly on next releases when they'll be more stable and suitable to be used 
+ by third parties.
+ 
+ Although this is still a work in progress and is subject to changes, you can find this extension points to play with:
+    
+ * <<ar.com.tadp.xml.rinzo.core.contentAssist:>> Point to define content assist processors which will populate the list of proposals 
+ to be displayed when the user requires it.
+  
+ * <<ar.com.tadp.xml.rinzo.core.validators:>> Here is where will be defined all the validators to be used on the currently edited document
+ 
+ []
+  
+* {Bugs}
+
+ Several bugs were fixed regarding
+  
+ * Auto ending tag completion.
+  
+ * Files with no DTD or Schema didn't display validation errors.
+  
+ * Empty files handling.
+ 
+ * {{{https://sourceforge.net/tracker/?func=detail&aid=2542854&group_id=227708&atid=1071783}Dialog displaying error messages when creating XSD or DTD from an xml file.}}
+ 
+ * {{{https://sourceforge.net/tracker/?func=detail&aid=2542802&group_id=227708&atid=1071780}Java classes are proposed only if the file is in a java project.}}
+
+ []
+ 
+{What's new in 0.5.0?}
+
+ Besides some internal refactors, this release includes a fix for bug:
+ 
+ * {{{https://sourceforge.net/tracker/?func=detail&aid=2065370&group_id=227708&atid=1071780}External entities used in DTD are not resolved}}
+
+ * It is also included a contextual menu element to remove validation errors and warnings from a file.
+
+ []
+ 
+{What's new on 0.4.0?}
+
+ This is Rinzo's first release at Source Forge  

@@ -1,0 +1,65 @@
+ -----
+Eclipse xml editor 
+ -----
+
+Others
+
+%{toc|section=1|fromDepth=1}
+
+* {Keyboard Shortcuts}
+
+ These are some useful shortcuts for the editor.
+ 
+*--------------------+-----------------------------------------------------------------------------------------------+
+|| Key Binding       || Description                                                                                  | 
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + Shift + F   | Code Formatting                                                                               |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| F2                 | Opens the New Class Wizard filling it with the text selection                                 |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| F3                 | If the selected text corresponds to a class name or resource, it is opened in the predefined workspaces' editor.
+|                    |Url's starting with http like "http://www.google.com" will be opened using the internal browser.|
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + /           | Enclose the selection inside an xml comment tag                                               |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + Shift + UP  | Positions the cursor in the previous sibling tag.											 |
+|                    |If the current tag doesn't have a previous sibling It'll position the cursor in the parent tag |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + Shift + DOWN| Positions the cursor in the next sibling tag.											 	 |
+|                    |If the current tag doesn't have a next sibling It'll position the cursor in the parent tag     |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Alt + Shift + R    | Presents the rename dialog allowing to rename the selecte tag, all tags with the same name    | 
+|                    |inside the parent tag or all the tags with the same name in the file.                          |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + 1           | Presents a list of actions over the current tag                                               |
+*--------------------*-----------------------------------------------------------------------------------------------+
+
+
+ There are many other shortcuts available which are part of the Eclipse platform. You can see them 
+ all going to <Window-\>Preferences-\>General-\>Keys>.
+
+* {Automatic End Tag}
+
+ When a start tag is closed \<tag\>|, it will be autocompleted with his corresponding ending tag \<tag\>|\</tag\> 
+
+ Wen the start start tag is closed in order to be a single line tag \<tag/|\>\</tag\>, the ending 
+ tag will be removed \<tag/\>| including all his contents.
+ 
+* {Pair Node Matching}
+
+ When the cursor is standing on an opening or ending tag, the corresponding pair will be remark.
+  
+* {Range Highlight}
+
+ Every time you move the cursor the left rule will be painted blue marking all the lines the current tag occupies.
+  
+* {Tag and Attribute Documentation Hover}
+
+ By positioning the cursor over an attribute or tag name a popup will display the element's name, documentation, type, and XPath
+ 
+[images/AttrHoverDocumentation.png]
+
+* {Document Navigation}
+
+ <<Ctrl + Shift + DOWN>> and <<Ctrl + Shift + UP>> key combinations enable you to move throught the document jumping between sibling tags.
+In both cases if the current node doesn't have a sibling to jump to, the parent tag will be the next tag selected. 

@@ -1,0 +1,390 @@
+<!-- menu -->
+<card>	
+    <name>wmenu</name>
+
+  		<manage-contextual-menu-item>
+    		<menu-item menu-id="back" item-id="1"/>
+   		  	<hyper-link>
+        		<url type="smartcard">home</url>
+        		<text>Regresar</text>
+     		</hyper-link>
+  		</manage-contextual-menu-item>
+
+		<manage-contextual-menu-item>
+        	<menu-item menu-id="abort" item-id="1"/>
+        	<hyper-link>
+            	<url type="smartcard">home</url>
+            	<text>Cancelar</text>
+        	</hyper-link>
+		</manage-contextual-menu-item>			
+
+        <!-- Select a operation -->
+		<select>
+        	<variable-ref>operation</variable-ref> 
+            <item>
+                <value>ra</value>
+                <text>Agregar Alias</text>
+            </item>
+            <item>
+                <value>da</value>
+                <text>Eliminar Alias</text>
+            </item>
+             <item>
+                <value>tr</value>
+                <text>Transacciones</text>
+            </item>
+        </select>
+        <go>
+            <!-- Go to the operation -->
+            <hyper-link>
+                <url type="smartcard">
+					<variable-ref>operation</variable-ref>
+				</url>
+            </hyper-link>
+        </go>
+    </card>	
+</card>
+
+<!-- alias creation -->
+<card>
+    <name>ra</name>
+    <!-- product number inputs -->
+    <!-- se podria hacer con el plugin de la tarjeta si se invierte el tipo 1ero y 2do el numero -->
+        
+    <input type="text" format="digits">
+        <response-length min="1" max="16"/>
+        <variable-ref>NUMPROD</variable-ref>
+        <text>Digite numero de producto:</text>
+    </input>
+        
+    <!-- product type selection -->
+      <select>
+        <variable-ref>TIPROD</variable-ref>
+          <title>
+              <text>Tipo producto:</text>
+          </title>
+          <item>
+              <value>1</value>
+              <text>Cta. Ahorros</text>
+          </item>
+          <item>
+              <value>2</value>
+              <text>Tarj. Credito</text>
+          </item>
+          <item>
+              <value>3</value>
+              <text>M-wallet</text>
+          </item>
+        </select>
+        
+    <!-- alias input -->
+    <input type="text" format="digits">
+        <response-length min="1" max="16"/>
+        <variable-ref>ALIAS</variable-ref>
+        <text>Ingrese alias:</text>
+    </input>
+    
+    <!-- mobile purchase pin -->    
+    <input type="password" format="digits">
+        <response-length min="4" max="4"/>
+        <variable-ref>PIN2</variable-ref>
+        <text>Ingrese su clave de compras moviles:</text>
+    </input>
+    
+    <!-- Appel du Plugin Format -->
+    <plug-in exit="no">
+        <manufacturer>02</manufacturer>          <!-- Valid References -->
+        <reference>06</reference>
+        <input-list>
+          <text>B16</text>
+          <variable-ref>NUMPROD</variable-ref>
+          <text>S2</text>
+          <variable-ref>TIPROD</variable-ref>
+          <text>S10</text>
+          <variable-ref>ALIAS</variable-ref>          
+          <text>S4</text>
+          <variable-ref>PIN2</variable-ref>
+        </input-list>
+          <variable-list>
+              <variable-ref>PARAM_E</variable-ref>
+          </variable-list>
+      </plug-in>
+    
+      <!-- Encrypt Plugin -->
+       <plug-in exit="no">
+            <manufacturer>02</manufacturer>
+            <reference>04</reference>
+            <input-list>
+                <text>E</text>
+                <variable-ref>PARAM_E</variable-ref>
+            </input-list>
+            <variable-list>
+                <variable-ref>ENCRYPT</variable-ref>
+            </variable-list>
+        </plug-in>
+        
+         <!-- Appel du Plugin Format pour clear data -->
+        <plug-in exit="no">
+            <manufacturer>02</manufacturer>          <!-- Valid References -->
+            <reference>06</reference>
+            <input-list>
+                <text>S1</text>
+                <variable-ref>MB_BANK_ID</variable-ref> <!-- Bank ID -->
+            </input-list>
+            <variable-list>
+                <variable-ref>DATA</variable-ref>    <!-- Valid Parameters -->
+            </variable-list>
+        </plug-in>
+        
+               <!-- Calculate MAC -->
+        <plug-in exit="no">
+            <manufacturer>02</manufacturer>          <!-- Valid References -->
+            <reference>05</reference>
+            <input-list>
+                <variable-ref>DATA</variable-ref>
+                <variable-ref>ENCRYPT</variable-ref>
+            </input-list>
+            <variable-list>
+                <variable-ref>MAC</variable-ref>
+            </variable-list>
+        </plug-in>
+
+        <!-- Calculate d parameter -->
+        <concatenate id="CLEAR">
+            <variable-ref>DATA</variable-ref>
+            <variable-ref>MAC</variable-ref>
+        </concatenate>
+
+	    <!-- Billing -->
+		<plug-in exit="no">
+			<manufacturer>02</manufacturer>
+			<reference>01</reference>
+			<input-list>
+				<text><%=BmsRequest.getNonBillableTPDA()%></text>
+			</input-list>
+		</plug-in>
+	
+       <!-- SMS: AL BANCO EL ALTA DEL ALIAS WAA -->	
+	    <go>
+	      <!-- send URL to the Bank -->
+	      <hyper-link method="get">
+	        <url type="alias">WAA</url>              <!-- Validate URL -->
+	        <parameters>
+	          <parameter id="d" var-ref="CLEAR"/>
+	          <parameter id="e" var-ref="ENCRYPT"/>
+	        </parameters>
+	      </hyper-link>
+       </go>	 
+	 
+	 <!-- MUESTRA EL MENSAJE DE CONFIRMACION -->
+
+</card>
+
+<!-- Remove alias -->
+<card>
+	<name>da</name>
+	
+	<!-- SMS: para obtener los alias table WSA: wallet show alias (muestra todas las alias) si flags es D es para eliminar -->  
+	<!-- VER COMO SOLO DIRECCIONAR AL ALIAS CON UN PARAMETRO CLEAR (D) -->
+	
+</card>
+         
+ <card>      
+     <!-- ALIAS WSA: WALLET SHOW ALIAS -->
+      <select>
+        <variable-ref>ALIAS</variable-ref>
+          <title>
+              <text>Alias</text>
+          </title>
+          <item>
+              <value>1</value>
+              <text>[alias 1]</text>
+          </item>
+          <item>
+              <value>2</value>
+              <text>[alias 2]</text>
+          </item>
+          <item>
+              <value>3</value>
+              <text>[alias 3]</text>
+          </item>
+        </select>
+        
+        <go>
+            <!-- Go to the operation -->
+            <hyper-link>
+                <url type="smartcard">
+					<variable-ref>VREF</variable-ref> <!-- setear WDA para borrar WVA para ver el detalle -->
+				</url>
+            </hyper-link>
+        </go>
+</card>
+
+<card>
+  <name>WDA</name>
+  
+    <concatenate id="Display">
+      <text>Eliminar&#x0D0A;alias?&#x0D0A;</text>
+      <variable-ref>ALIAS</variable-ref>
+    </concatenate>
+
+	<display>
+	  <string>
+        <variable-ref>Display</variable-ref>
+	  </string>
+    </display>
+    
+    <!-- mobile purchase pin -->    
+    <input type="password" format="digits">
+        <response-length min="4" max="4"/>
+        <variable-ref>PIN2</variable-ref>
+        <text>Ingrese su clave de compras moviles:</text>
+    </input>
+    
+       <!-- Appel du Plugin Format -->
+    <plug-in exit="no">
+        <manufacturer>02</manufacturer>          <!-- Valid References -->
+        <reference>06</reference>
+        <input-list>
+          <variable-ref>ALIAS</variable-ref>          
+          <text>S4</text>
+          <variable-ref>PIN2</variable-ref>
+        </input-list>
+          <variable-list>
+              <variable-ref>PARAM_E</variable-ref>
+          </variable-list>
+      </plug-in>
+    
+      <!-- Encrypt Plugin -->
+       <plug-in exit="no">
+            <manufacturer>02</manufacturer>
+            <reference>04</reference>
+            <input-list>
+                <text>E</text>
+                <variable-ref>PARAM_E</variable-ref>
+            </input-list>
+            <variable-list>
+                <variable-ref>ENCRYPT</variable-ref>
+            </variable-list>
+        </plug-in>
+        
+         <!-- Appel du Plugin Format pour clear data -->
+        <plug-in exit="no">
+            <manufacturer>02</manufacturer>          <!-- Valid References -->
+            <reference>06</reference>
+            <input-list>
+                <text>S1</text>
+                <variable-ref>MB_BANK_ID</variable-ref> <!-- Bank ID -->
+            </input-list>
+            <variable-list>
+                <variable-ref>DATA</variable-ref>    <!-- Valid Parameters -->
+            </variable-list>
+        </plug-in>
+        
+               <!-- Calculate MAC -->
+        <plug-in exit="no">
+            <manufacturer>02</manufacturer>          <!-- Valid References -->
+            <reference>05</reference>
+            <input-list>
+                <variable-ref>DATA</variable-ref>
+                <variable-ref>ENCRYPT</variable-ref>
+            </input-list>
+            <variable-list>
+                <variable-ref>MAC</variable-ref>
+            </variable-list>
+        </plug-in>
+
+        <!-- Calculate d parameter -->
+        <concatenate id="CLEAR">
+            <variable-ref>DATA</variable-ref>
+            <variable-ref>MAC</variable-ref>
+        </concatenate>
+
+	    <!-- Billing -->
+		<plug-in exit="no">
+			<manufacturer>02</manufacturer>
+			<reference>01</reference>
+			<input-list>
+				<text><%=BmsRequest.getNonBillableTPDA()%></text>
+			</input-list>
+		</plug-in>
+	
+       <!-- SMS: AL BANCO EL ALTA DEL ALIAS WDC -->	
+	    <go>
+	      <!-- send URL to the Bank -->
+	      <hyper-link method="get">
+	        <url type="alias">WDC</url>              <!-- Validate URL -->
+	        <parameters>
+	          <parameter id="d" var-ref="CLEAR"/>
+	          <parameter id="e" var-ref="ENCRYPT"/>
+	        </parameters>
+	      </hyper-link>
+       </go>           
+
+</card>
+
+<!-- VIEW ALIAS WALLET -->
+
+<card>
+   <name>WVA</name>
+   
+   <concatenate id="Display">      
+      <variable-ref>ALIAS</variable-ref>
+      <text>Numero Producto:&#x0D0A;</text>
+      <variable-ref>NUMPROD</variable-ref>
+      <text>Tipo:&#x0D0A;</text>
+      <variable-ref>TIPROD</variable-ref>
+   </concatenate>
+
+	<display>
+	  <string>
+        <variable-ref>Display</variable-ref>
+	  </string>
+    </display>   
+   
+</card>
+
+
+<!-- MAIL BOX -->
+<card>
+	<name>WMB</name>
+	
+	     <concatenate id="Display">
+			<text>Bienvenido ID&#x0D0A;</text>
+			<variable-ref>AP_CLEAR</variable-ref>			
+		</concatenate>			
+		
+		<display>
+			<string>
+				<variable-ref>Display</variable-ref>
+			</string>
+		</display>
+		
+		<!-- SMS: para obtener los alias table WMB: lista  de transacciones-->	    
+		
+</card>
+
+<!-- LISTA DE TRANSACCIONES -->
+ <card> 
+     <!-- ALIAS WSA: WALLET SHOW ALIAS -->
+      <select>
+        <variable-ref>PAGPEN</variable-ref>
+          <title>
+              <text>Pagos Pendientes</text>
+          </title>
+          <item>
+              <value>1</value>
+              <text>[tx1.Merchant name]</text>
+          </item>
+          <item>
+              <value>2</value>
+              <text>[tx2. Merchant name]</text>
+          </item>
+          <item>
+              <value>3</value>
+              <text>[tx3. Merchant name]</text>
+          </item>
+        </select>
+        
+        <!-- FALTA IMPLEMENTAR RESTO-->
+</card>

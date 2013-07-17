@@ -1,0 +1,57 @@
+ -----
+Eclipse xml editor 
+ -----
+ 
+ 
+Download
+
+  You can download the latest version ${version} from {{{https://sourceforge.net/projects/editorxml/files/Rinzo%20XML%20Editor/}Sourceforge}}
+
+* Requirements
+
+  * {{{http://eclipse.org/downloads}Eclipse 3.3.X or above}}
+  
+  * Since this plugin is compiled on java 5, you should start your Eclipse using a {{{http://java.sun.com/javase/downloads/index.jsp}JRE 5 or above}}
+  
+  [] 
+
+
+* Installation Using Eclipse Market Place
+
+  If you have <<Eclipse 3.7>> you can drag the <Install> icon below the left menu into your workspace to install Rinzo XML Editor.
+
+* Installation Using the Update Site
+  
+  * Select Help > Install New Software. This should display the "Install" dialog.
+
+  * Paste the Update Site URL ({{http://editorxml.sourceforge.net/updates/}}) into the field named "Work with:" and press Enter. Pressing Enter should cause Eclipse to update list of available plugins and components.
+
+  * Choose the component listed under "Rinzo XML Editor".
+
+  * Click Next. Eclipse will then check to see if there are any issues which would prevent a successful installation.
+
+  * Click Next and agree to the terms of the license.
+
+  * Click Finish to begin the installation process. Eclipse will then download and install the necessary components.
+
+  * Once the installation process is finished, Eclipse will ask you if you want to restart the IDE. It is strongly recommends that you restart your IDE after installing a plugin.
+  
+  [] 
+  
+* Manual Installation
+
+  * <<Eclipse 3.3.X:>>\
+  Decompress the zip file you've downloaded and copy the two jar files into your eclipse's <<plugin directory>> and restart the eclipse.
+  
+  []
+
+  * <<Eclipse 3.4.X and above:>>\
+  Decompress the zip file you've downloaded and copy the two jar file into your eclipse's <<dropins directory>> and restart the eclipse.
+
+  
+Note:
+
+---
+Starting on version 0.6.0, if you are working on an Eclipse installation without java capabilities (without JDT)
+you can install ONLY ar.com.tadp.xml.rinzo.core plugin in order to have just the main XML Editor.
+---
