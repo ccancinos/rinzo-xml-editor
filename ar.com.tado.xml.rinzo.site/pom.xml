@@ -27,19 +27,13 @@
 	</contributors>
 
 	<issueManagement>
-		<system>Source Forge Treacker System</system>
-		<url>https://sourceforge.net/tracker/?group_id=227708</url>
+		<system>GitHub Tracker System</system>
+		<url>https://github.com/ccancinos/rinzo-xml-editor/issues</url>
 	</issueManagement>
-
-	<mailingLists>
-		<mailingList>
-			<name>Source Forge Forum</name>
-			<post>https://sourceforge.net/forum/?group_id=227708</post>
-			<subscribe>https://sourceforge.net/forum/?group_id=227708</subscribe>
-			<unsubscribe>https://sourceforge.net/forum/?group_id=227708</unsubscribe>
-			<archive>https://sourceforge.net/forum/?group_id=227708</archive>
-		</mailingList>
-	</mailingLists>
+	
+	<scm>
+		<url>https://github.com/ccancinos/rinzo-xml-editor.git</url>
+	</scm>
 
 	<licenses>
 		<license>
@@ -136,8 +130,8 @@
 						<reports>
 							<report>project-team</report>
 							<report>license</report>
-							<report>mailing-list</report>
 							<report>issue-tracking</report>
+							<report>scm</report>
 						</reports>
 					</reportSet>
 				</reportSets>
