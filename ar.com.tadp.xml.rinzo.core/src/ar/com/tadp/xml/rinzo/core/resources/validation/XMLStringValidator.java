@@ -142,6 +142,7 @@ public class XMLStringValidator implements XmlValidator {
 
     private Validator createValidator(StreamSource[] sources) throws Exception {
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        sf.setFeature("http://apache.org/xml/features/xinclude", true);
         Schema schema = sf.newSchema(sources);
         return schema.newValidator();
 	}

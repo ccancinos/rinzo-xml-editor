@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://www.xxx.com/rcm/presentation"
+          xsi:schemaLocation="http://www.xxx.com/rcm/presentation ../xsd/presentation.xsd http://www.w3.org/2001/XInclude http://www.w3.org/2001/XInclude.xsd">
+          
+  <entity class="com.xxx.rcm.entities.route.Route" id="Route">
+    <fields>
+      <field id="R.name" field-name="name" type="NAME" mode="UserManaged" />
+      <field id="R.label" field-name="routeAlias" type="TEXT" mode="UserManaged" />
+      <field id="R.created" field-name="created" type="DATE" mode="SystemManaged" />
+      <field id="R.lastEdit" field-name="lastEdited" type="DATE" mode="SystemManaged" />
+      <field id="R.comment" field-name="comment" type="RICH_TEXT" mode="UserManaged" />
+    </fields>
+  </entity>
+  <entity class="com.xxx.rcm.entities.route.RouteInfo" id="RouteInfo">
+    <fields>
+      <field id="RI.type" field-name="routeInfoType" type="TEXT" mode="SystemManaged" />
+      <field id="RI.userName" field-name="userName" type="TEXT" mode="SystemManaged" />
+      <field id="RI.date" field-name="timeInfo" type="DATE" mode="SystemManaged" />
+    </fields>
+  </entity>
+  <xi:include href="UserInfo.xml"/>
+</entities>

@@ -1,0 +1,6 @@
+<!-- Is used in several entities -->
+<entity class="com.xxx.rcm.entities.user.UserInfo" id="UserInfo">
+  <fields>
+    <field id="UI.name" field-name="username" type="TEXT" mode="SystemManaged" />
+  </fields>
+</entity>

@@ -69,14 +69,15 @@ public class FormattingPreferencePage extends FieldEditorPreferencePage implemen
 	public void createFieldEditors() {
 		String[][] labelAndValues = new String[][] { { "Indent using tabs", "false" },
 				{ "Indent using spaces", "true" } };
-		addField(new RadioGroupFieldEditor(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS,
-				"Indentation", 1, labelAndValues, getFieldEditorParent()));
 		addField(new IntegerFieldEditor(XMLEditorPlugin.PREF_MAX_LINE_WIDTH,
 				"Maximum line width:", 3, 3, getFieldEditorParent()));
+
+		addField(new IntegerFieldEditor("printMarginColumn", "Print margin column", 3, 3, getFieldEditorParent()));
+		addField(new RadioGroupFieldEditor(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS,
+				"Indentation", 1, labelAndValues, getFieldEditorParent()));
 		addField(new IntegerFieldEditor(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH,
 				"Indentation size:", 3, 3, getFieldEditorParent()));
 
-		addField(new IntegerFieldEditor("printMarginColumn", "Print margin column", 3, 3, getFieldEditorParent()));
 		addField(new BooleanFieldEditor("overviewRuler", "Show overview ruler", getFieldEditorParent()));
 		addField(new BooleanFieldEditor("lineNumberRuler", "Show line numbers", getFieldEditorParent()));
 		addField(new BooleanFieldEditor("currentLine", "Highlight current line", getFieldEditorParent()));

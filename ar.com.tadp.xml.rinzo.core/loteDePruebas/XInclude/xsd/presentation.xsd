@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:att="http://www.xxx.com/rcm/attributes"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.xxx.com/rcm/presentation"
+           targetNamespace="http://www.xxx.com/rcm/presentation" elementFormDefault="qualified">
+
+  <xs:import namespace="http://www.xxx.com/rcm/attributes" schemaLocation="attributes.xsd"/>
+
+  <xs:element name="entities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="entity"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="entity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fields"/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required"/>
+      <xs:attribute name="id" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fields">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="field"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:string"/>
+      <xs:attribute name="field-name" use="required" type="xs:string"/>
+      <xs:attribute name="type" use="required" type="att:FieldType"/>
+      <xs:attribute name="mode" type="att:FieldMode"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

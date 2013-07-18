@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.xxx.com/rcm/attributes"
+           targetNamespace="http://www.xxx.com/rcm/attributes" elementFormDefault="qualified">
+
+  <xs:simpleType name="FieldType">
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="DATE"/>
+        <xs:enumeration value="DATETIME"/>
+        <xs:enumeration value="EMAIL"/>
+        <xs:enumeration value="FLOAT"/>
+        <xs:enumeration value="INTEGER"/>
+        <xs:enumeration value="NAME"/>
+        <xs:enumeration value="PASSWORD"/>
+        <xs:enumeration value="PATH"/>
+        <xs:enumeration value="PORT"/>
+        <xs:enumeration value="RICH_TEXT"/>
+        <xs:enumeration value="TEXT"/>
+        <xs:enumeration value="TIME"/>
+      </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FieldMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="merged"/>
+      <xs:enumeration value="SystemManaged"/>
+      <xs:enumeration value="UserManaged"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>
