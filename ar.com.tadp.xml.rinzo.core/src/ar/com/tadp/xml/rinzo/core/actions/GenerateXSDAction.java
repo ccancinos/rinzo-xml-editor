@@ -104,7 +104,7 @@ public class GenerateXSDAction implements IEditorActionDelegate {
 		ErrorHandlerImpl eh = new ErrorHandlerImpl();
 		OutputFormat of = new XsdOutputFormat();
 		InputFormat inFormat = new XmlInputFormat();
-		SchemaCollection sc = inFormat.load(UriOrFile.toUri(input.getAbsolutePath()), new String[0], "xsd", eh);
+		SchemaCollection sc = inFormat.load(UriOrFile.toUri(input.getAbsolutePath()), new String[0], "xsd", eh, null);
 
 		OutputDirectory od = new LocalOutputDirectory(sc.getMainUri(), output, "xml", "utf-8", 80, 4);
 
@@ -124,7 +124,7 @@ public class GenerateXSDAction implements IEditorActionDelegate {
 		ErrorHandlerImpl eh = new ErrorHandlerImpl();
 		OutputFormat of = new XsdOutputFormat();
 		InputFormat inFormat = new DtdInputFormat();
-		SchemaCollection sc = inFormat.load(UriOrFile.toUri(input.getAbsolutePath()), new String[0], "xsd", eh);
+		SchemaCollection sc = inFormat.load(UriOrFile.toUri(input.getAbsolutePath()), new String[0], "xsd", eh, null);
 		OutputDirectory od = new LocalOutputDirectory(sc.getMainUri(), output, "xml", "utf-8", 80, 4);
 		of.output(sc, od, new String[0], "xml", eh);
 	}

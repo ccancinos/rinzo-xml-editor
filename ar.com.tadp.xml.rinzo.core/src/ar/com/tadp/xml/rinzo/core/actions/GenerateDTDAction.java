@@ -103,7 +103,7 @@ public class GenerateDTDAction implements IEditorActionDelegate {
 		ErrorHandlerImpl eh = new ErrorHandlerImpl();
 		OutputFormat of = new DtdOutputFormat();
 		InputFormat inFormat = new XmlInputFormat();
-		SchemaCollection sc = inFormat.load(UriOrFile.toUri(input.getAbsolutePath()), new String[0], "dtd", eh);
+		SchemaCollection sc = inFormat.load(UriOrFile.toUri(input.getAbsolutePath()), new String[0], "dtd", eh, null);
 
 		OutputDirectory od = new LocalOutputDirectory(sc.getMainUri(), output, "xml", "utf-8", 80, 4);
 
