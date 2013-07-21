@@ -46,7 +46,9 @@ import ar.com.tadp.xml.rinzo.core.utils.Utils;
 public class ToStringVisitor implements StringGeneratorVisitor {
 	private StringBuffer buffer = new StringBuffer();
 	private int identation = 0;
+	private int addIndentation = 0;
 	private boolean addLineSeparator = true;
+	private String lineSeparator = System.getProperty("line.separator");
 	
 	public boolean visitStart(XMLNode node) {
 		if(this.identation >0) {
@@ -74,16 +76,11 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 		
 		return true;
 	}
-	
-	//TODO When node.isTextTag(), it adds the trailing \n\r\t... which makes the following tag to fail identation. Eg:
-	//		<tag>
-	//			text content
-	//</tag>
-	//The ending tag is not moved to the adecuate identation
 	public boolean visitChild(XMLNode node) {
 		String content = node.getContent();
 		String trimmedContent = "";
-		if(node.isTextTag() || node.isCdata() || node.isEmptyTag() || node.isCommentTag()) {
+		if ((node.isTextTag()) || (node.isCdata()) || (node.isEmptyTag())
+                || (node.isCommentTag())) {
 			trimmedContent = content.trim();
 			if(Utils.isEmpty(trimmedContent)) {
 				this.addBlankLines(content);
@@ -106,26 +103,27 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 	}
 
 	private void addBlankLines(String content) {
-		int index = content.indexOf(FileUtils.LINE_SEPARATOR);
-		index = content.indexOf(FileUtils.LINE_SEPARATOR, index + 1);
+		int index = content.indexOf(lineSeparator);
+		index = content.indexOf(lineSeparator, index + 1);
 		while(index >= 0) {
 			this.addLineSeparator();
-			index = content.indexOf(FileUtils.LINE_SEPARATOR, index + 1);
+			index = content.indexOf(lineSeparator, index + 1);
 		}
 	}
 
 	private void addIdentation() {
-		for (int i = 0; i < identation; i++) {
+		for (int i = 0; i < identation + this.addIndentation; i++) {
 			this.buffer.append(this.getIndentToken());
 		}
 	}
 
 	private void addLineSeparator() {
-		this.buffer.append(FileUtils.LINE_SEPARATOR);
+		this.buffer.append(lineSeparator);
 	}
 
 	public void reset() {
 		this.buffer = new StringBuffer();
+		this.addIndentation = 0;
 	}
 
 	public String getString() {
@@ -142,15 +140,15 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 			while(tokenizer.hasMoreTokens()) {
 				while(tokenizer.hasMoreTokens() && currentLine.length() <= this.getMaxLineLength()) {
 					String nextToken = tokenizer.nextToken().trim();
-					currentLine.append((currentLine.toString().trim().length() == 0) ? nextToken : " " + nextToken);
+                    currentLine.append((currentLine.toString().trim().length() == 0) ? nextToken : " " + nextToken);
 				}
 				if(currentLine.length() != 0) {
 					if(tokenizer.hasMoreTokens()) {
-						currentLine.append(FileUtils.LINE_SEPARATOR);
+						currentLine.append(lineSeparator);
 					}
 					finalLine.append(currentLine.toString());
 					currentLine = new StringBuffer();
-					for (int i = 0; i < identation + 1; i++) {
+					for (int i = 0; i < identation + 1 + this.addIndentation; i++) {
 						currentLine.append(this.getIndentToken());
 					}
 				}
@@ -166,4 +164,12 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 	private String getIndentToken() {
 		return XMLEditorPlugin.getDefault().getIndentToken();
 	}
+    
+    public void setAddIndentation(int addIndentation) {
+        this.addIndentation = addIndentation;
+    }	
+
+    public void setLineSeparator(String lineSeparator) {
+        this.lineSeparator = lineSeparator;
+    }
 }

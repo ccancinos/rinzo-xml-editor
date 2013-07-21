@@ -34,6 +34,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.texteditor.ITextEditor;
 
 /**
  * 
@@ -212,6 +220,46 @@ public class FileUtils {
 			}
 		} catch (Exception e) {
 		}
+	}
+
+	public static String getLineSeparator(IProject project) {
+	    String lineSeparator = null;
+	
+	    if (Platform.isRunning()) {
+	        // line delimiter in project preference
+	        IScopeContext[] scopeContext;
+	        if (project != null) {
+	            scopeContext= new IScopeContext[] { new ProjectScope(project) };
+	            lineSeparator= Platform.getPreferencesService().getString(Platform.PI_RUNTIME, Platform.PREF_LINE_SEPARATOR, null, scopeContext);
+	            if (lineSeparator != null)
+	                return lineSeparator;
+	        }
+	
+	        // line delimiter in workspace preference
+	        scopeContext= new IScopeContext[] { InstanceScope.INSTANCE };
+	        lineSeparator = Platform.getPreferencesService().getString(Platform.PI_RUNTIME, Platform.PREF_LINE_SEPARATOR, null, scopeContext);
+	        if (lineSeparator != null)
+	            return lineSeparator;
+	    }
+	
+	    // system line delimiter
+	    return System.getProperty("line.separator");
+	}
+
+	public static IProject getProject(ITextEditor textEditor) {
+	    IEditorInput editorInput = textEditor.getEditorInput();
+	    if (editorInput == null) {
+	        return null;
+	    }
+	    IResource resource = (IResource) editorInput.getAdapter(IResource.class);
+	    if (resource == null) {
+	        return null;
+	    }
+	    return resource.getProject();
+	}
+
+	public static String getLineSeparator(ITextEditor textEditor) {
+	    return getLineSeparator(getProject(textEditor));
 	}
 	
 }

@@ -47,6 +47,7 @@ import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -375,10 +376,17 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 	}
 
 	protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles) {
-        ISourceViewer viewer = new ProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);
+        ISourceViewer viewer = new RinzoProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);
     	// ensure decoration support has been created and configured.
     	getSourceViewerDecorationSupport(viewer);
     	return viewer;
     }
 
+	@Override
+	protected void handlePreferenceStoreChanged(PropertyChangeEvent event) {
+		if (this.getSourceViewer().getTextWidget() != null) {
+			super.handlePreferenceStoreChanged(event);
+		}
+	}
+	
 }

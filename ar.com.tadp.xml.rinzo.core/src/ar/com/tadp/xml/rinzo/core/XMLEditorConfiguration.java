@@ -20,7 +20,10 @@
  ****************************************************************************/
 package ar.com.tadp.xml.rinzo.core;
 
- import org.eclipse.core.runtime.CoreException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IMenuManager;
@@ -253,5 +256,50 @@ public class XMLEditorConfiguration extends SourceViewerConfiguration implements
 		menu.appendToGroup("group.save", item);
 		menu.add(item);
 	}
+
+	public static String[] getIndentPrefixesByPreferences() {
+		List<String> prefixes = new ArrayList<String>();
+
+		// prefix[0] is either '\t' or ' ' x tabWidth, depending on preference
+		boolean useSpaces = XMLEditorPlugin.getDefault().getPreferenceStore()
+				.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		int indentationWidth = XMLEditorPlugin.getDefault().getPreferenceStore()
+				.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH);
+
+		for (int i = 0; i <= indentationWidth; i++) {
+			StringBuffer prefix = new StringBuffer();
+			boolean appendTab = false;
+
+			if (useSpaces) {
+				for (int j = 0; j + i < indentationWidth; j++) {
+					prefix.append(' ');
+				}
+				if (i != 0) {
+					appendTab = true;
+				}
+			} else {
+				for (int j = 0; j < i; j++) {
+					prefix.append(' ');
+				}
+				if (i != indentationWidth) {
+					appendTab = true;
+				}
+			}
+			if (appendTab) {
+				prefix.append('\t');
+				prefixes.add(prefix.toString());
+				// remove the tab so that indentation - tab is also an indent prefix
+				prefix.deleteCharAt(prefix.length() - 1);
+			}
+			prefixes.add(prefix.toString());
+		}
+		prefixes.add("");
+		return (String[]) prefixes.toArray(new String[prefixes.size()]);
+	}
+	
+    @Override
+    public String[] getIndentPrefixes(ISourceViewer sourceViewer, String contentType) {
+        return getIndentPrefixesByPreferences();
+    }
 
 }
