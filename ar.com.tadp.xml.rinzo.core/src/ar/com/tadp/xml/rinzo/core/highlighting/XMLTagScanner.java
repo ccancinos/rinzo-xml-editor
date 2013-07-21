@@ -28,6 +28,7 @@ import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WhitespaceRule;
+import org.eclipse.jface.text.rules.WordRule;
 
 /**
  * 
@@ -39,6 +40,7 @@ public class XMLTagScanner extends RuleBasedScanner {
     private IToken tokenAttribute;
     private IToken tokenDeclaration;
     private IToken tokenProcInst;
+    private IToken tokenEquals;
 
     public XMLTagScanner(ColorManager manager) {
         tokenTag = null;
@@ -46,16 +48,25 @@ public class XMLTagScanner extends RuleBasedScanner {
         tokenAttribute = null;
         tokenDeclaration = null;
         tokenProcInst = null;
+        tokenEquals = null;
         tokenTag = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.TAG), null, manager.isBold(IXMLColorConstants.TAG)));
         tokenString = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.STRING), null, manager.isBold(IXMLColorConstants.STRING)));
+        tokenEquals = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.DEFAULT), null, manager.isBold(IXMLColorConstants.DEFAULT)));
         tokenAttribute = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.ATTRIBUTE), null, manager.isBold(IXMLColorConstants.ATTRIBUTE)));
         tokenDeclaration = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.DECLARATION), null, manager.isBold(IXMLColorConstants.DECLARATION)));
         tokenProcInst = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.PROC_INSTR), null, manager.isBold(IXMLColorConstants.PROC_INSTR)));
-        IRule rules[] = new IRule[4];
+
+        SingleCharacterWordDetector detector = new SingleCharacterWordDetector();
+        detector.addChar('=');
+        WordRule wordRule = new WordRule(detector, tokenString);
+        wordRule.addWord("=", tokenEquals);
+        
+        IRule rules[] = new IRule[5];
         rules[0] = new SingleLineRule("\"", "\"", tokenString, '\\');
         rules[1] = new SingleLineRule("'", "'", tokenString, '\\');
-        rules[2] = new WhitespaceRule(new XMLWhitespaceDetector());
-        rules[3] = new IRule() {
+        rules[2] = wordRule;
+        rules[3] = new WhitespaceRule(new XMLWhitespaceDetector());
+        rules[4] = new IRule() {
 
             private static final int STATE_UNDEFINED = 0;
             private static final int STATE_TAGSTART = 1;
