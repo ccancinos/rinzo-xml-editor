@@ -127,23 +127,17 @@
 	<extension point="org.eclipse.ui.popupMenus"> 
 		<viewerContribution 
 			id="org.eclipse.ui.articles.action.contribution.popup.xmleditor"
-			targetID="ar.com.tadp.xml.rinzo.core.context"> 
-	<action
-		id="ar.com.tadp.xml.rinzo.core.actions.GenerateDTDAction" 
-		label="Generate DTD" 
-		menubarPath="rinzoAdditions" 
-		class="ar.com.tadp.xml.rinzo.core.actions.GenerateDTDAction"> 
-	</action>
-   <action
-         class="ar.com.tadp.xml.rinzo.core.actions.GenerateXSDAction"
-         id="ar.com.tadp.xml.rinzo.core.actions.GenerateXSDAction"
-         label="Generate XSD"
-         menubarPath="rinzoAdditions">
-   </action>
+			targetID="ar.com.tadp.xml.rinzo.core.context">
    <action
          class="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
          id="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
          label="Clear Errors and Warnings"
+         menubarPath="rinzoAdditions">
+   </action> 
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionAction"
+         id="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionAction"
+         label="Create XML Definition"
          menubarPath="rinzoAdditions">
    </action>
    <menu
@@ -192,6 +186,12 @@
            class="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
            id="ar.com.tadp.xmleditor.basic.actions.ClearMarkersActionFiles"
            label="Clear Errors and Warnings"
+           menubarPath="additions">
+     </action>
+     <action
+           class="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionAction"
+           id="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionActionFile"
+           label="Create XML Definition"
            menubarPath="additions">
      </action>
   </objectContribution>

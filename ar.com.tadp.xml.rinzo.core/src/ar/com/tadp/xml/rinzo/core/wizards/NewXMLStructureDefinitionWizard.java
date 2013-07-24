@@ -18,40 +18,44 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program; If not, see <http://www.gnu.org/licenses/>
  ****************************************************************************/
-package ar.com.tadp.xml.rinzo.core.actions;
+package ar.com.tadp.xml.rinzo.core.wizards;
 
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.INewWizard;
+import org.eclipse.ui.IWorkbench;
 
 /**
- * Deletes all the problem markers (warning and errors) in the current editor
  * 
  * @author ccancinos
  */
-public class ClearMarkersAction extends EditorAndTreeAction {
+public class NewXMLStructureDefinitionWizard extends Wizard implements INewWizard {
 
-	@Override
-	protected void runEditor(IFile editorInputIFile) {
-		this.deleteMarkers(editorInputIFile);
+	private IStructuredSelection selection;
+	private NewXMLStructureDefinitionWizardPage newFileWizardPage;
+	private List<IFile> input;
+
+	public NewXMLStructureDefinitionWizard(List<IFile> files) {
+		this.input = files;
+		setWindowTitle("New Config File");
 	}
 
 	@Override
-	protected void runTree(List<IFile> files) {
-		for (IFile iFile : files) {
-			this.deleteMarkers(iFile);
-		}
+	public void addPages() {
+		newFileWizardPage = new NewXMLStructureDefinitionWizardPage(this.selection, this.input);
+		addPage(newFileWizardPage);
 	}
 
-	private void deleteMarkers(IFile file) {
-		try {
-			file.deleteMarkers(IMarker.PROBLEM, true, IResource.DEPTH_INFINITE);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+	@Override
+	public boolean performFinish() {
+		IFile file = newFileWizardPage.createNewFile();
+		return file != null;
 	}
 
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		this.selection = selection;
+	}
 }
