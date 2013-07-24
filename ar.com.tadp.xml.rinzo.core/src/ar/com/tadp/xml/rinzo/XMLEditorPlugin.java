@@ -53,6 +53,7 @@ import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 public class XMLEditorPlugin extends AbstractUIPlugin {
     public static final String PREF_VALIDATION_SEVERITY = "__pref_compilation_severity";
     public static final String PREF_MAX_LINE_WIDTH = "__pref_max_line_width";
+    public static final String FORMAT_ON_SAVE = "__pref_format_on_save";
 	private static XMLEditorPlugin plugin;
     private ResourceBundle resourceBundle;
     private Map<Collection<DocumentStructureDeclaration>, Validator> schemaValidatorsCache = new WeakHashMap<Collection<DocumentStructureDeclaration>, Validator>();
@@ -182,6 +183,10 @@ public class XMLEditorPlugin extends AbstractUIPlugin {
 	
 	public static void setMaximumLineWidth(int lineWidth) {
 		XMLEditorPlugin.getDefault().getPreferenceStore().setValue(PREF_MAX_LINE_WIDTH, lineWidth);
+	}
+	
+	public static boolean isFormatOnSave() {
+		return XMLEditorPlugin.getDefault().getPreferenceStore().getBoolean(FORMAT_ON_SAVE);
 	}
 
 }

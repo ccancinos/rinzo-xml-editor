@@ -78,6 +78,7 @@ public class FormattingPreferencePage extends FieldEditorPreferencePage implemen
 		addField(new IntegerFieldEditor(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH,
 				"Indentation size:", 3, 3, getFieldEditorParent()));
 
+		addField(new BooleanFieldEditor(XMLEditorPlugin.FORMAT_ON_SAVE, "Format on save", getFieldEditorParent()));
 		addField(new BooleanFieldEditor("overviewRuler", "Show overview ruler", getFieldEditorParent()));
 		addField(new BooleanFieldEditor("lineNumberRuler", "Show line numbers", getFieldEditorParent()));
 		addField(new BooleanFieldEditor("currentLine", "Highlight current line", getFieldEditorParent()));

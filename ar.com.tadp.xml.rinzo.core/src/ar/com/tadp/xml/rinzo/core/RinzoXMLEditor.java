@@ -68,6 +68,7 @@ import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
+import ar.com.tadp.xml.rinzo.core.actions.FormatAction;
 import ar.com.tadp.xml.rinzo.core.eclipse.copies.MatchingCharacterPainter;
 import ar.com.tadp.xml.rinzo.core.keyListeners.AutoInsertEndTagHandler;
 import ar.com.tadp.xml.rinzo.core.keyListeners.CommentSelectionHandler;
@@ -210,6 +211,11 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 	public void doSave(IProgressMonitor progressMonitor) {
         progressMonitor.beginTask("Saving File: " + this.getFileName(), 2);
 		try {
+			if(XMLEditorPlugin.isFormatOnSave()) {
+				FormatAction formatAction = new FormatAction();
+				formatAction.setActiveEditor(null, this);
+				formatAction.run(null);
+			}
 			super.doSave(new SubProgressMonitor(progressMonitor, 1));
 			progressMonitor.worked(1);
             if(this.getModel().getTree().getRootNode() != null && this.getEditorInputIFile() != null) {
