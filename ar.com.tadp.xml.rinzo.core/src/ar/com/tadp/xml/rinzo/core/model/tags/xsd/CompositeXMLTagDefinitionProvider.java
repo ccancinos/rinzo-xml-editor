@@ -68,7 +68,22 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 	public void addTagDefinitionProvider(XMLTagDefinitionProvider provider) {
 		this.tagDefinitionProviders.add(provider);
 	}
+	
+	public void setDefinition(String fileName, Collection<URI> uris) {
+		Iterator<URI> it = uris.iterator();
+		for (Iterator<XMLTagDefinitionProvider> iterator = this.tagDefinitionProviders.iterator(); iterator.hasNext() && it.hasNext();) {
+			try {
+				XSDTagDefinitionProvider provider = (XSDTagDefinitionProvider) iterator.next();
+				provider.setDefinition(fileName, it.next());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
+	/**
+	 * @deprecated use setDefinition
+	 */
 	public void setSchemas(Collection<URI> uris) {
 		Iterator<URI> it = uris.iterator();
 		for (Iterator<XMLTagDefinitionProvider> iterator = this.tagDefinitionProviders.iterator(); iterator.hasNext() && it.hasNext();) {
@@ -81,6 +96,9 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 		}
 	}
 
+	/**
+	 * @deprecated use setDefinition
+	 */
 	public void setFileName(String fileName) {
 		for (Iterator<XMLTagDefinitionProvider> iterator = this.tagDefinitionProviders.iterator(); iterator.hasNext();) {
 			XSDTagDefinitionProvider provider = (XSDTagDefinitionProvider) iterator.next();

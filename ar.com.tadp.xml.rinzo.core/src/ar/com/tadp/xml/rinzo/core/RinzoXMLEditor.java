@@ -26,7 +26,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -86,6 +85,7 @@ import ar.com.tadp.xml.rinzo.core.model.tags.xsd.CompositeXMLTagDefinitionProvid
 import ar.com.tadp.xml.rinzo.core.model.tags.xsd.XSDTagDefinitionProvider;
 import ar.com.tadp.xml.rinzo.core.model.visitor.FoldingNodesVisitor;
 import ar.com.tadp.xml.rinzo.core.outline.XMLOutlinePage;
+import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentCache;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentStructureDeclaration;
 import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 
@@ -307,6 +307,9 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 					registry = this.getCompositeSchemaTagContainersRegistry(schemaDefinitions);
 	            } else {
 	            	if(structureDeclaration != null) {
+	                	Collection<DocumentStructureDeclaration> definitions = new ArrayList<DocumentStructureDeclaration>();
+	                	definitions.add(structureDeclaration);
+						DocumentCache.getInstance().getAllLocations(definitions, this.getFileName());
 	            		registry = this.getDTDTagContainersRegistry(treeModel.getDTDRootNode(), structureDeclaration);
 	            	}
 	            }
@@ -322,19 +325,18 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
         if(this.dtdContaintersRegistry == null) {
             this.dtdContaintersRegistry = new DTDTagDefinitionProvider(this.getFileName(), rootNodeName, structureDeclaration);
         } else {
-            this.dtdContaintersRegistry.setFileName(this.getFileName());
-            this.dtdContaintersRegistry.setDocumentDefinition(structureDeclaration);
+        	this.dtdContaintersRegistry.setDefinition(this.getFileName(), structureDeclaration);
         }
         
         return this.dtdContaintersRegistry;
 	}
     
     private XMLTagDefinitionProvider getCompositeSchemaTagContainersRegistry(Collection<DocumentStructureDeclaration> schemaDefinitions) throws URISyntaxException {
+    	DocumentCache.getInstance().getAllLocations(schemaDefinitions, this.getFileName());
         if(this.schemaContaintersRegistry == null) {
         	CompositeXMLTagDefinitionProvider compositeXMLTagDefinitionProvider = new CompositeXMLTagDefinitionProvider();
-        	for (Iterator<DocumentStructureDeclaration> iterator = schemaDefinitions.iterator(); iterator.hasNext();) {
+        	for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
 				try {
-					DocumentStructureDeclaration structureDeclaration = iterator.next();
 					compositeXMLTagDefinitionProvider.addTagDefinitionProvider(new XSDTagDefinitionProvider(this.getFileName(), structureDeclaration));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -344,17 +346,15 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
         } else {
         	Collection<URI> uris = new ArrayList<URI>();
         	CompositeXMLTagDefinitionProvider compositeXMLTagDefinitionProvider = (CompositeXMLTagDefinitionProvider) this.schemaContaintersRegistry;
-        	for (Iterator<DocumentStructureDeclaration> iterator = schemaDefinitions.iterator(); iterator.hasNext();) {
+        	for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
         		try {
-					DocumentStructureDeclaration structureDeclaration = iterator.next();
 					URI schemaURI = FileUtils.resolveURI(this.getFileName(), structureDeclaration.getSystemId());
 					uris.add(schemaURI);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
         	}
-        	compositeXMLTagDefinitionProvider.setFileName(this.getFileName());
-       		compositeXMLTagDefinitionProvider.setSchemas(uris);
+        	compositeXMLTagDefinitionProvider.setDefinition(this.getFileName(), uris);
         }
         
         return (XMLTagDefinitionProvider) this.schemaContaintersRegistry;

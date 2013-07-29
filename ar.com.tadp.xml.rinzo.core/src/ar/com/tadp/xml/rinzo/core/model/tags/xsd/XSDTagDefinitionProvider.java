@@ -177,6 +177,20 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 		}
 	}
 
+	public void setDefinition(String fileName, java.net.URI schema) {
+		if (!fileName.equals(this.fileName) || !schema.toString().equals(this.schemaPath) || this.isDefinitionUpdated(schema.toString())) {
+			this.updateDefinition();
+			if(fileName.equals(this.fileName)) {
+				this.setLastDefinitionUpdate(schema.toString());
+			}
+		}
+		this.fileName = fileName;
+		this.schemaPath = schema.toString();
+	}
+
+	/**
+	 * @deprecated use setDefinition
+	 */
 	public void setFileName(String fileName) {
 		if (!fileName.equals(this.fileName)) {
 			this.updateDefinition();
@@ -184,6 +198,9 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * @deprecated use setDefinition
+	 */
 	public void setSchema(java.net.URI schema) {
 		if (!schema.toString().equals(this.schemaPath) || this.isDefinitionUpdated(schema.toString())) {
 			this.updateDefinition();

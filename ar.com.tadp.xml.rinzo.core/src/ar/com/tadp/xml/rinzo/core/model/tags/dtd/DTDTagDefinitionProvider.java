@@ -78,6 +78,29 @@ public class DTDTagDefinitionProvider implements XMLTagDefinitionProvider {
 		}
 	}
 
+	public void setDefinition(String fileName, DocumentStructureDeclaration structureDeclaration) {
+		String definition = null;
+		try {
+			definition = FileUtils.resolveURI(this.fileName, this.documentStructureDeclaration.getSystemId()).toString();
+		} catch (URISyntaxException e) {
+		}
+		if (!fileName.equals(this.fileName) ||
+				(definition != null && (!structureDeclaration.equals(this.documentStructureDeclaration) || this.isDefinitionUpdated(definition)))) {
+			this.updateDefinition();
+			
+			if (definition != null && (!structureDeclaration.equals(this.documentStructureDeclaration) || this.isDefinitionUpdated(definition))) {
+				this.documentStructureDeclaration = structureDeclaration;
+				this.dtdPath = definition;
+				this.setLastDefinitionUpdate(definition);
+			}
+		}
+		this.fileName = fileName;
+	}
+
+	/**
+	 * 
+	 * @deprecated use setDefinition
+	 */
 	public void setFileName(String fileName) {
 		if (!fileName.equals(this.fileName)) {
 			this.updateDefinition();
@@ -85,6 +108,10 @@ public class DTDTagDefinitionProvider implements XMLTagDefinitionProvider {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * 
+	 * @deprecated use setDefinition
+	 */
 	public void setDocumentDefinition(DocumentStructureDeclaration structureDeclaration) {
 		try {
 			String definition = FileUtils.resolveURI(this.fileName, this.documentStructureDeclaration.getSystemId()).toString();

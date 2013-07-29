@@ -28,6 +28,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
+
 import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 
 /**
@@ -36,7 +41,8 @@ import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
  * @author ccancinos
  */
 public class DocumentCache {
-    private static final String CACHED_FILES_PREFIX = "f";
+
+	private static final String CACHED_FILES_PREFIX = "f";
 	private String storePathURL;
     private File cacheDefinitionsFile;
     private Collection<DocumentStructureDeclaration> entries;
@@ -73,13 +79,57 @@ public class DocumentCache {
 		}
 
 		if(!this.contains(publicName, absoluteName)) {
-			this.store(publicName, absoluteName);
+			Map<String, String> storeFiles = new HashMap<String, String>();
+			storeFiles.put(publicName, absoluteName);
+			this.storeAll(storeFiles, false);
 		}
 		
 		return this.get(publicName, absoluteName);
     }
     
+	public Map<String, String> getAllLocations(Collection<DocumentStructureDeclaration> schemaDefinitions, String fileName) {
+		Map<String, String> locations = new HashMap<String, String>();
+		Map<String, String> storeFiles = new HashMap<String, String>();
+		for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
+			try {
+				String publicName = structureDeclaration.getSystemId();
+				String absoluteName = FileUtils.resolveURI(fileName, publicName).toString();
+				File inputFile = new File(absoluteName);
+				if (inputFile.exists()) {
+					locations.put(publicName, absoluteName);
+				} else {
+					if(!this.contains(publicName, absoluteName)) {
+						storeFiles.put(publicName, absoluteName);
+					}
+				}
+			} catch (URISyntaxException e) {
+				// DO NOTHING, PROCESS NEXT FILE
+			}
+		}
+
+		if (!storeFiles.isEmpty()) {
+			this.storeAll(storeFiles, true);
+			for (Map.Entry<String, String> storedFiles : storeFiles.entrySet()) {
+				locations.put(storedFiles.getKey(), this.get(storedFiles.getKey(), storedFiles.getValue()));
+			}
+		}
+		
+		return locations;
+	}
+
     /**
+     * Se encarga de cachear el documento con el nombre p�blico y absoluto
+     * especificado
+     */
+    private void storeAll(final Map<String, String> storeFiles, boolean asUserJob) {
+		if (!storeFiles.isEmpty()) {
+			Job job = new JobExtension(storeFiles);
+			job.setUser(asUserJob);
+			job.schedule();
+		}
+	}
+
+	/**
 	 * Given a base path and a url, this method returns the path to the
 	 * corresponding cache file, or the absolute remote url to the resource
 	 * 
@@ -107,11 +157,12 @@ public class DocumentCache {
     public synchronized boolean contains(String publicName, String absoluteRealName) {
 		return FileUtils.exists(this.get(publicName, absoluteRealName));
     }
-    /**
-     * Se encarga de cachear el documento con el nombre p�blico y absoluto
-     * especificado
-     */
-    public synchronized void store(String publicName, String absoluteRealName) {
+
+    public synchronized void innerStore(String publicName, String absoluteRealName) {
+    	if(contains(publicName, absoluteRealName)) {
+    		return;
+    	}
+    	
     	DocumentStructureDeclaration structureDeclaration = this.findEntry(publicName, absoluteRealName);
     	DocumentStructureDeclaration newEntry = null;
     	File outputFile = null;
@@ -268,5 +319,45 @@ public class DocumentCache {
         }
     }
 
+    /**
+     * In charge of displaying a notification while downloading files to cache
+     *  
+     * @author ccancinos
+     */
+    private final class JobExtension extends Job {
+		private final Map<String, String> storeFiles;
+		private boolean cancel = false;
+
+		private JobExtension(Map<String, String> storeFiles) {
+			super("Saving files to Rinzo's cache");
+			this.storeFiles = storeFiles;
+		}
+
+		@Override
+		protected IStatus run(IProgressMonitor monitor) {
+			monitor.beginTask(null, IProgressMonitor.UNKNOWN);//storeFiles.size());
+			for (Map.Entry<String, String> storeFile : storeFiles.entrySet()) {
+				try {
+					if(this.cancel) {
+						break;
+					}
+					String publicName = storeFile.getKey();
+					String absoluteRealName = storeFile.getValue();
+					monitor.setTaskName("Downloading: " + publicName + "\n" + absoluteRealName);
+					DocumentCache.this.innerStore(publicName, absoluteRealName);
+					monitor.worked(1);
+				} catch (Exception e) {
+					// DO NOTHING, PROCESS NEXT FILE
+				}
+			}
+			monitor.done();
+			return Status.OK_STATUS;
+		}
+
+		@Override
+		protected void canceling() {
+			this.cancel = true;
+		}
+	}
 
 }

@@ -119,9 +119,10 @@ public class XMLStringValidator implements XmlValidator {
             if(validator == null) {
             	StreamSource[] sources = new StreamSource[schemaDefinitions.size()];
             	int pos = 0;
-            	for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
-            		StreamSource streamSource = new StreamSource(DocumentCache.getInstance().getLocation(structureDeclaration.getPublicId(), FileUtils.resolveURI(fileName, structureDeclaration.getSystemId()).toString()));
-					streamSource.setPublicId(structureDeclaration.getPublicId());
+            	Map<String, String> fileLocations = DocumentCache.getInstance().getAllLocations(schemaDefinitions, fileName);
+            	for (Map.Entry<String, String> fileLocation : fileLocations.entrySet()) {
+            		StreamSource streamSource = new StreamSource(fileLocation.getValue());
+            		streamSource.setPublicId(fileLocation.getKey());
 					sources[pos++] = streamSource;
 				}
 				validator = this.createValidator(sources);
