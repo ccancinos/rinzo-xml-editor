@@ -32,6 +32,8 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.DefaultWorkingCopyOwner;
 import org.eclipse.jdt.internal.ui.text.java.AbstractJavaCompletionProposal;
+import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
+import org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal;
 import org.eclipse.jdt.internal.ui.text.java.LazyJavaTypeCompletionProposal;
 import org.eclipse.jdt.ui.text.java.CompletionProposalCollector;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
@@ -50,13 +52,13 @@ import ar.com.tadp.xml.rinzo.jdt.JDTUtils;
  */
 @SuppressWarnings({ "rawtypes", "unchecked", "restriction" })
 public class ClassNameProcessor implements IXMLContentAssistProcessor {
-	private static final String JNI_METHOD_NAME = "registerNatives()";
+	private static final String JNI_METHOD_NAME = "registerNatives();";
 	private static final String TEMPORAL_METHOD_NAME = "hoge()";
 	private static final String TEMPORAL_CLASS_NAME = "_xxx";
 	private static final String TEMPORAL_CLASS_START = "public class _xxx { public static void hoge(){ ";
 	private static final String TEMPORAL_CLASS_FILE_NAME = TEMPORAL_CLASS_NAME + ".java";
 	private static final int CLASS_RELEVANCE = 90;
-    private IJavaProject project;
+	private IJavaProject project;
 
 	public void addBodyProposals(XMLNode currentNode, String prefix, ITextViewer viewer, int offset,
 			Collection resultList) {
@@ -67,7 +69,7 @@ public class ClassNameProcessor implements IXMLContentAssistProcessor {
 			ITextViewer viewer, int offset, Collection resultList) {
 		resultList.addAll(this.getProposals(prefix, offset));
 	}
-	
+
 	public void addCloseTagProposals(XMLNode currentNode, String prefix, ITextViewer viewer, int offset,
 			Collection resultList) {
 	}
@@ -76,48 +78,55 @@ public class ClassNameProcessor implements IXMLContentAssistProcessor {
 			Collection resultList) {
 	}
 
-    private String getClassNamePrefix(String prefix, int offset) {
-    	int i = prefix.length() - 1;
-    	while (i > 0) {
+	private String getClassNamePrefix(String prefix, int offset) {
+		int i = prefix.length() - 1;
+		while (i > 0) {
 			char ch = prefix.charAt(i);
-            if (ch != '<' && ch != '*' && !Character.isJavaIdentifierPart(ch) && ch != '.') {
+			if (ch != '<' && ch != '*' && !Character.isJavaIdentifierPart(ch) && ch != '.') {
 				break;
 			}
-            i--;
+			i--;
 		}
-		return (i == 0) ? prefix.substring(i): prefix.substring(i + 1);
-    }
+		return (i == 0) ? prefix.substring(i) : prefix.substring(i + 1);
+	}
 
 	protected List getProposals(String initialPrefix, int offset) {
 		List result = new ArrayList();
 		String prefix = this.getClassNamePrefix(initialPrefix, offset);
-        try {
-            IJavaCompletionProposal[] proposals = this.createJavaClassesProposals(prefix);
-           
-            for(int j=0;j<proposals.length;j++){
-                AbstractJavaCompletionProposal proposal = (AbstractJavaCompletionProposal) proposals[j];
-                
-                if(!proposal.getReplacementString().equals(TEMPORAL_METHOD_NAME) && 
-                   !proposal.getReplacementString().equals(TEMPORAL_CLASS_NAME) &&
-                   !proposal.getReplacementString().equals(JNI_METHOD_NAME)) {
-                	
-	                proposal.setReplacementOffset(offset - prefix.length());
-	                proposal.setReplacementLength(prefix.length());
-	                proposal.setRelevance(CLASS_RELEVANCE);
-					this.addProposal(proposal, result);
+		try {
+			IJavaCompletionProposal[] proposals = this.createJavaClassesProposals(prefix);
+
+			for (int j = 0; j < proposals.length; j++) {
+				AbstractJavaCompletionProposal proposal = (AbstractJavaCompletionProposal) proposals[j];
+
+				if (!proposal.getReplacementString().equals(TEMPORAL_METHOD_NAME)
+						&& !proposal.getReplacementString().equals(TEMPORAL_CLASS_NAME)
+						&& !proposal.getReplacementString().equals(JNI_METHOD_NAME)) {
+
+					proposal.setReplacementOffset(offset - prefix.length());
+					proposal.setReplacementLength(prefix.length());
+					proposal.setRelevance(CLASS_RELEVANCE);
+
+					result.add(proposal);
 					if (proposals[j] instanceof LazyJavaTypeCompletionProposal) {
 						LazyJavaTypeCompletionProposal javaTypeProposal = (LazyJavaTypeCompletionProposal) proposals[j];
 						javaTypeProposal.setReplacementString(javaTypeProposal.getQualifiedTypeName());
-						javaTypeProposal.setRelevance(CLASS_RELEVANCE);
+					} 
+					if (proposals[j] instanceof JavaCompletionProposal || proposals[j] instanceof JavaMethodCompletionProposal) {
+						String replacementString = proposal.getDisplayString()
+								.substring(0, proposal.getDisplayString().indexOf(':')).trim();
+						
+						proposal.setReplacementString(replacementString);
+						proposal.setReplacementOffset(offset);
 					}
-                }
-            }
-           
-            return result;
-        } catch(Exception ex){
-            throw new RuntimeException(ex);
-        }
-    }
+				}
+			}
+
+			return result;
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 
 	protected void addProposal(AbstractJavaCompletionProposal proposal, List result) {
 		result.add(proposal);
@@ -125,54 +134,48 @@ public class ClassNameProcessor implements IXMLContentAssistProcessor {
 
 	private IJavaCompletionProposal[] createJavaClassesProposals(String prefix) throws JavaModelException {
 		if (prefix != null && !Utils.isEmpty(prefix.trim())) {
-			CompletionProposalCollector collector = new CompletionProposalCollector(
-					this.getProject());
-			ICompilationUnit unit = getTemporaryCompilationUnit(this
-					.getProject());
+			CompletionProposalCollector collector = new CompletionProposalCollector(this.getProject());
+			ICompilationUnit unit = getTemporaryCompilationUnit(this.getProject());
 			String source = TEMPORAL_CLASS_START + prefix + "}}";
 			setContentsToCU(unit, source);
-			unit.codeComplete(source.length() - 2, collector,
-					DefaultWorkingCopyOwner.PRIMARY);
-			IJavaCompletionProposal[] proposals = collector
-					.getJavaCompletionProposals();
+			unit.codeComplete(source.length() - 2, collector, DefaultWorkingCopyOwner.PRIMARY);
+			IJavaCompletionProposal[] proposals = collector.getJavaCompletionProposals();
 			return proposals;
 		} else {
-			return new IJavaCompletionProposal[]{};
+			return new IJavaCompletionProposal[] {};
 		}
 	}
-   
-   
-    private void setContentsToCU(ICompilationUnit unit, String value) {
-        if (unit == null) {
+
+	private void setContentsToCU(ICompilationUnit unit, String value) {
+		if (unit == null) {
 			return;
 		}
 
-        synchronized (unit) {
-            IBuffer buffer;
-            try {
-                buffer = unit.getBuffer();
-                if (buffer != null) {
-                	buffer.setContents(value);
-                }
-            }
-            catch (JavaModelException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+		synchronized (unit) {
+			IBuffer buffer;
+			try {
+				buffer = unit.getBuffer();
+				if (buffer != null) {
+					buffer.setContents(value);
+				}
+			} catch (JavaModelException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-    private ICompilationUnit getTemporaryCompilationUnit(IJavaProject project) throws JavaModelException  {
-        IPackageFragment root = project.getPackageFragments()[0];
-        ICompilationUnit unit = root.getCompilationUnit(TEMPORAL_CLASS_FILE_NAME).getWorkingCopy(
-                new NullProgressMonitor());
-       
-        return unit;
-    }
-    
-    private IJavaProject getProject() {
-    	if(this.project == null) {
+	private ICompilationUnit getTemporaryCompilationUnit(IJavaProject project) throws JavaModelException {
+		IPackageFragment root = project.getPackageFragments()[0];
+		ICompilationUnit unit = root.getCompilationUnit(TEMPORAL_CLASS_FILE_NAME).getWorkingCopy(
+				new NullProgressMonitor());
+
+		return unit;
+	}
+
+	private IJavaProject getProject() {
+		if (this.project == null) {
 			this.project = JDTUtils.getActiveJavaProject();
-    	}
+		}
 		return this.project;
 	}
 
