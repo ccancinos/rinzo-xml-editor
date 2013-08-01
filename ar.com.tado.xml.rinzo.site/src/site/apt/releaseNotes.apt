@@ -4,8 +4,37 @@ Eclipse xml editor
 
 Release Notes
 
-%{toc}
+%{toc|toDepth=1}
 
+{What's new in 1.2.0?}
+  
+* {Fetures}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/4}Configuration to execute text formatting before every save action}}
+  
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/5}Format selection}}
+  
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/9}Configure xsd/dtd generation}}
+  
+  *{{{https://github.com/ccancinos/rinzo-xml-editor/issues/10}Add a progress monitor for xsd/dtd download into Rinzo's cache}}
+  
+  []
+  
+* {Bugs}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/1}false invalid content errors reported by Rinzo}}. Now rinzo can process XInclude.
+  
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/2}Always indent by tab character when indenting paragraph}}. It was fixed the possibility
+  to indent by tab or spaces.
+  
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/3}Auto format multiline comment adds extra LF each time}}
+  
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/6}Syntax Coloring: cannot change color of equal sign}}
+  
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/11}Methods & Fields showed in Content Assist are not applied to document}}
+  
+  []
+  
 {What's new in 1.1.2?}
   
 * {Bugs}
@@ -71,12 +100,12 @@ Release Notes
   should be extended/implemented.
   This is also possible for tag's bodies.
   
-  * Suggestion of {{{autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}restrictions defined in XSD}} for an attribute as possible attribute values.
+  * Suggestion of {{{./autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}restrictions defined in XSD}} for an attribute as possible attribute values.
   
   * In a file defining a XSD, autocompleting a tag's attribute which has defined a {{{autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}default value}} will write the selected 
   attribute with the default value as its value.
   
-  * New {{{javaIntegration.html#Preferences}preference page for JDT integration}} including:
+  * New {{{./javaIntegration.html#Preferences}preference page for JDT integration}} including:
   
     * Severity used to mark errors (Error, Warning, Info, Ignore).
     
@@ -109,12 +138,12 @@ Release Notes
 
 * {Features}
 
-  * {{{actions.html}<<Quick Assist>>}} Allows 6 commons actions on a tag by the use of Ctrl-1 shortcut
+  * {{{./actions.html}<<Quick Assist>>}} Allows 6 commons actions on a tag by the use of Ctrl-1 shortcut
 
-  * {{{actions.html}<<Refactoring Support>>}} Starting to add refactors to the editor. At this time tag renaming in
+  * {{{./actions.html}<<Refactoring Support>>}} Starting to add refactors to the editor. At this time tag renaming in
   different scopes is available.
 
-  * {{{configuration.html}<<Configuration>>}} Some configurations elements were taken care of. Like changing the editor's background color,
+  * {{{./configuration.html}<<Configuration>>}} Some configurations elements were taken care of. Like changing the editor's background color,
   indentation using tag or spaces and file association by content-type, allowing the use of more specific editors for different xml's types.
   
   []
@@ -131,9 +160,9 @@ Release Notes
 
 * {Features}
  
- * {{{xpathViewer.html}<<XPath Viewer>>}} A basic viewer to evaluate xpath expression in the currently selected Rinzo's editor.
+ * {{{./xpathViewer.html}<<XPath Viewer>>}} A basic viewer to evaluate xpath expression in the currently selected Rinzo's editor.
  
- * {{{other.html}<<Document Navigation>>}} A couple of key shortcuts to jump through the document tags in order to speed document navigation.
+ * {{{./other.html}<<Document Navigation>>}} A couple of key shortcuts to jump through the document tags in order to speed document navigation.
  
  []
  
@@ -145,11 +174,11 @@ Release Notes
 
 * {Features}
 
-  * {{{autocompletion.html}<<Namespace Support>>}} Now all schemas defining an xml are considered in editor's functionalities like autocompletion.
+  * {{{./autocompletion.html}<<Namespace Support>>}} Now all schemas defining an xml are considered in editor's functionalities like autocompletion.
  
-  * {{{validation.html}<<Hover over errors>>}} When you put the mouse cursor over a line with an error mark its message is displayed in a hover.
+  * {{{./validation.html}<<Hover over errors>>}} When you put the mouse cursor over a line with an error mark its message is displayed in a hover.
  
-  * {{{others.html}<<Hover on Tags and Attributes>>}} Positioning the mouse over a tag or attribute displays its documentation <including its XPath> in a hover.
+  * {{{./others.html}<<Hover on Tags and Attributes>>}} Positioning the mouse over a tag or attribute displays its documentation <including its XPath> in a hover.
 
   []
 
@@ -173,11 +202,11 @@ Release Notes
 
 * {Features}
   
- * {{{others.html}<<Pair Node Matching:>>}} To know where is the ending tag of an opening one. And the opening tag of and ending one.
+ * {{{./others.html}<<Pair Node Matching:>>}} To know where is the ending tag of an opening one. And the opening tag of and ending one.
 
- * {{{others.html}<<Range Highlight:>>}} To know the entire area used by the tag where the caret is positioned.
+ * {{{./others.html}<<Range Highlight:>>}} To know the entire area used by the tag where the caret is positioned.
   
- * {{{actions.html}<<Escape Characters:>>}} No more encoding problems that should be solved by reviewing entire documents to escape 
+ * {{{./actions.html}<<Escape Characters:>>}} No more encoding problems that should be solved by reviewing entire documents to escape 
  characters everywhere.
  
  * Also notice that from this version it is required Eclipse version 3.3 or above and JRE 5 or above.
