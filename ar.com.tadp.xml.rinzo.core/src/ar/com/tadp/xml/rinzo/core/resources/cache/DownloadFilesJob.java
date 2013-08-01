@@ -9,24 +9,30 @@ import org.eclipse.core.runtime.jobs.Job;
 
 /**
  * In charge of displaying a notification while downloading files to cache
- *  
+ * 
  * @author ccancinos
  */
-public class CacheFileJob extends Job {
+public class DownloadFilesJob extends Job {
 	private final Map<String, String> storeFiles;
 	private boolean cancel = false;
 
-	public CacheFileJob(Map<String, String> storeFiles) {
+	/**
+	 * 
+	 * @param storeFiles
+	 *            mapping between public and absolute name of each file to be
+	 *            downloaded
+	 */
+	public DownloadFilesJob(Map<String, String> storeFiles) {
 		super("Saving files to Rinzo's cache");
 		this.storeFiles = storeFiles;
 	}
 
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
-		monitor.beginTask(null, IProgressMonitor.UNKNOWN);//storeFiles.size());
+		monitor.beginTask(null, IProgressMonitor.UNKNOWN);
 		for (Map.Entry<String, String> storeFile : storeFiles.entrySet()) {
 			try {
-				if(this.cancel) {
+				if (this.cancel) {
 					break;
 				}
 				String publicName = storeFile.getKey();
