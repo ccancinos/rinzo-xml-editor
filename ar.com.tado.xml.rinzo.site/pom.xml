@@ -16,15 +16,13 @@
 			<email>ccancinos@users.sourceforge.net</email>
 			<timezone>-3</timezone>
 		</developer>
-	</developers>
-
-	<contributors>
-		<contributor>
+		<developer>
+			<id>serranoc</id>
 			<name>Serrano Carolina</name>
 			<email>serranoc@users.sourceforge.net</email>
 			<timezone>-3</timezone>
-		</contributor>
-	</contributors>
+		</developer>
+	</developers>
 
 	<issueManagement>
 		<system>GitHub Tracker System</system>

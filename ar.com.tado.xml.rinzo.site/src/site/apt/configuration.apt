@@ -13,6 +13,8 @@ Configuration
   * Templates configuration.
   
   * Indentation using tag or space.
+  
+  * Whether formatting should be executed before each save operation
 
   * Change editor's background.
   

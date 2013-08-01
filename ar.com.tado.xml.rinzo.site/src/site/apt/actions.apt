@@ -48,10 +48,21 @@ Actions
 
   As its name says this action will clean all errors and warnings on a opened document or selected files in the resources tree.
 
-** {DTD and Schema Generation}
+** {Create XML Definition}
 
-  Starting with a xml file it is possible to create a DTD or Schema definition using 
-  it as example input with the elements "Generate XSD" and "Generate DTD" in the contextual menu.
+  This option is present on the editor and xml files contextual menus and allows to generate an xml definition (xsd, dtd, relax ng)
+  using the selected elements as examples inputs. Using the following dialog it could be configured:
+   
+  * the location of the generated definition
+  
+  * format of the output definition (xml schema, dtd, relax ng in xml syntax or relax ng in compact syntax)
+   
+  * and also how line break length
+  
+  []
+  
+[images/CreateDeclarationDefininition.png]
+  
 
 ** {Escape characters}
  
@@ -61,9 +72,9 @@ Actions
 *-------------*-----------------------*
 || Unescaped  ||  Escaped             |
 *-------------*-----------------------+
-| �           | &acute;               |
+| á           | &acute;               |
 *-------------*-----------------------+
-|elei��es     | elei&ccedil;&otilde;es|
+| eleiçóes    | elei&ccedil;&otilde;es|
 *-------------*-----------------------+
 
 ** {Rename Tag}

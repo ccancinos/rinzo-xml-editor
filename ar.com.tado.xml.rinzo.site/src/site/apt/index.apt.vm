@@ -30,7 +30,7 @@ Introduction
  
   * XPath Viewer.
  
-  *{{{actions.html}And more}}
+  *{{{./actions.html}And more}}
  
   [] 
   
@@ -47,7 +47,7 @@ Introduction
 
   []
   
-  And it's also possible to extend its validation and content assistant contributing to its {{{extendingRinzo.html}extension points}}. 
+  And it's also possible to extend its validation and content assistant contributing to its {{{./extendingRinzo.html}extension points}}. 
 
 * Requirements
 
@@ -55,22 +55,6 @@ Introduction
   
   * Since this plugin is compiled on java 5, you should start your Eclipse using a {{{http://java.sun.com/javase/downloads/index.jsp}JRE 5 or above}} 
 
-* Collaboration
-
-  Until today collaborating to Rinzo was a little bit hard so in order to make it easier, Rinzo's code and bug tracking is now being hosted at {{{http://github.com}GitHub}}.
-  Hopefully this will encourage the ones who already contributed patches, and the ones who wanted to but didn't know how, to keep improving this project.
-  We really appreciate any feedback or pull-request you might contribute to this project at:
-  
-  * Bug tracker: {{{https://github.com/ccancinos/rinzo-xml-editor/issuesues}https://github.com/ccancinos/rinzo-xml-editor/issuesues}}
-  
-  * Source code: {{{https://github.com/ccancinos/rinzo-xml-editor.git}https://github.com/ccancinos/rinzo-xml-editor.git}}
-  
-  And if you are new to git, you might want to take a look at this links:
-  
-  * {{{https://help.github.com/articles/fork-a-repo}https://help.github.com/articles/fork-a-repo}}
-  
-  * {{{http://www.eqqon.com/index.php/Collaborative_Github_Workflow}http://www.eqqon.com/index.php/Collaborative_Github_Workflow}}
-   
   
 Note:
 
