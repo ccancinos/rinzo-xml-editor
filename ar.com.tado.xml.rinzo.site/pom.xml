@@ -1,14 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>ar.com.tadp.rinzo</groupId>
-  <artifactId>ar.com.tadp.rinzo.site</artifactId>
-  <version>1.1.2</version>
-  <name>Rinzo XML Editor</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.com.tadp.rinzo</groupId>
+	<artifactId>ar.com.tadp.rinzo.site</artifactId>
+	<version>1.1.2</version>
+	<name>Rinzo XML Editor</name>
 
 	<properties>
 		<version>1.1.2</version>
 	</properties>
-	
+
+	<distributionManagement>
+		<site>
+			<id>editorxml.sf.net</id>
+			<url>scp://shell.sourceforge.net/home/project-web/editorxml/htdocs</url>
+		</site>
+	</distributionManagement>
+
 	<developers>
 		<developer>
 			<id>ccancinos</id>
@@ -28,7 +36,7 @@
 		<system>GitHub Tracker System</system>
 		<url>https://github.com/ccancinos/rinzo-xml-editor/issues</url>
 	</issueManagement>
-	
+
 	<scm>
 		<url>https://github.com/ccancinos/rinzo-xml-editor.git</url>
 	</scm>
@@ -57,6 +65,24 @@
 			</testResource>
 		</testResources>
 		<directory>target</directory>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.3</version>
+					<dependencies>
+						<dependency><!-- add support for ssh/scp -->
+							<groupId>org.apache.maven.wagon</groupId>
+							<artifactId>wagon-ssh</artifactId>
+							<version>1.0</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -104,14 +130,14 @@
 					</filesets>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<configuration>
-                    <templateDirectory>src/site</templateDirectory>
-                    <template>site.vm</template>
-                </configuration>
+					<templateDirectory>src/site</templateDirectory>
+					<template>site.vm</template>
+				</configuration>
 			</plugin>
 
 		</plugins>
