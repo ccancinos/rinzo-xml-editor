@@ -51,8 +51,7 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
  * @author ccancinos
  */
 public class XMLTemplateProcessor extends TemplateCompletionProcessor {
-    private static final int TEMPLATE_RELEVANCE = 80;
-	private final char[] autoActivationCharacters = new char[]{'<'};
+    private final char[] autoActivationCharacters = new char[]{'<'};
 
     /**
 	 * We watch for angular brackets since those are often part of XML
@@ -96,7 +95,7 @@ public class XMLTemplateProcessor extends TemplateCompletionProcessor {
 			prefix= prefix.substring(1);
 		}
 		if (template.getName().startsWith(prefix)) {
-			return TEMPLATE_RELEVANCE;
+			return ProposalsFactory.TEMPLATE_RELEVANCE;
 		}
 		return 0;
 	}

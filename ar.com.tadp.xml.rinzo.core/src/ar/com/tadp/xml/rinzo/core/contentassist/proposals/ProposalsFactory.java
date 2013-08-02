@@ -33,11 +33,12 @@ import ar.com.tadp.xml.rinzo.core.utils.Utils;
  * @author ccancinos
  */
 public class ProposalsFactory {
-	private static final int COMMENT_RELEVANCE = 1;
-	private static final int TAG_RELEVANCE = 110;
-	private static final int ATTR_RELEVANCE = 110;
-    private static final int ATTR_VALUE_RELEVANCE = 100;
-	private static final int END_TAG_RELEVANCE = 100;
+	private static final int TAG_RELEVANCE = 1100;
+	private static final int ATTR_RELEVANCE = 1100;
+    private static final int ATTR_VALUE_RELEVANCE = 1000;
+	private static final int END_TAG_RELEVANCE = 1000;
+	private static final int COMMENT_RELEVANCE = 900;
+	public static final int TEMPLATE_RELEVANCE = 1;
 	
 	private static final String COMMENT_INFO = "&lt;!-- --&gt;";
     private static XMLCompletionProposal commentProposal = null;
