@@ -9,7 +9,7 @@ Download
 
 * Requirements
 
-  * {{{http://eclipse.org/downloads}Eclipse 3.3.X or above}}
+  * {{{http://eclipse.org/downloads}Eclipse 3.6.2 or above}}
   
   * Since this plugin is compiled on java 5, you should start your Eclipse using a {{{http://java.sun.com/javase/downloads/index.jsp}JRE 5 or above}}
   
@@ -40,12 +40,6 @@ Download
   
 * Manual Installation
 
-  * <<Eclipse 3.3.X:>>\
-  Decompress the zip file you've downloaded and copy the two jar files into your eclipse's <<plugin directory>> and restart the eclipse.
-  
-  []
-
-  * <<Eclipse 3.4.X and above:>>\
   Decompress the zip file you've downloaded and copy the two jar file into your eclipse's <<dropins directory>> and restart the eclipse.
 
   

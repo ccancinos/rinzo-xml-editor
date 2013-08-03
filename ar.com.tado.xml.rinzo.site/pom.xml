@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.tadp.rinzo</groupId>
 	<artifactId>ar.com.tadp.rinzo.site</artifactId>
-	<version>1.1.2</version>
+	<version>1.2.0</version>
 	<name>Rinzo XML Editor</name>
 
 	<properties>
-		<version>1.1.2</version>
+		<version>1.2.0</version>
 	</properties>
 
 	<distributionManagement>

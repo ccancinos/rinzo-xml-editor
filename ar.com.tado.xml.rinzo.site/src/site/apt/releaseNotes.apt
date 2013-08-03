@@ -16,7 +16,7 @@ Release Notes
   
   * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/9}Configure xsd/dtd generation}}
   
-  *{{{https://github.com/ccancinos/rinzo-xml-editor/issues/10}Add a progress monitor for xsd/dtd download into Rinzo's cache}}
+  *{{{https://github.com/ccancinos/rinzo-xml-editor/issues/10}Add a progress monitor when downloading xsd/dtd download into Rinzo's cache}}
   
   []
   
