@@ -2,7 +2,7 @@
 <feature
       id="ar.com.tadp.xml.rinzo.jdt.feature"
       label="Rinzo XML Editor Java Integration"
-      version="1.2.0">
+      version="1.3.0">
 
    <description url="http://www.example.com/description">
       Extension of Rinzo Xml Editor to interact with java elements. Useful if you must edit a web.xml, .hbm files, struts-config or any other xml file where java elements must be handled in order to:
@@ -647,7 +647,7 @@ License along with this program; If not, see &lt;http://www.gnu.org/licenses/&gt
          id="ar.com.tadp.xml.rinzo.jdt"
          download-size="0"
          install-size="0"
-         version="1.2.0"
+         version="1.3.0"
          unpack="false"/>
 
 </feature>

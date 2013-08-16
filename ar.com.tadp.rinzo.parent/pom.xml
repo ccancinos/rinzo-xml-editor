@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.com.tadp.rinzo</groupId>
+	<artifactId>ar.com.tadp.rinzo.parent</artifactId>
+	<version>1.3.0</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<tycho-version>0.10.0</tycho-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<deploy.target>sftp://web.sourceforge.net/home/frs/project/editorxml/Rinzo XML Editor/${project.version}</deploy.target>
+		<site.target>sftp://web.sourceforge.net/home/project-web/editorxml/htdocs/</site.target>
+		<update.site.target>sftp://web.sourceforge.net/home/project-web/editorxml/htdocs/updates</update.site.target>
+	</properties>
+
+	<url>http://editorxml.sf.net/</url>
+	<organization>
+		<name>Uqbar Tomcat Eclipse Plugin eXTension</name>
+		<url>http://editorxml.sourceforge.net/</url>
+	</organization>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-versions-plugin</artifactId>
+				<version>0.18.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>1.5</source>
+						<target>1.5</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>2.4</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>helios</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/helios</url>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>../ar.com.tadp.xml.rinzo.core</module> 
+		<module>../ar.com.tadp.xml.rinzo.jdt</module> 
+		<module>../ar.com.tadp.xml.rinzo.core.feature</module> 
+		<module>../ar.com.tadp.xml.rinzo.jdt.feature</module> 
+		<module>../ar.com.tadp.xml.rinzo.updatesite</module> 
+		<module>../ar.com.tado.xml.rinzo.site</module>
+		<!-- 
+		-->
+	</modules>
+
+</project>
