@@ -46,7 +46,7 @@
 									<includes>site.xml,features/**</includes>
 									<fromDir>${project.build.directory}/update-site</fromDir>
 									<url>${update.site.target}</url>
-									<serverId>org.uqbar.eclipse.tomcat.xt.sf</serverId>
+									<serverId>rinzo.sf</serverId>
 								</configuration>
 							</execution>
 						</executions>

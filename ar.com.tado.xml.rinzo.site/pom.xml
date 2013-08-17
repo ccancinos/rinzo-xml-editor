@@ -106,7 +106,7 @@
 									<includes>**</includes>
 									<fromDir>${project.build.directory}/site</fromDir>
 									<url>${site.target}</url>
-									<serverId>org.uqbar.eclipse.tomcat.xt.sf</serverId>
+									<serverId>rinzo.sf</serverId>
 								</configuration>
 							</execution>
 						</executions>

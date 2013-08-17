@@ -34,7 +34,7 @@
 									<includes>*.jar</includes>
 									<fromDir>${project.build.directory}</fromDir>
 									<url>${deploy.target}</url>
-									<serverId>org.uqbar.eclipse.tomcat.xt.sf</serverId>
+									<serverId>rinzo.sf</serverId>
 								</configuration>
 							</execution>
 						</executions>
