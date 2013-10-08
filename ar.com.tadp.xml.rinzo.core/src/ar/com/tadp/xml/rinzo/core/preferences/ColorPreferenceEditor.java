@@ -85,7 +85,7 @@ public class ColorPreferenceEditor extends FieldEditor {
 		gd.verticalAlignment = 1;
 		gd.horizontalAlignment = 1;
 		gd.widthHint = 180;
-		gd.heightHint = 100;
+		gd.heightHint = 160;
 		gd.horizontalSpan = numColumns - 2;
 		gd.grabExcessHorizontalSpace = false;
 		gd.grabExcessVerticalSpace = true;
