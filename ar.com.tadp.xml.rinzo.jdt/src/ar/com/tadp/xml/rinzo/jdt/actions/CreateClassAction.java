@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.ide.ResourceUtil;
 
+import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.RinzoJDTPlugin;
 import ar.com.tadp.xml.rinzo.jdt.eclipse.copies.PixelConverter;
 
@@ -49,30 +50,26 @@ public class CreateClassAction extends ClassNameSelectedAction {
 	}
 
 	public void run(IAction action) {
-		IWorkbench workbench = RinzoJDTPlugin.getDefault().getWorkbench();
-		Shell shell = workbench.getActiveWorkbenchWindow().getShell();
-		NewClassCreationWizard wizard = new NewClassCreationWizard();
-		String className = this.getSelection().substring(this.getSelection().lastIndexOf(".") + 1);
-		String packageName = this.getSelection().substring(0, this.getSelection().lastIndexOf("."));
-
-		wizard.init(workbench, new StructuredSelection(className));
-		WizardDialog dialog = new WizardDialog(shell, wizard);
-		PixelConverter converter = new PixelConverter(shell);
-
-		dialog.setMinimumPageSize(
-				converter.convertWidthInCharsToPixels(70), 
-				converter.convertHeightInCharsToPixels(20));
-		dialog.create();
-
-		NewClassWizardPage page = (NewClassWizardPage) wizard.getPage("NewClassWizardPage");
-		page.setTypeName(className, true);
-		page.setAddComments(true, true);
-
-		IPackageFragmentRoot sourceFolder = this.getSourceFolder();
-		page.setPackageFragmentRoot(sourceFolder, true);
-		page.setPackageFragment(sourceFolder.getPackageFragment(packageName), true);
-		
-		dialog.open();
+		if (!Utils.isEmpty(this.getSelection())) {
+			IWorkbench workbench = RinzoJDTPlugin.getDefault().getWorkbench();
+			Shell shell = workbench.getActiveWorkbenchWindow().getShell();
+			NewClassCreationWizard wizard = new NewClassCreationWizard();
+			String className = this.getSelection().substring(this.getSelection().lastIndexOf(".") + 1);
+			String packageName = this.getSelection().substring(0, this.getSelection().lastIndexOf("."));
+			wizard.init(workbench, new StructuredSelection(className));
+			WizardDialog dialog = new WizardDialog(shell, wizard);
+			PixelConverter converter = new PixelConverter(shell);
+			dialog.setMinimumPageSize(converter.convertWidthInCharsToPixels(70),
+					converter.convertHeightInCharsToPixels(20));
+			dialog.create();
+			NewClassWizardPage page = (NewClassWizardPage) wizard.getPage("NewClassWizardPage");
+			page.setTypeName(className, true);
+			page.setAddComments(true, true);
+			IPackageFragmentRoot sourceFolder = this.getSourceFolder();
+			page.setPackageFragmentRoot(sourceFolder, true);
+			page.setPackageFragment(sourceFolder.getPackageFragment(packageName), true);
+			dialog.open();
+		}
 	}
 
 	private IPackageFragmentRoot getSourceFolder() {
