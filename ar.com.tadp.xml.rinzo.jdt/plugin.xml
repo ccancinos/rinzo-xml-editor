@@ -19,6 +19,13 @@
             id="ar.com.tadp.xml.rinzo.jdt.context"
             targetID="ar.com.tadp.xml.rinzo.core.context">
          <action
+               class="ar.com.tadp.xml.rinzo.jdt.actions.GenerateParserAction"
+               definitionId="ar.com.tadp.xml.rinzo.GenerateParser"
+               id="ar.com.tadp.xml.rinzo.core.actions.GenerateParserAction"
+               label="Generate Parser"
+               menubarPath="rinzoAdditions">
+         </action>
+         <action
                class="ar.com.tadp.xml.rinzo.jdt.actions.CreateClassAction"
                definitionId="ar.com.tadp.xml.rinzo.CreateClass"
                id="ar.com.tadp.xml.rinzo.core.actions.CreateClassAction"
@@ -70,6 +77,18 @@
             id="ar.com.tadp.xml.rinzo.jdt.preferences.ClassNamesPreferencePage"
             name="JDT Integration">
       </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.console.consolePageParticipants">
+      <consolePageParticipant
+            class="ar.com.tadp.xml.rinzo.jdt.wizards.MessageConsoleParticipant"
+            id="ar.com.tadp.xml.rinzo.jdt.consolePageParticipant1">
+         <enablement>
+            <instanceof
+                  value="org.eclipse.ui.console.MessageConsole">
+            </instanceof>
+         </enablement>
+      </consolePageParticipant>
    </extension>
 
 </plugin>

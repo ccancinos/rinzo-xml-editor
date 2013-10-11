@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb2-default-value-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb2-value-constructor-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb2-fluent-api-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb-core-2.2.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb-api-2.2.7.jar" sourcepath="C:/Users/ccancinos/.m2/repository/javax/xml/bind/jaxb-api/2.2.7/jaxb-api-2.2.7-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/jaxb-impl-2.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-xjc-2.2.7.jar" sourcepath="lib/jaxb-xjc.src-2.2.7.zip"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

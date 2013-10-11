@@ -34,7 +34,7 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  */
 public class RinzoJDTPlugin extends AbstractUIPlugin {
-	public static final String PLUGIN_ID = "ar.com.tadp.rinzoxmleditor.jdt";
+	public static final String PLUGIN_ID = "ar.com.tadp.xml.rinzo.jdt";
 
 	public static final String PREF_ENABLE_CLASSNAME  = "__pref_enable_classname";
 	public static final String PREF_CLASSNAME_ATTRS   = "__pref_classname_attrs";
