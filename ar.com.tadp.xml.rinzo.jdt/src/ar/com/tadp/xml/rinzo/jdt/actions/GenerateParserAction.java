@@ -43,8 +43,7 @@ public class GenerateParserAction extends SelectionAction {
 		RinzoXMLEditor editor = (RinzoXMLEditor) this.getTextEditor();
 		StructuredSelection selection = new StructuredSelection(editor.getEditorInputIFile());
 		Collection<DocumentStructureDeclaration> definitions = editor.getModel().getSchemaDefinitions();
-    	String fileName = editor.getFileName();
-		Map<String, String> fileLocations = DocumentCache.getInstance().getAllLocations(definitions, fileName);
+		Map<String, String> fileLocations = DocumentCache.getInstance().getAllLocations(definitions, editor.getFileName());
 
 		NewParserWizard wizard = new NewParserWizard(fileLocations.values());
 		wizard.init(PlatformUI.getWorkbench(), selection);

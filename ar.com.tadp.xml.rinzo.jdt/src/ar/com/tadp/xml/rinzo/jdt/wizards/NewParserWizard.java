@@ -32,6 +32,7 @@ import java.util.List;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IMethod;
@@ -48,6 +49,7 @@ import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.xml.sax.SAXParseException;
 
+import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.RinzoJDTPlugin;
 
@@ -55,6 +57,8 @@ import com.sun.tools.xjc.Driver;
 import com.sun.tools.xjc.XJCListener;
 
 /**
+ * Wizard to generate JAXB java classes binded to a schema definition plus a
+ * JAXB parser to read and write from xml to objects and objects to xml
  * 
  * @author ccancinos
  */
@@ -77,13 +81,32 @@ public class NewParserWizard extends Wizard implements INewWizard {
 	@Override
 	public void addPages() {
 		this.newParserPage = new NewJAXBParserWizardPage(this.selection);
-		this.bindingPage = new BindingFilesWizardPage("Sarasa");
+		this.bindingPage = new BindingFilesWizardPage("Create JAXB Parser", "Select JAXB binding files");
 		addPage(this.newParserPage);
 		addPage(this.bindingPage);
 	}
 
 	@Override
 	public boolean performFinish() {
+		try {
+			Driver.run(this.createArgumentsList(), new XJCListenerExtension());
+
+			this.refreshSourceFolder();
+			this.createParser();
+		} catch (Exception e) {
+			XMLEditorPlugin.log(e);
+		}
+
+		return true;
+	}
+
+	private void refreshSourceFolder() throws CoreException {
+		IWorkspaceRoot fWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		Path path = new Path(this.newParserPage.getPackageFragmentRootText());
+		fWorkspaceRoot.getFolder(path).refreshLocal(IResource.DEPTH_INFINITE, null);
+	}
+
+	private String[] createArgumentsList() {
 		String sourceDirectory = this.newParserPage.getSourceDirectoryAbsolutePath();
 		String packageName = this.newParserPage.getPackage();
 		String encoding = this.newParserPage.getEncoding();
@@ -126,20 +149,7 @@ public class NewParserWizard extends Wizard implements INewWizard {
 		}
 
 		String[] arguments = args.toArray(new String[] {});
-		XJCListener listener = new XJCListenerExtension();
-
-		try {
-			Driver.run(arguments, listener);
-
-			IWorkspaceRoot fWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-			Path path = new Path(this.newParserPage.getPackageFragmentRootText());
-			fWorkspaceRoot.getFolder(path).refreshLocal(IResource.DEPTH_INFINITE, null);
-			this.createParser();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return true;
+		return arguments;
 	}
 
 	private void createParser() throws JavaModelException {
@@ -149,16 +159,20 @@ public class NewParserWizard extends Wizard implements INewWizard {
 		IPackageFragment packageFragment = this.newParserPage.getPackageFragmentRoot().getPackageFragment(
 				this.newParserPage.getPackage());
 
-		String source = this.getTemplate(packageFragment.getElementName(), rootType.getMethodName(), rootType.getRootType());
+		String source = this.getTemplate(packageFragment.getElementName(), rootType.getMethodName(),
+				rootType.getRootType());
 
-		ICompilationUnit cu = packageFragment.createCompilationUnit(className, source, false, null);
+		packageFragment.createCompilationUnit(className, source, false, null);
 	}
 
 	private String getTemplate(String packageName, String factoryMethodName, String rootType) {
 		if (this.template == null) {
 			this.template = this.readTemplate();
 		}
-		return this.template.replaceAll("__PACKAGE__", packageName).replaceAll("__TYPE__", rootType).replaceAll("__FACTORY_METHOD__", factoryMethodName);
+		return this.template
+				.replaceAll("__PACKAGE__", packageName)
+				.replaceAll("__TYPE__", rootType)
+				.replaceAll("__FACTORY_METHOD__", factoryMethodName);
 	}
 
 	private String readTemplate() {
@@ -177,7 +191,7 @@ public class NewParserWizard extends Wizard implements INewWizard {
 			in.close();
 			return buffer.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
+			XMLEditorPlugin.log(e);
 		}
 		return "";
 	}
@@ -202,13 +216,13 @@ public class NewParserWizard extends Wizard implements INewWizard {
 					return new RootTypeFactoryMethod(method.getElementName(), rootType);
 				}
 			}
-			
+
 		} catch (JavaModelException e) {
-			e.printStackTrace();
+			XMLEditorPlugin.log(e);
 		}
 		return null;
 	}
-	
+
 	private final class RootTypeFactoryMethod {
 		private String methodName;
 		private String rootType;
@@ -225,7 +239,7 @@ public class NewParserWizard extends Wizard implements INewWizard {
 		public String getRootType() {
 			return rootType;
 		}
-		
+
 	}
 
 	private final class XJCListenerExtension extends XJCListener {
@@ -233,13 +247,25 @@ public class NewParserWizard extends Wizard implements INewWizard {
 		private MessageConsoleStream stream;
 
 		public XJCListenerExtension() {
-			console = new MessageConsole(RinzoJDTPlugin.PLUGIN_ID, null);
-			console.activate();
-			IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
-			manager.addConsoles(new IConsole[]{ console });
+			console = this.getConsole();
 			stream = console.newMessageStream();
 		}
-		
+
+		private MessageConsole getConsole() {
+			IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+			for (IConsole consol : manager.getConsoles()) {
+				if (consol.getName().equals(RinzoJDTPlugin.PLUGIN_ID)) {
+					MessageConsole msgConsole = (MessageConsole) consol;
+					msgConsole.clearConsole();
+					return msgConsole;
+				}
+			}
+			MessageConsole messageConsole = new MessageConsole(RinzoJDTPlugin.PLUGIN_ID, null);
+			messageConsole.activate();
+			manager.addConsoles(new IConsole[] { messageConsole });
+			return messageConsole;
+		}
+
 		public void warning(SAXParseException arg0) {
 			stream.println("warning: " + arg0);
 		}
@@ -255,7 +281,6 @@ public class NewParserWizard extends Wizard implements INewWizard {
 		public void error(SAXParseException arg0) {
 			stream.println("error: " + arg0);
 		}
-		
 	}
 
 }

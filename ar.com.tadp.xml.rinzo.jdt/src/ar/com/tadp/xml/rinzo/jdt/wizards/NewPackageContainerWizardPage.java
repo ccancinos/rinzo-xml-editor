@@ -28,7 +28,6 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.dialogs.TextFieldNavigationHandler;
 import org.eclipse.jdt.internal.ui.refactoring.contentassist.ControlContentAssistHelper;
 import org.eclipse.jdt.internal.ui.refactoring.contentassist.JavaPackageCompletionProcessor;
@@ -55,7 +54,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
+import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
+
 /**
+ * Abstract wizard page for pages requiring to locate a package and proyect's
+ * source folder
  * 
  * @author ccancinos
  */
@@ -75,16 +78,15 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 
 		packageCompletionProcessor = new JavaPackageCompletionProcessor();
 
-		IJavaElement jelem = getInitialJavaElement(selection);
-		initContainerPage(jelem);
+		this.initContainerPage(this.getInitialJavaElement(selection));
 	}
 
 	public void createControl(Composite parentRoot) {
 		initializeDialogUnits(parentRoot);
-		
+
 		Composite parent = new Composite(parentRoot, SWT.NONE);
 		parent.setLayout(new GridLayout(1, false));
-		
+
 		Composite groupParent = new Composite(parent, SWT.NONE);
 		groupParent.setLayout(new GridLayout());
 		Composite sourceAndPackageContainer = new Composite(groupParent, SWT.NONE);
@@ -97,13 +99,13 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 		// pick & choose the wanted UI components
 		createContainerControls(sourceAndPackageContainer, nColumns);
 		createPackageControls(sourceAndPackageContainer, nColumns);
-		
+
 		Label separator = new Label(groupParent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		packageDialogField.setFocus();
-		
+
 		this.createAdditionalControls(parent);
-		
+
 		this.setControl(parent);
 	}
 
@@ -127,7 +129,7 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 				packages = froot.getChildren();
 			}
 		} catch (JavaModelException e) {
-			JavaPlugin.log(e);
+			XMLEditorPlugin.log(e);
 		}
 		if (packages == null) {
 			packages = new IJavaElement[0];
@@ -185,32 +187,32 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 
 	private class TypeFieldsAdapter implements IStringButtonAdapter, IDialogFieldListener,
 			IListAdapter<InterfaceWrapper>, SelectionListener {
-	
+
 		// -------- IStringButtonAdapter
 		public void changeControlPressed(DialogField field) {
 			typePageChangeControlPressed(field);
 		}
-	
+
 		// -------- IListAdapter
 		public void customButtonPressed(ListDialogField<InterfaceWrapper> field, int index) {
 			// typePageCustomButtonPressed(field, index);
 		}
-	
+
 		public void selectionChanged(ListDialogField<InterfaceWrapper> field) {
 		}
-	
+
 		// -------- IDialogFieldListener
 		public void dialogFieldChanged(DialogField field) {
 			// typePageDialogFieldChanged(field);
 		}
-	
+
 		public void doubleClicked(ListDialogField<InterfaceWrapper> field) {
 		}
-	
+
 		public void widgetSelected(SelectionEvent e) {
 			// typePageLinkActivated();
 		}
-	
+
 		public void widgetDefaultSelected(SelectionEvent e) {
 			// typePageLinkActivated();
 		}
@@ -218,16 +220,16 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 
 	protected static class InterfaceWrapper {
 		public String interfaceName;
-	
+
 		public InterfaceWrapper(String interfaceName) {
 			this.interfaceName = interfaceName;
 		}
-	
+
 		@Override
 		public int hashCode() {
 			return interfaceName.hashCode();
 		}
-	
+
 		@Override
 		public boolean equals(Object obj) {
 			return obj != null && getClass().equals(obj.getClass())

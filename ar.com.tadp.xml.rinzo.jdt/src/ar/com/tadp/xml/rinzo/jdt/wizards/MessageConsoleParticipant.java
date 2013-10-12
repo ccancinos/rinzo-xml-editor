@@ -25,13 +25,15 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsolePageParticipant;
+import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.actions.CloseConsoleAction;
 import org.eclipse.ui.part.IPageBookViewPage;
 
 /**
+ * Used to allow the possibility to close a {@link MessageConsole}
  * 
  * @author ccancinos
- *
+ * 
  */
 public class MessageConsoleParticipant implements IConsolePageParticipant {
 	private Action closeAction;

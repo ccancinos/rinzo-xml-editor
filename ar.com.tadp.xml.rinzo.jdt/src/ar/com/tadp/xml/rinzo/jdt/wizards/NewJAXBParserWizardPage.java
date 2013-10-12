@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 /**
+ * Use this wizard page to gather information to configure the generation of
+ * JAXB java classes binded to a schema definition
  * 
  * @author ccancinos
  */
@@ -40,7 +42,7 @@ public class NewJAXBParserWizardPage extends NewPackageContainerWizardPage {
 	private Button useDefaultValue;
 
 	public NewJAXBParserWizardPage(IStructuredSelection selection) {
-		super("New JAXB Parser", selection);
+		super("Create JAXB Parser", selection);
 		this.setTitle("Create JAXB Parser");
 		this.setDescription("Create a JAXB parser in the workspace");
 	}
@@ -52,7 +54,7 @@ public class NewJAXBParserWizardPage extends NewPackageContainerWizardPage {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = nColumns;
 		combosContainer.setLayout(layout);
-		
+
 		Label encodingLabel = new Label(combosContainer, SWT.NULL);
 		encodingLabel.setText("&Encoding:");
 		encodingCombo = new Combo(combosContainer, SWT.READ_ONLY);
@@ -79,7 +81,7 @@ public class NewJAXBParserWizardPage extends NewPackageContainerWizardPage {
 		this.useValueConstructor = this.createCheck(checksContainer, "Add Value &Constructor");
 		this.useDefaultValue = this.createCheck(checksContainer, "Add &Default Values");
 	}
-	
+
 	private Button createCheck(Composite checksContainer, String text) {
 		Button check = new Button(checksContainer, SWT.CHECK);
 		check.setText(text);

@@ -48,18 +48,19 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import ar.com.tadp.xml.rinzo.jdt.preferences.TableViewerSupport;
 
 /**
+ * Wizard page used to select a list of files containing binding information
  * 
  * @author ccancinos
- *
+ * 
  */
 public class BindingFilesWizardPage extends WizardPage {
 	private ListViewer listViewer;
 	private List<String> files = new ArrayList<String>();
-	
-	public BindingFilesWizardPage(String pageName) {
+
+	public BindingFilesWizardPage(String pageName, String description) {
 		super(pageName);
-		this.setTitle("Create JAXB Parser");
-		this.setDescription("Select JAXB binding files");
+		this.setTitle(pageName);
+		this.setDescription(description);
 	}
 
 	public void createControl(Composite root) {
@@ -67,14 +68,14 @@ public class BindingFilesWizardPage extends WizardPage {
 		GridLayout gridLayout = new GridLayout(2, false);
 		parent.setLayout(gridLayout);
 		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
+
 		this.listViewer = new ListViewer(parent);
 		GridData layoutData = new GridData(GridData.FILL_BOTH);
 		layoutData.grabExcessHorizontalSpace = true;
 		this.listViewer.getControl().setLayoutData(layoutData);
 		this.listViewer.setContentProvider(new TableViewerSupport.ListContentProvider());
 		this.listViewer.setInput(this.files);
-		
+
 		Composite buttonParent = new Composite(parent, SWT.NULL);
 		FillLayout fillLayout = new FillLayout(SWT.VERTICAL);
 		fillLayout.spacing = 2;
@@ -87,28 +88,31 @@ public class BindingFilesWizardPage extends WizardPage {
 		buttonAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-//				ElementTreeSelectionDialog selectionDialog = new ElementTreeSelectionDialog(null, new WorkbenchLabelProvider(), new WorkbenchContentProvider());
-//				selectionDialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
-//				selectionDialog.open();
-				
-				FilteredElementTreeSelectionDialog dialog = new FilteredElementTreeSelectionDialog(null, new WorkbenchLabelProvider(), new WorkbenchContentProvider());
+				// ElementTreeSelectionDialog selectionDialog = new
+				// ElementTreeSelectionDialog(null, new
+				// WorkbenchLabelProvider(), new WorkbenchContentProvider());
+				// selectionDialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
+				// selectionDialog.open();
+
+				FilteredElementTreeSelectionDialog dialog = new FilteredElementTreeSelectionDialog(null,
+						new WorkbenchLabelProvider(), new WorkbenchContentProvider());
 				dialog.setInitialFilter("*.xml");
 				dialog.setComparator(new ResourceComparator(ResourceComparator.NAME));
 				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
-				ArrayList<IResource> usedJars= new ArrayList<IResource>();
+				ArrayList<IResource> usedJars = new ArrayList<IResource>();
 				dialog.addFilter(new ArchiveFileFilter(usedJars, true, true));
 				if (dialog.open() == Window.OK) {
-					Object[] elements= dialog.getResult();
-					IPath[] res= new IPath[elements.length];
-					for (int i= 0; i < res.length; i++) {
-						IResource elem= (IResource)elements[i];
+					Object[] elements = dialog.getResult();
+					IPath[] res = new IPath[elements.length];
+					for (int i = 0; i < res.length; i++) {
+						IResource elem = (IResource) elements[i];
 						files.add(elem.getLocation().toOSString());
 					}
 				}
 				listViewer.refresh(false);
 			}
 		});
-		
+
 		buttonRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -120,12 +124,12 @@ public class BindingFilesWizardPage extends WizardPage {
 				listViewer.refresh(false);
 			}
 		});
-		
+
 		this.setControl(parent);
 	}
 
 	public List<String> getFiles() {
 		return files;
 	}
-	
+
 }
