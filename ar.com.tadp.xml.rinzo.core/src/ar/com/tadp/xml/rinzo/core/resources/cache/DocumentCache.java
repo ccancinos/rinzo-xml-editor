@@ -97,6 +97,8 @@ public class DocumentCache {
 				} else {
 					if(!this.contains(publicName, absoluteName)) {
 						storeFiles.put(publicName, absoluteName);
+					} else {
+						locations.put(publicName, this.get(publicName, absoluteName));
 					}
 				}
 			} catch (URISyntaxException e) {
