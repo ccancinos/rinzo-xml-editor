@@ -34,10 +34,8 @@ import org.eclipse.jdt.internal.ui.refactoring.contentassist.JavaPackageCompleti
 import org.eclipse.jdt.internal.ui.wizards.NewWizardMessages;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.DialogField;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.IDialogFieldListener;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.IListAdapter;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.IStringButtonAdapter;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.LayoutUtil;
-import org.eclipse.jdt.internal.ui.wizards.dialogfields.ListDialogField;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.StringButtonStatusDialogField;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jdt.ui.wizards.NewContainerWizardPage;
@@ -45,8 +43,6 @@ import org.eclipse.jface.util.BidiUtils;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -63,12 +59,14 @@ import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
  * @author ccancinos
  */
 public abstract class NewPackageContainerWizardPage extends NewContainerWizardPage {
+	private static final String PACKAGE = "NewPackageContainerWizardPage.package";
+	
 	private JavaPackageCompletionProcessor packageCompletionProcessor;
 	private StringButtonStatusDialogField packageDialogField;
 
 	public NewPackageContainerWizardPage(String name, IStructuredSelection selection) {
 		super(name);
-		TypeFieldsAdapter adapter = new TypeFieldsAdapter();
+		ContainerFieldAdapter adapter = new ContainerFieldAdapter();
 
 		packageDialogField = new StringButtonStatusDialogField(adapter);
 		packageDialogField.setDialogFieldListener(adapter);
@@ -105,10 +103,10 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 		packageDialogField.setFocus();
 
 		this.createAdditionalControls(parent);
-
+		
 		this.setControl(parent);
 	}
-
+	
 	protected abstract void createAdditionalControls(Composite parent);
 
 	protected void createPackageControls(Composite composite, int nColumns) {
@@ -185,36 +183,18 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 		return this.packageDialogField.getText();
 	}
 
-	private class TypeFieldsAdapter implements IStringButtonAdapter, IDialogFieldListener,
-			IListAdapter<InterfaceWrapper>, SelectionListener {
+	private class ContainerFieldAdapter implements IStringButtonAdapter, IDialogFieldListener {
 
-		// -------- IStringButtonAdapter
 		public void changeControlPressed(DialogField field) {
 			typePageChangeControlPressed(field);
 		}
 
-		// -------- IListAdapter
-		public void customButtonPressed(ListDialogField<InterfaceWrapper> field, int index) {
-			// typePageCustomButtonPressed(field, index);
-		}
-
-		public void selectionChanged(ListDialogField<InterfaceWrapper> field) {
-		}
-
-		// -------- IDialogFieldListener
 		public void dialogFieldChanged(DialogField field) {
-			// typePageDialogFieldChanged(field);
-		}
-
-		public void doubleClicked(ListDialogField<InterfaceWrapper> field) {
-		}
-
-		public void widgetSelected(SelectionEvent e) {
-			// typePageLinkActivated();
-		}
-
-		public void widgetDefaultSelected(SelectionEvent e) {
-			// typePageLinkActivated();
+			if (field == packageDialogField) {
+				fContainerStatus= containerChanged();
+			}
+			// tell all others
+			handleFieldChanged(PACKAGE);
 		}
 	}
 
@@ -235,6 +215,23 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 			return obj != null && getClass().equals(obj.getClass())
 					&& ((InterfaceWrapper) obj).interfaceName.equals(interfaceName);
 		}
+	}
+
+	@SuppressWarnings("restriction")
+	@Override
+	protected void handleFieldChanged(String fieldName) {
+		super.handleFieldChanged(fieldName);
+		if (fieldName.equals(PACKAGE) && this.packageDialogField.getText().isEmpty()) {
+			this.setErrorMessage("Package cannot be empty");
+			this.setPageComplete(false);
+		} else if (fieldName.equals(CONTAINER) && this.getPackageFragmentRootText().isEmpty()) {
+			this.setErrorMessage("Source folder cannot be empty");
+			this.setPageComplete(false);
+		} else {
+			this.setErrorMessage(null);
+			this.setPageComplete(true);
+		}
+
 	}
 
 }

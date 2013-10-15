@@ -34,10 +34,10 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -94,7 +94,9 @@ public class NewParserWizard extends Wizard implements INewWizard {
 			this.refreshSourceFolder();
 			this.createParser();
 		} catch (Exception e) {
+			MessageDialog.openError(this.getShell(), "Generate JAXB Parser", e.getLocalizedMessage());
 			XMLEditorPlugin.log(e);
+			return false;
 		}
 
 		return true;
@@ -159,13 +161,13 @@ public class NewParserWizard extends Wizard implements INewWizard {
 		IPackageFragment packageFragment = this.newParserPage.getPackageFragmentRoot().getPackageFragment(
 				this.newParserPage.getPackage());
 
-		String source = this.getTemplate(packageFragment.getElementName(), rootType.getMethodName(),
+		String source = this.getParserSourceCode(packageFragment.getElementName(), rootType.getMethodName(),
 				rootType.getRootType());
 
 		packageFragment.createCompilationUnit(className, source, false, null);
 	}
 
-	private String getTemplate(String packageName, String factoryMethodName, String rootType) {
+	private String getParserSourceCode(String packageName, String factoryMethodName, String rootType) {
 		if (this.template == null) {
 			this.template = this.readTemplate();
 		}
