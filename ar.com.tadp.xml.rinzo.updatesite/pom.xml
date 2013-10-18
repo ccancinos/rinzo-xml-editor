@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>ar.com.tadp.rinzo</groupId>
+		<artifactId>ar.com.tadp.rinzo.parent</artifactId>
+		<version>1.3.0</version>
+	</parent>
+	<artifactId>ar.com.tadp.xml.rinzo.updatesite</artifactId>
+	<packaging>eclipse-update-site</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>maven-osgi-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<archiveSite>true</archiveSite>
+					<target>${project.build.directory}/update-site</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<!-- This profile is used to upload the update site -->
+		<profile>
+			<id>upload</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+						<version>1.0-beta-4</version>
+						<executions>
+							<execution>
+								<id>deploy-update-site</id>
+								<phase>install</phase>
+								<goals>
+									<goal>upload</goal>
+								</goals>
+								<configuration>
+									<includes>site.xml,features/**</includes>
+									<fromDir>${project.build.directory}/update-site</fromDir>
+									<url>${update.site.target}</url>
+									<serverId>rinzo.sf</serverId>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

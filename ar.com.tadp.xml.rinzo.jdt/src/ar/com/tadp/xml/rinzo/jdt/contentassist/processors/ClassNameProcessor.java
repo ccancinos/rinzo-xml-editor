@@ -52,12 +52,11 @@ import ar.com.tadp.xml.rinzo.jdt.JDTUtils;
  */
 @SuppressWarnings({ "rawtypes", "unchecked", "restriction" })
 public class ClassNameProcessor implements IXMLContentAssistProcessor {
-	private static final String JNI_METHOD_NAME = "registerNatives();";
+	private static final String JNI_METHOD_NAME = "registerNatives()";
 	private static final String TEMPORAL_METHOD_NAME = "hoge()";
 	private static final String TEMPORAL_CLASS_NAME = "_xxx";
 	private static final String TEMPORAL_CLASS_START = "public class _xxx { public static void hoge(){ ";
 	private static final String TEMPORAL_CLASS_FILE_NAME = TEMPORAL_CLASS_NAME + ".java";
-	private static final int CLASS_RELEVANCE = 90;
 	private IJavaProject project;
 
 	public void addBodyProposals(XMLNode currentNode, String prefix, ITextViewer viewer, int offset,
@@ -101,11 +100,11 @@ public class ClassNameProcessor implements IXMLContentAssistProcessor {
 
 				if (!proposal.getReplacementString().equals(TEMPORAL_METHOD_NAME)
 						&& !proposal.getReplacementString().equals(TEMPORAL_CLASS_NAME)
-						&& !proposal.getReplacementString().equals(JNI_METHOD_NAME)) {
+						&& !proposal.getReplacementString().equals(JNI_METHOD_NAME)
+					&& !proposal.getReplacementString().equals(JNI_METHOD_NAME + ";")) {
 
 					proposal.setReplacementOffset(offset - prefix.length());
 					proposal.setReplacementLength(prefix.length());
-					proposal.setRelevance(CLASS_RELEVANCE);
 
 					result.add(proposal);
 					if (proposals[j] instanceof LazyJavaTypeCompletionProposal) {
@@ -113,11 +112,13 @@ public class ClassNameProcessor implements IXMLContentAssistProcessor {
 						javaTypeProposal.setReplacementString(javaTypeProposal.getQualifiedTypeName());
 					} 
 					if (proposals[j] instanceof JavaCompletionProposal || proposals[j] instanceof JavaMethodCompletionProposal) {
-						String replacementString = proposal.getDisplayString()
-								.substring(0, proposal.getDisplayString().indexOf(':')).trim();
-						
-						proposal.setReplacementString(replacementString);
-						proposal.setReplacementOffset(offset);
+						String displayString = proposal.getDisplayString();
+						int indexOfColon = displayString.indexOf(':');
+						if(indexOfColon != -1) {
+							String replacementString = displayString.substring(0, indexOfColon).trim();
+							proposal.setReplacementString(replacementString);
+							proposal.setReplacementOffset(offset);
+						}
 					}
 				}
 			}

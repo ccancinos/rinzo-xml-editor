@@ -51,14 +51,8 @@ Introduction
 
 * Requirements
 
-  * {{{http://eclipse.org/downloads}Eclipse 3.3.X or above}}
+  * {{{http://eclipse.org/downloads}Eclipse 3.6.2 or above}}
   
   * Since this plugin is compiled on java 5, you should start your Eclipse using a {{{http://java.sun.com/javase/downloads/index.jsp}JRE 5 or above}} 
 
-  
-Note:
-
----
-Starting on version 0.6.0, if you are working on an Eclipse installation without java capabilities (without JDT)
-you can install ONLY ar.com.tadp.xml.rinzo.core plugin in order to have just the main XML Editor.
---- 
+  []

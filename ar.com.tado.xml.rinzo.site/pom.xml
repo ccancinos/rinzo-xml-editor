@@ -1,14 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>ar.com.tadp.rinzo</groupId>
-  <artifactId>ar.com.tadp.rinzo.site</artifactId>
-  <version>1.1.2</version>
-  <name>Rinzo XML Editor</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>ar.com.tadp.rinzo</groupId>
+		<artifactId>ar.com.tadp.rinzo.parent</artifactId>
+		<version>1.3.0</version>
+	</parent>
+	<artifactId>ar.com.tadp.rinzo.site</artifactId>
+	<name>Rinzo XML Editor</name>
 
 	<properties>
-		<version>1.1.2</version>
+		<version>1.2.0</version>
 	</properties>
-	
+
 	<developers>
 		<developer>
 			<id>ccancinos</id>
@@ -28,7 +32,7 @@
 		<system>GitHub Tracker System</system>
 		<url>https://github.com/ccancinos/rinzo-xml-editor/issues</url>
 	</issueManagement>
-	
+
 	<scm>
 		<url>https://github.com/ccancinos/rinzo-xml-editor.git</url>
 	</scm>
@@ -42,78 +46,21 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
-		<testSourceDirectory>test</testSourceDirectory>
-		<outputDirectory>classes</outputDirectory>
-		<testOutputDirectory>classes</testOutputDirectory>
-		<resources>
-			<resource>
-				<directory>src/resources</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/resources</directory>
-			</testResource>
-		</testResources>
-		<directory>target</directory>
+		<outputDirectory>bin</outputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<pde>true</pde>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.3</version>
 				<executions>
 					<execution>
-						<id>copy-dependencies</id>
-						<phase>process-sources</phase>
 						<goals>
-							<goal>copy-dependencies</goal>
+							<goal>site</goal>
 						</goals>
-						<configuration>
-							<outputDirectory>${basedir}</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
+						<phase>install</phase>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${basedir}</directory>
-							<includes>
-								<include>*.jar</include>
-							</includes>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<configuration>
-                    <templateDirectory>src/site</templateDirectory>
-                    <template>site.vm</template>
-                </configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 
@@ -122,7 +69,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.1.2</version>
+				<version>2.7</version>
 				<reportSets>
 					<reportSet>
 						<reports>
@@ -136,5 +83,37 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
+	<profiles>
+		<!-- This profile is used to upload the web site -->
+		<profile>
+			<id>upload</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+						<version>1.0-beta-4</version>
+						<executions>
+							<execution>
+								<id>deploy-plugin</id>
+								<phase>install</phase>
+								<goals>
+									<goal>upload</goal>
+								</goals>
+								<configuration>
+									<includes>**</includes>
+									<fromDir>${project.build.directory}/site</fromDir>
+									<url>${site.target}</url>
+									<serverId>rinzo.sf</serverId>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
