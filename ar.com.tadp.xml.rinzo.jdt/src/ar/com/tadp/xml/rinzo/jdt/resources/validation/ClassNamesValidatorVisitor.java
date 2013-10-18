@@ -53,7 +53,7 @@ public class ClassNamesValidatorVisitor implements HierarchicalVisitor {
 	public boolean visitChild(XMLNode node) {
 		if (node.isTextTag()) {
 			String content = (String) node.getContent();
-			if (!Utils.isEmpty(content.trim())) {
+			if (content != null && !Utils.isEmpty(content.trim())) {
 				XMLAttribute dummy = new XMLAttribute(content, node.offset,
 						node.length);
 				if (isClassName(dummy)) {
