@@ -29,7 +29,6 @@ import org.eclipse.jface.text.TextUtilities;
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
@@ -57,19 +56,31 @@ public class XMLAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
 	private void smartIndentAfterNewLine(IDocument document, DocumentCommand command) throws BadLocationException {
 		StringBuffer buf = new StringBuffer(command.text);
 		XMLNode previousNode = XMLTreeModelUtilities.getPreviousNode(document, command.offset);
-		if (previousNode != null && (!previousNode.isTextTag() || !previousNode.isEmpty())) {
+		XMLNode previousPreviousNode = XMLTreeModelUtilities.getPreviousNode(document, previousNode.getOffset());
+		if (previousNode != null) {
 			String indentOfPreviousNode = getIndentOfLine(document, previousNode.getOffset());
 			buf.append(indentOfPreviousNode);
-			if (previousNode.isTag()) {
+			String indentationToken = this.getIndentationToken();
+			command.shiftsCaret = false;
+			command.caretOffset = command.offset + indentOfPreviousNode.length()
+					+ FileUtils.LINE_SEPARATOR.length() + indentationToken.length();
+			
+			if ((previousNode.isEmpty() || previousNode.isTextTag()) && !previousPreviousNode.isEndTag()) {
+				buf.append(indentationToken);
+			}
+			if(previousNode.isEndTag() || (previousPreviousNode != null && previousPreviousNode.isEndTag())) {
+				command.caretOffset = command.offset + indentOfPreviousNode.length()
+						+ FileUtils.LINE_SEPARATOR.length();
+			}
+			if (previousNode.isTag() ) {
 				if (previousNode.getCorrespondingNode().getOffset() == command.offset) {
-					String indentationToken = this.getIndentationToken();
-					buf.append(indentOfPreviousNode + (Utils.isEmpty(indentOfPreviousNode) ? indentationToken : ""));
+					buf.append(indentationToken);
 					buf.append(FileUtils.LINE_SEPARATOR);
-					command.shiftsCaret = false;
-					command.caretOffset = command.offset + indentOfPreviousNode.length()
-							+ FileUtils.LINE_SEPARATOR.length() + indentationToken.length();
+					buf.append(indentOfPreviousNode);
 				}
-				buf.append(indentOfPreviousNode);
+				if (previousNode.getCorrespondingNode().getOffset() > command.offset) {
+					buf.append(indentationToken);
+				}
 			}
 		}
 		command.text = buf.toString();
