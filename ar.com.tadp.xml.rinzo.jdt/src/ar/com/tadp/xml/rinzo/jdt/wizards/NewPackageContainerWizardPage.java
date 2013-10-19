@@ -39,7 +39,6 @@ import org.eclipse.jdt.internal.ui.wizards.dialogfields.LayoutUtil;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.StringButtonStatusDialogField;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jdt.ui.wizards.NewContainerWizardPage;
-import org.eclipse.jface.util.BidiUtils;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -112,7 +111,6 @@ public abstract class NewPackageContainerWizardPage extends NewContainerWizardPa
 	protected void createPackageControls(Composite composite, int nColumns) {
 		packageDialogField.doFillIntoGrid(composite, nColumns);
 		Text text = packageDialogField.getTextControl(null);
-		BidiUtils.applyBidiProcessing(text, "java");
 		LayoutUtil.setWidthHint(text, getMaxFieldWidth());
 		LayoutUtil.setHorizontalGrabbing(text);
 		ControlContentAssistHelper.createTextContentAssistant(text, packageCompletionProcessor);
