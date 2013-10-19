@@ -144,7 +144,7 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "";
 	}
 
 	public String getFullTagName() {

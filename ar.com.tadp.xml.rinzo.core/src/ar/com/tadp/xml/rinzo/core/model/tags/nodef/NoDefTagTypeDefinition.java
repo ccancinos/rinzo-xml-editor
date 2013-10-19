@@ -20,8 +20,8 @@
  ****************************************************************************/
 package ar.com.tadp.xml.rinzo.core.model.tags.nodef;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 
 import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
@@ -34,36 +34,33 @@ import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
  */
 public class NoDefTagTypeDefinition implements TagTypeDefinition {
 	private String tagName;
-	private Collection<TagTypeDefinition> innerTags = new ArrayList<TagTypeDefinition>();
-	private Collection<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
-	private final Map<String, Collection<String>> tagsNamesInDocument;
-	private final Map<String, Collection<String>> tagsAttributeNamesInDocument;
-	private Map<String, TagTypeDefinition> tagsInDocument;
+	private Map<String, Collection<String>> tagsNamesInDocument;
+	private Map<String, Collection<String>> tagsAttributeNamesInDocument;
 
-	public NoDefTagTypeDefinition(String tagName, Map<String, TagTypeDefinition> tagsInDocument,
-			Map<String, Collection<String>> tagsNamesInDocument, Map<String, Collection<String>> tagsAttributeNamesInDocument) {
+	public NoDefTagTypeDefinition() {
+	}
+
+	public NoDefTagTypeDefinition(String tagName, Map<String, Collection<String>> tagsNamesInDocument,
+			Map<String, Collection<String>> tagsAttributeNamesInDocument) {
 		this.tagName = tagName;
-		this.tagsInDocument = tagsInDocument;
 		this.tagsNamesInDocument = tagsNamesInDocument;
 		this.tagsAttributeNamesInDocument = tagsAttributeNamesInDocument;
 	}
 
 	public Collection<AttributeDefinition> getAttributes() {
-		if(this.attributes.isEmpty()) {
-			Collection<String> attributeNames = this.tagsAttributeNamesInDocument.get(this.getName());
-			//TODO SEE when attributes are being added because there is a bad smell here
-			if (attributeNames != null) {
-				for (String currentAttributeName : attributeNames) {
-					this.attributes.add(new NoDefAttributeDefinition(currentAttributeName));
-				}
+		Collection<AttributeDefinition> attributes = new HashSet<AttributeDefinition>();
+		Collection<String> attributeNames = this.tagsAttributeNamesInDocument.get(this.getName());
+		if (attributeNames != null) {
+			for (String currentAttributeName : attributeNames) {
+				attributes.add(new NoDefAttributeDefinition(currentAttributeName));
 			}
 		}
-		return this.attributes;
+		return attributes;
 	}
-	
+
 	public AttributeDefinition getAttribute(String attributeName) {
 		for (AttributeDefinition currentAttribute : this.getAttributes()) {
-			if(attributeName.startsWith(currentAttribute.getName())) {
+			if (attributeName.startsWith(currentAttribute.getName())) {
 				return currentAttribute;
 			}
 		}
@@ -75,20 +72,16 @@ public class NoDefTagTypeDefinition implements TagTypeDefinition {
 	}
 
 	public Collection<TagTypeDefinition> getInnerTags() {
-		if(this.innerTags.isEmpty()) {
-			Collection<String> tagsForThis = this.tagsNamesInDocument.get(this.tagName);
-			if(tagsForThis != null) {
-				for (String currentTagName : tagsForThis) {
-					TagTypeDefinition definition = this.tagsInDocument.get(currentTagName);
-					if(definition == null) {
-						definition = new NoDefTagTypeDefinition(currentTagName, this.tagsInDocument,
-								this.tagsNamesInDocument, this.tagsAttributeNamesInDocument);
-					}
-					this.innerTags.add(definition);
-				}
+		Collection<TagTypeDefinition> innerTags = new HashSet<TagTypeDefinition>();
+		Collection<String> tagsForThis = this.tagsNamesInDocument.get(this.tagName);
+		if (tagsForThis != null) {
+			for (String currentTagName : tagsForThis) {
+				TagTypeDefinition definition = new NoDefTagTypeDefinition(currentTagName, this.tagsNamesInDocument,
+						this.tagsAttributeNamesInDocument);
+				innerTags.add(definition);
 			}
 		}
-		return this.innerTags;
+		return innerTags;
 	}
 
 	public String getName() {
@@ -97,6 +90,18 @@ public class NoDefTagTypeDefinition implements TagTypeDefinition {
 
 	public String getNamespace() {
 		return "";
+	}
+
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+
+	public void setTagsNamesInDocument(Map<String, Collection<String>> tagsNamesInDocument) {
+		this.tagsNamesInDocument = tagsNamesInDocument;
+	}
+
+	public void setTagsAttributeNamesInDocument(Map<String, Collection<String>> tagsAttributeNamesInDocument) {
+		this.tagsAttributeNamesInDocument = tagsAttributeNamesInDocument;
 	}
 
 }

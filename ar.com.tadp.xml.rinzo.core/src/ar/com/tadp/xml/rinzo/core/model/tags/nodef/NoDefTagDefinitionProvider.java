@@ -39,16 +39,15 @@ import ar.com.tadp.xml.rinzo.core.utils.Utils;
 public class NoDefTagDefinitionProvider implements XMLTagDefinitionProvider {
 	private Map<String, Collection<String>> tagsContainersMapping = new HashMap<String, Collection<String>>();
 	private Map<String, Collection<String>> tagsAttributeMapping = new HashMap<String, Collection<String>>();
-	private Map<String, TagTypeDefinition> tags = new HashMap<String, TagTypeDefinition>();
+
+	private NoDefTagTypeDefinition tag= new NoDefTagTypeDefinition();
 
 	public TagTypeDefinition getTagDefinition(XMLNode node) {
-		String tagName = node.getTagName();
-		TagTypeDefinition tag = this.tags.get(tagName);
-		if (tag == null) {
-			tag = new NoDefTagTypeDefinition(tagName, this.tags, this.tagsContainersMapping, this.tagsAttributeMapping);
-			this.tags.put(tagName, tag);
-		}
-		return tag;
+		this.tag.setTagName(node.getTagName());
+		this.tag.setTagsNamesInDocument(this.tagsContainersMapping);
+		this.tag.setTagsAttributeNamesInDocument(this.tagsAttributeMapping);
+		
+		return this.tag;
 	}
 
 	public void addReference(String tagContainer, String tagContained) {

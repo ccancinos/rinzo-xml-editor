@@ -107,6 +107,7 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 		index = content.indexOf(lineSeparator, index + 1);
 		while(index >= 0) {
 			this.addLineSeparator();
+			this.addIdentation();
 			index = content.indexOf(lineSeparator, index + 1);
 		}
 	}
@@ -134,7 +135,7 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 		if(line.length() <= this.getMaxLineLength()) {
 			this.buffer.append(line);
 		} else {
-			StringTokenizer tokenizer = new StringTokenizer(line, " ");
+			StringTokenizer tokenizer = new StringTokenizer(line, " \n\r\t");
 			StringBuffer currentLine = new StringBuffer();
 			StringBuffer finalLine = new StringBuffer();
 			while(tokenizer.hasMoreTokens()) {

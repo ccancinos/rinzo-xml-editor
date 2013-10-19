@@ -85,8 +85,8 @@ public class MarkersErrorHandler implements ErrorHandler {
             	
         		int lineStartChar = getCharStart(exception.getLineNumber(), exception.getColumnNumber());
     			XMLNode activeNode = XMLTreeModelUtilities.getActiveNode(editor.getSourceViewerEditor().getDocument(), lineStartChar);
-    			attributes.put(IMarker.CHAR_START, Integer.valueOf(activeNode.getOffset()));
-    			attributes.put(IMarker.CHAR_END, Integer.valueOf(activeNode.getOffset() + activeNode.getLength()));
+    			attributes.put(IMarker.CHAR_START, (activeNode !=null ? Integer.valueOf(activeNode.getOffset()) : 0));
+    			attributes.put(IMarker.CHAR_END, (activeNode !=null ? Integer.valueOf(activeNode.getOffset() + activeNode.getLength()) : 0));
 
             	MarkerUtilities.createMarker(file, attributes, MARKER_TYPE);
             }
