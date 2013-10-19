@@ -24,7 +24,6 @@ import java.util.StringTokenizer;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 /**
