@@ -19,11 +19,10 @@
             id="ar.com.tadp.xml.rinzo.jdt.context"
             targetID="ar.com.tadp.xml.rinzo.core.context">
          <action
-               class="ar.com.tadp.xml.rinzo.jdt.actions.GenerateParserAction"
-               definitionId="ar.com.tadp.xml.rinzo.GenerateParser"
+               class="ar.com.tadp.xml.rinzo.jdt.actions.GenerateJAXBParserAction"
                id="ar.com.tadp.xml.rinzo.core.actions.GenerateParserAction"
-               label="Generate Parser"
-               menubarPath="rinzoAdditions">
+               label="Generate JAXB Parser"
+               menubarPath="rinzoSource/base">
          </action>
          <action
                class="ar.com.tadp.xml.rinzo.jdt.actions.CreateClassAction"

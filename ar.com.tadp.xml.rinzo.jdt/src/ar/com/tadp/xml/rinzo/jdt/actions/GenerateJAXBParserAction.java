@@ -31,13 +31,13 @@ import org.eclipse.ui.PlatformUI;
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentCache;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentStructureDeclaration;
-import ar.com.tadp.xml.rinzo.jdt.wizards.NewParserWizard;
+import ar.com.tadp.xml.rinzo.jdt.wizards.NewJAXBParserWizard;
 
 /**
  * 
  * @author ccancinos
  */
-public class GenerateParserAction extends SelectionAction {
+public class GenerateJAXBParserAction extends SelectionAction {
 
 	public void run(IAction arg0) {
 		RinzoXMLEditor editor = (RinzoXMLEditor) this.getTextEditor();
@@ -45,7 +45,7 @@ public class GenerateParserAction extends SelectionAction {
 		Collection<DocumentStructureDeclaration> definitions = editor.getModel().getSchemaDefinitions();
 		Map<String, String> fileLocations = DocumentCache.getInstance().getAllLocations(definitions, editor.getFileName());
 
-		NewParserWizard wizard = new NewParserWizard(fileLocations.values());
+		NewJAXBParserWizard wizard = new NewJAXBParserWizard(fileLocations.values());
 		wizard.init(PlatformUI.getWorkbench(), selection);
 		WizardDialog dialog = new WizardDialog(editor.getSourceViewerEditor().getTextWidget().getShell(), wizard);
 		dialog.create();

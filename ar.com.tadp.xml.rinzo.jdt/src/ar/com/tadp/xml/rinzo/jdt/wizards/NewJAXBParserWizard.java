@@ -62,7 +62,7 @@ import com.sun.tools.xjc.XJCListener;
  * 
  * @author ccancinos
  */
-public class NewParserWizard extends Wizard implements INewWizard {
+public class NewJAXBParserWizard extends Wizard implements INewWizard {
 
 	private IStructuredSelection selection;
 	private NewJAXBParserWizardPage newParserPage;
@@ -70,7 +70,7 @@ public class NewParserWizard extends Wizard implements INewWizard {
 	private BindingFilesWizardPage bindingPage;
 	private String template;
 
-	public NewParserWizard(Collection<String> schemaLocations) {
+	public NewJAXBParserWizard(Collection<String> schemaLocations) {
 		this.schemaLocations = schemaLocations;
 	}
 
