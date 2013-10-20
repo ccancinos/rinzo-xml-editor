@@ -96,6 +96,7 @@ public class BindingFilesWizardPage extends WizardPage {
 
 				FilteredElementTreeSelectionDialog dialog = new FilteredElementTreeSelectionDialog(null,
 						new WorkbenchLabelProvider(), new WorkbenchContentProvider());
+				dialog.setTitle("Select JAXB binding files");
 				dialog.setInitialFilter("*.xml");
 				dialog.setComparator(new ResourceComparator(ResourceComparator.NAME));
 				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
