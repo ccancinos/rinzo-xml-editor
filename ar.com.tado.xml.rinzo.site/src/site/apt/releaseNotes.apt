@@ -6,6 +6,26 @@ Release Notes
 
 %{toc|toDepth=1}
 
+{What's new in 1.3.0?}
+  
+* {Fetures}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/16}Generation of JAXB bean model and parser of an xml declaring an xsd schema.}}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/14}Proposal for setting regarding formatting of empty lines}}
+  
+  []
+  
+* {Bugs}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/12}Multi-level indentation not correct}}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/13}Auto indentation not working when leaving lines empty}}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/15}Add new lines for each Formatting}}
+
+  []
+  
 {What's new in 1.2.0?}
   
 * {Fetures}
@@ -95,14 +115,14 @@ Release Notes
   to add a corresponding closing tag.
   
   * Class proposals acts as in previous versions or on configured attributes and tag's bodies.
-  Such {{{javaIntegration.html#Preferences}preferences configuration}} will allow to explicitly define
+  Such {{{./javaIntegration.html#Preferences}preferences configuration}} will allow to explicitly define
   which attributes of which tags will contain class names as values, including the possibility to define which class/interface 
   should be extended/implemented.
   This is also possible for tag's bodies.
   
   * Suggestion of {{{./autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}restrictions defined in XSD}} for an attribute as possible attribute values.
   
-  * In a file defining a XSD, autocompleting a tag's attribute which has defined a {{{autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}default value}} will write the selected 
+  * In a file defining a XSD, autocompleting a tag's attribute which has defined a {{{./autocompletion.html#Tags_and_Attribute_Propositions_from_a_Schema_or_DTD}default value}} will write the selected 
   attribute with the default value as its value.
   
   * New {{{./javaIntegration.html#Preferences}preference page for JDT integration}} including:
@@ -113,7 +133,7 @@ Release Notes
     
     * In configured tag's and attributes it is possible to define from which class/interface should extend/implement the written values.
     
-  * Extension points where improved and documented in {{{extendingRinzo.html} Extending Rinzo section}} which will allow to extend Rinzo's behavior.
+  * Extension points where improved and documented in {{{./extendingRinzo.html} Extending Rinzo section}} which will allow to extend Rinzo's behavior.
   
   []
 

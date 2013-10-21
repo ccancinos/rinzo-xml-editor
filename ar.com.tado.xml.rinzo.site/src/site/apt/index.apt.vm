@@ -44,6 +44,8 @@ Introduction
   * Autocompletion and validation of class names on tag's bodies and attributes.
  
   * Create a java class from a class name written in an XML.
+  
+  * <<JAXB bean model and parser generation>>.
 
   []
   

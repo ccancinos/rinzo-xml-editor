@@ -102,6 +102,12 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M2+M3+R">
       </key>
+      <key
+            commandId="ar.com.tadp.xml.rinzo.core.ClearMarkers"
+            contextId="org.eclipse.ui.rinzoEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+C">
+      </key>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -114,6 +120,11 @@
             defaultHandler="ar.com.tadp.xml.rinzo.core.keyListeners.RenameTagHandler"
             id="ar.com.tadp.xml.rinzo.core.XmlRenameTag"
             name="Rename Tag">
+      </command>
+      <command
+            defaultHandler="ar.com.tadp.xml.rinzo.core.keyListeners.ClearMarkersHandler"
+            id="ar.com.tadp.xml.rinzo.core.ClearMarkers"
+            name="Clear Markers">
       </command>
    </extension>
    <extension
@@ -130,14 +141,9 @@
 			targetID="ar.com.tadp.xml.rinzo.core.context">
    <action
          class="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
+         definitionId="ar.com.tadp.xml.rinzo.core.ClearMarkers"
          id="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
          label="Clear Errors and Warnings"
-         menubarPath="rinzoAdditions">
-   </action> 
-   <action
-         class="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionAction"
-         id="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionAction"
-         label="Create XML Definition"
          menubarPath="rinzoAdditions">
    </action>
    <menu
@@ -166,6 +172,12 @@
          class="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
          id="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
          label="Escape Characters"
+         menubarPath="rinzoSource/base">
+   </action> 
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionAction"
+         id="ar.com.tadp.xml.rinzo.core.actions.GenerateXMLStructureDefinitionAction"
+         label="Create XML Definition"
          menubarPath="rinzoSource/base">
    </action>
    <!--

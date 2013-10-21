@@ -9,8 +9,14 @@
 	<artifactId>ar.com.tadp.rinzo.site</artifactId>
 	<name>Rinzo XML Editor</name>
 
+	<inceptionYear>2008</inceptionYear>
+	<organization>
+		<name>Rinzo XML Editor</name>
+		<url>http://editorxml.sourceforge.net/</url>
+	</organization>
+
 	<properties>
-		<version>1.2.0</version>
+		<version>1.3.0</version>
 	</properties>
 
 	<developers>
@@ -60,6 +66,10 @@
 						<phase>install</phase>
 					</execution>
 				</executions>
+				<configuration>
+					<templateDirectory>src/site</templateDirectory>
+					<template>site.vm</template>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -115,5 +125,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
