@@ -48,7 +48,7 @@ public abstract class EditorAndTreeAction implements IEditorActionDelegate {
 	}
 
 	public void run(IAction action) {
-		if (action instanceof EditorPluginAction) {
+		if (action == null || action instanceof EditorPluginAction) {
 			this.runEditor(this.editor.getEditorInputIFile());
 		}
 		if (action instanceof PluginAction) {
