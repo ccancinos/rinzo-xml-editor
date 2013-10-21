@@ -57,7 +57,8 @@ public class FoldingNodesVisitor implements HierarchicalVisitor {
 				if ((node.getOffset() + length) > this.document.getLength()) {
 					length = length - FileUtils.LINE_SEPARATOR.length();
 				}
-				Position position = new Position(node.getOffset(), length);
+				int offset = this.document.getLineOffset(this.document.getLineOfOffset(node.getOffset()));
+				Position position = new Position(offset, length);
 				this.newAnnotations.put(new ProjectionAnnotation(), position);
 			}
 		} catch (Exception e) {
@@ -72,10 +73,11 @@ public class FoldingNodesVisitor implements HierarchicalVisitor {
 
 	public boolean visitChild(XMLNode node) {
 		try {
+			int offset = this.document.getLineOffset(this.document.getLineOfOffset(node.getOffset()));
 			if((node.isCommentTag() || node.isCdata()) && 
-					!this.isInSameLine(node.getOffset(), node.getOffset() + node.getLength())) {
+					!this.isInSameLine(offset, offset + node.getLength())) {
 				int length = node.getLength() + FileUtils.LINE_SEPARATOR.length();
-				Position position = new Position(node.getOffset(), length);
+				Position position = new Position(offset, length);
 				this.newAnnotations.put(new ProjectionAnnotation(), position);
 			}
 		} catch (Exception e) {
