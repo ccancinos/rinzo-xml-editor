@@ -17,7 +17,7 @@
 		<profile>
 			<id>upload</id>
 			<build>
-				<!-- <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName> -->
+				<finalName>${project.artifactId}_${project.version}</finalName>
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
