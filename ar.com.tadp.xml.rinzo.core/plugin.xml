@@ -139,13 +139,6 @@
 		<viewerContribution 
 			id="org.eclipse.ui.articles.action.contribution.popup.xmleditor"
 			targetID="ar.com.tadp.xml.rinzo.core.context">
-   <action
-         class="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
-         definitionId="ar.com.tadp.xml.rinzo.core.ClearMarkers"
-         id="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
-         label="Clear Errors and Warnings"
-         menubarPath="rinzoAdditions">
-   </action>
    <menu
          id="rinzoSource"
          label="Source"
@@ -172,6 +165,13 @@
          class="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
          id="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
          label="Escape Characters"
+         menubarPath="rinzoSource/base">
+   </action>
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
+         definitionId="ar.com.tadp.xml.rinzo.core.ClearMarkers"
+         id="ar.com.tadp.xml.rinzo.core.actions.ClearMarkersAction"
+         label="Clear Errors and Warnings"
          menubarPath="rinzoSource/base">
    </action> 
    <action
