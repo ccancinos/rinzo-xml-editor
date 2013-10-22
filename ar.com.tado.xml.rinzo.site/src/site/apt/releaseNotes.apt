@@ -8,7 +8,7 @@ Release Notes
 
 {What's new in 1.3.0?}
   
-* {Fetures}
+* {Features}
 
   * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/16}Generation of JAXB bean model and parser of an xml declaring an xsd schema.}}
 
@@ -28,7 +28,7 @@ Release Notes
   
 {What's new in 1.2.0?}
   
-* {Fetures}
+* {Features}
 
   * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/4}Configuration to execute text formatting before every save action}}
   
