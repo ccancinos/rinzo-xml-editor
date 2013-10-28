@@ -142,12 +142,15 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 	}
 
 	private void addDeleteSurroundingTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int length) {
-		ToStringVisitor visitor = new ToStringVisitor();
-		node.accept(visitor);
-		String replacement = visitor.getString();
-		replacement = replacement.substring(replacement.indexOf(">") + 1, replacement.lastIndexOf("</"));
-		proposals.add(new CompletionProposal(replacement, node.getOffset(), length, 0,
-				PluginImages.get(PluginImages.IMG_DELETE), "Delete Surrounding Tag", null, "Deletes this tag leaving its childs."));
+		if (!node.isEmptyTag()) {
+			ToStringVisitor visitor = new ToStringVisitor();
+			node.accept(visitor);
+			String replacement = visitor.getString();
+			replacement = replacement.substring(replacement.indexOf(">") + 1, replacement.lastIndexOf("</"));
+			proposals.add(new CompletionProposal(replacement, node.getOffset(), length, 0, PluginImages
+					.get(PluginImages.IMG_DELETE), "Delete Surrounding Tag", null,
+					"Deletes this tag leaving its childs."));
+		}
 	}
 
 	private void addCommentTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length, String replacement,
