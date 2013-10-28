@@ -20,9 +20,14 @@
  ****************************************************************************/
 package ar.com.tadp.xml.rinzo.core.model.visitor;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
+import ar.com.tadp.xml.rinzo.core.model.XMLAttribute;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
@@ -44,67 +49,68 @@ import ar.com.tadp.xml.rinzo.core.utils.Utils;
  */
 public class ToStringVisitor implements StringGeneratorVisitor {
 	private StringBuffer buffer = new StringBuffer();
-	private int identation = 0;
+	private int indentation = 0;
 	private int addIndentation = 0;
 	private boolean addLineSeparator = true;
 	private String lineSeparator = System.getProperty("line.separator");
 	
 	public boolean visitStart(XMLNode node) {
-		if(this.identation >0) {
+		if (this.indentation > 0) {
 			this.addLineSeparator();
 		}
 		this.addIdentation();
-		this.addLine(node.getContent());
-		this.identation++;
-		
-		if(!node.hasChildren() && node.getCorrespondingNode() == null) {
+		this.addLine(node.getContent(), node);
+		this.indentation++;
+
+		if (!node.hasChildren() && node.getCorrespondingNode() == null) {
 			this.addLineSeparator = false;
 		}
 		return true;
 	}
 
 	public boolean visitEnd(XMLNode node) {
-		this.identation--;
-		if(this.addLineSeparator) {
+		this.indentation--;
+		if (this.addLineSeparator) {
 			this.addLineSeparator();
 			this.addIdentation();
 		} else {
 			this.addLineSeparator = true;
 		}
-		this.addLine(node.getCorrespondingNode().getContent().trim());
-		
+		this.addLine(node.getCorrespondingNode().getContent().trim(), node.getCorrespondingNode());
+
 		return true;
 	}
+
 	public boolean visitChild(XMLNode node) {
 		String content = node.getContent();
 		String trimmedContent = "";
-		if ((node.isTextTag()) || (node.isCdata()) || (node.isEmptyTag())
-                || (node.isCommentTag())) {
+		if ((node.isTextTag()) || (node.isCdata()) || (node.isEmptyTag()) || (node.isCommentTag())) {
 			trimmedContent = content.trim();
-			if(Utils.isEmpty(trimmedContent)) {
+			if (Utils.isEmpty(trimmedContent)) {
 				this.addBlankLines(content);
 			}
 		}
-		if(trimmedContent.length() > 0) {
+		if (trimmedContent.length() > 0) {
 			boolean singleChild = node.getParent().getChildren().size() == 1;
-			if(node.isCommentTag() || node.isEmptyTag() || trimmedContent.length() > 60 || !singleChild) {
+			if (node.isCommentTag() || node.isEmptyTag() || trimmedContent.length() > this.getMaxLineLength()
+					|| !singleChild) {
 				this.addLineSeparator();
 				this.addIdentation();
 			} else {
-				if(singleChild) {
+				if (singleChild) {
 					this.addLineSeparator = false;
 				}
 			}
-			this.addLine(content);
+			this.addLine(trimmedContent, node);
 		}
-		
+
 		return true;
 	}
 
 	private void addBlankLines(String content) {
 		int index = content.indexOf(lineSeparator);
 		index = content.indexOf(lineSeparator, index + 1);
-		while(index >= 0) {
+		while (index >= 0) {
 			this.addLineSeparator();
 			this.addIdentation();
 			index = content.indexOf(lineSeparator, index + 1);
@@ -112,7 +118,7 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 	}
 
 	private void addIdentation() {
-		for (int i = 0; i < identation + this.addIndentation; i++) {
+		for (int i = 0; i < indentation + this.addIndentation; i++) {
 			this.buffer.append(this.getIndentToken());
 		}
 	}
@@ -130,31 +136,65 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 		return this.buffer.toString();
 	}
 	
-	private void addLine(String line) {
-		if(line.length() <= this.getMaxLineLength()) {
+	private void addLine(String line, XMLNode node) {
+		if (node.isRoot() && !node.isEndTag()) {
+			this.addRootTag(node);
+		} else {
+			this.addSimpleLine(line, node);
+		}
+	}
+
+	private void addSimpleLine(String line, XMLNode node) {
+		if (line.length() <= this.getMaxLineLength()) {
 			this.buffer.append(line);
 		} else {
 			StringTokenizer tokenizer = new StringTokenizer(line, " \n\r\t");
 			StringBuffer currentLine = new StringBuffer();
 			StringBuffer finalLine = new StringBuffer();
-			while(tokenizer.hasMoreTokens()) {
-				while(tokenizer.hasMoreTokens() && currentLine.length() <= this.getMaxLineLength()) {
+			while (tokenizer.hasMoreTokens()) {
+				while (tokenizer.hasMoreTokens() && currentLine.length() <= this.getMaxLineLength()) {
 					String nextToken = tokenizer.nextToken().trim();
-                    currentLine.append((currentLine.toString().trim().length() == 0) ? nextToken : " " + nextToken);
+					currentLine.append((currentLine.toString().trim().length() == 0) ? nextToken : " " + nextToken);
 				}
-				if(currentLine.length() != 0) {
-					if(tokenizer.hasMoreTokens()) {
+				if (currentLine.length() != 0) {
+					if (tokenizer.hasMoreTokens()) {
 						currentLine.append(lineSeparator);
 					}
 					finalLine.append(currentLine.toString());
 					currentLine = new StringBuffer();
-					for (int i = 0; i < identation + 1 + this.addIndentation; i++) {
+					int maxIndentation = indentation + this.addIndentation
+							+ ((node.isTextTag() || node.isCdata()) ? 0 : 1);
+					for (int i = 0; i < maxIndentation; i++) {
 						currentLine.append(this.getIndentToken());
 					}
 				}
 			}
 			this.buffer.append(finalLine.toString());
 		}
+	}
+
+	private void addRootTag(XMLNode node) {
+		this.buffer.append("<" + node.getFullTagName());
+		if (!node.getAttributes().isEmpty()) {
+			this.buffer.append(" ");
+			this.indentation++;
+			Map<String, XMLAttribute> attributes = node.getAttributes();
+			Set<String> keySet = new TreeSet<String>(attributes.keySet());
+			for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext();) {
+				String string = iterator.next();
+				XMLAttribute attribute = attributes.get(string);
+				buffer.append(attribute.getName());
+				buffer.append("=\"");
+				this.addSimpleLine(attribute.getValue(), node);
+				buffer.append("\"");
+				if (iterator.hasNext()) {
+					buffer.append(this.lineSeparator);
+					this.addIdentation();
+				}
+			}
+			this.indentation--;
+		}
+		this.buffer.append(">");
 	}
 
 	private int getMaxLineLength() {
@@ -172,4 +212,5 @@ public class ToStringVisitor implements StringGeneratorVisitor {
     public void setLineSeparator(String lineSeparator) {
         this.lineSeparator = lineSeparator;
     }
+
 }

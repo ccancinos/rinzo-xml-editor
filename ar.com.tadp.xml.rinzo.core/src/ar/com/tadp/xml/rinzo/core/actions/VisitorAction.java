@@ -39,6 +39,7 @@ import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.visitor.StringGeneratorVisitor;
 import ar.com.tadp.xml.rinzo.core.model.visitor.ToStringVisitor;
 import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
+import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
@@ -76,18 +77,18 @@ public abstract class VisitorAction implements IEditorActionDelegate {
 
 	private void runOnFullDocument(IDocument document, String lineSeparator, XMLNode rootNode, StringGeneratorVisitor visitor)
 			throws BadLocationException {
-		int prevWitespacesNumberOnLine = getPrevWitespacesNumberOnLine(document.get(), rootNode);
-		int initialOffset = rootNode.getOffset() - prevWitespacesNumberOnLine;
-		int length = rootNode.getCorrespondingNode().getOffset() + rootNode.getCorrespondingNode().getLength();
-   
-		if (visitor instanceof ToStringVisitor) {
-		    ((ToStringVisitor) visitor).setLineSeparator(lineSeparator);
+		if (rootNode != null) {
+			int prevWitespacesNumberOnLine = getPrevWitespacesNumberOnLine(document.get(), rootNode);
+			int initialOffset = rootNode.getOffset() - prevWitespacesNumberOnLine;
+			int length = rootNode.getCorrespondingNode().getOffset() + rootNode.getCorrespondingNode().getLength();
+			if (visitor instanceof ToStringVisitor) {
+				((ToStringVisitor) visitor).setLineSeparator(lineSeparator);
+			}
+			visitor.reset();
+			rootNode.accept(visitor);
+			document.replace(initialOffset, length - initialOffset, visitor.getString());
+			this.editor.getModel().createTree(document);
 		}
-		visitor.reset();
-		rootNode.accept(visitor);
-   
-		document.replace(initialOffset, length - initialOffset, visitor.getString());
-		this.editor.getModel().createTree(document);
 	}
 
 	private void runOnSelection(IDocument document, String lineSeparator, XMLNode rootNode, Point selectedRange,
@@ -208,16 +209,20 @@ public abstract class VisitorAction implements IEditorActionDelegate {
 	}
 	
     private int getPrevWitespacesNumberOnLine(String str, XMLNode node) {
-        int offset = node.getOffset();
-        char ch;
-        if (offset > 0) {
-			do {
-				offset--;
-				ch = str.charAt(offset);
-			} while (ch != '\r' && ch != '\n' && offset > 0);
-			return node.offset - offset - 1;
+		if (!Utils.isEmpty(str)) {
+			int offset = node.getOffset();
+			char ch;
+			if (offset > 0) {
+				do {
+					offset--;
+					ch = str.charAt(offset);
+				} while (ch != '\r' && ch != '\n' && offset > 0);
+				return node.offset - offset - 1;
+			}
+			return node.offset - offset;
+		} else {
+			return 0;
 		}
-		return node.offset - offset;
     }
 
     /**
