@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 import ar.com.tadp.xml.rinzo.jdt.RinzoJDTPlugin;
 
 /**
@@ -67,7 +68,7 @@ public class ClassElement implements Extending {
 		if(value!=null){
 			String[] values = value.split("\n");
 			for(int i=0;i<values.length;i++){
-				String[] split = values[i].split("\t");
+				String[] split = values[i].split(FileUtils.TAB);
 				if(split.length==2){
 					list.add(new ClassElement(split[0], split[1]));
 				}
@@ -82,7 +83,7 @@ public class ClassElement implements Extending {
 		for(int i=0;i<list.size();i++){
 			ClassElement element = list.get(i);
 			sb.append(element.getDisplayName());
-			sb.append("\t");
+			sb.append(FileUtils.TAB);
 			sb.append(element.getExtending());
 			sb.append("\n");
 		}

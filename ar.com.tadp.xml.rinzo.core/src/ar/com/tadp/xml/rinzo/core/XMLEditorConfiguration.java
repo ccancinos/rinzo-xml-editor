@@ -66,6 +66,7 @@ import ar.com.tadp.xml.rinzo.core.highlighting.XMLTagScanner;
 import ar.com.tadp.xml.rinzo.core.indenting.XMLAutoIndentStrategy;
 import ar.com.tadp.xml.rinzo.core.partitioner.IXMLPartitions;
 import ar.com.tadp.xml.rinzo.core.partitioner.XMLPartitionScanner;
+import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 
 /**
  * 
@@ -240,7 +241,7 @@ public class XMLEditorConfiguration extends SourceViewerConfiguration implements
     }
     
     public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType) {
-        return new IAutoEditStrategy[] { new XMLAutoIndentStrategy() };
+		return new IAutoEditStrategy[] { new XMLAutoIndentStrategy(this.xmlEditor) };
     }
     
     public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
@@ -286,7 +287,7 @@ public class XMLEditorConfiguration extends SourceViewerConfiguration implements
 				}
 			}
 			if (appendTab) {
-				prefix.append('\t');
+				prefix.append(FileUtils.TAB);
 				prefixes.add(prefix.toString());
 				// remove the tab so that indentation - tab is also an indent prefix
 				prefix.deleteCharAt(prefix.length() - 1);

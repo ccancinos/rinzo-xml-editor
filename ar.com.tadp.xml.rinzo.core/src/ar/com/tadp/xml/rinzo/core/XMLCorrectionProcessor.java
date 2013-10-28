@@ -49,7 +49,6 @@ import ar.com.tadp.xml.rinzo.core.contentassist.proposals.XMLCompletionProposal;
 import ar.com.tadp.xml.rinzo.core.model.XMLAttribute;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.visitor.ToStringVisitor;
-import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
@@ -60,6 +59,7 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
  */
 public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 	private final RinzoXMLEditor xmlEditor;
+	private String lineSeparator = null;
 
 	public XMLCorrectionProcessor(RinzoXMLEditor xmlEditor) {
 		this.xmlEditor = xmlEditor;
@@ -68,47 +68,78 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 	public ICompletionProposal[] computeQuickAssistProposals(IQuickAssistInvocationContext context) {
 		try {
 			Collection<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
-			XMLNode node = XMLTreeModelUtilities.getActiveNode(context.getSourceViewer().getDocument(), context.getOffset());
-			
-			if(node.isTag() || node.isEndTag() || node.isEmptyTag()) {
-				if(node.isEndTag()) {
-					node = node.getCorrespondingNode();
-				}
-				int offset = node.getSelectionOffset();
-				int tagLength = this.getNodeFullLength(node);
-				IDocument document = context.getSourceViewer().getDocument();
-				String replacement = document.get(node.getOffset(), tagLength);
-				String tagIndentation = this.getIndentation(document, node.getOffset());
-				String indentationToken = XMLEditorPlugin.getDefault().getIndentToken();
+			XMLNode node = XMLTreeModelUtilities.getActiveNode(context.getSourceViewer().getDocument(),
+					context.getOffset());
 
-				this.addRenameTagProposal(proposals, node, offset, tagLength, replacement, document);
-				this.addDuplicateTagProposal(proposals, node, offset, tagLength, replacement, document, tagIndentation);
-				this.addCutTagProposal(proposals, node, context, tagLength, replacement);
-				this.addSurroundWithTagProposal(proposals, node, offset, tagLength, replacement, document, tagIndentation, indentationToken);
-				this.addCommentTagProposal(proposals, node, offset, tagLength, replacement, document, tagIndentation, indentationToken);
-				this.addDeleteTagProposal(proposals, node, tagLength);
-				this.addDeleteSurroundingTagProposal(proposals, node, tagLength);
-			}
-			
+			this.addTagProposals(context, proposals, node);
+			this.addTextProposals(context, proposals, node);
+
 			return proposals.toArray(new ICompletionProposal[proposals.size()]);
 		} catch (BadLocationException e) {
 			return null;
 		}
 	}
 
-	private void addRenameTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length, String replacement, IDocument document) {
-		replacement = replacement.replace(node.getTagName(), "${" + node.getTagName() + "}");
-		this.addTemplate(proposals, "Rename Tag", replacement, PluginImages.IMG_EDIT_INLINE, document, offset, length, offset, length);
+	private void addTextProposals(IQuickAssistInvocationContext context, Collection<ICompletionProposal> proposals,
+			XMLNode node) {
+		if (node.isTextTag()) {
+			this.addCDATAProposal(proposals, node, context);
+		}
 	}
-	
-	private void addDuplicateTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length, String replacement, IDocument document, String tagIndentation) {
-		for (Iterator<Entry<String, XMLAttribute>> iterator = node.getAttributes().entrySet().iterator(); iterator.hasNext();) {
+
+	private void addTagProposals(IQuickAssistInvocationContext context, Collection<ICompletionProposal> proposals,
+			XMLNode node) throws BadLocationException {
+		if (node.isTag() || node.isEndTag() || node.isEmptyTag()) {
+			if (node.isEndTag()) {
+				node = node.getCorrespondingNode();
+			}
+			int offset = node.getSelectionOffset();
+			int tagLength = this.getNodeFullLength(node);
+			IDocument document = context.getSourceViewer().getDocument();
+			String replacement = document.get(node.getOffset(), tagLength);
+			String tagIndentation = this.getIndentation(document, node.getOffset());
+			String indentationToken = XMLEditorPlugin.getDefault().getIndentToken();
+
+			this.addRenameTagProposal(proposals, node, offset, tagLength, replacement, document);
+			this.addDuplicateTagProposal(proposals, node, offset, tagLength, replacement, document, tagIndentation);
+			this.addCutTagProposal(proposals, node, context, tagLength, replacement);
+			this.addSurroundWithTagProposal(proposals, node, offset, tagLength, replacement, document, tagIndentation,
+					indentationToken);
+			this.addCommentTagProposal(proposals, node, offset, tagLength, replacement, document, tagIndentation,
+					indentationToken);
+			this.addDeleteTagProposal(proposals, node, tagLength);
+			this.addDeleteSurroundingTagProposal(proposals, node, tagLength);
+		}
+	}
+
+	private void addCDATAProposal(Collection<ICompletionProposal> proposals, XMLNode node,
+			IQuickAssistInvocationContext context) {
+		int offset = node.getOffset() + 1;
+		int tagLength = node.getContent().length();
+		String lineSeparator = this.xmlEditor.getLineSeparator();
+		String replacement = "<![CDATA[" + node.getContent() + "]]>";
+		this.addTemplate(proposals, "Sorround With CDATA", replacement, PluginImages.IMG_EDIT_INLINE, context
+				.getSourceViewer().getDocument(), offset, tagLength, offset, tagLength);
+	}
+
+	private void addRenameTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length,
+			String replacement, IDocument document) {
+		replacement = replacement.replace(node.getTagName(), "${" + node.getTagName() + "}");
+		this.addTemplate(proposals, "Rename Tag", replacement, PluginImages.IMG_EDIT_INLINE, document, offset, length,
+				offset, length);
+	}
+
+	private void addDuplicateTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset,
+			int length, String replacement, IDocument document, String tagIndentation) {
+		for (Iterator<Entry<String, XMLAttribute>> iterator = node.getAttributes().entrySet().iterator(); iterator
+				.hasNext();) {
 			Entry<String, XMLAttribute> attribute = iterator.next();
 			XMLAttribute attr = attribute.getValue();
-			replacement = replacement.replace("\"" + attr.getValue() + "\"", "\"${" + attr.getName()+ "}\"");
+			replacement = replacement.replace("\"" + attr.getValue() + "\"", "\"${" + attr.getName() + "}\"");
 		}
-		replacement = FileUtils.LINE_SEPARATOR + tagIndentation + replacement;
-		this.addTemplate(proposals, "Duplicate Tag", replacement, PluginImages.IMG_CHANGE,	document, offset + length, 0, offset + length, length);
+		replacement = this.getLineSeparator() + tagIndentation + replacement;
+		this.addTemplate(proposals, "Duplicate Tag", replacement, PluginImages.IMG_CHANGE, document, offset + length,
+				0, offset + length, length);
 	}
 
 	private void addCutTagProposal(Collection<ICompletionProposal> proposals, final XMLNode node,
@@ -130,15 +161,14 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 		});
 	}
 
-	private void addSurroundWithTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length,
-			String replacement, IDocument document, String tagIndentation, String indentationToken) {
-		replacement = "<${element}>" + 
-			FileUtils.LINE_SEPARATOR + tagIndentation + indentationToken  + 
-			replacement.replace(FileUtils.LINE_SEPARATOR, FileUtils.LINE_SEPARATOR + indentationToken) + 
-			FileUtils.LINE_SEPARATOR + tagIndentation + 
-			"</${element}>";
+	private void addSurroundWithTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset,
+			int length, String replacement, IDocument document, String tagIndentation, String indentationToken) {
+		replacement = "<${element}>" + this.getLineSeparator() + tagIndentation + indentationToken
+				+ replacement.replace(this.getLineSeparator(), this.getLineSeparator() + indentationToken)
+				+ this.getLineSeparator() + tagIndentation + "</${element}>";
 
-		this.addTemplate(proposals, "Surround With Tag", replacement, PluginImages.IMG_CHANGE, document, offset, length, offset, length);
+		this.addTemplate(proposals, "Surround With Tag", replacement, PluginImages.IMG_CHANGE, document, offset,
+				length, offset, length);
 	}
 
 	private void addDeleteSurroundingTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int length) {
@@ -153,24 +183,29 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 		}
 	}
 
-	private void addCommentTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length, String replacement,
-			IDocument document, String tagIndentation, String indentationToken) {
-		replacement = "<!--" + 
-			FileUtils.LINE_SEPARATOR + tagIndentation + 
-			replacement + 
-			FileUtils.LINE_SEPARATOR + tagIndentation + "-->";
-		
+	private void addCommentTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length,
+			String replacement, IDocument document, String tagIndentation, String indentationToken) {
+		replacement = "<!--" + this.getLineSeparator() + tagIndentation + replacement + this.getLineSeparator()
+				+ tagIndentation + "-->";
+
 		proposals.add(new CompletionProposal(replacement, node.getOffset(), length, 0, PluginImages
 				.get(PluginImages.IMG_CHANGE), "Comment Tag", null, null));
+	}
+
+	private String getLineSeparator() {
+		if (this.lineSeparator == null) {
+			this.lineSeparator = this.xmlEditor.getLineSeparator();
+		}
+		return this.lineSeparator;
 	}
 
 	private void addDeleteTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int length) {
 		proposals.add(new CompletionProposal("", node.getOffset(), length, 0,
 				PluginImages.get(PluginImages.IMG_DELETE), "Delete Tag", null, null));
 	}
-	
-	private void addTemplate(Collection<ICompletionProposal> proposals, String name, String pattern, String image, IDocument document,
-			int positionOffset, int positionLength, int regionOffset, int regionLength) {
+
+	private void addTemplate(Collection<ICompletionProposal> proposals, String name, String pattern, String image,
+			IDocument document, int positionOffset, int positionLength, int regionOffset, int regionLength) {
 		TemplateContext context = new DocumentTemplateContext(new TemplateContextType(), document, new Position(
 				positionOffset - 1, positionLength));
 		IRegion region = new Region(regionOffset, regionLength);
@@ -180,9 +215,8 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 	}
 
 	private int getNodeFullLength(XMLNode node) {
-		return (node.isEmptyTag()) ?
-				node.getLength():
-				node.getCorrespondingNode().getOffset() - node.getOffset() + node.getCorrespondingNode().getLength();
+		return (node.isEmptyTag()) ? node.getLength() : node.getCorrespondingNode().getOffset() - node.getOffset()
+				+ node.getCorrespondingNode().getLength();
 	}
 
 	private String getIndentation(IDocument document, int offset) {

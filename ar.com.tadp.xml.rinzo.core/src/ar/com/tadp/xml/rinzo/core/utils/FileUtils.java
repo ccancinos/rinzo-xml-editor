@@ -51,7 +51,6 @@ public class FileUtils {
 	public static final String EOL;
 	private static final String FILE_PROTOCOL = "file:";
 	protected static final String PROTOCOL_PATTERN = ":"; 
-	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	public static final String TAB = "\t";
 
 	static {

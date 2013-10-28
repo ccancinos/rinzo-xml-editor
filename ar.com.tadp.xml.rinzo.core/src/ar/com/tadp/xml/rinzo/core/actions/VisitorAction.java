@@ -59,7 +59,7 @@ public abstract class VisitorAction implements IEditorActionDelegate {
 	public void run(IAction action) {
 		try {
 			IDocument document = this.editor.getDocumentProvider().getDocument(this.editor.getEditorInput());
-			String lineSeparator = FileUtils.getLineSeparator(this.editor);
+			String lineSeparator = this.editor.getLineSeparator();
 			this.editor.getModel().createTree(document);
 			XMLNode rootNode = this.editor.getModel().getTree().getRootNode();
             ISourceViewer sourceViewerEditor = editor.getSourceViewerEditor();
@@ -238,15 +238,15 @@ public abstract class VisitorAction implements IEditorActionDelegate {
         try {
             int startOffset = document.getLineOffset(document.getLineOfOffset(node.getOffset()));
             String indentStr = str.substring(startOffset, node.getOffset());
-            if (indentToken.startsWith("\t")) {
+			if (indentToken.startsWith(FileUtils.TAB)) {
                 int width = Integer.parseInt(XMLEditorPlugin.getDefault().getPreferenceStore().getString("tabWidth"));
                 String replaceStr = new String(new char[width]).replace('\0', ' ');
-                indentStr = indentStr.replace(replaceStr, "\t");
+				indentStr = indentStr.replace(replaceStr, FileUtils.TAB);
                 indentStr = indentStr.replace(" ", "");
                 return indentStr.length();
 
             } else {
-                indentStr = indentStr.replace("\t", indentToken);
+				indentStr = indentStr.replace(FileUtils.TAB, indentToken);
                 int indent = indentStr.length() / indentToken.length();
                 int mod = indentStr.length() % indentToken.length();
                 if (mod != 0) {

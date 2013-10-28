@@ -44,8 +44,10 @@ public class XMLOutlineLabelProvider extends LabelProvider {
 	private static final String OUTLINE_LABEL_SHOW_FULL_NAME = "Outline.Label.showFullName";
 	private Map<String, Image> images = new HashMap<String, Image>();
 	private boolean showFullName = false;
+	private String lineSeparator;
 
-	public XMLOutlineLabelProvider() {
+	public XMLOutlineLabelProvider(String lineSeparator) {
+		this.lineSeparator = lineSeparator;
 		this.showFullName = XMLEditorPlugin.getDefault().getPreferenceStore().getBoolean(OUTLINE_LABEL_SHOW_FULL_NAME);
 
 		this.images.put(IXMLPartitions.XML_TAG, PluginImages.get(PluginImages.IMG_XML_TAGDEF));
@@ -66,7 +68,7 @@ public class XMLOutlineLabelProvider extends LabelProvider {
 					text += iterator.hasNext() ? attribute + ", " : attribute.toString();
 				}
 				text += ")";
-				return text.replaceAll(FileUtils.LINE_SEPARATOR, " ").replaceAll(FileUtils.TAB, "");
+				return text.replaceAll(this.lineSeparator, " ").replaceAll(FileUtils.TAB, "");
 			}
 			if (node.isPiTag()) {
 				String comment = node.getContent();
@@ -77,7 +79,7 @@ public class XMLOutlineLabelProvider extends LabelProvider {
 				String comment = content.substring(content.indexOf("<!--") + 4, content.indexOf("-->")).trim();
 				return (comment.length() <= 20) ? comment : comment.substring(0, 20) + "...";
 			}
-			return node.getTagName().replaceAll(FileUtils.LINE_SEPARATOR, " ").replaceAll(FileUtils.TAB, "");
+			return node.getTagName().replaceAll(this.lineSeparator, " ").replaceAll(FileUtils.TAB, "");
 		}
 
 		return super.getText(element);

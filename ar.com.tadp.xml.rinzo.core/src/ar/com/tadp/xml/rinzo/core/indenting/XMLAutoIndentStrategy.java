@@ -27,8 +27,8 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextUtilities;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
+import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
@@ -37,8 +37,10 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
  * @author ccancinos
  */
 public class XMLAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
+	private RinzoXMLEditor xmlEditor;
 
-	public XMLAutoIndentStrategy() {
+	public XMLAutoIndentStrategy(RinzoXMLEditor xmlEditor) {
+		this.xmlEditor = xmlEditor;
 	}
 
 	public void customizeDocumentCommand(IDocument document, DocumentCommand command) {
@@ -61,21 +63,21 @@ public class XMLAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
 			String indentOfPreviousNode = getIndentOfLine(document, previousNode.getOffset());
 			buf.append(indentOfPreviousNode);
 			String indentationToken = this.getIndentationToken();
+			String lineSeparator = this.xmlEditor.getLineSeparator();
 			command.shiftsCaret = false;
-			command.caretOffset = command.offset + indentOfPreviousNode.length()
-					+ FileUtils.LINE_SEPARATOR.length() + indentationToken.length();
-			
+			command.caretOffset = command.offset + indentOfPreviousNode.length() + lineSeparator.length()
+					+ indentationToken.length();
+
 			if ((previousNode.isEmpty() || previousNode.isTextTag()) && !previousPreviousNode.isEndTag()) {
 				buf.append(indentationToken);
 			}
-			if(previousNode.isEndTag() || (previousPreviousNode != null && previousPreviousNode.isEndTag())) {
-				command.caretOffset = command.offset + indentOfPreviousNode.length()
-						+ FileUtils.LINE_SEPARATOR.length();
+			if (previousNode.isEndTag() || (previousPreviousNode != null && previousPreviousNode.isEndTag())) {
+				command.caretOffset = command.offset + indentOfPreviousNode.length() + lineSeparator.length();
 			}
-			if (previousNode.isTag() ) {
+			if (previousNode.isTag()) {
 				if (previousNode.getCorrespondingNode().getOffset() == command.offset) {
 					buf.append(indentationToken);
-					buf.append(FileUtils.LINE_SEPARATOR);
+					buf.append(lineSeparator);
 					buf.append(indentOfPreviousNode);
 				}
 				if (previousNode.getCorrespondingNode().getOffset() > command.offset) {

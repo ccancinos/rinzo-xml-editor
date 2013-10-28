@@ -30,38 +30,38 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
-import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
+import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 
 /**
- * This handler switch between commenting and uncommenting the text selection depending
- * if the current selection is commented or not.
+ * This handler switch between commenting and uncommenting the text selection
+ * depending if the current selection is commented or not.
  * 
- * This action is perform in different ways depending if the selection corresponds to a single
- * line or multiple lines.
+ * This action is perform in different ways depending if the selection
+ * corresponds to a single line or multiple lines.
  * 
- * In case of a single line selection the commented text will result in:
- * <!-- text -->
+ * In case of a single line selection the commented text will result in: <!--
+ * text -->
  * 
- * When the text selection corresponds to multiple lines the commented selection will be:
- * <!--
- * text
- * -->
+ * When the text selection corresponds to multiple lines the commented selection
+ * will be: <!-- text -->
  * 
  * @author ccancinos
  */
 public class CommentSelectionHandler extends KeyAdapter {
-    private static final String COMMENT_END = "-->";
-    private static final String COMMENT_START = "<!--";
-    
-    private final ISourceViewer sourceViewer;
-    private IDocument document;
+	private static final String COMMENT_END = "-->";
+	private static final String COMMENT_START = "<!--";
 
-    public CommentSelectionHandler(ISourceViewer sourceViewer) {
-        this.sourceViewer = sourceViewer;
-        this.document = this.sourceViewer.getDocument();
-    }
+	private final ISourceViewer sourceViewer;
+	private IDocument document;
+	private String lineSeparator;
 
-    public void keyReleased(KeyEvent keyevent) {
+	public CommentSelectionHandler(ISourceViewer sourceViewer, RinzoXMLEditor xmlEditor) {
+		this.sourceViewer = sourceViewer;
+		this.lineSeparator = xmlEditor.getLineSeparator();
+		this.document = this.sourceViewer.getDocument();
+	}
+
+	public void keyReleased(KeyEvent keyevent) {
 		try {
 			if (this.isCommentAcceleratorKey(keyevent)) {
 				TextSelection selection = this.getTextSelection();
@@ -79,8 +79,9 @@ public class CommentSelectionHandler extends KeyAdapter {
 					}
 				} else {
 					// Multiple line selection
-					
-					if (this.document.get(this.document.getLineOffset(selection.getStartLine()), selection.getOffset()).startsWith(COMMENT_START)) {
+
+					if (this.document.get(this.document.getLineOffset(selection.getStartLine()), selection.getOffset())
+							.startsWith(COMMENT_START)) {
 						this.manageUncommentMultipleSelection(selection);
 					} else {
 						this.manageCommentMultipleSelection(selection);
@@ -91,76 +92,74 @@ public class CommentSelectionHandler extends KeyAdapter {
 		} catch (BadLocationException exception) {
 			exception.printStackTrace();
 		}
-    }
+	}
 
 	private boolean isCommentAcceleratorKey(KeyEvent keyevent) {
 		return (keyevent.character == 55 || keyevent.character == '/') && keyevent.stateMask == SWT.CONTROL;
 	}
 
-    private TextSelection getTextSelection() {
-        return (TextSelection) this.sourceViewer.getSelectionProvider().getSelection();
-    }
-    
-    private void manageCommentMultipleSelection(TextSelection selection) throws BadLocationException {
-    	this.transformLines(selection, new LineTransformer() {
-    		public String transform(String line) {
-    			return line.startsWith(COMMENT_START) && line.endsWith(COMMENT_END) ?
-    					line + FileUtils.LINE_SEPARATOR :
-    					COMMENT_START + line + COMMENT_END + FileUtils.LINE_SEPARATOR;
-    		}
-    	});
-    }
-    
-    private void manageUncommentMultipleSelection(TextSelection selection) throws BadLocationException {
-    	this.transformLines(selection, new LineTransformer() {
-    		public String transform(String line) {
-    			return line.startsWith(COMMENT_START) && line.endsWith(COMMENT_END) ?
-    					line.substring(COMMENT_START.length(), line.length() - COMMENT_END.length()) + FileUtils.LINE_SEPARATOR :
-    					line + FileUtils.LINE_SEPARATOR;
-    		}
-    	});
-    }
+	private TextSelection getTextSelection() {
+		return (TextSelection) this.sourceViewer.getSelectionProvider().getSelection();
+	}
 
-	private void transformLines(TextSelection selection, LineTransformer lineTransformer)
-			throws BadLocationException {
+	private void manageCommentMultipleSelection(TextSelection selection) throws BadLocationException {
+		this.transformLines(selection, new LineTransformer() {
+			public String transform(String line) {
+				return line.startsWith(COMMENT_START) && line.endsWith(COMMENT_END) ? line + lineSeparator
+						: COMMENT_START + line + COMMENT_END + lineSeparator;
+			}
+		});
+	}
+
+	private void manageUncommentMultipleSelection(TextSelection selection) throws BadLocationException {
+		this.transformLines(selection, new LineTransformer() {
+			public String transform(String line) {
+				return line.startsWith(COMMENT_START) && line.endsWith(COMMENT_END) ? line.substring(
+						COMMENT_START.length(), line.length() - COMMENT_END.length())
+						+ lineSeparator : line + lineSeparator;
+			}
+		});
+	}
+
+	private void transformLines(TextSelection selection, LineTransformer lineTransformer) throws BadLocationException {
 		int startLineOffset = this.document.getLineOffset(selection.getStartLine());
-    	int lastLineEndOffset = this.document.getLineOffset(selection.getEndLine()) + this.document.getLineLength(selection.getEndLine());
-    	int selectionLength = lastLineEndOffset - startLineOffset;
-    	
+		int lastLineEndOffset = this.document.getLineOffset(selection.getEndLine())
+				+ this.document.getLineLength(selection.getEndLine());
+		int selectionLength = lastLineEndOffset - startLineOffset;
+
 		Scanner scanner = new Scanner(this.document.get(startLineOffset, selectionLength));
-    	StringBuilder builder = new StringBuilder();
-    	while(scanner.hasNextLine()) {
-    		String line = scanner.nextLine();
-    		builder.append(lineTransformer.transform(line));
-    	}
-    	String newContent = builder.toString();
-    	
+		StringBuilder builder = new StringBuilder();
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			builder.append(lineTransformer.transform(line));
+		}
+		String newContent = builder.toString();
+
 		this.document.replace(startLineOffset, selectionLength, newContent);
 		this.sourceViewer.setSelectedRange(startLineOffset, newContent.length());
 	}
-    
+
 	private void manageCommentSingleLine(TextSelection selection, int currentLineNumber, int lineOffset, int lineLength)
 			throws BadLocationException {
-        this.document.replace(lineOffset, 
-                lineLength,
-                COMMENT_START + this.document.get(lineOffset, lineLength - 2) + COMMENT_END + FileUtils.LINE_SEPARATOR);
-        this.sourceViewer.setSelectedRange(lineOffset, lineLength + 5);
-    }
+		this.document.replace(lineOffset, lineLength, COMMENT_START + this.document.get(lineOffset, lineLength - 2)
+				+ COMMENT_END + this.lineSeparator);
+		this.sourceViewer.setSelectedRange(lineOffset, lineLength + 5);
+	}
 
 	private void manageUnCommentSingleLine(TextSelection selection, int currentLineNumber, int lineOffset,
 			int lineLength) throws BadLocationException {
 		this.document.replace(lineOffset, lineLength, this.document.get(lineOffset + 4, lineLength - 9)
-				+ FileUtils.LINE_SEPARATOR);
-        this.sourceViewer.setSelectedRange(lineOffset, lineLength - 8);
-    }
+				+ this.lineSeparator);
+		this.sourceViewer.setSelectedRange(lineOffset, lineLength - 8);
+	}
 
 	/**
 	 * Used to modify the content of a line of text for another content
-	 *  
+	 * 
 	 * @author ccancinos
 	 */
 	private static interface LineTransformer {
 		public String transform(String line);
 	}
-	
+
 }

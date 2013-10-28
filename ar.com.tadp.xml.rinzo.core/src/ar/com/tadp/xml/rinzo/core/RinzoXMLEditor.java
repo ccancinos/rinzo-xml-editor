@@ -103,90 +103,87 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 	public static final String RULER_CONTEXT = EDITOR_CONTEXT + ".ruler";
 
 	private XMLOutlinePage outlinePage;
-    private NoDefTagDefinitionProvider containersRegistry = new NoDefTagDefinitionProvider();
-    private XMLTagDefinitionProvider schemaContaintersRegistry;
-    private DTDTagDefinitionProvider dtdContaintersRegistry;
+	private NoDefTagDefinitionProvider containersRegistry = new NoDefTagDefinitionProvider();
+	private XMLTagDefinitionProvider schemaContaintersRegistry;
+	private DTDTagDefinitionProvider dtdContaintersRegistry;
 	private EditorConfiguration editorFileConfigurationStrategy;
 	private boolean changed = true;
 	private EditorUpdater updater;
 	private TagPairMatcher pairMatcher;
-	
 
-    private ProjectionSupport projectionSupport;
+	private ProjectionSupport projectionSupport;
 	private Annotation[] oldAnnotations;
 	private ProjectionAnnotationModel annotationModel;
 
-
 	protected void doSetInput(IEditorInput input) throws CoreException {
-		if(input instanceof IFileEditorInput || input instanceof IStorageEditorInput) {
+		if (input instanceof IFileEditorInput || input instanceof IStorageEditorInput) {
 			setDocumentProvider(new XMLInternalFileDocumentProvider(this));
 		} else {
 			setDocumentProvider(new XMLExternalFileDocumentProvider(this));
 		}
 		this.setConfiturationStrategy(new XMLEditorConfiguration(this));
 		super.doSetInput(input);
-        
+
 		updater = new EditorUpdater(this);
 		ThreadExecutorService.getInstance().execute(this.updater);
-        getDocumentProvider().getDocument(input).addDocumentListener(new IDocumentListener() {
+		getDocumentProvider().getDocument(input).addDocumentListener(new IDocumentListener() {
 			public void documentAboutToBeChanged(DocumentEvent event) {
 			}
+
 			public void documentChanged(DocumentEvent event) {
-	            changed = true;
+				changed = true;
 			}
-        });
+		});
 	}
 
 	public void dispose() {
 		this.updater.setStop();
 	}
 
-	protected void configureSourceViewerDecorationSupport(
-			SourceViewerDecorationSupport support) {
+	protected void configureSourceViewerDecorationSupport(SourceViewerDecorationSupport support) {
 		super.configureSourceViewerDecorationSupport(support);
 
 		this.pairMatcher = new TagPairMatcher();
 		support.setCharacterPairMatcher(pairMatcher);
 		support.setSymbolicFontName(getFontPropertyPreferenceKey());
 	}
-	
+
 	private void setConfiturationStrategy(EditorConfiguration internalFileConfigurationStrategy) {
 		this.editorFileConfigurationStrategy = internalFileConfigurationStrategy;
 		this.setSourceViewerConfiguration((SourceViewerConfiguration) internalFileConfigurationStrategy);
 	}
-	
+
 	protected void initializeEditor() {
 		super.initializeEditor();
-		setKeyBindingScopes(new String[]{"org.eclipse.ui.rinzoEditorScope"});
+		setKeyBindingScopes(new String[] { "org.eclipse.ui.rinzoEditorScope" });
 		setPreferenceStore(XMLEditorPlugin.getDefault().getPreferenceStore());
 		setEditorContextMenuId(EDITOR_CONTEXT);
-		setRulerContextMenuId(RULER_CONTEXT); 
+		setRulerContextMenuId(RULER_CONTEXT);
 	}
-    
+
 	public void createPartControl(Composite composite) {
 		super.createPartControl(composite);
 		StyledText styledtext = this.getSourceViewer().getTextWidget();
 
 		styledtext.addKeyListener(new AutoInsertEndTagHandler(this.getSourceViewer()));
-        styledtext.addKeyListener(new CommentSelectionHandler(this.getSourceViewer()));
-        styledtext.addKeyListener(new NavigateTagsHandler(this.getSourceViewer(), this));
-        
-		ITextViewerExtension2 extension= (ITextViewerExtension2) getSourceViewer();
+		styledtext.addKeyListener(new CommentSelectionHandler(this.getSourceViewer(), this));
+		styledtext.addKeyListener(new NavigateTagsHandler(this.getSourceViewer(), this));
+
+		ITextViewerExtension2 extension = (ITextViewerExtension2) getSourceViewer();
 		MatchingCharacterPainter painter = new MatchingCharacterPainter(getSourceViewer(), new TagPairMatcher());
 		painter.setColor(Display.getDefault().getSystemColor(SWT.COLOR_DARK_GRAY));
 		extension.addPainter(painter);
 
-		((TextViewer)this.getSourceViewer()).addPostSelectionChangedListener(new NodeRangeHighlighter(this));
-		
-		
-        ProjectionViewer viewer =(ProjectionViewer)getSourceViewer();
-        
-        projectionSupport = new ProjectionSupport(viewer,getAnnotationAccess(),getSharedColors());
+		((TextViewer) this.getSourceViewer()).addPostSelectionChangedListener(new NodeRangeHighlighter(this));
+
+		ProjectionViewer viewer = (ProjectionViewer) getSourceViewer();
+
+		projectionSupport = new ProjectionSupport(viewer, getAnnotationAccess(), getSharedColors());
 		projectionSupport.install();
-		
-		//turn projection mode on
+
+		// turn projection mode on
 		viewer.doOperation(ProjectionViewer.TOGGLE);
-		
+
 		annotationModel = viewer.getProjectionAnnotationModel();
 
 		this.updateFoldingStructure();
@@ -200,35 +197,34 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 			}
 			return outlinePage;
 		}
-		
+
 		return super.getAdapter(adapter);
 	}
 
 	public ISourceViewer getSourceViewerEditor() {
 		return super.getSourceViewer();
 	}
-	
+
 	public void doSave(IProgressMonitor progressMonitor) {
-        progressMonitor.beginTask("Saving File: " + this.getFileName(), 2);
+		progressMonitor.beginTask("Saving File: " + this.getFileName(), 2);
 		try {
-			if(XMLEditorPlugin.isFormatOnSave()) {
+			if (XMLEditorPlugin.isFormatOnSave()) {
 				FormatAction formatAction = new FormatAction();
 				formatAction.setActiveEditor(null, this);
 				formatAction.run(null);
 			}
 			super.doSave(new SubProgressMonitor(progressMonitor, 1));
 			progressMonitor.worked(1);
-            if(this.getModel().getTree().getRootNode() != null && this.getEditorInputIFile() != null) {
-            	this.setChanged(true);
-            }
+			if (this.getModel().getTree().getRootNode() != null && this.getEditorInputIFile() != null) {
+				this.setChanged(true);
+			}
 			progressMonitor.worked(1);
-			if(!this.updater.isStop()) {
+			if (!this.updater.isStop()) {
 				ThreadExecutorService.getInstance().execute(this.updater);
 			}
 		} catch (Exception e) {
 			XMLEditorPlugin.logErrorMessage("Error saving file: " + this.getFileName(), e);
-		}
-		finally {
+		} finally {
 			progressMonitor.done();
 		}
 	}
@@ -237,7 +233,7 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 		super.editorContextMenuAboutToShow(menu);
 		this.editorFileConfigurationStrategy.editorContextMenuAboutToShow(menu);
 	}
-    
+
 	public void selectionChanged(SelectionChangedEvent event) {
 		IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 		if (!selection.isEmpty()) {
@@ -248,118 +244,127 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 			}
 		}
 	}
-	
+
 	public void setFocus() {
 		super.setFocus();
-		setKeyBindingScopes(new String[]{"org.eclipse.ui.rinzoEditorScope"});
+		setKeyBindingScopes(new String[] { "org.eclipse.ui.rinzoEditorScope" });
 	}
-	
+
 	protected void createActions() {
 		super.createActions();
-		Action action = new ContentAssistAction(XMLEditorPlugin.getDefault().getResourceBundle(), "ContentAssistProposal.", this); 
+		Action action = new ContentAssistAction(XMLEditorPlugin.getDefault().getResourceBundle(),
+				"ContentAssistProposal.", this);
 		action.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
-		setAction("ContentAssistProposal", action); 
+		setAction("ContentAssistProposal", action);
 		markAsStateDependentAction("ContentAssistProposal", true);
 	}
 
-    public String getFileName() {
-    	return FileUtils.relPathToUrl(this.getEditorInputFile().getAbsolutePath());
-    }
-    
-    public IFile getEditorInputIFile() {
-        return ResourceUtil.getFile(this.getEditorInput());
-    }
-    
-    public File getEditorInputFile() {
-    	File toFile = null;
-    	IEditorInput input = this.getEditorInput();
-    	
-    	if (input instanceof FileStoreEditorInput) {
-    		toFile = new File(((FileStoreEditorInput) input).getURI());
-    	}
+	public String getFileName() {
+		return FileUtils.relPathToUrl(this.getEditorInputFile().getAbsolutePath());
+	}
 
-    	if(input instanceof IPathEditorInput) {
-    		toFile = ((IPathEditorInput)input).getPath().toFile();
-    	}
-    	
-    	return toFile;
-   }
+	public IFile getEditorInputIFile() {
+		return ResourceUtil.getFile(this.getEditorInput());
+	}
+
+	public File getEditorInputFile() {
+		File toFile = null;
+		IEditorInput input = this.getEditorInput();
+
+		if (input instanceof FileStoreEditorInput) {
+			toFile = new File(((FileStoreEditorInput) input).getURI());
+		}
+
+		if (input instanceof IPathEditorInput) {
+			toFile = ((IPathEditorInput) input).getPath().toFile();
+		}
+
+		return toFile;
+	}
+
+	public String getLineSeparator() {
+		return FileUtils.getLineSeparator(this);
+	}
 
 	public XMLTreeModel getModel() {
 		return ((TreeModelContainer) this.getDocumentProvider()).getTreeModel();
 	}
 
 	public NoDefTagDefinitionProvider getCodeTagContainersRegistry() {
-        return this.containersRegistry;
-    }
-    
-    public XMLTagDefinitionProvider getTagContainersRegistry() {
-        try {
-            TreeModelContainer documentProvider = (TreeModelContainer) this.getDocumentProvider();
-            XMLTreeModel treeModel = documentProvider.getTreeModel();
-            Collection<DocumentStructureDeclaration> schemaDefinitions = treeModel.getSchemaDefinitions();
-            DocumentStructureDeclaration structureDeclaration = treeModel.getDTDDefinition();
-            
-            XMLTagDefinitionProvider registry = this.containersRegistry;
-            
-            if(this.getFileName() != null) {
+		return this.containersRegistry;
+	}
+
+	public XMLTagDefinitionProvider getTagContainersRegistry() {
+		try {
+			TreeModelContainer documentProvider = (TreeModelContainer) this.getDocumentProvider();
+			XMLTreeModel treeModel = documentProvider.getTreeModel();
+			Collection<DocumentStructureDeclaration> schemaDefinitions = treeModel.getSchemaDefinitions();
+			DocumentStructureDeclaration structureDeclaration = treeModel.getDTDDefinition();
+
+			XMLTagDefinitionProvider registry = this.containersRegistry;
+
+			if (this.getFileName() != null) {
 				if (!schemaDefinitions.isEmpty()) {
 					registry = this.getCompositeSchemaTagContainersRegistry(schemaDefinitions);
-	            } else {
-	            	if(structureDeclaration != null) {
-	                	Collection<DocumentStructureDeclaration> definitions = new ArrayList<DocumentStructureDeclaration>();
-	                	definitions.add(structureDeclaration);
+				} else {
+					if (structureDeclaration != null) {
+						Collection<DocumentStructureDeclaration> definitions = new ArrayList<DocumentStructureDeclaration>();
+						definitions.add(structureDeclaration);
 						DocumentCache.getInstance().getAllLocations(definitions, this.getFileName());
-	            		registry = this.getDTDTagContainersRegistry(treeModel.getDTDRootNode(), structureDeclaration);
-	            	}
-	            }
-            }
-            
-            return registry;
-        } catch (Exception exception) {
-            return this.containersRegistry;
-        }
-    }
+						registry = this.getDTDTagContainersRegistry(treeModel.getDTDRootNode(), structureDeclaration);
+					}
+				}
+			}
 
-    private DTDTagDefinitionProvider getDTDTagContainersRegistry(String rootNodeName, DocumentStructureDeclaration structureDeclaration) {
-        if(this.dtdContaintersRegistry == null) {
-            this.dtdContaintersRegistry = new DTDTagDefinitionProvider(this.getFileName(), rootNodeName, structureDeclaration);
-        } else {
-        	this.dtdContaintersRegistry.setDefinition(this.getFileName(), structureDeclaration);
-        }
-        
-        return this.dtdContaintersRegistry;
+			return registry;
+		} catch (Exception exception) {
+			return this.containersRegistry;
+		}
 	}
-    
-    private XMLTagDefinitionProvider getCompositeSchemaTagContainersRegistry(Collection<DocumentStructureDeclaration> schemaDefinitions) throws URISyntaxException {
-    	DocumentCache.getInstance().getAllLocations(schemaDefinitions, this.getFileName());
-        if(this.schemaContaintersRegistry == null) {
-        	CompositeXMLTagDefinitionProvider compositeXMLTagDefinitionProvider = new CompositeXMLTagDefinitionProvider();
-        	for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
+
+	private DTDTagDefinitionProvider getDTDTagContainersRegistry(String rootNodeName,
+			DocumentStructureDeclaration structureDeclaration) {
+		if (this.dtdContaintersRegistry == null) {
+			this.dtdContaintersRegistry = new DTDTagDefinitionProvider(this.getFileName(), rootNodeName,
+					structureDeclaration);
+		} else {
+			this.dtdContaintersRegistry.setDefinition(this.getFileName(), structureDeclaration);
+		}
+
+		return this.dtdContaintersRegistry;
+	}
+
+	private XMLTagDefinitionProvider getCompositeSchemaTagContainersRegistry(
+			Collection<DocumentStructureDeclaration> schemaDefinitions) throws URISyntaxException {
+		DocumentCache.getInstance().getAllLocations(schemaDefinitions, this.getFileName());
+		if (this.schemaContaintersRegistry == null) {
+			CompositeXMLTagDefinitionProvider compositeXMLTagDefinitionProvider = new CompositeXMLTagDefinitionProvider();
+			for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
 				try {
-					compositeXMLTagDefinitionProvider.addTagDefinitionProvider(new XSDTagDefinitionProvider(this.getFileName(), structureDeclaration));
+					compositeXMLTagDefinitionProvider.addTagDefinitionProvider(new XSDTagDefinitionProvider(this
+							.getFileName(), structureDeclaration));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-        	this.schemaContaintersRegistry = compositeXMLTagDefinitionProvider;
-        } else {
-        	Collection<URI> uris = new ArrayList<URI>();
-        	CompositeXMLTagDefinitionProvider compositeXMLTagDefinitionProvider = (CompositeXMLTagDefinitionProvider) this.schemaContaintersRegistry;
-        	for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
-        		try {
+			this.schemaContaintersRegistry = compositeXMLTagDefinitionProvider;
+		} else {
+			Collection<URI> uris = new ArrayList<URI>();
+			CompositeXMLTagDefinitionProvider compositeXMLTagDefinitionProvider = (CompositeXMLTagDefinitionProvider) this.schemaContaintersRegistry;
+			for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
+				try {
 					URI schemaURI = FileUtils.resolveURI(this.getFileName(), structureDeclaration.getSystemId());
 					uris.add(schemaURI);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-        	}
-        	compositeXMLTagDefinitionProvider.setDefinition(this.getFileName(), uris);
-        }
-        
-        return (XMLTagDefinitionProvider) this.schemaContaintersRegistry;
-    }
-    
+			}
+			compositeXMLTagDefinitionProvider.setDefinition(this.getFileName(), uris);
+		}
+
+		return (XMLTagDefinitionProvider) this.schemaContaintersRegistry;
+	}
+
 	public synchronized boolean isChanged() {
 		return changed;
 	}
@@ -369,12 +374,13 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 	}
 
 	public void updateFoldingStructure() {
-		FoldingNodesVisitor visitor = new FoldingNodesVisitor(this.getSourceViewerEditor().getDocument());
+		FoldingNodesVisitor visitor = new FoldingNodesVisitor(this.getSourceViewerEditor().getDocument(),
+				this.getLineSeparator());
 		this.getModel().getTree().accept(visitor);
-		
+
 		HashMap<ProjectionAnnotation, Position> newAnnotations = visitor.getAnnotationsMap();
 		Annotation[] annotations = visitor.getAnnotations();
-		
+
 		if (annotationModel != null) {
 			annotationModel.modifyAnnotations(oldAnnotations, newAnnotations, null);
 		}
@@ -382,11 +388,12 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 	}
 
 	protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles) {
-        ISourceViewer viewer = new RinzoProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);
-    	// ensure decoration support has been created and configured.
-    	getSourceViewerDecorationSupport(viewer);
-    	return viewer;
-    }
+		ISourceViewer viewer = new RinzoProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(),
+				styles);
+		// ensure decoration support has been created and configured.
+		getSourceViewerDecorationSupport(viewer);
+		return viewer;
+	}
 
 	@Override
 	protected void handlePreferenceStoreChanged(PropertyChangeEvent event) {
@@ -394,5 +401,5 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 			super.handlePreferenceStoreChanged(event);
 		}
 	}
-	
+
 }

@@ -30,7 +30,6 @@ import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 
 /**
  * Generates the list of segments to fold/unfold in the editor's projection
@@ -40,9 +39,11 @@ import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
 public class FoldingNodesVisitor implements HierarchicalVisitor {
 	private HashMap<ProjectionAnnotation, Position> newAnnotations = new HashMap<ProjectionAnnotation, Position>();
 	private final IDocument document;
+	private String lineSeparator;
 
-	public FoldingNodesVisitor(IDocument document) {
+	public FoldingNodesVisitor(IDocument document, String lineSeparator) {
 		this.document = document;
+		this.lineSeparator = lineSeparator;
 	}
 
 	public boolean visitStart(XMLNode node) {
@@ -53,9 +54,9 @@ public class FoldingNodesVisitor implements HierarchicalVisitor {
 				!this.isInSameLine(node, node.getCorrespondingNode())) {
 
 				int end = node.getCorrespondingNode().getOffset() + node.getCorrespondingNode().getLength();
-				int length = end - node.getOffset() + FileUtils.LINE_SEPARATOR.length();
+				int length = end - node.getOffset() + this.lineSeparator.length();
 				if ((node.getOffset() + length) > this.document.getLength()) {
-					length = length - FileUtils.LINE_SEPARATOR.length();
+					length = length - this.lineSeparator.length();
 				}
 				int offset = this.document.getLineOffset(this.document.getLineOfOffset(node.getOffset()));
 				Position position = new Position(offset, length);
@@ -76,7 +77,7 @@ public class FoldingNodesVisitor implements HierarchicalVisitor {
 			int offset = this.document.getLineOffset(this.document.getLineOfOffset(node.getOffset()));
 			if((node.isCommentTag() || node.isCdata()) && 
 					!this.isInSameLine(offset, offset + node.getLength())) {
-				int length = node.getLength() + FileUtils.LINE_SEPARATOR.length();
+				int length = node.getLength() + this.lineSeparator.length();
 				Position position = new Position(offset, length);
 				this.newAnnotations.put(new ProjectionAnnotation(), position);
 			}

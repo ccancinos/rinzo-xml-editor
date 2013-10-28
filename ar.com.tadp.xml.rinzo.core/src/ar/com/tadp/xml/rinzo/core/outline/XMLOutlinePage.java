@@ -48,12 +48,13 @@ import ar.com.tadp.xml.rinzo.core.outline.actions.ShowFullNameAction;
 public class XMLOutlinePage extends ContentOutlinePage implements IModelListener {
 	private RinzoXMLEditor editor;
 	private XMLTreeModel treeModel;
-	private XMLOutlineLabelProvider outlineLabelProvider = new XMLOutlineLabelProvider();
+	private XMLOutlineLabelProvider outlineLabelProvider;
 	private boolean dirty;
 	private OutlineUpdater updater;
 
 	public XMLOutlinePage(RinzoXMLEditor editor) {
 		this.editor = editor;
+		this.outlineLabelProvider = new XMLOutlineLabelProvider(this.editor.getLineSeparator());
 	}
 
 	public void createControl(Composite parent) {
