@@ -48,6 +48,9 @@ import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.contentassist.proposals.XMLCompletionProposal;
 import ar.com.tadp.xml.rinzo.core.model.XMLAttribute;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
+import ar.com.tadp.xml.rinzo.core.model.visitor.EscapeHTMLVisitor;
+import ar.com.tadp.xml.rinzo.core.model.visitor.EscapeVisitor;
+import ar.com.tadp.xml.rinzo.core.model.visitor.EscapeXMLVisitor;
 import ar.com.tadp.xml.rinzo.core.model.visitor.ToStringVisitor;
 import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
@@ -59,6 +62,8 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
  */
 public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 	private final RinzoXMLEditor xmlEditor;
+	private EscapeVisitor escapeHtmlVisitor = new EscapeHTMLVisitor();
+	private EscapeVisitor escapeXmlVisitor = new EscapeXMLVisitor();
 	private String lineSeparator = null;
 
 	public XMLCorrectionProcessor(RinzoXMLEditor xmlEditor) {
@@ -84,6 +89,7 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 			XMLNode node) {
 		if (node.isTextTag()) {
 			this.addCDATAProposal(proposals, node, context);
+			this.addEscapeProposal(proposals, node, context);
 		}
 	}
 
@@ -116,15 +122,36 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 			IQuickAssistInvocationContext context) {
 		int offset = node.getOffset() + 1;
 		int tagLength = node.getContent().length();
-		String lineSeparator = this.xmlEditor.getLineSeparator();
-		String replacement = "<![CDATA[" + node.getContent() + "]]>";
-		this.addTemplate(proposals, "Sorround With CDATA", replacement, PluginImages.IMG_EDIT_INLINE, context
+		String trimmedContent = node.getContent().trim();
+		String replacement = node.getContent().replace(trimmedContent, "<![CDATA[" + trimmedContent + "]]>");
+		this.addTemplate(proposals, "Surround With CDATA", replacement, PluginImages.IMG_CHANGE, context
 				.getSourceViewer().getDocument(), offset, tagLength, offset, tagLength);
+	}
+
+	private void addEscapeProposal(Collection<ICompletionProposal> proposals, XMLNode node,
+			IQuickAssistInvocationContext context) {
+		node.accept(this.escapeHtmlVisitor);
+		node.accept(this.escapeXmlVisitor);
+		String replacementHtml = this.escapeHtmlVisitor.getString();
+		String replacementXml = this.escapeXmlVisitor.getString();
+		this.escapeHtmlVisitor.reset();
+		this.escapeXmlVisitor.reset();
+
+		int offset = node.getOffset() + 1;
+		int tagLength = node.getContent().length();
+
+		this.addTemplate(proposals, "Escape HTML content", replacementHtml, PluginImages.IMG_CHANGE, context
+				.getSourceViewer().getDocument(), offset, tagLength, offset, tagLength);
+
+		this.addTemplate(proposals, "Escape XML content", replacementXml, PluginImages.IMG_CHANGE, context
+				.getSourceViewer()
+				.getDocument(), offset, tagLength, offset, tagLength);
 	}
 
 	private void addRenameTagProposal(Collection<ICompletionProposal> proposals, XMLNode node, int offset, int length,
 			String replacement, IDocument document) {
-		replacement = replacement.replace(node.getTagName(), "${" + node.getTagName() + "}");
+		replacement = replacement.replace("<" + node.getTagName() + ">", "<${" + node.getTagName() + "}>");
+		replacement = replacement.replace("</" + node.getTagName() + ">", "</${" + node.getTagName() + "}>");
 		this.addTemplate(proposals, "Rename Tag", replacement, PluginImages.IMG_EDIT_INLINE, document, offset, length,
 				offset, length);
 	}

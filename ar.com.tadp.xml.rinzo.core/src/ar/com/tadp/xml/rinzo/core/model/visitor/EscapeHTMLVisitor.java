@@ -18,21 +18,18 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program; If not, see <http://www.gnu.org/licenses/>
  ****************************************************************************/
-package ar.com.tadp.xml.rinzo.core.actions;
+package ar.com.tadp.xml.rinzo.core.model.visitor;
 
-import ar.com.tadp.xml.rinzo.core.model.visitor.EscapeVisitor;
-import ar.com.tadp.xml.rinzo.core.model.visitor.StringGeneratorVisitor;
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
- * Uses a visitor to change special character to it's escape definition in the
- * entire opened document
  * 
  * @author ccancinos
  */
-public class EscapeCharacters extends VisitorAction {
-	private EscapeVisitor visitor = new EscapeVisitor();
+public class EscapeHTMLVisitor extends EscapeVisitor {
 
-	public StringGeneratorVisitor getVisitor() {
-		return this.visitor;
+	protected String escape(String value) {
+		return StringEscapeUtils.escapeHtml(value);
 	}
+
 }

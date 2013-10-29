@@ -162,9 +162,15 @@
          menubarPath="rinzoSource/base">
    </action>
    <action
-         class="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
-         id="ar.com.tadp.xml.rinzo.core.actions.EscapeCharacters"
-         label="Escape Characters"
+         class="ar.com.tadp.xml.rinzo.core.actions.EscapeHTMLCharacters"
+         id="ar.com.tadp.xml.rinzo.core.actions.EscapeHTMLCharacters"
+         label="Escape HTML Characters"
+         menubarPath="rinzoSource/base">
+   </action>
+   <action
+         class="ar.com.tadp.xml.rinzo.core.actions.EscapeXMLCharacters"
+         id="ar.com.tadp.xml.rinzo.core.actions.EscapeXmlCharacters"
+         label="Escape XML Characters"
          menubarPath="rinzoSource/base">
    </action>
    <action

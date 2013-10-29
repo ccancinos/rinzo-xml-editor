@@ -20,8 +20,6 @@
  ****************************************************************************/
 package ar.com.tadp.xml.rinzo.core.model.visitor;
 
-import org.apache.commons.lang.StringEscapeUtils;
-
 import ar.com.tadp.xml.rinzo.core.model.XMLAttribute;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 
@@ -31,7 +29,7 @@ import ar.com.tadp.xml.rinzo.core.model.XMLNode;
  * 
  * @author ccancinos
  */
-public class EscapeVisitor implements StringGeneratorVisitor {
+public abstract class EscapeVisitor implements StringGeneratorVisitor {
 	private StringBuffer buffer = new StringBuffer();
 
 	public String getString() {
@@ -53,7 +51,7 @@ public class EscapeVisitor implements StringGeneratorVisitor {
 		if (node.isEmptyTag()) {
 			this.buffer.append(this.escapeAttributes(node));
 		} else if (node.isTextTag()) {
-			this.buffer.append(StringEscapeUtils.escapeHtml(node.getContent()));
+			this.buffer.append(this.escape(node.getContent()));
 		} else {
 			this.buffer.append(node.getContent());
 		}
@@ -89,10 +87,12 @@ public class EscapeVisitor implements StringGeneratorVisitor {
 	private String escapeAttributes(XMLNode node) {
 		String content = node.getContent();
 		for (XMLAttribute attribute : node.getAttributes().values()) {
-			content = content.replaceAll(attribute.getValue(), StringEscapeUtils.escapeHtml(attribute.getValue()));
+			content = content.replaceAll(attribute.getValue(), this.escape(attribute.getValue()));
 		}
 		
 		return content;
 	}
+
+	protected abstract String escape(String value);
 
 }
