@@ -26,7 +26,6 @@ import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.source.ICharacterPairMatcher;
 
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Returns the region for the name of the corresponding tag to the one selected
@@ -35,8 +34,14 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
  */
 public class TagPairMatcher implements ICharacterPairMatcher {
 
+	private RinzoXMLEditor editor;
+
+	public TagPairMatcher(RinzoXMLEditor editor) {
+		this.editor = editor;
+	}
+
 	public IRegion match(IDocument document, int offset) {
-		XMLNode activeNode = XMLTreeModelUtilities.getActiveNode(document, offset);
+		XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(offset);
 		if (activeNode != null) {
 			XMLNode correspondingNode = activeNode.getCorrespondingNode();
 			if (correspondingNode != null) {

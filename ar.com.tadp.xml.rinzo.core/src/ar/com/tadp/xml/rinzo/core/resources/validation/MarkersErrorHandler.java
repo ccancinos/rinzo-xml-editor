@@ -36,7 +36,6 @@ import org.xml.sax.SAXParseException;
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * This class is in charge of handle the messages from the XML parser to show them into the <i>Problems</i> view
@@ -84,7 +83,7 @@ public class MarkersErrorHandler implements ErrorHandler {
             	attributes.put(IMarker.SEVERITY, this.getSeverity());
             	
         		int lineStartChar = getCharStart(exception.getLineNumber(), exception.getColumnNumber());
-    			XMLNode activeNode = XMLTreeModelUtilities.getActiveNode(editor.getSourceViewerEditor().getDocument(), lineStartChar);
+				XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(lineStartChar);
     			attributes.put(IMarker.CHAR_START, (activeNode !=null ? Integer.valueOf(activeNode.getOffset()) : 0));
     			attributes.put(IMarker.CHAR_END, (activeNode !=null ? Integer.valueOf(activeNode.getOffset() + activeNode.getLength()) : 0));
 

@@ -22,6 +22,7 @@ package ar.com.tadp.xml.rinzo.core;
 
 import java.util.Iterator;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -38,8 +39,6 @@ import org.eclipse.jface.text.source.ISourceViewerExtension2;
 
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * This implementation of {@link org.eclipse.jface.text.ITextHover}. displays
@@ -49,13 +48,16 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 public class MultipleLinesTextHover implements ITextHover {
 	/** This hover's source viewer */
 	private ISourceViewer sourceViewer;
+	private RinzoXMLEditor editor;
 
 	/**
 	 * Creates a new annotation hover.
 	 *
 	 * @param sourceViewer this hover's annotation model
+	 * @param editor 
 	 */
-	public MultipleLinesTextHover(ISourceViewer sourceViewer) {
+	public MultipleLinesTextHover(ISourceViewer sourceViewer, RinzoXMLEditor editor) {
+		this.editor = editor;
 		Assert.isNotNull(sourceViewer);
 		this.sourceViewer = sourceViewer;
 	}
@@ -70,13 +72,12 @@ public class MultipleLinesTextHover implements ITextHover {
 			return null;
 		}
 		String annotationMessage = this.getAnnotationMessage(textViewer, hoverRegion);
-		if (!Utils.isEmpty(annotationMessage)) {
+		if (!StringUtils.isEmpty(annotationMessage)) {
 			return annotationMessage;
 		}
 
 		try {
-			XMLNode activeNode = XMLTreeModelUtilities.getActiveNode(this.sourceViewer.getDocument(),
-					hoverRegion.getOffset());
+			XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(hoverRegion.getOffset());
 			if (activeNode.isTag() || activeNode.isEndTag() || activeNode.isEmptyTag()) {
 				int startName = activeNode.getOffset();
 				int endName = activeNode.getFullTagName().length();

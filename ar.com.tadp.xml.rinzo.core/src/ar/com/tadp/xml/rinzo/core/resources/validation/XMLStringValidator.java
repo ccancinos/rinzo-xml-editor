@@ -33,6 +33,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.apache.commons.lang.StringUtils;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -43,7 +44,6 @@ import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentCache;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentStructureDeclaration;
 import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 /**
  * Validates if the content of an editor is a well formed XML file.
@@ -61,7 +61,7 @@ public class XMLStringValidator implements XmlValidator {
     	
     	String fileName = editor.getFileName();
 		String fileContent = editor.getSourceViewerEditor().getDocument().get();
-		if(!Utils.isEmpty(fileContent.trim())) {
+		if(!StringUtils.isEmpty(fileContent.trim())) {
 			Collection<DocumentStructureDeclaration> schemaDefinitions = editor.getModel().getSchemaDefinitions();
 			if(schemaDefinitions != null && !schemaDefinitions.isEmpty()) {
 	    		this.saxSchemaValidate(fileName, fileContent, schemaDefinitions);

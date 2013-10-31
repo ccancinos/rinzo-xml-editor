@@ -34,8 +34,8 @@ import org.eclipse.ui.texteditor.MarkerUtilities;
 import ar.com.tadp.xml.rinzo.core.model.XMLAttribute;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.visitor.HierarchicalVisitor;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.JDTUtils;
+import ar.com.tadp.xml.rinzo.jdt.Utils;
 
 /**
  * Validates for class names on all attributes and tags if their value has the

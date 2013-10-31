@@ -28,8 +28,8 @@ import org.eclipse.jdt.internal.ui.text.java.LazyJavaTypeCompletionProposal;
 import org.eclipse.jface.text.ITextViewer;
 
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.JDTUtils;
+import ar.com.tadp.xml.rinzo.jdt.Utils;
 import ar.com.tadp.xml.rinzo.jdt.preferences.ClassAttribute;
 import ar.com.tadp.xml.rinzo.jdt.preferences.ClassElement;
 import ar.com.tadp.xml.rinzo.jdt.preferences.Extending;

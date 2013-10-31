@@ -20,12 +20,12 @@
  ****************************************************************************/
 package ar.com.tadp.xml.rinzo.core.contentassist.proposals;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 
 import ar.com.tadp.xml.rinzo.core.PluginImages;
 import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 /**
  * Factory of completion proposals for content assist
@@ -68,7 +68,7 @@ public class ProposalsFactory {
 			int replacementLength) {
         String tagName = tagTypeDefinition.getName();
         String namespace = tagTypeDefinition.getNamespace();
-        tagName = (Utils.isEmpty(namespace)) ? tagName : namespace + ":" + tagName;
+        tagName = (StringUtils.isEmpty(namespace)) ? tagName : namespace + ":" + tagName;
         String replacement = "</" + tagName + ">";
         
         XMLCompletionProposal proposal = new XMLCompletionProposal(
@@ -105,7 +105,7 @@ public class ProposalsFactory {
 			int offset, int replacementLength) {
         String tagName = tagTypeDefinition.getName();
         String namespace = tagTypeDefinition.getNamespace();
-        tagName = (Utils.isEmpty(namespace)) ? tagName : namespace + ":" + tagName;
+        tagName = (StringUtils.isEmpty(namespace)) ? tagName : namespace + ":" + tagName;
         String replacement = "></" + tagName + ">";
         
         XMLCompletionProposal proposal = new XMLCompletionProposal(
@@ -128,7 +128,7 @@ public class ProposalsFactory {
 			int replacementLength) {
         String tagName = tagTypeDefinition.getName();
         String namespace = tagTypeDefinition.getNamespace();
-        tagName = (Utils.isEmpty(namespace)) ? tagName : namespace + ":" + tagName;
+        tagName = (StringUtils.isEmpty(namespace)) ? tagName : namespace + ":" + tagName;
 		String replacement = "<" + tagName + "></" + tagName + ">";
         
         XMLCompletionProposal proposal = new XMLCompletionProposal(

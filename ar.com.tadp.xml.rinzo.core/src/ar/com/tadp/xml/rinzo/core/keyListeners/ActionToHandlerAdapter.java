@@ -26,11 +26,9 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.commands.IHandlerListener;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.texteditor.ITextEditor;
+
+import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 
 /**
  * @author ccancinos
@@ -41,7 +39,7 @@ public abstract class ActionToHandlerAdapter implements IHandler {
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IEditorActionDelegate action = this.getAction();
-		action.setActiveEditor(null, this.getActiveEditor());
+		action.setActiveEditor(null, XMLEditorPlugin.getDefault().getActiveEditor());
 		this.setSelection(action);
 		action.run(null);
 		return null;
@@ -62,19 +60,6 @@ public abstract class ActionToHandlerAdapter implements IHandler {
 	}
 
 	protected abstract IEditorActionDelegate createAction();
-
-	public ITextEditor getActiveEditor() {
-		IWorkbenchWindow window= PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (window != null) {
-			IWorkbenchPage page= window.getActivePage();
-			if (page != null) {
-				IEditorPart editor= page.getActiveEditor();
-				if (editor instanceof ITextEditor)
-					return (ITextEditor) editor;
-			}
-		}
-		return null;
-	}
 	
 	public void addHandlerListener(IHandlerListener handlerListener) {
 	}

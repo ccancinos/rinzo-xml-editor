@@ -26,10 +26,11 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
+
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.model.XMLAttribute;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 /**
  * This visitor creates a formated String from a node and his children.
@@ -86,7 +87,7 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 		String trimmedContent = "";
 		if ((node.isTextTag()) || (node.isCdata()) || (node.isEmptyTag()) || (node.isCommentTag())) {
 			trimmedContent = content.trim();
-			if (Utils.isEmpty(trimmedContent)) {
+			if (StringUtils.isEmpty(trimmedContent)) {
 				this.addBlankLines(content);
 			}
 		}

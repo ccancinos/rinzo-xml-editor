@@ -34,6 +34,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
@@ -73,7 +74,7 @@ public class FileUtils {
 	 * @throws URISyntaxException
 	 */
 	public static URI resolveURI(String basePath, String relativePath) throws URISyntaxException {
-		return Utils.isEmpty(basePath) ? null : createURI(basePath).resolve(relativePath.replaceAll(" ", "%20"));
+		return StringUtils.isEmpty(basePath) ? null : createURI(basePath).resolve(relativePath.replaceAll(" ", "%20"));
 	}
 
 	public static char[] readContents(Reader reader) throws IOException {
@@ -107,14 +108,13 @@ public class FileUtils {
 		int j = s.indexOf('/');
 		if (i > 0 && (j < 0 || i < j)) {
 			if (!s.startsWith("file:"))
-				throw new IllegalArgumentException(
-						"Url must begin with \"file:\"");
+				throw new IllegalArgumentException("Url must begin with \"file:\"");
 			int k = "file:".length();
 			int l = s.length();
 			int i1;
 			for (i1 = 0; k < l && s.charAt(k) == '/'; i1++)
 				k++;
-	
+
 			if (i1 > 0 && (i1 & 1) == 0)
 				k -= 2;
 			s1 = (File.separatorChar != '/' ? "" : "/") + s.substring(k);
@@ -125,78 +125,74 @@ public class FileUtils {
 	}
 
 	public static String addProtocol(String uri) {
-	    if (!hasProtocol(uri))
-	    {                           
-	      String prefix = FILE_PROTOCOL;
-	      prefix += uri.startsWith("/") ? "//" : "///";
-	      uri = prefix + uri;
-	    }
-	    return uri;
+		if (!hasProtocol(uri)) {
+			String prefix = FILE_PROTOCOL;
+			prefix += uri.startsWith("/") ? "//" : "///";
+			uri = prefix + uri;
+		}
+		return uri;
 	}
 
 	private static URI createURI(String path) throws URISyntaxException {
 		return new URI(path.replaceAll(" ", "%20"));
 	}
-	
 
-	private static boolean hasProtocol(String uri)
-	  {
-	    boolean result = false;     
-	    if (uri != null)
-	    {
-	      int index = uri.indexOf(PROTOCOL_PATTERN);
-	      if (index != -1 && index > 2) // assume protocol with be length 3 so that the'C' in 'C:/' is not interpreted as a protocol
-	      {
-	        result = true;
-	      }
-	    }
-	    return result;
-	  }     
-
+	private static boolean hasProtocol(String uri) {
+		boolean result = false;
+		if (uri != null) {
+			int index = uri.indexOf(PROTOCOL_PATTERN);
+			// assume protocol with be length 3 so that the'C' in 'C:/' is not
+			// interpreted as a protocol
+			if (index != -1 && index > 2) {
+				result = true;
+			}
+		}
+		return result;
+	}
 
     /**
      * Guarda un documento localmente en la cache
      */
     public static void saveFile(String inputFileName, File outputFile) {
-    	InputStream openStream = null;
-    	BufferedReader reader = null;
-    	BufferedWriter writer = null;
-        try {
-            File inputFile = new File(inputFileName);
-            if (!inputFile.exists()) {
+		InputStream openStream = null;
+		BufferedReader reader = null;
+		BufferedWriter writer = null;
+		try {
+			File inputFile = new File(inputFileName);
+			if (!inputFile.exists()) {
 				openStream = new URL(inputFileName).openStream();
-                InputStreamReader is = new InputStreamReader(openStream);
-                String encoding = is.getEncoding();
+				InputStreamReader is = new InputStreamReader(openStream);
+				String encoding = is.getEncoding();
 				reader = new BufferedReader(is);
-				writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile,
-                        false), encoding));
-				
+				writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile, false), encoding));
+
 				String line = reader.readLine();
-				while(line != null) {
+				while (line != null) {
 					writer.write(line);
 					writer.newLine();
 					writer.flush();
 					line = reader.readLine();
 				}
-            }
-        } catch (Exception exception) {
-            throw new RuntimeException("Error trying to save \'" + inputFileName + "\' in the cache.", exception);
-        } finally {
-        	try {
-				if(writer != null) {
+			}
+		} catch (Exception exception) {
+			throw new RuntimeException("Error trying to save \'" + inputFileName + "\' in the cache.", exception);
+		} finally {
+			try {
+				if (writer != null) {
 					writer.flush();
 					writer.close();
 				}
-				if(reader != null) {
+				if (reader != null) {
 					reader.close();
 				}
-				if(openStream != null) {
+				if (openStream != null) {
 					openStream.close();
 				}
 			} catch (IOException e) {
-	            throw new RuntimeException("Error trying to close files while saving \'" + inputFileName + "\' in the cache.", e);
+				throw new RuntimeException("Error trying to close files while saving \'" + inputFileName
+						+ "\' in the cache.", e);
 			}
-        }
+		}
     }
 
 	public static boolean exists(String localCachedName) {
@@ -222,39 +218,41 @@ public class FileUtils {
 	}
 
 	public static String getLineSeparator(IProject project) {
-	    String lineSeparator = null;
-	
-	    if (Platform.isRunning()) {
-	        // line delimiter in project preference
-	        IScopeContext[] scopeContext;
-	        if (project != null) {
-	            scopeContext= new IScopeContext[] { new ProjectScope(project) };
-	            lineSeparator= Platform.getPreferencesService().getString(Platform.PI_RUNTIME, Platform.PREF_LINE_SEPARATOR, null, scopeContext);
-	            if (lineSeparator != null)
-	                return lineSeparator;
-	        }
-	
-	        // line delimiter in workspace preference
-	        scopeContext= new IScopeContext[] { new InstanceScope() };
-	        lineSeparator = Platform.getPreferencesService().getString(Platform.PI_RUNTIME, Platform.PREF_LINE_SEPARATOR, null, scopeContext);
-	        if (lineSeparator != null)
-	            return lineSeparator;
-	    }
-	
-	    // system line delimiter
-	    return System.getProperty("line.separator");
+		String lineSeparator = null;
+
+		if (Platform.isRunning()) {
+			// line delimiter in project preference
+			IScopeContext[] scopeContext;
+			if (project != null) {
+				scopeContext = new IScopeContext[] { new ProjectScope(project) };
+				lineSeparator = Platform.getPreferencesService().getString(Platform.PI_RUNTIME,
+						Platform.PREF_LINE_SEPARATOR, null, scopeContext);
+				if (lineSeparator != null)
+					return lineSeparator;
+			}
+
+			// line delimiter in workspace preference
+			scopeContext = new IScopeContext[] { new InstanceScope() };
+			lineSeparator = Platform.getPreferencesService().getString(Platform.PI_RUNTIME,
+					Platform.PREF_LINE_SEPARATOR, null, scopeContext);
+			if (lineSeparator != null)
+				return lineSeparator;
+		}
+
+		// system line delimiter
+		return System.getProperty("line.separator");
 	}
 
 	public static IProject getProject(ITextEditor textEditor) {
-	    IEditorInput editorInput = textEditor.getEditorInput();
-	    if (editorInput == null) {
-	        return null;
-	    }
-	    IResource resource = (IResource) editorInput.getAdapter(IResource.class);
-	    if (resource == null) {
-	        return null;
-	    }
-	    return resource.getProject();
+		IEditorInput editorInput = textEditor.getEditorInput();
+		if (editorInput == null) {
+			return null;
+		}
+		IResource resource = (IResource) editorInput.getAdapter(IResource.class);
+		if (resource == null) {
+			return null;
+		}
+		return resource.getProject();
 	}
 
 	public static String getLineSeparator(ITextEditor textEditor) {

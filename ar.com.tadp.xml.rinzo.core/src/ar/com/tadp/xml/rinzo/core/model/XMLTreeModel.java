@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
@@ -50,7 +51,6 @@ import ar.com.tadp.xml.rinzo.core.model.commands.Text;
 import ar.com.tadp.xml.rinzo.core.model.commands.XMLTag;
 import ar.com.tadp.xml.rinzo.core.partitioner.IXMLPartitions;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentStructureDeclaration;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 /**
  * 
@@ -212,7 +212,7 @@ public class XMLTreeModel implements IDocumentListener {
 				StringTokenizer tokenizer = new StringTokenizer(content, "\"");
 				while (tokenizer.hasMoreTokens()) {
 					String token = tokenizer.nextToken().trim();
-					if (!Utils.isEmpty(token) && !token.startsWith("<") && !token.endsWith(">")) {
+					if (!StringUtils.isEmpty(token) && !token.startsWith("<") && !token.endsWith(">")) {
 						if (token.endsWith(".dtd") || token.endsWith(".DTD")) {
 							structureDeclaration.setSystemId(token);
 						} else {

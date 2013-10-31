@@ -76,7 +76,7 @@ public class RenameTagAction implements IEditorActionDelegate {
 	}
 
 	private void openWizard() {
-		RenameTagNameDelegate delegate = new RenameTagNameDelegate(info, this.targetEditor.getModel().getTree().getRootNode(), this.targetEditor.getSourceViewerEditor().getDocument());
+		RenameTagNameDelegate delegate = new RenameTagNameDelegate(info, this.targetEditor);
 		RenameTagInputPage page = new RenameTagInputPage(info);
 		RefactoringWizardOpenOperation op = this.getRefactoringWizardOperation(delegate, page);
 		try {

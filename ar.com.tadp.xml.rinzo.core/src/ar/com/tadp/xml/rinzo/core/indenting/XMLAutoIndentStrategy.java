@@ -29,7 +29,6 @@ import org.eclipse.jface.text.TextUtilities;
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Possible automatic indentation implementation
@@ -57,8 +56,8 @@ public class XMLAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
 
 	private void smartIndentAfterNewLine(IDocument document, DocumentCommand command) throws BadLocationException {
 		StringBuffer buf = new StringBuffer(command.text);
-		XMLNode previousNode = XMLTreeModelUtilities.getPreviousNode(document, command.offset);
-		XMLNode previousPreviousNode = XMLTreeModelUtilities.getPreviousNode(document, previousNode.getOffset());
+		XMLNode previousNode = this.xmlEditor.getModel().getTree().getPreviousNode(command.offset);
+		XMLNode previousPreviousNode = this.xmlEditor.getModel().getTree().getPreviousNode(previousNode.getOffset());
 		if (previousNode != null) {
 			String indentOfPreviousNode = getIndentOfLine(document, previousNode.getOffset());
 			buf.append(indentOfPreviousNode);

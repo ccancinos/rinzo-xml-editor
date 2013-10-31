@@ -20,14 +20,12 @@
  ****************************************************************************/
 package ar.com.tadp.xml.rinzo.core.keyListeners;
 
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * In charge of follow caret position and highlight on the left ruler the current node area.
@@ -48,12 +46,11 @@ public class NodeRangeHighlighter implements ISelectionChangedListener {
 		
 		if (currentLine != this.line) {
 			this.line = currentLine;
-			IDocument document = this.editor.getSourceViewerEditor().getDocument();
-			XMLNode activeNode = XMLTreeModelUtilities.getActiveNode(document, selection.getOffset());
+			XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(selection.getOffset());
 			
 			if (activeNode != null) {
 				if (activeNode.isTextTag()) {
-					activeNode = XMLTreeModelUtilities.getParentNode(document, selection.getOffset());
+					activeNode = this.editor.getModel().getTree().getParentNode(selection.getOffset());
 					if(activeNode == null) {
 						return;
 					}

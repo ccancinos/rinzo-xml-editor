@@ -23,9 +23,14 @@ package ar.com.tadp.xml.rinzo.core.model;
 import java.util.Iterator;
 
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.ITypedRegion;
+import org.eclipse.jface.text.TextSelection;
+import org.eclipse.jface.text.TypedPosition;
 
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
+import ar.com.tadp.xml.rinzo.core.partitioner.IXMLPartitions;
+import ar.com.tadp.xml.rinzo.core.partitioner.XMLDocumentPartitioner;
 
 /**
  * DOCME
@@ -57,6 +62,70 @@ public class XMLRootNode extends XMLNode {
 			this.root.documentChanged = true;
 		}
 		return this.root;
+	}
+
+	public XMLNode getActiveXMLNode(int offset) {
+		XMLDocumentPartitioner xmlPartitioner = getDocumentPartitioner(this.getDocument());
+		if (xmlPartitioner != null) {
+			TypedPosition position = xmlPartitioner.findClosestPosition(offset++);
+			while (position != null) {
+				if (position instanceof XMLNode && !position.getType().equals(IXMLPartitions.XML_TEXT)) {
+					XMLNode node = (XMLNode) position;
+					return node;
+				}
+				position = xmlPartitioner.findClosestPosition(offset++);
+			}
+		}
+		return null;
+	}
+
+	public XMLNode getParentNode(int offset) {
+		XMLDocumentPartitioner xmlPartitioner = getDocumentPartitioner(this.getDocument());
+		if (xmlPartitioner != null) {
+			TypedPosition position = xmlPartitioner.findPreviousNonWhiteSpacePosition(offset);
+			if (position instanceof XMLNode) {
+				XMLNode node = (XMLNode) position;
+				return node;
+			}
+		}
+		return null;
+	}
+
+	public XMLNode getPreviousNode(int offset) {
+		XMLDocumentPartitioner xmlPartitioner = getDocumentPartitioner(this.getDocument());
+		if (xmlPartitioner != null) {
+			TypedPosition position = xmlPartitioner.findPreviousPosition(offset);
+			if (position instanceof XMLNode) {
+				XMLNode node = (XMLNode) position;
+				return node;
+			}
+		}
+		return null;
+	}
+
+	public XMLNode getActiveNode(int offset) {
+		XMLDocumentPartitioner xmlPartitioner = getDocumentPartitioner(this.getDocument());
+		if (xmlPartitioner != null) {
+			TypedPosition position = xmlPartitioner.findClosestPosition(offset);
+			if (position instanceof XMLNode) {
+				XMLNode node = (XMLNode) position;
+				return node;
+			}
+		}
+		return null;
+	}
+
+	private XMLDocumentPartitioner getDocumentPartitioner(IDocument document) {
+		IDocumentPartitioner partitioner = document.getDocumentPartitioner();
+		if (partitioner instanceof XMLDocumentPartitioner) {
+			return (XMLDocumentPartitioner) partitioner;
+		}
+		return null;
+	}
+
+	public XMLNode getActiveNode() {
+		int offset = ((TextSelection) this.getEditor().getSelectionProvider().getSelection()).getOffset();
+		return this.getActiveNode(offset);
 	}
 
 }

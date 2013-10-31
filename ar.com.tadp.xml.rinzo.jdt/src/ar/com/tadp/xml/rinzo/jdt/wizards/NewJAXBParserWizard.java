@@ -50,8 +50,8 @@ import org.eclipse.ui.console.MessageConsoleStream;
 import org.xml.sax.SAXParseException;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.RinzoJDTPlugin;
+import ar.com.tadp.xml.rinzo.jdt.Utils;
 
 import com.sun.tools.xjc.Driver;
 import com.sun.tools.xjc.XJCListener;

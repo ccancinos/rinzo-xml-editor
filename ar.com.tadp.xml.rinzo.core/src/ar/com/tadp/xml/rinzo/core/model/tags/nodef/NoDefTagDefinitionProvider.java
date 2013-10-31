@@ -25,10 +25,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.XMLTagDefinitionProvider;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 /**
  * Defines for each tag which other tags and attributes could contain based on
@@ -51,7 +52,7 @@ public class NoDefTagDefinitionProvider implements XMLTagDefinitionProvider {
 	}
 
 	public void addReference(String tagContainer, String tagContained) {
-		if (!Utils.isEmpty(tagContainer)) {
+		if (!StringUtils.isEmpty(tagContainer)) {
 			this.getInnerTagsIn(tagContainer).add(tagContained);
 		}
 	}

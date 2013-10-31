@@ -41,8 +41,8 @@ import org.eclipse.jface.text.ITextViewer;
 
 import ar.com.tadp.xml.rinzo.core.contentassist.processors.IXMLContentAssistProcessor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.JDTUtils;
+import ar.com.tadp.xml.rinzo.jdt.Utils;
 
 /**
  * Generates content assist class names proposals for all Tags and Attributes in

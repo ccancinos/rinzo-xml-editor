@@ -33,8 +33,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.ide.ResourceUtil;
 
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.RinzoJDTPlugin;
+import ar.com.tadp.xml.rinzo.jdt.Utils;
 import ar.com.tadp.xml.rinzo.jdt.eclipse.copies.PixelConverter;
 
 /**

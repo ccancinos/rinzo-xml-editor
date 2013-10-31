@@ -24,16 +24,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 
+import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.contentassist.proposals.XMLCompletionProposalComparator;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Delegates method invocations to all the elements of delegated {@link IXMLContentAssistProcessor}
@@ -43,7 +43,11 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 public class CompositeXMLContentAssistProcessor implements IContentAssistProcessor, IXMLContentAssistProcessor {
 	protected ITextViewer viewer;
 	private Collection<IXMLContentAssistProcessor> processors = new ArrayList<IXMLContentAssistProcessor>();
+	private RinzoXMLEditor editor;
 
+	public CompositeXMLContentAssistProcessor(RinzoXMLEditor xmlEditor) {
+		this.editor = xmlEditor;
+	}
 
 	public void addProcessor(IXMLContentAssistProcessor processor) {
 		this.processors.add(processor);
@@ -53,7 +57,7 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 		this.viewer = viewer;
 		ICompletionProposal result[] = null;
 		Collection<ICompletionProposal> resultList = new ArrayList<ICompletionProposal>();
-		XMLNode currentNode = XMLTreeModelUtilities.getActiveNode(this.viewer.getDocument(), documentOffset);
+		XMLNode currentNode = this.editor.getModel().getTree().getActiveNode(documentOffset);
 		
 		//TODO MAKE THIS METHOD TO CALL this.computeCompletionProposal SO EACH PROCESSOR COULD GIVE PROPOSALS FOR AN EMPTY FILE LIKE FILE TEMPLATES
 		if (currentNode == null) {
@@ -61,7 +65,7 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 		}
 
 		if(currentNode.offset == documentOffset) {
-			currentNode = XMLTreeModelUtilities.getPreviousNode(this.viewer.getDocument(), documentOffset);
+			currentNode = this.editor.getModel().getTree().getPreviousNode(documentOffset);
 		}
 
 		this.computeCompletionProposal(resultList, documentOffset, currentNode);
@@ -94,7 +98,7 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 		int currentPosition = offset - currentNode.getOffset();
 		String content = currentNode.getContent();
 		int lastSpacePosition = content.substring(0, currentPosition).lastIndexOf(" ");
-		if (!Utils.isEmpty(content) && lastSpacePosition >= 0) {
+		if (!StringUtils.isEmpty(content) && lastSpacePosition >= 0) {
 			return content.substring(lastSpacePosition + 1, currentPosition).trim();
 		} else {
 			return content.trim();
@@ -111,7 +115,7 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 	}
 
 	private boolean shouldProposeCloseTag(XMLNode currentNode, String prefix, int offset) {
-		return (currentNode.isIncompleteTag() && !Utils.isEmpty(currentNode.getTagName()) && (Utils.isEmpty(prefix) || prefix.startsWith("<"))) 
+		return (currentNode.isIncompleteTag() && !StringUtils.isEmpty(currentNode.getTagName()) && (StringUtils.isEmpty(prefix) || prefix.startsWith("<"))) 
 				|| 
 				(currentNode.isTextTag() && currentNode.getParent().getCorrespondingNode() == null);
 	}

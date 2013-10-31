@@ -30,13 +30,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.texteditor.IEditorStatusLine;
 
+import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 import ar.com.tadp.xml.rinzo.jdt.JDTUtils;
+import ar.com.tadp.xml.rinzo.jdt.Utils;
 
 /**
  * Superclass to all actions executed over an editor's text selection
@@ -65,8 +64,8 @@ public abstract class SelectionAction implements IEditorActionDelegate {
 		}
     }
 
-	public TextEditor getTextEditor() {
-		return (TextEditor) editor;
+	public RinzoXMLEditor getTextEditor() {
+		return (RinzoXMLEditor) editor;
 	}
 
     protected void setSelection(String classNameCandidate) {
@@ -74,7 +73,7 @@ public abstract class SelectionAction implements IEditorActionDelegate {
     }
     
     protected String getSelection() {
-        if(!Utils.isEmpty(this.selection)) {
+		if (!Utils.isEmpty(this.selection)) {
             return this.selection;
         }
         
@@ -88,9 +87,7 @@ public abstract class SelectionAction implements IEditorActionDelegate {
     }
     
     protected XMLNode getSelectedNode() {
-        int offset = ((TextSelection)this.getTextEditor().getSelectionProvider().getSelection()).getOffset();
-        XMLNode node = XMLTreeModelUtilities.getActiveNode(this.getTextEditor().getDocumentProvider().getDocument(this.getTextEditor().getEditorInput()), offset);
-        return node;
+		return this.getTextEditor().getModel().getTree().getActiveNode();
     }
 
     /**

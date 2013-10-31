@@ -18,7 +18,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program; If not, see <http://www.gnu.org/licenses/>
  ****************************************************************************/
-package ar.com.tadp.xml.rinzo.core.utils;
+package ar.com.tadp.xml.rinzo.jdt;
+
 
 /**
  * @author ccancinos
@@ -27,23 +28,6 @@ public class Utils {
 
 	public static boolean isEmpty(String string) {
 		return string == null || string.length() == 0;
-	}
-
-	public static String getLeadingWhitespace(String str) {
-		if (str == null) {
-			return "";
-		}
-
-		int sz = str.length();
-		StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < sz; i++) {
-            if ((Character.isWhitespace(str.charAt(i)))) {
-            	buffer.append(str.charAt(i));
-            } else {
-            	break;
-            }
-        }
-        return buffer.toString();
 	}
 
 }

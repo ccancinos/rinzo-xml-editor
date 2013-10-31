@@ -26,9 +26,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 import com.wutka.dtd.DTDAttribute;
 import com.wutka.dtd.DTDComment;
@@ -89,7 +90,7 @@ public class DTDTagTypeDefinition implements TagTypeDefinition {
 	public String getComment() {
 		if (this.comment == null) {
 			this.comment = "<b>Element:</b> " + this.getName();
-			if (this.tagComment != null && !Utils.isEmpty(this.tagComment.getText())) {
+			if (this.tagComment != null && !StringUtils.isEmpty(this.tagComment.getText())) {
 				this.comment += "<br>" + this.tagComment;
 			}
 		}

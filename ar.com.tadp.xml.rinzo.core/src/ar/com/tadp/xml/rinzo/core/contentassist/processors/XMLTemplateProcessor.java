@@ -23,6 +23,7 @@ package ar.com.tadp.xml.rinzo.core.contentassist.processors;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -37,13 +38,12 @@ import org.eclipse.jface.text.templates.TemplateContextType;
 import org.eclipse.jface.text.templates.TemplateException;
 import org.eclipse.swt.graphics.Image;
 
+import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.XmlEditorUI;
 import ar.com.tadp.xml.rinzo.core.PluginImages;
 import ar.com.tadp.xml.rinzo.core.contentassist.proposals.ProposalsFactory;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.template.XMLContextType;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Retrieves a list of Templates proposals.
@@ -134,15 +134,15 @@ public class XMLTemplateProcessor extends TemplateCompletionProcessor {
     public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
         ICompletionProposal[] templateProposals = this.getTemplates(viewer, offset);
         
-        XMLNode currentNode = XMLTreeModelUtilities.getActiveNode(viewer.getDocument(), offset);
+		XMLNode currentNode = XMLEditorPlugin.getDefault().getActiveEditor().getModel().getTree().getActiveNode(offset);
     	int currentPosition = offset - currentNode.getOffset();
     	String prefix = "";
     	String content = currentNode.getContent().trim();
-    	if (!Utils.isEmpty(content)) {
+    	if (!StringUtils.isEmpty(content)) {
 			int lastSpacePosition = currentNode.getContent().substring(0, currentPosition).lastIndexOf(" ") + 1;
 			prefix = currentNode.getContent().substring(lastSpacePosition, currentPosition).trim();
 		}
-		if (Utils.isEmpty(prefix)) {
+		if (StringUtils.isEmpty(prefix)) {
             ICompletionProposal[] allProposals = new ICompletionProposal[templateProposals.length + 1];
             System.arraycopy(templateProposals, 0, allProposals, 0, templateProposals.length);
 			System.arraycopy(

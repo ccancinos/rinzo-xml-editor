@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
@@ -44,7 +45,6 @@ import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.visitor.HierarchicalVisitor;
 import ar.com.tadp.xml.rinzo.core.model.visitor.Visitable;
 import ar.com.tadp.xml.rinzo.core.partitioner.IXMLPartitions;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 /**
  * An object representing a node in the xml file. Similar to a DOM object
@@ -98,12 +98,20 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 		this.document.addDocumentPartitioningListener(this);
 	}
 
+	public IDocument getDocument() {
+		return this.document;
+	}
+
 	public TagTypeDefinition getTypeDefinition() {
 		return this.editor.getTagContainersRegistry().getTagDefinition(this);
 	}
 
 	public void setEditor(RinzoXMLEditor editor) {
 		this.editor = editor;
+	}
+
+	public RinzoXMLEditor getEditor() {
+		return this.editor;
 	}
 
 	public void setParent(XMLNode node) {
@@ -148,7 +156,7 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 	}
 
 	public String getFullTagName() {
-		if (this.documentChanged || Utils.isEmpty(this.fullTagName)) {
+		if (this.documentChanged || StringUtils.isEmpty(this.fullTagName)) {
 			this.documentChanged = false;
 			StringTokenizer tagNameTokenizer = new StringTokenizer(this.getContent(), " \t\n\r<>/");
 			this.fullTagName = (tagNameTokenizer.hasMoreTokens()) ? tagNameTokenizer.nextToken() : "";
@@ -157,7 +165,7 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 	}
 
 	public String getTagName() {
-		if (this.documentChanged || Utils.isEmpty(this.tagName)) {
+		if (this.documentChanged || StringUtils.isEmpty(this.tagName)) {
 			this.tagName = (this.getFullTagName().contains(":")) ? 
 					this.getFullTagName().substring(this.getFullTagName().indexOf(":") + 1) : this.getFullTagName();
 		}
@@ -165,7 +173,7 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 	}
 
 	public String getNamespace() {
-		if (this.documentChanged || Utils.isEmpty(this.namespace)) {
+		if (this.documentChanged || StringUtils.isEmpty(this.namespace)) {
 			this.namespace = (this.getFullTagName().contains(":")) ? 
 					this.getFullTagName().substring(0, this.getFullTagName().indexOf(":")) : 
 					"";
@@ -182,14 +190,14 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 		}
 
 		String xpathName;
-		if (this.getParent() == null || Utils.isEmpty(this.getParent().getContent())) {
+		if (this.getParent() == null || StringUtils.isEmpty(this.getParent().getContent())) {
 			xpathName = "/"
-					+ (Utils.isEmpty(this.getNamespace()) ? this.getTagName() : this.getNamespace() + ":"
+					+ (StringUtils.isEmpty(this.getNamespace()) ? this.getTagName() : this.getNamespace() + ":"
 							+ this.getTagName());
 		} else {
 			xpathName = this.getParent().getXPath()
 					+ "/"
-					+ (Utils.isEmpty(this.getNamespace()) ? this.getTagName() : this.getNamespace() + ":"
+					+ (StringUtils.isEmpty(this.getNamespace()) ? this.getTagName() : this.getNamespace() + ":"
 							+ this.getTagName());
 			int index = 1;
 			int count = 1;

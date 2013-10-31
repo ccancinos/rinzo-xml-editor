@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.xsd.XSDAnnotation;
 import org.eclipse.xsd.XSDAttributeDeclaration;
 import org.eclipse.xsd.XSDAttributeUse;
@@ -39,7 +40,6 @@ import org.w3c.dom.Node;
 
 import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 import com.sun.org.apache.xerces.internal.dom.DeferredElementNSImpl;
 
@@ -98,7 +98,7 @@ public class XSDTagTypeDefinition implements TagTypeDefinition {
 		if(this.comment == null) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("<b>Element:</b> ");
-			buffer.append(Utils.isEmpty(this.getNamespace()) ? this.getName() : this.getNamespace() + ":" + this.getName());
+			buffer.append(StringUtils.isEmpty(this.getNamespace()) ? this.getName() : this.getNamespace() + ":" + this.getName());
 			buffer.append("<br>");
 	        String typeName = this.tagDeclaration.getTypeDefinition().getName();
 	        

@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.OnlyNameTypeTagDefinition;
@@ -41,7 +43,6 @@ import ar.com.tadp.xml.rinzo.core.model.tags.XMLTagDefinitionProvider;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentCache;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentStructureDeclaration;
 import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 
 import com.wutka.dtd.DTD;
 import com.wutka.dtd.DTDAttlist;
@@ -143,7 +144,7 @@ public class DTDTagDefinitionProvider implements XMLTagDefinitionProvider {
 
 	public TagTypeDefinition getTagDefinition(XMLNode node) {
 		String tagName = node.getTagName();
-		if (Utils.isEmpty(tagName)) {
+		if (StringUtils.isEmpty(tagName)) {
 			return new TagTypeDefinition() {
 				public AttributeDefinition getAttribute(String attributeName) {
 					return null;

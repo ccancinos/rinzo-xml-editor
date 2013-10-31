@@ -21,7 +21,6 @@
 package ar.com.tadp.xml.rinzo.core.actions;
 
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.dnd.Clipboard;
@@ -36,7 +35,6 @@ import org.eclipse.ui.IWorkbench;
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Copies to the clipboard the XPath associated to the tag under the cursor. At
@@ -54,9 +52,7 @@ public class CopyTagXPathAction implements IEditorActionDelegate {
 	}
 
 	public void run(IAction action) {
-		int offset = ((TextSelection) this.editor.getSelectionProvider().getSelection()).getOffset();
-		XMLNode node = XMLTreeModelUtilities.getActiveNode(
-				this.editor.getDocumentProvider().getDocument(this.editor.getEditorInput()), offset);
+		XMLNode node = this.editor.getModel().getTree().getActiveNode();
 		String selection = node.getXPath();
 
 		IWorkbench workbench = XMLEditorPlugin.getDefault().getWorkbench();

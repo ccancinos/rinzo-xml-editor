@@ -52,8 +52,6 @@ import ar.com.tadp.xml.rinzo.core.model.visitor.EscapeHTMLVisitor;
 import ar.com.tadp.xml.rinzo.core.model.visitor.EscapeVisitor;
 import ar.com.tadp.xml.rinzo.core.model.visitor.EscapeXMLVisitor;
 import ar.com.tadp.xml.rinzo.core.model.visitor.ToStringVisitor;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Generates proposals for quick assistance.
@@ -73,8 +71,7 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 	public ICompletionProposal[] computeQuickAssistProposals(IQuickAssistInvocationContext context) {
 		try {
 			Collection<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
-			XMLNode node = XMLTreeModelUtilities.getActiveNode(context.getSourceViewer().getDocument(),
-					context.getOffset());
+			XMLNode node = this.xmlEditor.getModel().getTree().getActiveNode(context.getOffset());
 
 			this.addTagProposals(context, proposals, node);
 			this.addTextProposals(context, proposals, node);
@@ -140,10 +137,10 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 		int offset = node.getOffset() + 1;
 		int tagLength = node.getContent().length();
 
-		this.addTemplate(proposals, "Escape HTML content", replacementHtml, PluginImages.IMG_CHANGE, context
+		this.addTemplate(proposals, "Escape HTML Characters", replacementHtml, PluginImages.IMG_CHANGE, context
 				.getSourceViewer().getDocument(), offset, tagLength, offset, tagLength);
 
-		this.addTemplate(proposals, "Escape XML content", replacementXml, PluginImages.IMG_CHANGE, context
+		this.addTemplate(proposals, "Escape XML Characters", replacementXml, PluginImages.IMG_CHANGE, context
 				.getSourceViewer()
 				.getDocument(), offset, tagLength, offset, tagLength);
 	}
@@ -250,7 +247,7 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 		try {
 			int line = document.getLineOfOffset(offset);
 			int lineOffset = document.getLineOffset(line);
-			return Utils.getLeadingWhitespace(document.get(lineOffset, Math.abs(lineOffset - offset)));
+			return this.getLeadingWhitespace(document.get(lineOffset, Math.abs(lineOffset - offset)));
 		} catch (BadLocationException e) {
 			return "";
 		}
@@ -266,6 +263,23 @@ public class XMLCorrectionProcessor implements IQuickAssistProcessor {
 
 	public boolean canAssist(IQuickAssistInvocationContext invocationContext) {
 		return true;
+	}
+
+	private String getLeadingWhitespace(String str) {
+		if (str == null) {
+			return "";
+		}
+
+		int sz = str.length();
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < sz; i++) {
+			if ((Character.isWhitespace(str.charAt(i)))) {
+				buffer.append(str.charAt(i));
+			} else {
+				break;
+			}
+		}
+		return buffer.toString();
 	}
 
 }

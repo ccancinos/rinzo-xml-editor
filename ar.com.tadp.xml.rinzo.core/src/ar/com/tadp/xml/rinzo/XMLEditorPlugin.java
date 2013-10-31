@@ -34,12 +34,17 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
 import org.osgi.framework.BundleContext;
 
 import ar.com.tadp.xml.rinzo.core.PluginImages;
+import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.highlighting.IXMLColorConstants;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentCache;
 import ar.com.tadp.xml.rinzo.core.resources.cache.DocumentStructureDeclaration;
@@ -125,7 +130,20 @@ public class XMLEditorPlugin extends AbstractUIPlugin {
     public Map<Collection<DocumentStructureDeclaration>, Validator> getSchemaValidatorsCache() {
 		return schemaValidatorsCache;
 	}
-    
+
+	public RinzoXMLEditor getActiveEditor() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (window != null) {
+			IWorkbenchPage page = window.getActivePage();
+			if (page != null) {
+				IEditorPart editor = page.getActiveEditor();
+				if (editor instanceof RinzoXMLEditor)
+					return (RinzoXMLEditor) editor;
+			}
+		}
+		return null;
+	}
+
     protected void initializeDefaultPreferences(IPreferenceStore store) {
 		// Defaults para los colores de la sintaxis del lenguaje
 		store.setDefault(IXMLColorConstants.XML_COMMENT, "63,95,191");

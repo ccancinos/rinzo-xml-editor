@@ -9,7 +9,7 @@ Actions
   
 * {Quick Assist}
 
-  With the cursor standing in a tag and pressing <<Ctrl-1>> a series of actions on that selected tact will be displayed:
+  With the cursor standing in a tag or text content and pressing <<Ctrl-1>> a series of actions on that selected tact will be displayed:
   
 [images/Ctrl1.png]
 
@@ -25,6 +25,14 @@ Actions
 
   * <<Delete Tag:>> Removes the current tag from file.
 
+  * <<Delete Surrounding Tag:>> Removes the tag containing the current tag from file.
+
+  * <<Surround With CDATA:>> Surrounds the current text content with CDATA element.
+
+  * <<Escape HTML Characters:>> Escapes the string in the current text content using HTML entities.
+
+  * <<Escape XML Characters:>> Escapes the string in the current text content using XML entities.
+
   []
 
   
@@ -35,18 +43,20 @@ Actions
 [images/ContextualMenuActions.png]
   
 
-** {Class Declaration}
+** {Open Declaration}
 
   When the selected text corresponds to an existent class full qualified name, 
   the action Open Declaration will be enable, which opens the source of the selected full qualified class name.
+
+** {Create Declaration}
 
   When the selected text corresponds to a non existent class full qualified name, 
   the action Create Declaration will be enable, making possible the creation of a class 
   with the selected full qualified class name.
 
-** {Clear Errors and Warnings}
+** {Generate JAXB Parser}
 
-  As its name says this action will clean all errors and warnings on a opened document or selected files in the resources tree.
+  See this {{{./javaIntegration.html#JAXB_Integration}JAXB Integration}} 
 
 ** {Create XML Definition}
 
@@ -64,7 +74,24 @@ Actions
 [images/CreateDeclarationDefininition.png]
   
 
-** {Escape characters}
+** {Clear Errors and Warnings}
+
+  As its name says this action will clean all errors and warnings on a opened document or selected files in the resources tree.
+
+** {Escape XML characters}
+ 
+  This action simply replaces all special characters in tag's attributes and bodies to the escaped
+  version of them.
+  
+*-------------*-----------------------*
+|| Unescaped  ||  Escaped             |
+*-------------*-----------------------+
+| á           | & #225;               |
+*-------------*-----------------------+
+| eleiçóes    | elei& #231;& #243;es  |
+*-------------*-----------------------+
+
+** {Escape HTML characters}
  
   This action simply replaces all special characters in tag's attributes and bodies to the escaped
   version of them.

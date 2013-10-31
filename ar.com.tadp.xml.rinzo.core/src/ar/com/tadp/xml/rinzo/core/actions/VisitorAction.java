@@ -23,10 +23,10 @@ package ar.com.tadp.xml.rinzo.core.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.graphics.Point;
@@ -39,8 +39,6 @@ import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.visitor.StringGeneratorVisitor;
 import ar.com.tadp.xml.rinzo.core.model.visitor.ToStringVisitor;
 import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * An abstract class containing the template behavior for all actions who wants
@@ -202,14 +200,11 @@ public abstract class VisitorAction implements IEditorActionDelegate {
 	}
 
 	protected XMLNode getSelectedNode() {
-		int offset = ((TextSelection) this.editor.getSelectionProvider().getSelection()).getOffset();
-		XMLNode node = XMLTreeModelUtilities.getActiveNode(
-				this.editor.getDocumentProvider().getDocument(this.editor.getEditorInput()), offset);
-		return node;
+		return this.editor.getModel().getTree().getActiveNode();
 	}
 	
     private int getPrevWitespacesNumberOnLine(String str, XMLNode node) {
-		if (!Utils.isEmpty(str)) {
+		if (!StringUtils.isEmpty(str)) {
 			int offset = node.getOffset();
 			char ch;
 			if (offset > 0) {

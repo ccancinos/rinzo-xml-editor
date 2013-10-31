@@ -6,6 +6,22 @@ Release Notes
 
 %{toc|toDepth=1}
 
+{What's new in 1.4.0?}
+  
+* {Features}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/18}Access HTML and XML escaping through quick fix.}}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/17}Adding XML character escaping}}
+  
+  []
+  
+* {Bugs}
+
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/15}Add new lines for each Formatting}}
+
+  []
+
 {What's new in 1.3.0?}
   
 * {Features}

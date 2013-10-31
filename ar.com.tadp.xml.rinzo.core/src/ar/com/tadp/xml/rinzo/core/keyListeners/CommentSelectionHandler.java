@@ -55,8 +55,8 @@ public class CommentSelectionHandler extends KeyAdapter {
 	private IDocument document;
 	private String lineSeparator;
 
-	public CommentSelectionHandler(ISourceViewer sourceViewer, RinzoXMLEditor xmlEditor) {
-		this.sourceViewer = sourceViewer;
+	public CommentSelectionHandler(RinzoXMLEditor xmlEditor) {
+		this.sourceViewer = xmlEditor.getSourceViewerEditor();
 		this.lineSeparator = xmlEditor.getLineSeparator();
 		this.document = this.sourceViewer.getDocument();
 	}

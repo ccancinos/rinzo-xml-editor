@@ -143,7 +143,7 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 	protected void configureSourceViewerDecorationSupport(SourceViewerDecorationSupport support) {
 		super.configureSourceViewerDecorationSupport(support);
 
-		this.pairMatcher = new TagPairMatcher();
+		this.pairMatcher = new TagPairMatcher(this);
 		support.setCharacterPairMatcher(pairMatcher);
 		support.setSymbolicFontName(getFontPropertyPreferenceKey());
 	}
@@ -165,12 +165,12 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 		super.createPartControl(composite);
 		StyledText styledtext = this.getSourceViewer().getTextWidget();
 
-		styledtext.addKeyListener(new AutoInsertEndTagHandler(this.getSourceViewer()));
-		styledtext.addKeyListener(new CommentSelectionHandler(this.getSourceViewer(), this));
-		styledtext.addKeyListener(new NavigateTagsHandler(this.getSourceViewer(), this));
+		styledtext.addKeyListener(new AutoInsertEndTagHandler(this));
+		styledtext.addKeyListener(new CommentSelectionHandler(this));
+		styledtext.addKeyListener(new NavigateTagsHandler(this));
 
 		ITextViewerExtension2 extension = (ITextViewerExtension2) getSourceViewer();
-		MatchingCharacterPainter painter = new MatchingCharacterPainter(getSourceViewer(), new TagPairMatcher());
+		MatchingCharacterPainter painter = new MatchingCharacterPainter(getSourceViewer(), new TagPairMatcher(this));
 		painter.setColor(Display.getDefault().getSystemColor(SWT.COLOR_DARK_GRAY));
 		extension.addPainter(painter);
 

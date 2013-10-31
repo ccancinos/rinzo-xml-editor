@@ -27,7 +27,6 @@ import org.eclipse.swt.events.KeyEvent;
 
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Controls the document's navigation by moving between sibling nodes and to the
@@ -39,15 +38,15 @@ public class NavigateTagsHandler extends KeyAdapter {
 	private final ISourceViewer sourceViewer;
 	private final RinzoXMLEditor editor;
 
-	public NavigateTagsHandler(ISourceViewer sourceViewer, RinzoXMLEditor editor) {
-		this.sourceViewer = sourceViewer;
+	public NavigateTagsHandler(RinzoXMLEditor editor) {
 		this.editor = editor;
+		this.sourceViewer = editor.getSourceViewerEditor();
 	}
 
 	public void keyReleased(KeyEvent keyevent) {
 		if (keyevent.stateMask == (SWT.CONTROL | SWT.SHIFT)) {
-			XMLNode currentNode = XMLTreeModelUtilities.getActiveNode(this.sourceViewer.getDocument(),
-					this.sourceViewer.getSelectedRange().x);
+			XMLNode currentNode = this.editor.getModel().getTree()
+					.getActiveNode(this.sourceViewer.getSelectedRange().x);
 			XMLNode nextNode = null;
 			if (keyevent.keyCode == SWT.ARROW_UP) {
 				nextNode = this.getUpNode(currentNode);
@@ -64,8 +63,7 @@ public class NavigateTagsHandler extends KeyAdapter {
 
 	private XMLNode getDownNode(XMLNode currentNode) {
 		if (currentNode.isTextTag()) {
-			return XMLTreeModelUtilities.getActiveXMLNode(this.sourceViewer.getDocument(),
-					this.sourceViewer.getSelectedRange().x);
+			return this.editor.getModel().getTree().getActiveXMLNode(this.sourceViewer.getSelectedRange().x);
 		}
 		XMLNode downNode = (currentNode.isEndTag()) ? currentNode.getCorrespondingNode() : currentNode;
 		XMLNode[] children = downNode.getParent().getChildren(false);
@@ -85,8 +83,7 @@ public class NavigateTagsHandler extends KeyAdapter {
 
 	private XMLNode getUpNode(XMLNode currentNode) {
 		if (currentNode.isTextTag()) {
-			currentNode = XMLTreeModelUtilities.getActiveXMLNode(this.sourceViewer.getDocument(),
-					this.sourceViewer.getSelectedRange().x);
+			currentNode = this.editor.getModel().getTree().getActiveXMLNode(this.sourceViewer.getSelectedRange().x);
 		}
 		XMLNode upNode = (currentNode.isEndTag()) ? currentNode.getCorrespondingNode() : currentNode;
 		XMLNode[] children = upNode.getParent().getChildren(false);

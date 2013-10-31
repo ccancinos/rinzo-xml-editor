@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.CompositeChange;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -36,10 +35,10 @@ import org.eclipse.ltk.core.refactoring.participants.ValidateEditChecker;
 import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
 
+import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
 import ar.com.tadp.xml.rinzo.core.model.visitor.FindTagsByNameVisitor;
 import ar.com.tadp.xml.rinzo.core.refactors.RefactoringProcessorDelegate;
-import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
 
 /**
  * Delegate object that contains the logic used by the processor to rename a Tag.
@@ -48,13 +47,13 @@ import ar.com.tadp.xml.rinzo.core.utils.XMLTreeModelUtilities;
  */
 public class RenameTagNameDelegate implements RefactoringProcessorDelegate {
 	private final RenameTagInfo info;
-	private final IDocument document;
 	private final XMLNode rootNode;
+	private RinzoXMLEditor editor;
 
-	RenameTagNameDelegate(final RenameTagInfo info, XMLNode xmlNode, IDocument document) {
+	RenameTagNameDelegate(final RenameTagInfo info, RinzoXMLEditor editor) {
 		this.info = info;
-		this.rootNode = xmlNode;
-		this.document = document;
+		this.editor = editor;
+		this.rootNode = this.editor.getModel().getTree().getRootNode();
 	}
 
 	public String getName() {
@@ -70,7 +69,7 @@ public class RenameTagNameDelegate implements RefactoringProcessorDelegate {
 			result.addFatalError("File is read only");
 		}
 
-		XMLNode node = XMLTreeModelUtilities.getActiveNode(this.document, this.info.getOffset());
+		XMLNode node = this.editor.getModel().getTree().getActiveNode(this.info.getOffset());
 		if(!node.isTag() && !node.isEmptyTag()) {
 			result.addFatalError("Cannot rename current selection.");
 		}
@@ -123,7 +122,7 @@ public class RenameTagNameDelegate implements RefactoringProcessorDelegate {
 		MultiTextEdit fileChangeRootEdit = new MultiTextEdit();
 		result.setEdit(fileChangeRootEdit);
 
-		XMLNode activeNode = XMLTreeModelUtilities.getActiveNode(this.document, info.getOffset());
+		XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(info.getOffset());
 		this.addReplaceEdit(activeNode, fileChangeRootEdit);
 		
 		return result;
@@ -153,7 +152,7 @@ public class RenameTagNameDelegate implements RefactoringProcessorDelegate {
 		tfc.setEdit(fileChangeRootEdit);
 
 	    FindTagsByNameVisitor visitor = new FindTagsByNameVisitor(info.getOldName());
-		XMLNode activeNode = XMLTreeModelUtilities.getActiveNode(this.document, info.getOffset());
+		XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(info.getOffset());
 		activeNode.getParent().accept(visitor);
 		
 		for (XMLNode node : visitor.getNodes()) {

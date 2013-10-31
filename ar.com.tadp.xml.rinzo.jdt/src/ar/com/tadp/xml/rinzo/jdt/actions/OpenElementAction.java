@@ -42,8 +42,8 @@ import org.eclipse.ui.internal.browser.WebBrowserEditor;
 import org.eclipse.ui.internal.browser.WebBrowserEditorInput;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
-import ar.com.tadp.xml.rinzo.core.utils.Utils;
 import ar.com.tadp.xml.rinzo.jdt.JDTUtils;
+import ar.com.tadp.xml.rinzo.jdt.Utils;
 
 /**
  * It opens an element which name is under selection.
@@ -93,7 +93,7 @@ public class OpenElementAction extends ClassNameSelectedAction {
 
 	private IFile getSelectedFile(String fileName) {
         IFile file = null;
-        if (!Utils.isEmpty(fileName)) {
+		if (!Utils.isEmpty(fileName)) {
 			file = this.getRootRelativeFile(fileName);
             if (!this.existFile(file)) {
             	file = this.getEditorRelativeFile(fileName);

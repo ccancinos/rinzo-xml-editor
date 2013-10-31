@@ -159,7 +159,8 @@ public class XMLEditorConfiguration extends SourceViewerConfiguration implements
 		IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(
 				RINZO_XML_CONTENTASIST_EXTENSION_POINT_ID);
 		if (configurationElements != null) {
-			CompositeXMLContentAssistProcessor xmlCompositeProcessor = new CompositeXMLContentAssistProcessor();
+			CompositeXMLContentAssistProcessor xmlCompositeProcessor = new CompositeXMLContentAssistProcessor(
+					this.xmlEditor);
 			for (int i = 0; i < configurationElements.length; i++) {
 				IConfigurationElement element = configurationElements[i];
 				try {
@@ -249,7 +250,7 @@ public class XMLEditorConfiguration extends SourceViewerConfiguration implements
     }
     
     public ITextHover getTextHover(ISourceViewer sourceViewer, String contentType) {
-    	return new MultipleLinesTextHover(sourceViewer);
+		return new MultipleLinesTextHover(sourceViewer, this.xmlEditor);
     }
     
 	public void editorContextMenuAboutToShow(IMenuManager menu) {
