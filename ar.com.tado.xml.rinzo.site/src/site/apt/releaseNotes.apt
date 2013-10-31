@@ -10,6 +10,8 @@ Release Notes
   
 * {Features}
 
+  * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/19}Add Rinzo's preference pages on preferences action from the editor context menu.}}
+
   * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/18}Access HTML and XML escaping through quick fix.}}
 
   * {{{https://github.com/ccancinos/rinzo-xml-editor/issues/17}Adding XML character escaping}}

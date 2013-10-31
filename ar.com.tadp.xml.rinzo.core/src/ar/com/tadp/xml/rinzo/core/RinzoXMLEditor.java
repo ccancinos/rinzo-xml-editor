@@ -402,4 +402,22 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 		}
 	}
 
+	@Override
+	protected String[] collectContextMenuPreferencePages() {
+		String[] defaultPages = super.collectContextMenuPreferencePages();
+		String[] rinzoPages = new String[] { "ar.com.tadp.xml.rinzo.core.preferences.FormattingPreferencePage", //$NON-NLS-1$
+				"ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage", //$NON-NLS-1$
+				"ar.com.tadp.xml.rinzo.core.preferences.TemplatesPreferencePage", //$NON-NLS-1$
+				"ar.com.tadp.xml.rinzo.core.preferences.SyntaxColorPreferencePage", //$NON-NLS-1$
+				"ar.com.tadp.xml.rinzo.jdt.preferences.ClassNamesPreferencePage", //$NON-NLS-1$
+		};
+		int rinzoPagesLength = rinzoPages.length;
+		int defaultPagesLength = defaultPages.length;
+
+		String pages[] = new String[rinzoPagesLength + defaultPagesLength];
+		System.arraycopy(rinzoPages, 0, pages, 0, rinzoPagesLength);
+		System.arraycopy(defaultPages, 0, pages, rinzoPagesLength, defaultPagesLength);
+
+		return pages;
+	}
 }
