@@ -5,7 +5,7 @@ Eclipse xml editor
  
 Download
 
-  You can download the latest version ${version} from {{{https://sourceforge.net/projects/editorxml/files/Rinzo%20XML%20Editor/}Sourceforge}}
+  You can download the latest version ${project.version} from {{{https://sourceforge.net/projects/editorxml/files/Rinzo%20XML%20Editor/}Sourceforge}}
 
 * Requirements
 

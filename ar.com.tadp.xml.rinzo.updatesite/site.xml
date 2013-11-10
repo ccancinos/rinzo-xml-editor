@@ -3,13 +3,13 @@
    <description name="Rinzo XML Editor Update Site" url="http://editorxml.sourceforge.net/updates">
       This is the Update Site for Rinzo XML Editor
    </description>
-   <feature url="features/ar.com.tadp.xml.rinzo.core.feature_1.3.0.jar" id="ar.com.tadp.xml.rinzo.core.feature" version="1.3.0">
+   <feature url="features/ar.com.tadp.xml.rinzo.core.feature_1.4.0.jar" id="ar.com.tadp.xml.rinzo.core.feature" version="1.4.0">
       <category name="Rinzo XML Editor"/>
    </feature>
-   <feature url="features/ar.com.tadp.xml.rinzo.jdt.feature_1.3.0.jar" id="ar.com.tadp.xml.rinzo.jdt.feature" version="1.3.0">
+   <feature url="features/ar.com.tadp.xml.rinzo.jdt.feature_1.4.0.jar" id="ar.com.tadp.xml.rinzo.jdt.feature" version="1.4.0">
       <category name="Rinzo XML Editor"/>
    </feature>
-   <archive path="plugins/ar.com.tadp.xml.rinzo.core_1.3.0.jar" url="http://downloads.sourceforge.net/editorxml/ar.com.tadp.xml.rinzo.core_1.3.0.jar"/>
-   <archive path="plugins/ar.com.tadp.xml.rinzo.jdt_1.3.0.jar" url="http://downloads.sourceforge.net/editorxml/ar.com.tadp.xml.rinzo.jdt_1.3.0.jar"/>
+   <archive path="plugins/ar.com.tadp.xml.rinzo.core_1.4.0.jar" url="http://downloads.sourceforge.net/editorxml/ar.com.tadp.xml.rinzo.core_1.4.0.jar"/>
+   <archive path="plugins/ar.com.tadp.xml.rinzo.jdt_1.4.0.jar" url="http://downloads.sourceforge.net/editorxml/ar.com.tadp.xml.rinzo.jdt_1.4.0.jar"/>
    <category-def name="Rinzo XML Editor" label="Rinzo XML Editor"/>
 </site>

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>ar.com.tadp.rinzo</groupId>
 		<artifactId>ar.com.tadp.rinzo.parent</artifactId>
-		<version>1.3.0</version>
+		<version>1.4.0</version>
 	</parent>
 	<artifactId>ar.com.tadp.xml.rinzo.jdt.feature</artifactId>
 	<packaging>eclipse-feature</packaging>

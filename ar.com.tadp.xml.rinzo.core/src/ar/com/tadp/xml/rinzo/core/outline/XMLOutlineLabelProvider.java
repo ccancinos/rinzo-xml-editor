@@ -42,6 +42,7 @@ import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
  */
 public class XMLOutlineLabelProvider extends LabelProvider {
 	private static final String OUTLINE_LABEL_SHOW_FULL_NAME = "Outline.Label.showFullName";
+	private static final int TEXT_SIZE = 40;
 	private Map<String, Image> images = new HashMap<String, Image>();
 	private boolean showFullName = false;
 	private String lineSeparator;
@@ -61,7 +62,7 @@ public class XMLOutlineLabelProvider extends LabelProvider {
 	public String getText(Object element) {
 		XMLNode node = (XMLNode) element;
 		if (element instanceof XMLNode) {
-			if (this.isShowFullName()) {
+			if (this.isShowFullName() && !node.isCommentTag()) {
 				String text = node.getTagName() + " (";
 				for (Iterator<XMLAttribute> iterator = node.getAttributes().values().iterator(); iterator.hasNext();) {
 					XMLAttribute attribute = iterator.next();
@@ -72,12 +73,12 @@ public class XMLOutlineLabelProvider extends LabelProvider {
 			}
 			if (node.isPiTag()) {
 				String comment = node.getContent();
-				return comment.substring(0, Math.min(20, comment.length())) + "...";
+				return comment.substring(0, Math.min(TEXT_SIZE, comment.length())) + "...";
 			}
 			if (node.isCommentTag()) {
 				String content = node.getContent();
 				String comment = content.substring(content.indexOf("<!--") + 4, content.indexOf("-->")).trim();
-				return (comment.length() <= 20) ? comment : comment.substring(0, 20) + "...";
+				return (comment.length() <= TEXT_SIZE) ? comment : comment.substring(0, TEXT_SIZE) + "...";
 			}
 			return node.getTagName().replaceAll(this.lineSeparator, " ").replaceAll(FileUtils.TAB, "");
 		}

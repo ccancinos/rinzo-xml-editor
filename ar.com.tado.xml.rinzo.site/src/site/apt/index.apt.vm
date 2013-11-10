@@ -2,7 +2,7 @@
 Eclipse xml editor 
  -----
  
-Do you want to see {{{./releaseNotes.html}<<What's new in ${version}?>>}}
+Do you want to see {{{./releaseNotes.html}<<What's new in ${project.version}?>>}}
  
 Introduction
 

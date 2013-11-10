@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>ar.com.tadp.rinzo</groupId>
 		<artifactId>ar.com.tadp.rinzo.parent</artifactId>
-		<version>1.3.0</version>
+		<version>1.4.0</version>
 	</parent>
 	<artifactId>ar.com.tadp.rinzo.site</artifactId>
 	<name>Rinzo XML Editor</name>
@@ -15,9 +15,6 @@
 		<url>http://editorxml.sourceforge.net/</url>
 	</organization>
 
-	<properties>
-		<version>1.3.0</version>
-	</properties>
 
 	<developers>
 		<developer>
