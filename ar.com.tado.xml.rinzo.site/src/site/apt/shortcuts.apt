@@ -1,0 +1,38 @@
+ -----
+Eclipse xml editor 
+ -----
+
+Keyboard Shortcuts
+
+ These are some useful shortcuts for the editor.
+ 
+*--------------------+-----------------------------------------------------------------------------------------------+
+|| Key Binding       || Description                                                                                  | 
+*--------------------*-----------------------------------------------------------------------------------------------+
+| F2                 | Opens the New Class Wizard filling it with the text selection                                 |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| F3                 | If the selected text corresponds to a class name or resource, it is opened in the predefined workspaces' editor.
+|                    |Url's starting with http like "http://www.google.com" will be opened using the internal browser.|
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + /           | Enclose the selection inside an xml comment tag                                               |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| {{{./quickAssist.html}Ctrl + 1}}           | Presents a list of actions to execute on the current tag                                      |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + Shift + C   | Clears errors and warnings in the current editor.                                             |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + Shift + F   | Code Formatting                                                                               |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + Shift + UP  | Positions the cursor in the previous sibling tag.											 |
+|                    |If the current tag doesn't have a previous sibling It'll position the cursor in the parent tag |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Ctrl + Shift + DOWN| Positions the cursor in the next sibling tag.											 	 |
+|                    |If the current tag doesn't have a next sibling It'll position the cursor in the parent tag     |
+*--------------------*-----------------------------------------------------------------------------------------------+
+| Alt + Shift + R    | Presents the rename dialog allowing to rename the selecte tag, all tags with the same name    | 
+|                    |inside the parent tag or all the tags with the same name in the file.                          |
+*--------------------*-----------------------------------------------------------------------------------------------+
+
+
+ There are many other shortcuts available which are part of the Eclipse platform. You can see them 
+ all going to <Window-\>Preferences-\>General-\>Keys>.
+

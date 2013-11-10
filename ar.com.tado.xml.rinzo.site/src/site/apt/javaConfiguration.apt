@@ -1,0 +1,34 @@
+ -----
+Eclipse xml editor 
+ -----
+
+Java Configuration
+
+  Through this configuration page it is possible to change several settings on the java integration.
+  
+  * <<Severity>>: Defines the level of severity used to report class names referring to missing classes. If severity is set to <ignore>
+  no validation will be performed to find missing class names references.
+  
+  * <<Validation and content assist [...]>>: By default this checkbox is disabled meaning all attribute values and tag bodies can have as possible
+  values a class name.\
+  If this checkbox is enabled class names will be proposed by content assist and validated only for those tag bodies and tag attributes defined
+  in the lower tables.
+
+  * <<Attributes Table>>: If the previous checkbox is enabled here is where should be configured which <Attribute Name> inside of which
+  <Target Tag> could have as value a class name.
+  A third column defines for each attribute which class/interface should extend/implement the values written. Set this value to <<*>> to allow
+  any class.
+  
+  []
+
+[images/jdtPreferencesAttr.jpg] 
+
+
+  * <<Tags Table>>: If the previous checkbox is enabled here is where should be configured which <Tag Name>'s body 
+  could have as value a class name.
+  A second column defines for each tag which class/interface should extend/implement the values written. Set this value to <<*>> to allow
+  any class.
+
+  []
+  
+[images/jdtPreferencesTags.jpg]

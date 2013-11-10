@@ -1,0 +1,19 @@
+ -----
+Eclipse xml editor 
+ -----
+
+Content Assist
+
+  Many frameworks such as Spring, MyBatis or Hibernate rely part of their functionality or configuration on xml definitions where the 
+  programmer declares classes of his domain to be used by the framework.
+
+* {Class Names Proposition}
+
+  Using Rinzo standing on a tag body or attribute value part it is possible to get class names autocompletion propossals.\ 
+  Ie:
+  
+  < \<class name="arra"\> > will be < \<class name="java.util.ArrayList"\> >
+  
+  < \<servlet-class\>log\</servlet-class\> > will be < \<servlet-class\>ar.edu.utn.frba.tadp.servlets.Login\</servlet-class\> >
+  
+[images/FQNPropositions.png]

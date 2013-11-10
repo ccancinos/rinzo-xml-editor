@@ -1,0 +1,34 @@
+ -----
+Eclipse xml editor 
+ -----
+
+
+Quick Assist
+
+  With the cursor standing in a tag or text content and pressing <<Ctrl-1>> a series of actions on that selected tact will be displayed:
+  
+[images/Ctrl1.png]
+
+  * <<Rename Tag:>> Changes the tag's name including starting and ending tag.
+
+  * <<Duplicate Tag:>> Creates a duplicated of the current tag.
+
+  * <<Cut Tag:>> Removes the current tag and place it in the clipboard.
+
+  * <<Surround With Tag:>> Creates a new tag surrounding the selected one taking care of indentation.
+
+  * <<Comment With Tag:>> Surrounds the current tag with << <!-- >> and << --> >>
+
+  * <<Delete Tag:>> Removes the current tag from file.
+
+  * <<Delete Surrounding Tag:>> Removes the tag containing the current tag from file.
+
+  * <<Surround With CDATA:>> Surrounds the current text content with CDATA element.
+
+  * <<Escape HTML Characters:>> Escapes the string in the current text content using HTML entities.
+
+  * <<Escape XML Characters:>> Escapes the string in the current text content using XML entities.
+
+  []
+
+  

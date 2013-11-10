@@ -1,0 +1,26 @@
+ -----
+Eclipse xml editor 
+ -----
+
+JAXB Integration
+
+  Dealing with xml files usually requires converting it to/from java objects in order to use them in the project's logic.\
+  This integration attempts to automate the generation of bean model and its associated marshaller/unmarshaller in order to have a quick starting point
+  to work with the information stored in an xml document.
+  
+  Why JAXB? Well, one of the reason is because it requires no dependencies in the target project if you're using JDK 1.6 or above, 
+  because {{{https://jaxb.java.net/guide/Which_JAXB_RI_is_included_in_which_JDK_.html}JAXB is bundled in JDK 1.6}} so you can start reading/writing xml right away! :)\
+  But also for being a standard and allowing the bean generation from xsd as required for this integration.
+  
+  This option is present in the editor's contextual menu taking the defined xsd files as model definition for bean generation and using the following dialog to gather
+  the rest of the configuration information:
+  
+[images/CreateJAXBParser1.png]
+
+  Optionally, the second page of the wizard is where it could be defined the list of binding files to customize JAXB code generation:
+  
+[images/CreateJAXBParser2.png]
+  
+  In addition to JAXB code generation, Rinzo will also generate a parser named after the main entity of the xml (i.e: OrderParser.java) implementing methods to convert an xml to/from java objects.
+  
+  Ok, but what if I want to marshall/unmarshall an xml with no xsd schema definition present? Well, remember {{{./actions.html#Create_XML_Definition}Rinzo can also generate that one for you}}
