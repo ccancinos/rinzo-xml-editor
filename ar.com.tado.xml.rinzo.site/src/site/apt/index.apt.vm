@@ -2,55 +2,32 @@
 Eclipse xml editor 
  -----
  
-Do you want to see {{{./releaseNotes.html}<<What's new in ${project.version}?>>}}
- 
-Introduction
 
-  Rinzo is an Eclipse xml editor with the goal of make life simpler when dealing with xml files.\
-  It has several features regarding plain xml edition such as:
-  
-  * If DTD/Schema is present it'll be used for validation and to propose autocompletion of tags and attributes. 
-  
-  * If DTD/Schema is not present validation will be only for well formness and autocompletion will be based on 
-  elements already written in the document.
-  
-  * And also templates proposals on either case.
-  
-  * DTD and Schema generation from an example XML.
-  
-  * Syntax Coloring.
-  
-  * Background validation using the document DTD or Schema and well formness.
-  
-  * DTD and Schema generation from a XML.
- 
-  * Namespace support.
- 
-  * XML Refactoring and Quick Assist.
- 
-  * XPath Viewer.
- 
-  *{{{./actions.html}And more}}
- 
-  [] 
-  
-  But since working on Java most probably involve the usage of frameworks such as Spring, MyBatis or Hibernate which rely part of
-  their functionality or configuration on XML definitions where the programmer declares classes of its domain to the framework,
-  what makes this editor different is its ability to interact with java elements in files like <web.xml>, <.hbm files>, 
-  <struts-config.xml>, <spring contexts> or any other XML file where java elements must be handled in order to:
- 
-  * Open a class definition from declarations in XML files.
- 
-  * Autocompletion and validation of class names on tag's bodies and attributes.
- 
-  * Create a java class from a class name written in an XML.
-  
-  * <<JAXB bean model and parser generation>>.
+Welcome
 
-  []
-  
-  And it's also possible to extend its validation and content assistant contributing to its {{{./extendingRinzo.html}extension points}}. 
+  Rinzo is a free open source Eclipse plugin that provides pure and java integrated xml documents edition. It's widely used for its performance
+  on big xml documents, syntax coloring, XPath evaluation, DTD/Schema generation from xml, java class names proposition and since version 1.3.0 
+  from its jaxb classes and parser generation. 
 
+
+	Wants more?  Rinzo improves edition with these useful features:
+	
+	* Quick assist for renaming, duplication, cutting, deleting and commenting tags.
+	
+	* Contextual menu for java class open and create declaration, escaping xml/html	characters, formatting xml and generation of jaxb parser.
+	
+	* Keyboard shortcuts
+	
+	* Autocompletion. Tags and attributes proposition with or without DTD/Schema
+	
+	[]
+
+[images/rinzo1.png]
+	
+	Take a look at the features section for more details of what you can do with Rinzo.
+ 
+	Do you want to see {{{./releaseNotes.html}<<What's new in ${project.version}?>>}}
+	
 * Requirements
 
   * {{{http://eclipse.org/downloads}Eclipse 3.6.2 or above}}

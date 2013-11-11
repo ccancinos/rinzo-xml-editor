@@ -2,9 +2,9 @@
 Eclipse xml editor 
  -----
 
-Autocompletion
+Content Assist
 
-%{toc|section=1|fromDepth=1}
+%{toc|section=1|fromDepth=2}
 
 * Working Without DTD or Schema
  
