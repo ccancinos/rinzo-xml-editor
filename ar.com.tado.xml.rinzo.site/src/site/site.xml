@@ -27,12 +27,12 @@
 			<item name="Contact" href="team-list.html" />
 		</links>
 
-		<menu name="About Rinzo">
+		<menu name="About">
 			<item name="Introduction" href="index.html" />
 			<item name="Release Notes" href="releaseNotes.html" />
 		</menu>
 
-		<menu name="XML Features">
+		<menu name="XML Edition">
 			<item name="Content Assist" href="contentAssit.html" />
 			<item name="Quick Assist" href="quickAssist.html" />
 			<item name="Validation" href="validation.html" />
@@ -42,7 +42,7 @@
 			<item name="More Stuff..." href="others.html" />
 		</menu>
 
-		<menu name="Java Features">
+		<menu name="Java Integration">
 			<item name="Content Assist" href="javaContentAssist.html" />
 			<item name="Validation" href="javaValidation.html" />
 			<item name="Configuration" href="javaConfiguration.html" />
@@ -58,7 +58,7 @@
 
 		<menu name="Get Involved">
 			<item name="How to Contribute" href="howToContribute.html" />
-			<item name="Extending Rinzo" href="extendingRinzo.html" />
+			<item name="Plugin Extension" href="extendingRinzo.html" />
 			<item name="Team" href="team-list.html" />
 		</menu>
 

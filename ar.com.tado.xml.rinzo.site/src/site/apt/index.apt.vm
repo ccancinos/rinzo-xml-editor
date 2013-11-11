@@ -21,17 +21,9 @@ Welcome
 	* Autocompletion. Tags and attributes proposition with or without DTD/Schema
 	
 	[]
-
-[images/rinzo1.png]
 	
 	Take a look at the features section for more details of what you can do with Rinzo.
  
 	Do you want to see {{{./releaseNotes.html}<<What's new in ${project.version}?>>}}
-	
-* Requirements
 
-  * {{{http://eclipse.org/downloads}Eclipse 3.6.2 or above}}
-  
-  * Since this plugin is compiled on java 5, you should start your Eclipse using a {{{http://java.sun.com/javase/downloads/index.jsp}JRE 5 or above}} 
-
-  []
+[images/rinzo1.png]
