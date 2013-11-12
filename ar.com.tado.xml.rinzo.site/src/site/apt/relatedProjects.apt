@@ -34,11 +34,12 @@ Related Projects
   
   
 * Uqbar Tomcat XT
+
+  {{{http://uqbar-tomcat-xt.sourceforge.net/}Uqbar Tomcat XT}} plug-in is a successor of to the well-known {{{http://www.eclipsetotale.com/tomcatPlugin.html}Sysdeo Tomcat Launcher}}. 
+  An eclipse plugin adding useful features to launch and administer tomcat's context:
+
+  * for runtime functions like start | stop | reload context
   
-  If you develop web applications and you think using WTP is a little more overhead than
-  expected, you could try using {{{http://www.eclipsetotale.com/tomcatPlugin.html}Sysdeo Tomcat Launcher}}
-  which is basically a direct launcher of Tomcat's process integrated to eclipse for which it is
-  very lightweight.
+  * for configuration functions like removing a context.
   
-  The drawback of Sysdeo plugin is its lack of administrative elements of what's running on Tomcat which
-  gave birth to {{{http://uqbar-tomcat-xt.sourceforge.net/}Uqbar Tomcat XT}}  
+  []

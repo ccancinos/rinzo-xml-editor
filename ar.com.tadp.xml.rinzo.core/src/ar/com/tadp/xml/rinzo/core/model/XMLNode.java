@@ -250,6 +250,10 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 
 				if (currentChar == '=') {
 					int equalIndex = pos;
+					if (charArray[--pos] == ' ') {
+						while (charArray[pos] == ' ' && pos > 0)
+							pos--;
+					}
 					while (pos > 0 && charArray[pos] != ' ' && charArray[pos] != '\t' && charArray[pos] != '\r'
 							&& charArray[pos] != '\n') {
 						pos--;
