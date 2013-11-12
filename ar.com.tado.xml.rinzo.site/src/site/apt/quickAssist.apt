@@ -5,7 +5,7 @@ Eclipse xml editor
 
 Quick Assist
 
-  With the cursor standing in a tag or text content and pressing <<Ctrl-1>> a series of actions on that selected tact will be displayed:
+  With the cursor standing in a tag or text content and pressing <<Ctrl-1>> a series of actions on that selected element will be displayed:
   
 [images/Ctrl1.png]
 
