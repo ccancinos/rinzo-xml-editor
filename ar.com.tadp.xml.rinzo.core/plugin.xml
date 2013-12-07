@@ -58,7 +58,7 @@
             category="ar.com.tadp.xml.rinzo.core.preferences.MainPreferencePage"
             class="ar.com.tadp.xml.rinzo.core.preferences.SyntaxColorPreferencePage"
             id="ar.com.tadp.xml.rinzo.core.preferences.SyntaxColorPreferencePage"
-            name="Syntax Colorign"/>
+            name="Syntax Coloring"/>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
