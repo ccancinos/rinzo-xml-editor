@@ -24,7 +24,6 @@ import java.util.Iterator;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentPartitioner;
-import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.text.TypedPosition;
 
@@ -43,10 +42,6 @@ public class XMLRootNode extends XMLNode {
 	public XMLRootNode(int offset, int length, String type, IDocument document, RinzoXMLEditor editor) {
 		super(offset, length, type, document);
 		this.setEditor(editor);
-	}
-
-	public XMLRootNode(ITypedRegion region) {
-		super(region);
 	}
 
 	public XMLNode getRootNode() {

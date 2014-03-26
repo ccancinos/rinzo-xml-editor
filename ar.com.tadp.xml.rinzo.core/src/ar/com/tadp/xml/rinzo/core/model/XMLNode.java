@@ -36,7 +36,6 @@ import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.IDocumentPartitioningListener;
-import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.TypedPosition;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
@@ -71,11 +70,6 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 		if (document != null) {
 			this.addListeners();
 		}
-	}
-
-	public XMLNode(ITypedRegion region) {
-		super(region);
-		children = new ArrayList<XMLNode>();
 	}
 
 	public void documentAboutToBeChanged(DocumentEvent event) {
