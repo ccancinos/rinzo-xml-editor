@@ -125,7 +125,7 @@ public class AutoInsertEndTagHandler extends KeyAdapter {
 	}
 
 	private String getTagName(int offset) {
-		return this.editor.getModel().getTree().getActiveXMLNode(offset).getTagName();
+		return this.editor.getModel().getTree().getActiveXMLNode(offset).getFullTagName();
 	}
 
 	private boolean isEndTag(int offset) {
