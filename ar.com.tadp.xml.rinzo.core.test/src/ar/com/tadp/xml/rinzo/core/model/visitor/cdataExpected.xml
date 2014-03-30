@@ -1,0 +1,40 @@
+<order>
+	<cdata1>
+		<![CDATA[ texto pirulo ]]>
+	</cdata1>
+	
+	<cdata2>	
+		<![CDATA[  <b> About </b>   ]]>
+	</cdata2>
+	
+	<ejemplo>
+		<![CDATA[
+			<HTML>
+				<HEAD>
+						<TITLE>Rock & Roll</TITLE>
+				</HEAD>
+		]]>
+	</ejemplo>
+
+
+	<example>
+    	<![CDATA[
+    		<p>
+    			The pug snoring on the couch next to me is <em>extremely</em> cute
+    		</p>
+    	]]>
+	</example>
+
+
+	<cdata3><![CDATA[ <sender>John]]      ]]> </cdata3>
+
+	<cdata4>
+		<![CDATA[ esto es un caracter especial]] y lo quiero mandar igual      ]]> </cdata4>
+
+	<!-- this line throws an error detecting the closing tag -->
+	<dbConnectString>
+		<![CDATA[jdbc:postgresql://localhost/SocialMM?user=SocialMM&password=SocialMM!23]]>
+	</dbConnectString>
+
+</order>
+	

@@ -1,0 +1,42 @@
+<window border="normal"
+	title="To do list"
+	width="640px">
+	<zscript>
+		import java.util.ArrayList;
+		import java.text.SimpleDateFormat;
+
+		void add(){
+
+		//insert a new Event into the listbox
+		Listitem li = new Listitem();
+		li.appendChild(new Listcell(name.value));
+		li.appendChild(new Listcell(priority.value + ""));
+		li.appendChild(new Listcell(new SimpleDateFormat("yyyy-MM-dd").format(date.value)));
+		box.appendChild(li);
+		}
+	</zscript>
+	<listbox id="box" multiple="true"  rows="4">
+		<listhead>
+			<listheader label="Item" />
+			<listheader label="Priority" width="50px" />
+			<listheader label="Opened" width="90px" />
+		</listhead>
+		<listitem>
+			<listcell/>
+			<listcell/>
+			<listcell/>
+		</listitem>
+	</listbox>
+	<groupbox>
+		<caption label="New" />
+		Item:
+		<textbox id="name" cols="50" />
+		Priority:
+		<intbox id="priority" cols="1" />
+		Date:
+		<datebox id="date" cols="8"/>
+		<button label="Add" width="36px" height="24px" onClick="add()"/>
+		<button label="Update" width="46px" height="24px"/>
+		<button label="Delete" width="46px" height="24px"/>
+	</groupbox>
+</window>

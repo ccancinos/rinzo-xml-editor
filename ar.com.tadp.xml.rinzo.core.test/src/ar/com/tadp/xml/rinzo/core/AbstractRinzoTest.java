@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.After;
 import org.junit.Before;
 
 import ar.com.tadp.xml.rinzo.core.model.XMLTreeModel;
@@ -49,19 +50,23 @@ public class AbstractRinzoTest {
 		this.project.open(null);
 	}
 
-	// @After
+	@After
 	public void deleteProject() throws CoreException {
+		if (this.editor != null) {
+			this.editor.close(false);
+		}
 		this.project.delete(true, true, null);
 	}
 
 	protected void useFile(String path) throws FileNotFoundException,
 			CoreException {
-		this.file = this.project.getFile("input.xml");
+		String fileName = path.substring(path.lastIndexOf("/") + 1);
+		this.file = this.project.getFile(fileName);
 		InputStream source = new FileInputStream(new File("").getAbsolutePath()
 				+ "/" + path);
 		this.file.create(source, true, null);
 
-		this.editor = this.openEditor(PROJECT + "/input.xml");
+		this.editor = this.openEditor(PROJECT + "/" + fileName);
 		this.xmlTreeModel = this.editor.getModel();
 	}
 

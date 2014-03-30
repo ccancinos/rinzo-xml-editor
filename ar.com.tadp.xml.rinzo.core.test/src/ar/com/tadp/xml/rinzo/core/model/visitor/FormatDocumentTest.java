@@ -1,12 +1,13 @@
 package ar.com.tadp.xml.rinzo.core.model.visitor;
 
-import org.junit.After;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.eclipse.core.runtime.CoreException;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import ar.com.tadp.xml.rinzo.core.AbstractRinzoTest;
-import ar.com.tadp.xml.rinzo.core.model.visitor.ToStringVisitor;
 
 /**
  * 
@@ -14,26 +15,40 @@ import ar.com.tadp.xml.rinzo.core.model.visitor.ToStringVisitor;
  */
 public class FormatDocumentTest extends AbstractRinzoTest {
 
-	private static final String INPUT_XML = "src/ar/com/tadp/xml/rinzo/core/model/visitor/formatExample.xml";
-	private static final String EXPECTED_XML = "src/ar/com/tadp/xml/rinzo/core/model/visitor/formatExampleExpected.xml";
-
-	@Before
-	public void init() throws Exception {
-		this.useFile(INPUT_XML);
-	}
-
-	@After
-	public void finalize() throws Exception {
-		if (this.editor != null) {
-			this.editor.close(false);
-		}
+	@Test
+	public void formatExample() throws Exception {
+		this.validateFormatting(
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatExample.xml",
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatExampleExpected.xml");
 	}
 
 	@Test
-	public void toStringVisitor() throws Exception {
+	public void addNewLinesExample() throws Exception {
+		this.validateFormatting(
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/addNewLines.xml",
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/addNewLinesExpected.xml");
+	}
+	
+	@Test
+	public void formatKeepInnerText() throws Exception {
+		this.validateFormatting(
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatScript.xml",
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatScriptExpected.xml");
+	}
+	
+	@Test
+	public void formatCdata() throws Exception {
+		this.validateFormatting(
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/cdata.xml",
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/cdataExpected.xml");
+	}
+
+	private void validateFormatting(String inputXml, String expectedXml)
+			throws FileNotFoundException, CoreException, IOException {
+		this.useFile(inputXml);
 		ToStringVisitor visitor = new ToStringVisitor();
 		this.xmlTreeModel.getTree().getRootNode().accept(visitor);
-		String expectedContent = this.getExpectedFileContent(EXPECTED_XML);
+		String expectedContent = this.getExpectedFileContent(expectedXml);
 		Assert.assertEquals(expectedContent, visitor.getString());
 	}
 

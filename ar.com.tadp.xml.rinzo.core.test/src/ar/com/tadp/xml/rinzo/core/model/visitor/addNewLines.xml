@@ -1,0 +1,22 @@
+<personal xmlns="http://www.springframework.org/schema/batch" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+<ok>
+61 texto ejemplo hola como estas sarasa sarasa sarasa sarasa
+</ok>
+	
+<error>
+62 texto ejemplo hola como estas sarasa sarasa sarasa sarasas
+</error>
+
+<error>
+77 texto ejemplo hola como estas sarasa sarasa sarasa sarasa sarasa sarasass
+</error>
+	
+<ok>
+78-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+</ok>
+	
+	
+<ok>
+77 texto ejemplo hola como estas sarasa sarasa sarasa sarasa sarasa sarasass 77 texto ejemplo hola como estas sarasa sarasa sarasa sarasa sarasa sarasass
+</ok>
+</personal>
