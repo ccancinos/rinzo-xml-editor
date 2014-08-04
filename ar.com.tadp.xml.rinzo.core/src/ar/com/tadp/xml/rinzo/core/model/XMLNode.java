@@ -396,7 +396,7 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 	}
 
 	public boolean isDeclarationTag() {
-		return IXMLPartitions.XML_COMMENT.equals(this.getType());
+		return IXMLPartitions.XML_DECLARATION.equals(this.getType());
 	}
 
 	public boolean isPiTag() {
@@ -406,5 +406,8 @@ public class XMLNode extends TypedPosition implements Visitable, IDocumentListen
 	public boolean isCdata() {
 		return IXMLPartitions.XML_CDATA.equals(this.getType());
 	}
-
+	
+	public boolean isSchemaRootTag() {
+		return this.isRoot() && this.getAttributes().containsKey("xmlns");
+	}
 }

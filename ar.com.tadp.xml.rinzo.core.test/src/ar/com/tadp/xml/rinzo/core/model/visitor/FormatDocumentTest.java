@@ -42,6 +42,20 @@ public class FormatDocumentTest extends AbstractRinzoTest {
 				"src/ar/com/tadp/xml/rinzo/core/model/visitor/cdata.xml",
 				"src/ar/com/tadp/xml/rinzo/core/model/visitor/cdataExpected.xml");
 	}
+	
+	@Test
+	public void formatNonSchemaRootTag() throws Exception {
+		this.validateFormatting(
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatNonSchemaRootTag.xml",
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatNonSchemaRootTagExpected.xml");
+	}
+	
+	@Test
+	public void formatSchemaRootTag() throws Exception {
+		this.validateFormatting(
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatSchemaRootTag.xml",
+				"src/ar/com/tadp/xml/rinzo/core/model/visitor/formatSchemaRootTagExpected.xml");
+	}
 
 	private void validateFormatting(String inputXml, String expectedXml)
 			throws FileNotFoundException, CoreException, IOException {

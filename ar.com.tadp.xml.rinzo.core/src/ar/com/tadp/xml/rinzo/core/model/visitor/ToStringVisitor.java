@@ -138,7 +138,7 @@ public class ToStringVisitor implements StringGeneratorVisitor {
 	}
 	
 	private void addLine(String line, XMLNode node) {
-		if (node.isRoot() && !node.isEndTag()) {
+		if (node.isSchemaRootTag() && !node.isEndTag()) {
 			this.addRootTag(node);
 		} else {
 			this.addSimpleLine(line, node);
