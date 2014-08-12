@@ -226,7 +226,7 @@ public class XMLRule2 implements IPredicateRule {
 	}
 
 	private boolean handleAttributeString(ICharacterScanner scanner, int character, int previous) {
-        if(character == '"')
+        if(character == '"' || character == '\'')
             popState();
         else
         if(character == '>')
@@ -324,7 +324,7 @@ public class XMLRule2 implements IPredicateRule {
             scanner.unread();
             return true;
         }
-        if(character == '"') {
+        if(character == '"'  || character == '\'') {
             pushState();
             switchState(STATE_ATTRIBUTE_STRING);
             return false;
