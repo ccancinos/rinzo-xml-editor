@@ -46,7 +46,6 @@ import org.eclipse.xsd.util.XSDResourceImpl;
 
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.model.XMLNode;
-import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.OnlyNameTypeTagDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.XMLTagDefinitionProvider;
@@ -80,35 +79,11 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 	}
 
 	public TagTypeDefinition getTagDefinition(XMLNode node) {
-		if (node == null) {
-			return new TagTypeDefinition() {
-				public String getNamespace() {
-					return null;
-				}
-
-				public String getName() {
-					return null;
-				}
-
-				public Collection<TagTypeDefinition> getInnerTags() {
-					return possibleRoots;
-				}
-
-				public String getComment() {
-					return null;
-				}
-
-				public Collection<AttributeDefinition> getAttributes() {
-					return null;
-				}
-
-				public AttributeDefinition getAttribute(String attributeName) {
-					return null;
-				}
-			};
-		}
 		String tagName = node.getTagName();
 		TagTypeDefinition tagTypeDefinition = this.tags.get(tagName);
+		if (node == null || tagTypeDefinition == null) {
+			return new XSDPossibleRootsTagTypeDefinition(this.possibleRoots);
+		}
 		return tagTypeDefinition != null ? tagTypeDefinition : new OnlyNameTypeTagDefinition(tagName);
 	}
 
@@ -116,6 +91,8 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 	 * Se encarga de mapear las definiciones que se encuentran en el schema
 	 */
 	private void updateDefinition() {
+		this.tags.clear();
+		this.possibleRoots.clear();
 		this.parseElementsFrom(this.getSchema(this.documentStructureDeclaration.getPublicId(), this.schemaPath));
 	}
 

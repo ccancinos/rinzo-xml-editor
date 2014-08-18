@@ -29,7 +29,7 @@ public class DocumentStructureDeclaration {
 	/**This two names corresponds to the ones defined on the xml*/
     private String publicId;
     private String systemId;
-    private String namespace;
+    private String namespace = "";
     /**This name corresponds to the cached file for this public and absolute names*/
     private String localCachedName;
 

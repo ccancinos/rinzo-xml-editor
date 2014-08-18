@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -77,7 +78,7 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 	}
 
     protected void computeCompletionProposal(Collection<ICompletionProposal> resultList, int offset, XMLNode currentNode) {
-		String prefix = this.getPrefix(currentNode, offset);
+		String prefix = this.extractPrefix(this.viewer, offset);
 
 		if (this.shouldProposeInBody(currentNode, prefix, offset)) {
 			this.addBodyProposals(currentNode, prefix, this.viewer, offset, resultList);
@@ -94,14 +95,32 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 		}
     }
 
-	private String getPrefix(XMLNode currentNode, int offset) {
-		int currentPosition = offset - currentNode.getOffset();
-		String content = currentNode.getContent();
-		int lastSpacePosition = content.substring(0, currentPosition).lastIndexOf(" ");
-		if (!StringUtils.isEmpty(content) && lastSpacePosition >= 0) {
-			return content.substring(lastSpacePosition + 1, currentPosition).trim();
-		} else {
-			return content.trim();
+    /**
+	 * We watch for angular brackets since those are often part of XML
+	 * templates.
+	 * 
+	 * @param viewer the viewer
+	 * @param offset the offset left of which the prefix is detected
+	 * @return the detected prefix
+	 */
+	protected String extractPrefix(ITextViewer viewer, int offset) {
+		IDocument document= viewer.getDocument();
+		int i= offset;
+		if (i > document.getLength()) {
+			return "";
+		}
+		
+		try {
+			while (i > 0) {
+				char ch= document.getChar(i - 1);
+				if (ch != '<' && !(Character.isJavaIdentifierPart(ch) || ch == ':')) {
+					break;
+				}
+				i--;
+			}
+			return document.get(i, offset - i);
+		} catch (Exception e) {
+			return "";
 		}
 	}
     	

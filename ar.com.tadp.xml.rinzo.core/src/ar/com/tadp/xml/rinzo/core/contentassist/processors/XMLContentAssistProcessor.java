@@ -84,8 +84,46 @@ public class XMLContentAssistProcessor implements IXMLContentAssistProcessor {
 
 	public void addBodyProposals(XMLNode currentNode, String prefix, ITextViewer viewer, int offset,
 			Collection<ICompletionProposal> resultList) {
-		Collection<TagTypeDefinition> reference;
+		Collection<TagTypeDefinition> validTags;
 		String tagPrefix = "";
+		String tagNamespace = "";
+		int inc = 0;
+		
+		if(prefix.startsWith("<")) {
+			prefix = prefix.substring(1);
+			inc++;
+		}
+		if (prefix.contains(":")) {
+			String[] split = prefix.split(":");
+			tagNamespace = split[0];
+			tagPrefix = (split.length == 2) ? split[1] : "";
+			inc++;
+		} else {
+			tagPrefix = prefix;
+		}
+		
+		validTags = this.getValidTagsInOffset(currentNode, offset);
+		
+		for (TagTypeDefinition tagDefinition : validTags) {
+			String name = tagDefinition.getName();
+			String namespace = tagDefinition.getNamespace();
+			if(tagNamespace.isEmpty()) {
+				if (name.startsWith(tagPrefix) || namespace.startsWith(tagPrefix)) {
+					resultList.add(ProposalsFactory.createTagProposal(tagDefinition, offset,
+							tagPrefix.length() + (currentNode.isIncompleteTag() ? 1 : 0)));
+				}
+			} else {
+				if (namespace.startsWith(tagNamespace) && name.startsWith(tagPrefix)) {
+					resultList.add(ProposalsFactory.createTagProposal(tagDefinition, offset,
+							tagPrefix.length() + tagNamespace.length() + (currentNode.isIncompleteTag() ? 1 : 0) + inc));
+				}
+			}
+		}
+	}
+
+	private Collection<TagTypeDefinition> getValidTagsInOffset(
+			XMLNode currentNode, int offset) {
+		Collection<TagTypeDefinition> reference;
 		if (currentNode.getParent() == null) {
 			reference = currentNode.getCorrespondingNode().getTypeDefinition().getInnerTags();
 		} else {
@@ -93,16 +131,9 @@ public class XMLContentAssistProcessor implements IXMLContentAssistProcessor {
 				reference = currentNode.getTypeDefinition().getInnerTags();
 			} else {
 				reference = currentNode.getParent().getTypeDefinition().getInnerTags();
-				tagPrefix = currentNode.getTagName();
 			}
 		}
-
-		for (TagTypeDefinition element : reference) {
-			if (element.getName().startsWith(tagPrefix)) {
-				resultList.add(ProposalsFactory.createTagProposal(element, offset,
-						tagPrefix.length() + (currentNode.isIncompleteTag() ? 1 : 0)));
-			}
-		}
+		return reference;
 	}
 
 }

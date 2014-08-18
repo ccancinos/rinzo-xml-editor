@@ -46,7 +46,7 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 		}
 		for (XMLTagDefinitionProvider definition : this.tagDefinitionProviders) {
 			tagDefinition = definition.getTagDefinition(node);
-			if (tagDefinition != null && !(tagDefinition instanceof OnlyNameTypeTagDefinition)) {
+			if (tagDefinition != null && !(tagDefinition instanceof OnlyNameTypeTagDefinition) && !(tagDefinition instanceof XSDPossibleRootsTagTypeDefinition)) {
 				return tagDefinition;
 			}
 		}
