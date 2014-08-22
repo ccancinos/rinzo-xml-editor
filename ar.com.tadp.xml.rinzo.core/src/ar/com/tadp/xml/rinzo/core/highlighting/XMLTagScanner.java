@@ -24,8 +24,8 @@ import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
+import org.eclipse.jface.text.rules.MultiLineRule;
 import org.eclipse.jface.text.rules.RuleBasedScanner;
-import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WhitespaceRule;
 import org.eclipse.jface.text.rules.WordRule;
@@ -43,12 +43,6 @@ public class XMLTagScanner extends RuleBasedScanner {
     private IToken tokenEquals;
 
     public XMLTagScanner(ColorManager manager) {
-        tokenTag = null;
-        tokenString = null;
-        tokenAttribute = null;
-        tokenDeclaration = null;
-        tokenProcInst = null;
-        tokenEquals = null;
         tokenTag = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.TAG), null, manager.isBold(IXMLColorConstants.TAG)));
         tokenString = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.STRING), null, manager.isBold(IXMLColorConstants.STRING)));
         tokenEquals = new Token(new TextAttribute(manager.getColor(IXMLColorConstants.DEFAULT), null, manager.isBold(IXMLColorConstants.DEFAULT)));
@@ -62,8 +56,8 @@ public class XMLTagScanner extends RuleBasedScanner {
         wordRule.addWord("=", tokenEquals);
         
         IRule rules[] = new IRule[5];
-        rules[0] = new SingleLineRule("\"", "\"", tokenString, '\\');
-        rules[1] = new SingleLineRule("'", "'", tokenString, '\\');
+        rules[0] = new MultiLineRule("\"", "\"", tokenString, '\\');
+        rules[1] = new MultiLineRule("'", "'", tokenString, '\\');
         rules[2] = wordRule;
         rules[3] = new WhitespaceRule(new XMLWhitespaceDetector());
         rules[4] = new IRule() {
