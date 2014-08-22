@@ -44,7 +44,7 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 		if (node.isRoot()) {
 			return this.getAllInRoot(node);
 		}
-		CollectionTagTypeDefinition definitions = new CollectionTagTypeDefinition();
+		CollectionTagTypeDefinition definitions = new CollectionTagTypeDefinition(node);
 		for (XMLTagDefinitionProvider definition : this.tagDefinitionProviders) {
 			tagDefinition = definition.getTagDefinition(node);
 			definitions.addInnerTags(tagDefinition.getInnerTags());
@@ -60,7 +60,7 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 		// because it should delegate on the tag's associated provider
 		// in order to use the correct behavior.Like displaying tag's
 		// documentation
-		CollectionTagTypeDefinition definition = new CollectionTagTypeDefinition();
+		CollectionTagTypeDefinition definition = new CollectionTagTypeDefinition(node);
 		for (XMLTagDefinitionProvider provider : this.tagDefinitionProviders) {
 			definition.addInnerTags(provider.getTagDefinition(node).getInnerTags());
 		}
@@ -111,6 +111,11 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 	private static class CollectionTagTypeDefinition implements TagTypeDefinition {
 		private Collection<TagTypeDefinition> innerTags = new ArrayList<TagTypeDefinition>();
 		private Collection<AttributeDefinition> attributes;
+		private XMLNode node;
+
+		public CollectionTagTypeDefinition(XMLNode node) {
+			this.node = node;
+		}
 
 		public AttributeDefinition getAttribute(String attributeName) {
 			return null;
@@ -138,11 +143,11 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 		}
 
 		public String getName() {
-			return null;
+			return node.getTagName();
 		}
 
 		public String getNamespace() {
-			return null;
+			return node.getNamespace();
 		}
 	}
 

@@ -46,7 +46,7 @@ public class TagPairMatcher implements ICharacterPairMatcher {
 			XMLNode correspondingNode = activeNode.getCorrespondingNode();
 			if (correspondingNode != null) {
 				if (activeNode.isTag() || activeNode.isDeclarationTag() || activeNode.isEndTag()) {
-					return new Region(correspondingNode.getSelectionOffset(), correspondingNode.getTagName().length());
+					return new Region(correspondingNode.getSelectionOffset(), correspondingNode.getFullTagName().length());
 				}
 			}
 		}
