@@ -44,13 +44,15 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 		if (node.isRoot()) {
 			return this.getAllInRoot(node);
 		}
+		CollectionTagTypeDefinition definitions = new CollectionTagTypeDefinition();
 		for (XMLTagDefinitionProvider definition : this.tagDefinitionProviders) {
 			tagDefinition = definition.getTagDefinition(node);
+			definitions.addInnerTags(tagDefinition.getInnerTags());
 			if (tagDefinition != null && !(tagDefinition instanceof OnlyNameTypeTagDefinition) && !(tagDefinition instanceof XSDPossibleRootsTagTypeDefinition)) {
-				return tagDefinition;
+				definitions.addAttributes(tagDefinition.getAttributes());
 			}
 		}
-		return tagDefinition;
+		return definitions;
 	}
 
 	private TagTypeDefinition getAllInRoot(XMLNode node) {
@@ -108,13 +110,19 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 
 	private static class CollectionTagTypeDefinition implements TagTypeDefinition {
 		private Collection<TagTypeDefinition> innerTags = new ArrayList<TagTypeDefinition>();
+		private Collection<AttributeDefinition> attributes;
 
 		public AttributeDefinition getAttribute(String attributeName) {
 			return null;
 		}
 
+		public void addAttributes(Collection<AttributeDefinition> attributes) {
+			this.attributes = attributes;
+			
+		}
+
 		public Collection<AttributeDefinition> getAttributes() {
-			return Collections.emptyList();
+			return this.attributes;
 		}
 
 		public String getComment() {

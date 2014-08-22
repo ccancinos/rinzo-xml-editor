@@ -1,39 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans 
-	xmlns="http://www.springframework.org/schema/beans" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:util="http://www.springframework.org/schema/util" 
-	xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
-	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
-	<!-- ========================================= -->
-	<!-- Roaming Request Synchronization -->
-	<!-- ========================================= -->
-	<bean id="abstractSynchronizer" class="com.gemalto.ftpsynchronizer.RoamingRequestSynchronizer"  >
-		<property name="command" ref="roamingRequestCommand"/>
-		<property name="port" value="21"/>
-		<!-- Default value 5 minutes -->
-		<property name="synchronizationInterval" value="300000"/>
-	</bean>
+    <!-- 
+        El gestor de transacciones que se usarÃ¡ durante el procesamiento batch.
+        En este caso, usamos una implementaciÃ³n "dummy" provista por Spring Batch,
+        ya que no usaremos ningun recurso transaccional.
+    -->
+    <beans:bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+        
+    <aop:aspectj-autoproxy >
+    	
+    </aop:aspectj-autoproxy>
+        	
+    <!--
+        El repositorio de tareas de Spring Batch. Este bean es el encargado 
+        de guardar la informaciÃ³n de las corridas en la base de datos.
+        En este caso usaremos un repositorio en memoria, Ãºtil para desarrollo.
+    -->
+    <beans:bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+    	
+        <beans:property name="transactionManager" ref="transactionManager"/>
+    </beans:bean>
+  
+    <!--
+        Un ejecutador de tareas. A travÃ©s de esta clase es que se inicia la
+        ejecuciÃ³n de las taras batch.
+    -->
+    <beans:bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+            <beans:property name="jobRepository" ref="jobRepository" />
+    </beans:bean>
+    
+    				
+	<job id="sampleJob">
+		<step id="step1">
+			<tasklet>
+				<chunk reader="itemGenerator" processor="processor" writer="itemWriter" commit-interval="1"/>
+			</tasklet>
+		</step>
+	</job>
 
-	<bean id="roamingRequestCommand" class="com.gemalto.request.CreateRoamingRequests">
-		<property name="requestPool" ref="requestPool" />
-	</bean>
+	<beans:bean id="itemGenerator" class="example.spring.batch.SampleItemReader">
+		<beans:property name="limit" value="10" />
+	</beans:bean>
+	
+	<beans:bean id="processor" class="example.pring.batch.PairProcessor"/>
 
-	<!-- ========================================= -->
-	<!-- Pool -->
-	<!-- ========================================= -->
-	<bean id="requestPool" class="com.gemalto.request.RoamingRequestPool"/>
-
-	<!-- ========================================= -->
-	<!-- Roaming Request Runner -->
-	<!-- ========================================= -->
-	<bean id="abstractRunner" class="com.gemalto.request.RoamingRequestRunner">
-		<property name="requestPool" ref="requestPool" />
-		<property name="roamingService" ref="roamingService" />
-		<property name="plmnGenerator" ref="PLMNGenerator" />
-		<!-- Default value 5 minutes -->
-		<property name="executionInterval" value="300000"/>
-	</bean>
-
-</beans>
+	<beans:bean id="itemWriter" class="example.spring.batch.SampleItemWriter" />
+</beans:beans>

@@ -85,6 +85,17 @@ public class XSDAttributeDefinition implements AttributeDefinition {
 				}
 			}
 			buffer.append("<br><b>Data Type:</b> " + this.attribute.getTypeDefinition().getName());
+			if (!this.getDefaultValue().isEmpty()) {
+				buffer.append("<br><b>Default Value:</b> " + this.getDefaultValue());
+			}
+			Collection<String> values = this.getAcceptableValues();
+			if(!values.isEmpty()) {
+				buffer.append("<br><b>Enumerated Values:</b>");
+				for (String string : values) {
+					buffer.append("<li>" + string + "</li>");
+				}
+			}
+			
 			this.comment = buffer.toString();
 		}
 		return this.comment;

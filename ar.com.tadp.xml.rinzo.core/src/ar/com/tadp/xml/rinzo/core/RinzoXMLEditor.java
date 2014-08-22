@@ -342,7 +342,7 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 			for (DocumentStructureDeclaration structureDeclaration : schemaDefinitions) {
 				try {
 					compositeXMLTagDefinitionProvider.addTagDefinitionProvider(new XSDTagDefinitionProvider(this
-							.getFileName(), structureDeclaration));
+							.getFileName(), structureDeclaration, schemaDefinitions));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

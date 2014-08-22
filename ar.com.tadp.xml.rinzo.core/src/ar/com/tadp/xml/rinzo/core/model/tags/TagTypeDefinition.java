@@ -25,7 +25,7 @@ import java.util.Collection;
 /**
  * Representation of an xml tag element
  * 
- * @author ccancino
+ * @author ccancinos
  */
 public interface TagTypeDefinition {
 

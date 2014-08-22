@@ -159,8 +159,8 @@ public class ProposalsFactory {
         return proposal;
     }
     
-    public static ICompletionProposal createAttributeValueProposal(String replacement, int offset) {
-	    XMLCompletionProposal proposal = new XMLCompletionProposal(replacement, offset, 0, replacement.length(),
+    public static ICompletionProposal createAttributeValueProposal(String replacement, int offset, int replacementLength) {
+	    XMLCompletionProposal proposal = new XMLCompletionProposal(replacement, offset - replacementLength, replacementLength, replacement.length(),
 	            PluginImages.get(PluginImages.IMG_XML_ATTRIBUTE), replacement, null, "Set value: <b>" + replacement + "</b>");
 	    proposal.setRelevance(ATTR_VALUE_RELEVANCE);
 	    return proposal;

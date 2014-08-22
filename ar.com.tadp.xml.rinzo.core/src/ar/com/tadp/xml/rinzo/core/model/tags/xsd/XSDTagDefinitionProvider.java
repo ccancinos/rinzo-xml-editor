@@ -25,8 +25,11 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -36,6 +39,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xsd.XSDComplexTypeDefinition;
 import org.eclipse.xsd.XSDContentTypeCategory;
 import org.eclipse.xsd.XSDElementDeclaration;
+import org.eclipse.xsd.XSDImport;
 import org.eclipse.xsd.XSDModelGroup;
 import org.eclipse.xsd.XSDParticle;
 import org.eclipse.xsd.XSDSchema;
@@ -60,14 +64,18 @@ import ar.com.tadp.xml.rinzo.core.utils.FileUtils;
  * @author ccancinos
  */
 public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
+	private static final XSDPossibleRootsTagTypeDefinition EMPTY_POSSIBLE_ROOTS = new XSDPossibleRootsTagTypeDefinition(Collections.EMPTY_LIST);
 	private String schemaPath;
 	private String fileName;
 	private Map<String, TagTypeDefinition> tags = new HashMap<String, TagTypeDefinition>();
-	private Collection<TagTypeDefinition> possibleRoots = new ArrayList<TagTypeDefinition>();
+	private Collection<TagTypeDefinition> possibleRoots = new HashSet<TagTypeDefinition>();
 	private DocumentStructureDeclaration documentStructureDeclaration;
 	private long lastModified;
+	private List<String> namespaceContainers = new ArrayList<String>();
+	private Collection<DocumentStructureDeclaration> otherSchemas;
 
-	public XSDTagDefinitionProvider(String fileName, DocumentStructureDeclaration structureDeclaration) {
+	public XSDTagDefinitionProvider(String fileName, DocumentStructureDeclaration structureDeclaration, Collection<DocumentStructureDeclaration> otherSchemas) {
+		this.otherSchemas = otherSchemas;
 		try {
 			this.fileName = fileName;
 			this.documentStructureDeclaration = structureDeclaration;
@@ -79,12 +87,26 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 	}
 
 	public TagTypeDefinition getTagDefinition(XMLNode node) {
-		String tagName = node.getTagName();
+		String tagName = node.getFullTagName();
 		TagTypeDefinition tagTypeDefinition = this.tags.get(tagName);
 		if (node == null || tagTypeDefinition == null) {
-			return new XSDPossibleRootsTagTypeDefinition(this.possibleRoots);
+			String nodeSchemaId = this.getSchemaURI(node);
+			if (this.namespaceContainers.contains(nodeSchemaId)) {
+				return new XSDPossibleRootsTagTypeDefinition(this.possibleRoots);
+			} else {
+				return EMPTY_POSSIBLE_ROOTS;
+			}
 		}
 		return tagTypeDefinition != null ? tagTypeDefinition : new OnlyNameTypeTagDefinition(tagName);
+	}
+
+	private String getSchemaURI(XMLNode node) {
+		for (DocumentStructureDeclaration declaration : this.otherSchemas) {
+			if(declaration.getNamespace().equals(node.getNamespace())) {
+				return declaration.getPublicId();
+			}
+		}
+		return "";
 	}
 
 	/**
@@ -98,14 +120,28 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 
 	// TODO THIS THREE METHODS ARE REPEATED IN XSDTAG!!!!
 	private void parseElementsFrom(XSDSchema schema) {
+		this.parseNamespaceContainers(schema);
 		for (Iterator it = schema.getElementDeclarations().iterator(); it.hasNext();) {
 			XSDElementDeclaration elementDeclaration = (XSDElementDeclaration) it.next();
-			if (!elementDeclaration.isAbstract()) {
-				this.possibleRoots.add(new XSDTagTypeDefinition(elementDeclaration, this.documentStructureDeclaration
-						.getNamespace(), this.tags));
+			if (this.documentStructureDeclaration.getPublicId() == null || elementDeclaration.getURI().startsWith(this.documentStructureDeclaration.getPublicId())) {
+				if (!elementDeclaration.isAbstract()) {
+					this.possibleRoots.add(new XSDTagTypeDefinition(elementDeclaration,
+							this.documentStructureDeclaration.getNamespace(), this.tags));
+				}
+				this.handleLeaf(elementDeclaration);
+				this.handleElementDeclaration(elementDeclaration);
 			}
-			this.handleLeaf(elementDeclaration);
-			this.handleElementDeclaration(elementDeclaration);
+		}
+	}
+
+	private void parseNamespaceContainers(XSDSchema schema) {
+		Iterator iterator = schema.getContents().iterator();
+		while (iterator.hasNext()) {
+			Object element = (Object) iterator.next();
+			if (element instanceof XSDImport) {
+				XSDImport importElement = (XSDImport) element;
+				this.namespaceContainers.add(importElement.getNamespace());
+			}
 		}
 	}
 
@@ -131,7 +167,7 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 	}
 
 	private void handleLeaf(XSDElementDeclaration tagDeclaration) {
-		this.tags.put(tagDeclaration.getName(), new XSDTagTypeDefinition(tagDeclaration,
+		this.tags.put(getFullDeclarationName(tagDeclaration), new XSDTagTypeDefinition(tagDeclaration,
 				this.documentStructureDeclaration.getNamespace(), this.tags));
 	}
 
@@ -142,15 +178,21 @@ public class XSDTagDefinitionProvider implements XMLTagDefinitionProvider {
 
 			if (childXSDTerm instanceof XSDElementDeclaration) {
 				XSDElementDeclaration eldeclaration = (XSDElementDeclaration) childXSDTerm;
-				// TODO I don't want this if here. But it is here because
-				// otherwise a stack overflow is thrown
-				if (!this.tags.containsKey(eldeclaration.getName())) {
+				if (!this.tags.containsKey(getFullDeclarationName(eldeclaration))) {
 					this.handleLeaf(eldeclaration);
 					this.handleElementDeclaration(eldeclaration);
 				}
 			} else if (childXSDTerm instanceof XSDModelGroup) {
 				this.handleContainer((XSDModelGroup) childXSDTerm);
 			}
+		}
+	}
+
+	private String getFullDeclarationName(XSDElementDeclaration eldeclaration) {
+		if (this.documentStructureDeclaration.getNamespace().isEmpty()) {
+			return eldeclaration.getName();
+		} else {
+			return this.documentStructureDeclaration.getNamespace() + ":" + eldeclaration.getName();
 		}
 	}
 

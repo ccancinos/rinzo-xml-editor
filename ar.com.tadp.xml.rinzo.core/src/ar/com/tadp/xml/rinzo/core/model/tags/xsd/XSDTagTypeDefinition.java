@@ -55,11 +55,13 @@ public class XSDTagTypeDefinition implements TagTypeDefinition {
 	private String comment = null;
 	private final Map<String, TagTypeDefinition> tagsInDocument;
 	private final String namespaceId;
+	private String namespaceURI;
 
 	public XSDTagTypeDefinition(XSDElementDeclaration tagDeclaration, String namespaceId, Map<String, TagTypeDefinition> tagsInDocument) {
 		this.tagDeclaration = tagDeclaration;
 		this.namespaceId = namespaceId;
 		this.tagsInDocument = tagsInDocument;
+		this.namespaceURI = tagDeclaration.getTargetNamespace();
 	}
 	
 	public String getName() {
@@ -68,6 +70,10 @@ public class XSDTagTypeDefinition implements TagTypeDefinition {
 
 	public String getNamespace() {
 		return this.namespaceId;
+	}
+
+	public String getNamespaceURI() {
+		return this.namespaceURI;
 	}
 
 	public Collection<AttributeDefinition> getAttributes() {
@@ -151,7 +157,7 @@ public class XSDTagTypeDefinition implements TagTypeDefinition {
 	}
 	
 	private void handleLeaf(XSDElementDeclaration elementDeclaration) {
-		this.innerTags.add(this.tagsInDocument.get(elementDeclaration.getName()));
+		this.innerTags.add(this.tagsInDocument.get(this.getFullDeclarationName(elementDeclaration)));
 	}
 
     private void handleContainer(XSDModelGroup xsdModelGroup) {
@@ -168,5 +174,46 @@ public class XSDTagTypeDefinition implements TagTypeDefinition {
             }
         }
     }
+
+	private String getFullDeclarationName(XSDElementDeclaration eldeclaration) {
+		if (this.namespaceId.isEmpty()) {
+			return eldeclaration.getName();
+		} else {
+			return this.namespaceId + ":" + eldeclaration.getName();
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		String name = getName();
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((namespaceId == null) ? 0 : namespaceId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		XSDTagTypeDefinition other = (XSDTagTypeDefinition) obj;
+		String name = getName();
+		if (name == null) {
+			if (other.getName() != null)
+				return false;
+		} else if (!name.equals(other.getName()))
+			return false;
+		if (namespaceId == null) {
+			if (other.namespaceId != null)
+				return false;
+		} else if (!namespaceId.equals(other.namespaceId))
+			return false;
+		return true;
+	}
 
 }

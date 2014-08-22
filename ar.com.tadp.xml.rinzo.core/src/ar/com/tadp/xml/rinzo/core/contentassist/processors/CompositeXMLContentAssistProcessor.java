@@ -112,11 +112,12 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 		
 		try {
 			while (i > 0) {
-				char ch= document.getChar(i - 1);
-				if (ch != '<' && !(Character.isJavaIdentifierPart(ch) || ch == ':')) {
+				i--;
+				char ch= document.getChar(i);
+				if (ch != '<' && !(Character.isJavaIdentifierPart(ch) || ch == ':' || ch == '='  || ch == '"' || ch == '\'')) {
+					i++;
 					break;
 				}
-				i--;
 			}
 			return document.get(i, offset - i);
 		} catch (Exception e) {
@@ -175,11 +176,8 @@ public class CompositeXMLContentAssistProcessor implements IContentAssistProcess
 	*/
 	private boolean isInAttributeValue(String attributePrefix) {
 		int firsIndex = attributePrefix.indexOf("\"");
-		int secondindex = 0;
-		if (firsIndex != -1) {
-			secondindex = attributePrefix.indexOf("\"", firsIndex + 1);
-		}
-		return firsIndex != -1 && secondindex == -1;
+		firsIndex = (firsIndex != -1) ? firsIndex : attributePrefix.indexOf("\'");
+		return firsIndex != -1;
 	}
 
 	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {

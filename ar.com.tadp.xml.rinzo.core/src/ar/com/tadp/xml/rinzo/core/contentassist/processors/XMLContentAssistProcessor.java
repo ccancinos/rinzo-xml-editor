@@ -57,12 +57,17 @@ public class XMLContentAssistProcessor implements IXMLContentAssistProcessor {
 			ITextViewer viewer, int offset, Collection<ICompletionProposal> resultList) {
 		AttributeDefinition attributeDefinition = currentNode.getTypeDefinition().getAttribute(prefix);
 		Collection<String> acceptableValues = null;
-
+		int startAttrPrefix = prefix.indexOf("\"");
+		startAttrPrefix = (startAttrPrefix != -1) ? startAttrPrefix : prefix.indexOf("\'");
+		String attrPrefix = prefix.substring(startAttrPrefix + 1);
+		
 		if (attributeDefinition != null) {
 			acceptableValues = attributeDefinition.getAcceptableValues();
 			if (!acceptableValues.isEmpty()) {
 				for (String currentValue : acceptableValues) {
-					resultList.add(ProposalsFactory.createAttributeValueProposal(currentValue, offset));
+					if (currentValue.startsWith(attrPrefix)) {
+						resultList.add(ProposalsFactory.createAttributeValueProposal(currentValue, offset, attrPrefix.length()));
+					}
 				}
 			}
 		}
@@ -105,17 +110,19 @@ public class XMLContentAssistProcessor implements IXMLContentAssistProcessor {
 		validTags = this.getValidTagsInOffset(currentNode, offset);
 		
 		for (TagTypeDefinition tagDefinition : validTags) {
-			String name = tagDefinition.getName();
-			String namespace = tagDefinition.getNamespace();
-			if(tagNamespace.isEmpty()) {
-				if (name.startsWith(tagPrefix) || namespace.startsWith(tagPrefix)) {
-					resultList.add(ProposalsFactory.createTagProposal(tagDefinition, offset,
-							tagPrefix.length() + (currentNode.isIncompleteTag() ? 1 : 0)));
-				}
-			} else {
-				if (namespace.startsWith(tagNamespace) && name.startsWith(tagPrefix)) {
-					resultList.add(ProposalsFactory.createTagProposal(tagDefinition, offset,
-							tagPrefix.length() + tagNamespace.length() + (currentNode.isIncompleteTag() ? 1 : 0) + inc));
+			if (tagDefinition != null) {
+				String name = tagDefinition.getName();
+				String namespace = tagDefinition.getNamespace();
+				if (tagNamespace.isEmpty()) {
+					if (name.startsWith(tagPrefix) || namespace.startsWith(tagPrefix)) {
+						resultList.add(ProposalsFactory.createTagProposal(tagDefinition, offset, tagPrefix.length()
+								+ (currentNode.isIncompleteTag() ? 1 : 0)));
+					}
+				} else {
+					if (namespace.startsWith(tagNamespace) && name.startsWith(tagPrefix)) {
+						resultList.add(ProposalsFactory.createTagProposal(tagDefinition, offset, tagPrefix.length()
+								+ tagNamespace.length() + (currentNode.isIncompleteTag() ? 1 : 0) + inc));
+					}
 				}
 			}
 		}

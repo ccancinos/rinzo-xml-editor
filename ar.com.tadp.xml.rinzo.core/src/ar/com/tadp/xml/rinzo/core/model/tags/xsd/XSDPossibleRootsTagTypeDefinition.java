@@ -20,7 +20,9 @@
  ****************************************************************************/
 package ar.com.tadp.xml.rinzo.core.model.tags.xsd;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import ar.com.tadp.xml.rinzo.core.model.tags.AttributeDefinition;
 import ar.com.tadp.xml.rinzo.core.model.tags.TagTypeDefinition;
@@ -37,11 +39,11 @@ public class XSDPossibleRootsTagTypeDefinition implements TagTypeDefinition {
 	}
 
 	public String getNamespace() {
-		return null;
+		return "";
 	}
 
 	public String getName() {
-		return null;
+		return "";
 	}
 
 	public Collection<TagTypeDefinition> getInnerTags() {
@@ -49,11 +51,11 @@ public class XSDPossibleRootsTagTypeDefinition implements TagTypeDefinition {
 	}
 
 	public String getComment() {
-		return null;
+		return "";
 	}
 
 	public Collection<AttributeDefinition> getAttributes() {
-		return null;
+		return Collections.emptyList();
 	}
 
 	public AttributeDefinition getAttribute(String attributeName) {
