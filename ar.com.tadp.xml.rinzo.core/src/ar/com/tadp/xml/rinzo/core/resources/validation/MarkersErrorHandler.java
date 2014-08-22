@@ -72,23 +72,19 @@ public class MarkersErrorHandler implements ErrorHandler {
         try {
             String message = exception.getMessage();
             message = message.substring(message.indexOf(":")+1).trim();
-            //REVISARME para ver si hay otra forma de hacer esto
-            if(!"no grammar found.".equals(message) &&
-               !message.endsWith("must match DOCTYPE root \"null\".")) {
-            	
-            	Map<String, Comparable> attributes = new HashMap<String, Comparable>();
-            	attributes.put(IMarker.MESSAGE, message);
-            	attributes.put(IMarker.PRIORITY, Integer.valueOf(IMarker.PRIORITY_HIGH));
-            	attributes.put(IMarker.LINE_NUMBER, Integer.valueOf(exception.getLineNumber()));
-            	attributes.put(IMarker.SEVERITY, this.getSeverity());
-            	
-        		int lineStartChar = getCharStart(exception.getLineNumber(), exception.getColumnNumber());
-				XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(lineStartChar);
-    			attributes.put(IMarker.CHAR_START, (activeNode !=null ? Integer.valueOf(activeNode.getOffset()) : 0));
-    			attributes.put(IMarker.CHAR_END, (activeNode !=null ? Integer.valueOf(activeNode.getOffset() + activeNode.getLength()) : 0));
+        	
+        	Map<String, Comparable> attributes = new HashMap<String, Comparable>();
+        	attributes.put(IMarker.MESSAGE, message);
+        	attributes.put(IMarker.PRIORITY, Integer.valueOf(IMarker.PRIORITY_HIGH));
+        	attributes.put(IMarker.LINE_NUMBER, Integer.valueOf(exception.getLineNumber()));
+        	attributes.put(IMarker.SEVERITY, this.getSeverity());
+        	
+    		int lineStartChar = getCharStart(exception.getLineNumber(), exception.getColumnNumber());
+			XMLNode activeNode = this.editor.getModel().getTree().getActiveNode(lineStartChar);
+			attributes.put(IMarker.CHAR_START, (activeNode !=null ? Integer.valueOf(activeNode.getOffset()) : 0));
+			attributes.put(IMarker.CHAR_END, (activeNode !=null ? Integer.valueOf(activeNode.getOffset() + activeNode.getLength()) : 0));
 
-            	MarkerUtilities.createMarker(file, attributes, MARKER_TYPE);
-            }
+        	MarkerUtilities.createMarker(file, attributes, MARKER_TYPE);
         } catch (Exception coreException) {
             throw new RuntimeException("Error during the creation of the Marker", coreException);
         }

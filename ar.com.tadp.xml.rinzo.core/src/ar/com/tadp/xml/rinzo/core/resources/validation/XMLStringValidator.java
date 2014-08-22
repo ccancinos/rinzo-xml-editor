@@ -81,7 +81,7 @@ public class XMLStringValidator implements XmlValidator {
     private void plainTextValidate(String fileName, String fileContent) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
-		factory.setValidating(true);
+		factory.setValidating(false);
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			builder.setErrorHandler(this.errorHandler);
