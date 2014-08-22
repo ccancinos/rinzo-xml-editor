@@ -90,8 +90,6 @@
 		<module>../ar.com.tadp.xml.rinzo.jdt.feature</module> 
 		<module>../ar.com.tadp.xml.rinzo.updatesite</module> 
 		<module>../ar.com.tado.xml.rinzo.site</module>
-		<!-- 
-		-->
 	</modules>
 
 </project>
