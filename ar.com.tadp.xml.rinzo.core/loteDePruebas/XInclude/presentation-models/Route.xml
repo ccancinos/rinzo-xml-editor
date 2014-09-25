@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xmlns="http://www.xxx.com/rcm/presentation"
-          xsi:schemaLocation="http://www.xxx.com/rcm/presentation ../xsd/presentation.xsd http://www.w3.org/2001/XInclude http://www.w3.org/2001/XInclude.xsd">
+          xsi:schemaLocation="http://www.xxx.com/rcm/presentation presentation.xsd http://www.w3.org/2001/XInclude http://www.w3.org/2001/XInclude.xsd">
           
   <entity class="com.xxx.rcm.entities.route.Route" id="Route">
     <fields>

@@ -104,7 +104,7 @@ public class RinzoXMLEditor extends TextEditor implements ISelectionChangedListe
 
 	private XMLOutlinePage outlinePage;
 	private NoDefTagDefinitionProvider containersRegistry = new NoDefTagDefinitionProvider();
-	private XMLTagDefinitionProvider schemaContaintersRegistry;
+	private XMLTagDefinitionProvider schemaContaintersRegistry = null;
 	private DTDTagDefinitionProvider dtdContaintersRegistry;
 	private EditorConfiguration editorFileConfigurationStrategy;
 	private boolean changed = true;

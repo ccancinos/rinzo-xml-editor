@@ -1,6 +1,4 @@
-<window border="normal"
-	title="To do list"
-	width="640px">
+<window title="To do list" width="640px" border="normal">
 	<zscript>
 		import java.util.ArrayList;
 		import java.text.SimpleDateFormat;

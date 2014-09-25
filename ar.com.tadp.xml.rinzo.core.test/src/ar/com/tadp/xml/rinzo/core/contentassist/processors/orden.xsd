@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified"
+            xmlns="urn:nonstandard:test"
+            targetNamespace="urn:nonstandard:test">
+
+    <xsd:element name="order" type="Order" />
+    <xsd:complexType name="Order">
+        <xsd:all>
+            <xsd:element name="user" type="User" minOccurs="1" maxOccurs="1" />
+            <xsd:element name="products" type="Products" minOccurs="1" maxOccurs="1" />
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="User">
+        <xsd:all>
+        
+            <xsd:element name="deliveryAddress" type="xsd:string" />
+        
+            <xsd:element name="fullname">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="Products">
+        <xsd:sequence>
+            <xsd:element name="product" type="Product" minOccurs="1" maxOccurs="unbounded">
+            <xsd:annotation>
+	    		<xsd:documentation>
+	    			Product's Order definition
+	    		</xsd:documentation>
+	    		</xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Product">
+        <xsd:attribute name="id" type="xsd:long" use="required" />
+        <xsd:attribute name="quantity" type="xsd:positiveInteger" use="required" />
+        <xsd:attribute name="name" type="ProductName" default="Golf"/>
+    </xsd:complexType>
+	
+    <xsd:simpleType name="ProductName">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Audi"/>
+            <xsd:enumeration value="Golf"/>
+            <xsd:enumeration value="BMW"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

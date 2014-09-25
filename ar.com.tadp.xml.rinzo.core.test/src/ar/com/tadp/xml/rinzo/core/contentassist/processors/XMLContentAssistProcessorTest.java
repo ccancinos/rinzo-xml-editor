@@ -71,6 +71,22 @@ public class XMLContentAssistProcessorTest extends AbstractRinzoTest {
 		assertEquals(expected.size(), resultList.size());
 		assertTrue(this.successResult(resultList, expected));
 	}
+	
+	@Test
+	public void testTagsAttrsValuesProposals() throws Exception {
+		Collection<String> expected = Arrays.asList("Audi", "Golf", "BMW");
+		this.copyFile("src/ar/com/tadp/xml/rinzo/core/contentassist/processors/orden.xsd");
+		this.useFile("src/ar/com/tadp/xml/rinzo/core/contentassist/processors/orden.xml");
+		XMLContentAssistProcessor processor = new XMLContentAssistProcessor();
+		Collection<ICompletionProposal> resultList = new ArrayList<ICompletionProposal>();
+		int offset = 442;
+		String prefix = "name=\"";
+		XMLNode currentNode = this.xmlTreeModel.getTree().getPreviousNode(offset);
+		processor.addAttributeValuesProposals(currentNode, "name", prefix, this.editor.getSourceViewerEditor(), offset, resultList);
+		
+		assertEquals(expected.size(), resultList.size());
+		assertTrue(this.successResult(resultList, expected));
+	}
 
 	@Test
 	public void testBodyTagProposals() throws Exception {

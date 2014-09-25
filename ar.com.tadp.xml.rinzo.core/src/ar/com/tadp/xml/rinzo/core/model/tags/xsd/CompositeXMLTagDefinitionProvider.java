@@ -110,7 +110,7 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 
 	private static class CollectionTagTypeDefinition implements TagTypeDefinition {
 		private Collection<TagTypeDefinition> innerTags = new ArrayList<TagTypeDefinition>();
-		private Collection<AttributeDefinition> attributes;
+		private Collection<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
 		private XMLNode node;
 
 		public CollectionTagTypeDefinition(XMLNode node) {
@@ -118,6 +118,12 @@ public class CompositeXMLTagDefinitionProvider implements XMLTagDefinitionProvid
 		}
 
 		public AttributeDefinition getAttribute(String attributeName) {
+			for (Iterator<AttributeDefinition> iterator = this.attributes.iterator(); iterator.hasNext();) {
+				AttributeDefinition currentAttribute = iterator.next();
+				if(attributeName.startsWith(currentAttribute.getName())) {
+					return currentAttribute;
+				}
+			}
 			return null;
 		}
 
