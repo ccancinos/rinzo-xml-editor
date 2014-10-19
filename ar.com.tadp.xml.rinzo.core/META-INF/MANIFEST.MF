@@ -1,7 +1,7 @@
 neoManifest-Version: 1.0
 Bundle-Name: Rinzo
 Bundle-SymbolicName: ar.com.tadp.xml.rinzo.core;singleton:=true
-Bundle-Version: 1.4.0
+Bundle-Version: 1.4.1
 Bundle-ClassPath: lib/org.eclipse.emf.common_2.1.0.jar,
  lib/org.eclipse.emf.ecore_2.1.0.jar,
  lib/xsd.jar,

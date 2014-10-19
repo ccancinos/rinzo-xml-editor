@@ -2,7 +2,7 @@
 <feature
       id="ar.com.tadp.xml.rinzo.jdt.feature"
       label="Rinzo XML Editor Java Integration"
-      version="1.4.0"
+      version="1.4.1"
       provider-name="Claudio Cancinos">
 
    <description url="http://www.example.com/description">
@@ -648,7 +648,7 @@ License along with this program; If not, see &lt;http://www.gnu.org/licenses/&gt
          id="ar.com.tadp.xml.rinzo.jdt"
          download-size="0"
          install-size="0"
-         version="1.4.0"
+         version="1.4.1"
          unpack="false"/>
 
 </feature>

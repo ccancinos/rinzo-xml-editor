@@ -6,6 +6,26 @@ Release Notes
 
 %{toc|toDepth=1}
 
+{What's new in 1.4.1?}
+
+ This version has several bugs fixed most of them for autocompletion
+
+  * Autocompletion was not working correctly with namespaces or attributes using single instead of double quotes
+  
+  * Formatting was putting attributes in different lines
+  
+  * Multiline attribute values get incorrect Syntax coloring.
+  
+  * Maven build was fixed
+  
+  * Fixing validation on xml without Schema or DTD
+  
+  * Minor fix in Outline view and preferences
+  
+  []
+  
+ {{{https://github.com/ccancinos/rinzo-xml-editor/issues?q=milestone%3A1.4.1+is%3Aclosed}1.4.1 closed issues}}
+
 {What's new in 1.4.0?}
   
 * {Features}

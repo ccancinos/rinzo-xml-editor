@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>ar.com.tadp.rinzo</groupId>
 		<artifactId>ar.com.tadp.rinzo.parent</artifactId>
-		<version>1.4.0</version>
+		<version>1.4.1</version>
 		<relativePath>../ar.com.tadp.rinzo.parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>ar.com.tadp.rinzo.site</artifactId>
