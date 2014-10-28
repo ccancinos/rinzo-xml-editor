@@ -144,15 +144,20 @@ public class JDTUtils {
 	}
 
 	public static IType[] getAllSuperTypes(String qualifiedTypeName) {
+		IType[] superTypes = null; 
 		try {
 			IType type;
-			ITypeHierarchy supertypeHierarchy;
 			type = JDTUtils.findType(qualifiedTypeName);
-			supertypeHierarchy = type.newSupertypeHierarchy(null);
-			return supertypeHierarchy.getAllSupertypes(type);
+			if (type!=null) {
+				ITypeHierarchy typeHierachy = type.newSupertypeHierarchy(null);
+				if (typeHierachy!=null)
+					superTypes = typeHierachy.getAllSupertypes(type);
+			}
 		} catch (JavaModelException e) {
-			return new IType[]{};
 		}
+		if (superTypes==null)
+			superTypes = new IType[0];
+		return superTypes;
 	}
 	
 	public static boolean isSuperType(String className, String superType) {
