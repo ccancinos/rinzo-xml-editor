@@ -73,15 +73,18 @@ public class FilteredClassNameProcessor extends ClassNameProcessor {
 	}
 
 	@Override
-	protected void addProposal(AbstractJavaCompletionProposal proposal, List result) {
+	protected boolean addProposal(AbstractJavaCompletionProposal proposal, List result) {
 		if (proposal instanceof LazyJavaTypeCompletionProposal) {
 			LazyJavaTypeCompletionProposal classProposal = (LazyJavaTypeCompletionProposal) proposal;
 			if (this.isAccepted(classProposal, extending)) {
 				result.add(proposal);
+				return true;
 			}
 		} else {
 			result.add(proposal);
+			return true;
 		}
+		return false;
 	}
 
 	private boolean isAccepted(LazyJavaTypeCompletionProposal proposal, Extending extending) {
