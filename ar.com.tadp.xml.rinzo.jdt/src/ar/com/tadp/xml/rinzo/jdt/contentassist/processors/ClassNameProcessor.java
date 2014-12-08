@@ -106,18 +106,19 @@ public class ClassNameProcessor implements IXMLContentAssistProcessor {
 					proposal.setReplacementOffset(offset - prefix.length());
 					proposal.setReplacementLength(prefix.length());
 
-					result.add(proposal);
-					if (proposals[j] instanceof LazyJavaTypeCompletionProposal) {
-						LazyJavaTypeCompletionProposal javaTypeProposal = (LazyJavaTypeCompletionProposal) proposals[j];
-						javaTypeProposal.setReplacementString(javaTypeProposal.getQualifiedTypeName());
-					} 
-					if (proposals[j] instanceof JavaCompletionProposal || proposals[j] instanceof JavaMethodCompletionProposal) {
-						String displayString = proposal.getDisplayString();
-						int indexOfColon = displayString.indexOf(':');
-						if(indexOfColon != -1) {
-							String replacementString = displayString.substring(0, indexOfColon).trim();
-							proposal.setReplacementString(replacementString);
-							proposal.setReplacementOffset(offset);
+					if (addProposal(proposal,result)) {
+						if (proposals[j] instanceof LazyJavaTypeCompletionProposal) {
+							LazyJavaTypeCompletionProposal javaTypeProposal = (LazyJavaTypeCompletionProposal) proposals[j];
+							javaTypeProposal.setReplacementString(javaTypeProposal.getQualifiedTypeName());
+						} 
+						if (proposals[j] instanceof JavaCompletionProposal || proposals[j] instanceof JavaMethodCompletionProposal) {
+							String displayString = proposal.getDisplayString();
+							int indexOfColon = displayString.indexOf(':');
+							if(indexOfColon != -1) {
+								String replacementString = displayString.substring(0, indexOfColon).trim();
+								proposal.setReplacementString(replacementString);
+								proposal.setReplacementOffset(offset);
+							}
 						}
 					}
 				}
@@ -129,8 +130,9 @@ public class ClassNameProcessor implements IXMLContentAssistProcessor {
 		}
 	}
 
-	protected void addProposal(AbstractJavaCompletionProposal proposal, List result) {
+	protected boolean addProposal(AbstractJavaCompletionProposal proposal, List result) {
 		result.add(proposal);
+		return true;
 	}
 
 	private IJavaCompletionProposal[] createJavaClassesProposals(String prefix) throws JavaModelException {
