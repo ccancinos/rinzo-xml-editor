@@ -60,7 +60,7 @@ import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
 public class XPathView extends ViewPart {
 	private static final String XPATH_VIEW_AUTO_EVALUATION = "XPathView.autoEvaluate";
 	private SourceViewer resultViewer;
-	private Combo expressionsCombo;	
+	private Combo expressionsCombo;
 	private Button evaluateButton;
 	private IAction clearAllAction;
 	private boolean autoEvaluation;
@@ -70,21 +70,21 @@ public class XPathView extends ViewPart {
 	private SelectionListener selectionListener;
 	private XPathEvaluator xPathEvaluator = new XPathEvaluator();
 	private Document sourceXMLDocument;
-	
+
 	public XPathView() {
 	}
 
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new GridLayout(1, false));
 		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
+
 		Composite expresionComposite = new Composite(parent, SWT.NONE);
 		expresionComposite.setLayout(new GridLayout(3, false));
 		expresionComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		Composite expresionContainer = new Composite(expresionComposite, SWT.NONE);
 		expresionContainer.setLayout(new GridLayout(3, false));
 		expresionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		
+
 		Label label = new Label(expresionContainer, SWT.NONE);
 		label.setText("Expression:");
 		this.expressionsCombo = new Combo(expresionContainer, SWT.DROP_DOWN | SWT.SINGLE | SWT.LEAD);
@@ -97,7 +97,7 @@ public class XPathView extends ViewPart {
 		this.enterEvaluationListener = new EnterEvaluationKeyListener();
 		this.expressionsCombo.addKeyListener(this.enterEvaluationListener);
 		this.selectionListener = new SelectionListenerImplementation();
-		
+
 		this.evaluateButton = new Button(expresionComposite, SWT.PUSH);
 		this.evaluateButton.setText("evaluate");
 		this.evaluateButton.addSelectionListener(new SelectionAdapter() {
@@ -106,31 +106,33 @@ public class XPathView extends ViewPart {
 				evaluateExpression();
 			}
 		});
-		
+
 		Composite resultComposite = new Composite(parent, SWT.NONE);
 		resultComposite.setLayout(new FillLayout());
 		resultComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		this.resultViewer = new SourceViewer(resultComposite, null,SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		this.resultViewer = new SourceViewer(resultComposite, null, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		this.resultViewer.setInput(this);
 		sourceXMLDocument = new Document("");
 		this.resultViewer.configure(new XMLSrcViewerConfiguration(sourceXMLDocument));
 		this.resultViewer.setDocument(sourceXMLDocument);
-		
-		this.clearAllAction = new Action("Clear All"){
-			public void run(){
+
+		this.clearAllAction = new Action("Clear All") {
+			public void run() {
 				resultViewer.getDocument().set("");
 				resultViewer.refresh();
 				expressionsCombo.removeAll();
 			}
 		};
-		this.clearAllAction.setImageDescriptor(ImageDescriptor.createFromImage(PluginImages.get(PluginImages.IMG_CLEAR)));
-		
+		this.clearAllAction
+				.setImageDescriptor(ImageDescriptor.createFromImage(PluginImages.get(PluginImages.IMG_CLEAR)));
+
 		this.autoEvaluateAction = new Action("Auto Evaluate XPath", IAction.AS_CHECK_BOX) {
 			public void run() {
 				setAutoEvaluation(!autoEvaluation);
 			}
 		};
-		this.autoEvaluateAction.setImageDescriptor(ImageDescriptor.createFromImage(PluginImages.get(PluginImages.IMG_XPATH_AUTO_EVALUATE)));
+		this.autoEvaluateAction.setImageDescriptor(ImageDescriptor.createFromImage(PluginImages
+				.get(PluginImages.IMG_XPATH_AUTO_EVALUATE)));
 		this.setAutoEvaluation(XMLEditorPlugin.getDefault().getPreferenceStore().getBoolean(XPATH_VIEW_AUTO_EVALUATION));
 		this.autoEvaluateAction.setChecked(this.autoEvaluation);
 
@@ -138,32 +140,33 @@ public class XPathView extends ViewPart {
 		toolbarManager.add(this.autoEvaluateAction);
 		toolbarManager.add(this.clearAllAction);
 	}
-	
+
 	private void evaluateExpression() {
 		try {
 			String result = this.xPathEvaluator.evaluate(this.getExpression(), this.getEditorContent());
-			if(!this.resultViewer.getDocument().get().equals(result.toString()) && result.length() != 0) {
+			if (!this.resultViewer.getDocument().get().equals(result.toString()) && result.length() != 0) {
 				this.saveHistory();
 			}
 			this.showXPathResult(result.toString());
 		} catch (Exception e) {
-			String localizedMessage = (e.getLocalizedMessage() != null)? e.getLocalizedMessage() : e.getCause().getLocalizedMessage();
+			String localizedMessage = (e.getLocalizedMessage() != null) ? e.getLocalizedMessage() : e.getCause()
+					.getLocalizedMessage();
 			this.showXPathResult(localizedMessage);
 		}
 	}
 
 	private void setAutoEvaluation(boolean autoEvaluation) {
-        XMLEditorPlugin.getDefault().getPreferenceStore().setValue(XPATH_VIEW_AUTO_EVALUATION, autoEvaluation);
-        this.autoEvaluation = autoEvaluation;
+		XMLEditorPlugin.getDefault().getPreferenceStore().setValue(XPATH_VIEW_AUTO_EVALUATION, autoEvaluation);
+		this.autoEvaluation = autoEvaluation;
 
-        this.evaluateButton.setEnabled(!this.autoEvaluation);
-        if(this.autoEvaluation) {
+		this.evaluateButton.setEnabled(!this.autoEvaluation);
+		if (this.autoEvaluation) {
 			this.expressionsCombo.addKeyListener(this.autoEvaluationListener);
 			this.expressionsCombo.addSelectionListener(this.selectionListener);
-        } else {
-        	this.expressionsCombo.removeKeyListener(this.autoEvaluationListener);
-        	this.expressionsCombo.removeSelectionListener(this.selectionListener);
-        }
+		} else {
+			this.expressionsCombo.removeKeyListener(this.autoEvaluationListener);
+			this.expressionsCombo.removeSelectionListener(this.selectionListener);
+		}
 	}
 
 	public void setFocus() {
@@ -173,7 +176,6 @@ public class XPathView extends ViewPart {
 	private String getEditorContent() {
 		return this.getActiveEditor().getSourceViewerEditor().getDocument().get();
 	}
-
 
 	private String getExpression() {
 		return this.expressionsCombo.getText();
@@ -186,7 +188,7 @@ public class XPathView extends ViewPart {
 
 	private void saveHistory() {
 		List<String> history = Arrays.asList(this.expressionsCombo.getItems());
-		if(!history.contains(this.getExpression())) {
+		if (!history.contains(this.getExpression())) {
 			this.expressionsCombo.add(this.getExpression(), 0);
 		}
 	}
@@ -194,9 +196,9 @@ public class XPathView extends ViewPart {
 	private RinzoXMLEditor getActiveEditor() {
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (window != null) {
-			IWorkbenchPage page= window.getActivePage();
+			IWorkbenchPage page = window.getActivePage();
 			if (page != null) {
-				IEditorPart editor= page.getActiveEditor();
+				IEditorPart editor = page.getActiveEditor();
 				if (editor instanceof RinzoXMLEditor) {
 					return (RinzoXMLEditor) editor;
 				}
@@ -204,11 +206,12 @@ public class XPathView extends ViewPart {
 		}
 		return null;
 	}
-	
-    private final class SelectionListenerImplementation implements SelectionListener {
+
+	private final class SelectionListenerImplementation implements SelectionListener {
 		public void widgetSelected(SelectionEvent e) {
 			evaluateExpression();
 		}
+
 		public void widgetDefaultSelected(SelectionEvent e) {
 			evaluateExpression();
 		}
@@ -218,16 +221,18 @@ public class XPathView extends ViewPart {
 		public void keyReleased(KeyEvent e) {
 			evaluateExpression();
 		}
+
 		public void keyPressed(KeyEvent e) {
 		}
 	}
 
 	private final class EnterEvaluationKeyListener implements KeyListener {
 		public void keyReleased(KeyEvent event) {
-			if(event.keyCode == SWT.CR) {
+			if (event.keyCode == SWT.CR) {
 				evaluateExpression();
 			}
 		}
+
 		public void keyPressed(KeyEvent e) {
 		}
 	}

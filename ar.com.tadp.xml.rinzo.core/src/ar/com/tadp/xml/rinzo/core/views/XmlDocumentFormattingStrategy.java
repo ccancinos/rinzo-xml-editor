@@ -28,18 +28,17 @@ import org.eclipse.jface.text.formatter.IFormattingStrategy;
  * @author ccancinos
  */
 public class XmlDocumentFormattingStrategy implements IFormattingStrategy {
-	 
+
 	private IDocument document;
 
 	public XmlDocumentFormattingStrategy(IDocument document) {
 		this.document = document;
 	}
 
-	public String format(String content, boolean isLineStart,
-		String indentation, int[] positions) {
+	public String format(String content, boolean isLineStart, String indentation, int[] positions) {
 		XmlDocumentFormatter formatter = new XmlDocumentFormatter();
-		if (content == null){
-			content ="";
+		if (content == null) {
+			content = "";
 		}
 		String string = formatter.format(content);
 		return string;

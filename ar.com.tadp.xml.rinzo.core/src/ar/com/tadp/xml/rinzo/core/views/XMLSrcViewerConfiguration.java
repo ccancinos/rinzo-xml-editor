@@ -47,8 +47,7 @@ public class XMLSrcViewerConfiguration extends SourceViewerConfiguration {
 
 	private XMLTagScanner scanner;
 	private IDocument requestDocument;
-	private final Color DEFAULT_TAG_COLOR = new Color(Display.getCurrent(),
-			new RGB(0, 0, 200));;
+	private final Color DEFAULT_TAG_COLOR = new Color(Display.getCurrent(), new RGB(0, 0, 200));;
 
 	public XMLSrcViewerConfiguration() {
 		// TODO Auto-generated constructor stub
@@ -58,11 +57,9 @@ public class XMLSrcViewerConfiguration extends SourceViewerConfiguration {
 		requestDocument = document;
 	}
 
-	public IPresentationReconciler getPresentationReconciler(
-			ISourceViewer sourceViewer) {
+	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
 		PresentationReconciler reconciler = new PresentationReconciler();
-		DefaultDamagerRepairer damager = new DefaultDamagerRepairer(
-				getTagScanner());
+		DefaultDamagerRepairer damager = new DefaultDamagerRepairer(getTagScanner());
 		reconciler.setDamager(damager, IDocument.DEFAULT_CONTENT_TYPE);
 		reconciler.setRepairer(damager, IDocument.DEFAULT_CONTENT_TYPE);
 		return reconciler;
@@ -71,18 +68,15 @@ public class XMLSrcViewerConfiguration extends SourceViewerConfiguration {
 	private ITokenScanner getTagScanner() {
 		if (scanner == null) {
 			scanner = new XMLTagScanner(new ColorManager());// XmlRuleScanner();
-			scanner.setDefaultReturnToken(new Token(new TextAttribute(
-					DEFAULT_TAG_COLOR)));
+			scanner.setDefaultReturnToken(new Token(new TextAttribute(DEFAULT_TAG_COLOR)));
 		}
 		return scanner;
 	}
 
 	public IContentFormatter getContentFormatter(ISourceViewer sourceViewer) {
 		ContentFormatter formatter = new ContentFormatter();
-		IFormattingStrategy keyword = new XmlDocumentFormattingStrategy(
-				requestDocument);
-		formatter
-				.setFormattingStrategy(keyword, IDocument.DEFAULT_CONTENT_TYPE);
+		IFormattingStrategy keyword = new XmlDocumentFormattingStrategy(requestDocument);
+		formatter.setFormattingStrategy(keyword, IDocument.DEFAULT_CONTENT_TYPE);
 		return formatter;
 	}
 }

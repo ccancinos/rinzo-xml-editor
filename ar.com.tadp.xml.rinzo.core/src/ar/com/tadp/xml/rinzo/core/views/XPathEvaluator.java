@@ -58,13 +58,13 @@ public class XPathEvaluator {
 	public XPathEvaluator() {
 		this.xpath = XPathFactory.newInstance().newXPath();
 	}
-	
+
 	public String evaluate(String xpathExpression, String source) {
 		StringBuffer buffer = new StringBuffer();
 		try {
-            Document document = this.getDocumentBuilder().parse(this.createInputSource(source));
-			NodeList selectedNodes = (NodeList)this.xpath.evaluate(xpathExpression, document, XPathConstants.NODESET);
-			if(selectedNodes.getLength() != 0) {
+			Document document = this.getDocumentBuilder().parse(this.createInputSource(source));
+			NodeList selectedNodes = (NodeList) this.xpath.evaluate(xpathExpression, document, XPathConstants.NODESET);
+			if (selectedNodes.getLength() != 0) {
 				for (int i = 0; i < selectedNodes.getLength(); i++) {
 					Node node = selectedNodes.item(i);
 					buffer.append(this.xmlToString(node));
@@ -74,9 +74,10 @@ public class XPathEvaluator {
 				buffer.append(this.xpath.evaluate(xpathExpression, this.createInputSource(source)));
 			}
 		} catch (Exception e) {
-			throw new RuntimeException((e.getLocalizedMessage() != null)? e.getLocalizedMessage() : e.getCause().getLocalizedMessage(), e);
+			throw new RuntimeException((e.getLocalizedMessage() != null) ? e.getLocalizedMessage() : e.getCause()
+					.getLocalizedMessage(), e);
 		}
-		
+
 		return buffer.toString();
 	}
 
@@ -91,31 +92,31 @@ public class XPathEvaluator {
 		}
 		return this.documentBuilder;
 	}
-	
+
 	private String xmlToString(Node node) {
-        try {
-        	if (AttrImpl.class.isAssignableFrom(node.getClass())) {
+		try {
+			if (AttrImpl.class.isAssignableFrom(node.getClass())) {
 				AttrImpl attr = (AttrImpl) node;
 				return attr.toString();
 			}
-            Source source = new DOMSource(node);
-            StringWriter stringWriter = new StringWriter();
-            Result result = new StreamResult(stringWriter);
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            transformer.transform(source, result);
-            String string = stringWriter.getBuffer().toString();
-            if(string.startsWith("<?")) {
-            	string = string.substring(string.indexOf("?>") + 2);
-            }
+			Source source = new DOMSource(node);
+			StringWriter stringWriter = new StringWriter();
+			Result result = new StreamResult(stringWriter);
+			TransformerFactory factory = TransformerFactory.newInstance();
+			Transformer transformer = factory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			transformer.transform(source, result);
+			String string = stringWriter.getBuffer().toString();
+			if (string.startsWith("<?")) {
+				string = string.substring(string.indexOf("?>") + 2);
+			}
 			return string;
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
