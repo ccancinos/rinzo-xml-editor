@@ -51,7 +51,6 @@ import org.eclipse.ui.part.ViewPart;
 import ar.com.tadp.xml.rinzo.XMLEditorPlugin;
 import ar.com.tadp.xml.rinzo.core.PluginImages;
 import ar.com.tadp.xml.rinzo.core.RinzoXMLEditor;
-import ar.com.tadp.xml.rinzo.core.XMLEditorConfiguration;
 
 /**
  * View used to evaluate XPath expressions over the selected opened editor.
@@ -70,6 +69,7 @@ public class XPathView extends ViewPart {
 	private KeyListener enterEvaluationListener;
 	private SelectionListener selectionListener;
 	private XPathEvaluator xPathEvaluator = new XPathEvaluator();
+	private Document sourceXMLDocument;
 	
 	public XPathView() {
 	}
@@ -112,8 +112,9 @@ public class XPathView extends ViewPart {
 		resultComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		this.resultViewer = new SourceViewer(resultComposite, null,SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		this.resultViewer.setInput(this);
-		this.resultViewer.configure(new XMLEditorConfiguration());
-		this.resultViewer.setDocument(new Document(""));
+		sourceXMLDocument = new Document("");
+		this.resultViewer.configure(new XMLSrcViewerConfiguration(sourceXMLDocument));
+		this.resultViewer.setDocument(sourceXMLDocument);
 		
 		this.clearAllAction = new Action("Clear All"){
 			public void run(){

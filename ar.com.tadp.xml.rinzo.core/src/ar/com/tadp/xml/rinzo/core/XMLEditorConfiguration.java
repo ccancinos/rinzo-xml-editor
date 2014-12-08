@@ -44,6 +44,7 @@ import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.quickassist.IQuickAssistAssistant;
 import org.eclipse.jface.text.quickassist.QuickAssistAssistant;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
+import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -123,7 +124,7 @@ public class XMLEditorConfiguration extends SourceViewerConfiguration implements
         return reconciler;
     }
 
-    protected XMLScanner getXMLScanner() {
+    protected ITokenScanner getXMLScanner() {
         if(scanner == null) {
             scanner = new XMLScanner(colorManager);
             scanner.setDefaultReturnToken(new Token(new TextAttribute(colorManager.getColor(IXMLColorConstants.DEFAULT))));
