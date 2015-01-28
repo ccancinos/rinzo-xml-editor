@@ -32,7 +32,7 @@
    			name="Rinzo Content Type" 
    			base-type="org.eclipse.core.runtime.xml" 
    			priority="normal" 
-   			file-extensions="xsd,tld,xsl,xslt,wsdl,exsd,xmi">
+   			file-extensions="launch.xsd,tld,xsl,xslt,wsdl,exsd,xmi">
   				<property name="org.eclipse.core.runtime.charset" default="UTF-8" /> 
   		</content-type>
   </extension>
